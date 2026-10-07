@@ -395,4 +395,130 @@ The split is generated before any model development and never regenerated.
 | RQ6 (transfer across datasets) | Regime IV, Benchmark N |
 | Eq. 71 bound direction | §10 compounding curves |
 
+---
+
+## Appendix A — Benchmark V concrete instantiation
+
+This appendix fixes Benchmark V (§2.2) to exact, implementable specifications.
+Any deviation must be recorded as a pre-registered amendment.
+
+### A.1 Base model (f_θ)
+
+- ResNet-18, standard CIFAR-10 variant (3×3 stem conv, no pretrained weights).
+- Trained once on clean CIFAR-10 train pool (50k images), fixed seed.
+- Target: ~93.2% test accuracy on clean D₀.
+- **Frozen for all experiments.** No fine-tuning, no adaptation. All behavior
+  measurements are evaluations of this fixed model under corruption.
+
+### A.2 Primitive shift library (K = 4)
+
+Deterministic, physically grounded corruptions. Applied to uint8 images in
+float space, **clipped to [0, 255] after every operation**, order fixed as
+written. Deterministic = same input image always maps to the same output.
+
+| ID | Shift | Operation | Default severity |
+|----|-------|-----------|------------------|
+| A | Brightness | photometric scaling x → 1.5·x | ×1.5 |
+| B | Gaussian Blur | low-pass spatial filtering, Gaussian kernel σ = 1.5 | σ = 1.5 |
+| C | Gaussian Noise | additive high-frequency noise, x → x + ε, ε ~ N(0, σ²I) | σ = 0.15 |
+| D | Contrast | dynamic-range compression about the mean, x → μ + 0.5·(x − μ) | ×0.5 |
+
+**Physical rationale:** B and C are strictly non-commutative —
+`noise(blur(x))` = blurred image + sharp noise, whereas `blur(noise(x))` =
+blurred image + smoothed noise. The two resulting distributions differ, so
+B∘C vs. C∘B is a valid order-sensitivity test. A and D are photometric and
+near-commutative with everything; they serve as the "easy" composition
+regime.
+
+**Severity grid (augmentation, per §7 concern #3):** each primitive and each
+observed pair is generated at 5 severities:
+
+- A: ×{1.2, 1.35, 1.5, 1.65, 1.8}
+- B: σ ∈ {0.5, 1.0, 1.5, 2.0, 2.5}
+- C: σ ∈ {0.05, 0.10, 0.15, 0.20, 0.25}
+- D: ×{0.8, 0.65, 0.5, 0.35, 0.2}
+
+A pair (X∘Y) at a severity combo = apply X at severity i, then Y at
+severity j (i, j from the grids; 5×5 = 25 combos per pair, or a matched
+diagonal subset of 5 to control compute — decide and freeze before P2).
+Held-out test compositions are evaluated across all severity combos (or a
+frozen subset), including at least one **off-grid severity** to test severity
+extrapolation.
+
+### A.3 ShiftCompose split protocol (Regime II, revised per §7 review)
+
+**Observed during training** (model may compute embeddings, train C and G on
+these):
+
+- 4 primitives: {A, B, C, D}
+- 5 pairs: {A◦B, A◦C, A◦D, B◦D, C◦D}
+
+(A◦D is observed so that contrast D is covered by the split; with only the
+original 4 pairs, D would appear in training but never be tested.)
+
+**Held out (strictly zero-shot — model never sees these images or their
+statistics):**
+
+| Test | Compositions | Type |
+|------|--------------|------|
+| Held-out pair | B◦C | pair generalization; physically non-commutative |
+| Order test | B◦C vs. C◦B | non-commutativity detection (RQ5/H3) |
+| Clean triples | A◦B◦D, A◦C◦D | all constituent pairs observed → isolates *triple* composition |
+| Compound triples | A◦B◦C, B◦C◦D | contain the held-out pair B◦C → pair error + triple error |
+| Flagship | A◦B◦C | the headline zero-shot number |
+
+**Key rule:** the model predicts test degradation from primitive embeddings +
+composition identity only. Ground-truth ∆B is *measured* by running the
+frozen ResNet-18 on actually corrupted test images — it is the label, never
+an input.
+
+**Confound control for compound triples:** run an *oracle-pair* variant that
+receives the true z_{B◦C} (computed from held-out pair statistics, used only
+in this analysis) and composes it with z_A / z_D. Residual error after
+oracle-pair input isolates triple-composition error from pair-prediction
+error.
+
+### A.4 Data pools and leakage boundaries
+
+- **Train pool** (50k CIFAR-10 train images): used to compute all shift
+  embeddings z for primitives and observed pairs, and to train C, G, and all
+  baselines. Every generated sample logs its exact corruption set.
+- **Test pool** (10k CIFAR-10 test images): used *only* to measure ground-truth
+  behavior B(f, D_S) for evaluation labels.
+- **Contamination audit (automated):** assert no training-pool sample's
+  corruption set is a superset of any held-out composition's set; assert
+  severity matching so no held-out composition is approximated by a seen
+  combination at different severity.
+- **Test-time inputs (all methods, all baselines):** primitive embeddings z_A,
+  z_B, z_C, z_D (from train-pool statistics), D₀ statistics, composition
+  identity. Nothing else. The transductive (M11) and oracle (M10) variants
+  are reported separately and are not zero-shot.
+
+### A.5 Behavior vector and primary readouts
+
+∆B = B(f, D_S) − B(f, D₀) with B = (top-1 accuracy, mean per-class accuracy,
+ECE, penultimate feature drift ‖E[f(x_S)] − E[f(x₀)]‖, mean confidence).
+
+Primary readouts for this benchmark:
+
+- **BPE** on held-out compositions (primary; H1/H4);
+- **rank-ρ** (Spearman) between predicted and true degradation across held-out
+  compositions (H4; target ≥ 0.8);
+- **CGG / RCE** vs. the no-composition (M0) and additive (M1) baselines
+  (H1/H2);
+- **OSI-abs** and **commutator-ρ** on B◦C vs. C◦B (H3/RQ5) — embedding level
+  primary, behavior level secondary (accuracy differences between the two
+  orders may be small even though the distributions differ clearly);
+- **IRE** against behavior-space ground-truth γ (identifiable; §6).
+
+### A.6 Expected sanity checks before any method comparison
+
+1. Additive composition (M1) ≈ full Shift Algebra (M5) on the photometric
+   compositions (A with D, A∘D) — near-commutative, near-additive regime.
+2. M5 predicts B◦C and C◦B embeddings with clearly different norms/directions
+   (‖ẑ_{B◦C} − ẑ_{C◦B}‖ well above 0 relative to embedding scale).
+3. Memorization and label-permutation controls fail as expected (§1).
+4. Oracle (M10) upper bound and transductive (M11) bound are sane; the
+   zero-shot methods land strictly below M11.
+
 *End of plan.*

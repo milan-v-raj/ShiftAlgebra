@@ -1,0 +1,10 @@
+# Large artifacts: data, checkpoints, pools, caches (kept out of Git)
+data/
+checkpoints/
+pools/
+results/*.npz
+results/*.pt
+results/preds/
+results/models/
+__pycache__/
+*.pyc

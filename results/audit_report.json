@@ -1,0 +1,55 @@
+{
+  "contamination_split_disjoint": {
+    "pass": true,
+    "detail": "violations=[]"
+  },
+  "pools_contain_only_observed": {
+    "pass": true,
+    "detail": "overlap=set()"
+  },
+  "pools_match_config": {
+    "pass": true,
+    "detail": "missing=set() extra=set()"
+  },
+  "corruption_deterministic": {
+    "pass": true,
+    "detail": ""
+  },
+  "noise_seed_order_independent": {
+    "pass": true,
+    "detail": ""
+  },
+  "BC_noncommutative": {
+    "pass": true,
+    "detail": "maxdiff=0.5796"
+  },
+  "AD_commutative_no_clip": {
+    "pass": true,
+    "detail": "maxdiff=1.19e-07"
+  },
+  "clip_bounds": {
+    "pass": true,
+    "detail": ""
+  },
+  "control_MEMO_fails": {
+    "pass": false,
+    "detail": ""
+  },
+  "control_PERM_fails": {
+    "pass": true,
+    "detail": ""
+  },
+  "oracle_is_upper_bound": {
+    "pass": true,
+    "detail": ""
+  },
+  "seed_reproducibility": {
+    "pass": true,
+    "detail": "maxdiff=0.00e+00"
+  },
+  "offgrid_predictions_finite": {
+    "pass": true,
+    "detail": "n_offgrid=3"
+  },
+  "all_pass": false
+}

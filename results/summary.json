@@ -1,0 +1,219 @@
+{
+  "clean_test_acc": 0.9103999733924866,
+  "clean_test_ece": 0.031205618754029274,
+  "clean_test_conf": 0.940102219581604,
+  "methods": [
+    {
+      "method": "M5_shift_algebra",
+      "bpe_mean": 0.9619638323783875,
+      "bpe_std": 0.4380103051662445,
+      "acc_mae_mean": 0.11623291671276093,
+      "rank_rho": 0.5364304812834225,
+      "cgg_mean": 0.961811363697052,
+      "rce_mean": 34.90198516845703,
+      "osi_abs": 1.0715041959285736,
+      "beh_order_err": 0.7564902305603027,
+      "commutator_rho": 0.09999999999999999,
+      "ire_pair": 1.8443730622529984,
+      "ire_triple": 0.09496341622289037,
+      "oracle_bpe_mean": 0.028144556283950805
+    },
+    {
+      "method": "M6_no_order",
+      "bpe_mean": 0.5356179475784302,
+      "bpe_std": 0.0365244597196579,
+      "acc_mae_mean": 0.0775764212012291,
+      "rank_rho": 0.6470490698592972,
+      "cgg_mean": 0.5354331731796265,
+      "rce_mean": 19.342166900634766,
+      "osi_abs": 2.031950478553772,
+      "beh_order_err": 1.3297542333602905,
+      "commutator_rho": null,
+      "ire_pair": 0.7378568015992641,
+      "ire_triple": 0.06384662399650551,
+      "oracle_bpe_mean": 0.028144556283950805
+    },
+    {
+      "method": "M8_recon_only",
+      "bpe_mean": 2.2270569801330566,
+      "bpe_std": 6.671461505902698e-06,
+      "acc_mae_mean": 0.26532959938049316,
+      "rank_rho": 0.11139159858487586,
+      "cgg_mean": 1.8583984375,
+      "rce_mean": -5.457950592041016,
+      "osi_abs": 2.031950478553772,
+      "beh_order_err": 1.3297542333602905,
+      "commutator_rho": null,
+      "ire_pair": 1.7670283418148756,
+      "ire_triple": 2.445763821527362,
+      "oracle_bpe_mean": 0.028144556283950805
+    },
+    {
+      "method": "M0_no_composition",
+      "bpe_mean": 0.3805806040763855,
+      "bpe_std": 0.10009410977363586,
+      "acc_mae_mean": 0.07624199241399765,
+      "rank_rho": 0.8209330576251032,
+      "cgg_mean": 0.38024094700813293,
+      "rce_mean": 14.074516296386719,
+      "osi_abs": 2.031950478553772,
+      "beh_order_err": 1.3297542333602905,
+      "commutator_rho": null,
+      "ire_pair": 0.5803760930895805,
+      "ire_triple": 0.21010562516748904,
+      "oracle_bpe_mean": 0.028144556283950805
+    },
+    {
+      "method": "M1_additive",
+      "bpe_mean": 1.8284285068511963,
+      "bpe_std": 0.691281795501709,
+      "acc_mae_mean": 0.34213826060295105,
+      "rank_rho": 0.7079084655773293,
+      "cgg_mean": 1.8282703161239624,
+      "rce_mean": 66.28827667236328,
+      "osi_abs": 2.031950478553772,
+      "beh_order_err": 1.3297542333602905,
+      "commutator_rho": null,
+      "ire_pair": 3.3131860001478346,
+      "ire_triple": 0.06968708934728056,
+      "oracle_bpe_mean": 0.028144556283950805
+    },
+    {
+      "method": "M2_mlp",
+      "bpe_mean": 0.4811728894710541,
+      "bpe_std": 0.04027426987886429,
+      "acc_mae_mean": 0.1503862589597702,
+      "rank_rho": 0.7931149732620322,
+      "cgg_mean": 0.48101338744163513,
+      "rce_mean": 17.230867385864258,
+      "osi_abs": 1.53335799574852,
+      "beh_order_err": 0.8732502460479736,
+      "commutator_rho": -0.6,
+      "ire_pair": 0.8518457055091858,
+      "ire_triple": 0.10090636410750449,
+      "oracle_bpe_mean": 0.028144556283950805
+    },
+    {
+      "method": "M3_attention",
+      "bpe_mean": 0.23586240410804749,
+      "bpe_std": 0.08545941859483719,
+      "acc_mae_mean": 0.07959525287151337,
+      "rank_rho": 0.8813502673796793,
+      "cgg_mean": 0.23558004200458527,
+      "rce_mean": 8.389605522155762,
+      "osi_abs": 1.1553219240903854,
+      "beh_order_err": 1.0734336376190186,
+      "commutator_rho": 0.7999999999999999,
+      "ire_pair": 0.4602122321724892,
+      "ire_triple": 0.15433019789634272,
+      "oracle_bpe_mean": 0.028144556283950805
+    },
+    {
+      "method": "MEMO_control",
+      "bpe_mean": 2.2400779724121094,
+      "bpe_std": 0.006328697316348553,
+      "acc_mae_mean": 0.26537349820137024,
+      "rank_rho": null,
+      "cgg_mean": 2.240074634552002,
+      "rce_mean": 80.32128143310547,
+      "osi_abs": 2.031950478553772,
+      "beh_order_err": 1.3297542333602905,
+      "commutator_rho": null,
+      "ire_pair": 2.417078581638634,
+      "ire_triple": 0.8034602937987074,
+      "oracle_bpe_mean": 0.028144556283950805
+    },
+    {
+      "method": "PERM_control",
+      "bpe_mean": 3.0634827613830566,
+      "bpe_std": 1.7176884412765503,
+      "acc_mae_mean": 0.2772805690765381,
+      "rank_rho": 0.13135026737967917,
+      "cgg_mean": 2.709681272506714,
+      "rce_mean": -8.047589302062988,
+      "osi_abs": 1.1132406581938268,
+      "beh_order_err": 1.267743706703186,
+      "commutator_rho": 0.7,
+      "ire_pair": 4.3756078541278836,
+      "ire_triple": 8.928995159268379,
+      "oracle_bpe_mean": 0.028144556283950805
+    }
+  ],
+  "stats": [
+    {
+      "comparison": "M5 vs M0_no_composition",
+      "mean_diff": 0.5813833475112915,
+      "ci_lo": 0.22090239636600018,
+      "ci_hi": 1.003729948401451,
+      "p_value": 0.04634791240096092
+    },
+    {
+      "comparison": "M5 vs M1_additive",
+      "mean_diff": -0.8664646148681641,
+      "ci_lo": -1.4024014234542848,
+      "ci_hi": -0.4569985672831538,
+      "p_value": 5.529727786779404e-07
+    },
+    {
+      "comparison": "M5 vs M6_no_order",
+      "mean_diff": 0.42634594440460205,
+      "ci_lo": 0.04846499199047686,
+      "ci_hi": 0.8675370246171948,
+      "p_value": 0.194807207910344
+    },
+    {
+      "comparison": "M5 vs M8_recon_only",
+      "mean_diff": -1.2650929689407349,
+      "ci_lo": -1.946016389131546,
+      "ci_hi": -0.5228824615478519,
+      "p_value": 0.0022327967453747988
+    },
+    {
+      "comparison": "M5 vs M2_mlp",
+      "mean_diff": 0.4807909429073334,
+      "ci_lo": 0.23416550718247892,
+      "ci_hi": 0.7526853024959563,
+      "p_value": 0.009303090861067176
+    },
+    {
+      "comparison": "M5 vs M3_attention",
+      "mean_diff": 0.7261015176773071,
+      "ci_lo": 0.41156776547431945,
+      "ci_hi": 1.0820692330598831,
+      "p_value": 0.00010015815496444702
+    },
+    {
+      "comparison": "M5 vs MEMO_control",
+      "mean_diff": -1.2781141996383667,
+      "ci_lo": -1.9609488457441329,
+      "ci_hi": -0.5345649793744088,
+      "p_value": 0.0019478083122521639
+    },
+    {
+      "comparison": "M5 vs PERM_control",
+      "mean_diff": -2.1015191078186035,
+      "ci_lo": -2.945991003513336,
+      "ci_hi": -1.3152262330055238,
+      "p_value": 3.0624447390437126e-05
+    }
+  ],
+  "decision_rules": {
+    "H1_M5_CGG_beats_M0": false,
+    "H2_M5_BPE_beats_M1_additive": true,
+    "H2_M5_IRE_pair_beats_M1": true,
+    "H3_M5_OSI_beats_M6_no_order": true,
+    "H3_commutator_rho_ge_0.7": false,
+    "H4_M5_BPE_beats_M8_recon_only": true,
+    "H4_rank_rho_ge_0.8": false,
+    "control_MEMO_fails": false,
+    "control_PERM_fails": true,
+    "oracle_is_upper_bound": true
+  },
+  "oracle_bpe_per_seed": [
+    0.030569227412343025,
+    0.023998379707336426,
+    0.028070883825421333,
+    0.026856256648898125,
+    0.03122803382575512
+  ]
+}

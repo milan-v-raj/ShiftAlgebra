@@ -2,9 +2,14 @@
 data/
 checkpoints/
 pools/
+pools_v2/
 results/*.npz
 results/*.pt
 results/preds/
 results/models/
+results_v2/*.npz
+results_v2/*.pt
+results_v2/preds/
+results_v2/models/
 __pycache__/
 *.pyc

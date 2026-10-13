@@ -1,0 +1,62 @@
+[
+  {
+    "check": "contamination_split_disjoint",
+    "result": "PASS",
+    "detail": "held=123 observed=155 violations=[]"
+  },
+  {
+    "check": "pools_contain_only_observed",
+    "result": "PASS",
+    "detail": "shape=(155, 518) overlap=set()"
+  },
+  {
+    "check": "corruption_deterministic",
+    "result": "PASS",
+    "detail": ""
+  },
+  {
+    "check": "noise_seed_order_independent",
+    "result": "PASS",
+    "detail": ""
+  },
+  {
+    "check": "BC_noncommutative",
+    "result": "PASS",
+    "detail": "maxdiff=0.2050"
+  },
+  {
+    "check": "clip_bounds",
+    "result": "PASS",
+    "detail": ""
+  },
+  {
+    "check": "control_MEMO_fails_substantively",
+    "result": "PASS",
+    "detail": "MEMO=0.2705 vs M_B=0.0321"
+  },
+  {
+    "check": "control_PERM_fails",
+    "result": "PASS",
+    "detail": "PERM=0.4803 vs M_B=0.0321"
+  },
+  {
+    "check": "oracle_is_upper_bound",
+    "result": "PASS",
+    "detail": "best_oracle=0.0045"
+  },
+  {
+    "check": "seed_reproducibility",
+    "result": "PASS",
+    "detail": "maxdiff=0.00e+00"
+  },
+  {
+    "check": "offgrid_predictions_finite",
+    "result": "PASS",
+    "detail": "n_offgrid=3"
+  },
+  {
+    "check": "M_B_associative_by_construction",
+    "result": "PASS",
+    "detail": "assoc_err=9.88e-08"
+  }
+]

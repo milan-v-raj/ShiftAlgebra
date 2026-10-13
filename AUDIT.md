@@ -123,10 +123,47 @@ PASS  offgrid_predictions_finite          n_offgrid=3
    quantities (IRE in behavior space, OSI against encoder-measured ground
    truth, commutator-ρ against encoder-measured embedding differences).
 
-## 6. Conclusion
+## 6. Conclusion (v1)
 
 The experiment is **valid**: no information leaks, the zero-shot boundary held
 under automated and manual inspection, the data is verified official CIFAR-10,
 the split matches the pre-registered protocol, and the pipeline is
 reproducible (seed check maxdiff = 0.0). The results in `RESULTS.md` —
 including the failure of the central hypothesis H1 — are trustworthy.
+
+---
+
+## 7. Shift Algebra v2 Audit (`PLAN_V2.md`, `src/*_v2.py`, `results_v2/audit_report_v2.json`)
+
+Following the execution of `PLAN_V2.md`, we audited the v2 implementation (`src/config_v2.py`, `src/corruptions_v2.py`, `src/methods_v2.py`, `src/synthetic_v2.py`, `src/metrics_v2.py`, `src/experiment_v2.py`) against all leak vectors and correctness checks.
+
+### 7.1 Zero-Shot & Unlabeled-Encoder Verification
+
+1. **Strictly unlabeled encoder statistics (`V.shape == (155, 518)`):**
+   - `encoder_stats_from_feats` computes 518-dimensional unlabeled shift statistics (256-dim feature mean shift, 256-dim feature std shift, and 6 raw image/feature severity moments) on the 2,000-image training sample without any class labels or behavior targets `y`.
+   - Consequently, the direct oracle `dec(enc(v_held))` and all primitive encodings `enc(v_prim)` are strictly label-free.
+2. **Zero-shot prediction uses only single-primitive cache (`prim_cache`):**
+   - At test time, `m2.predict(tr, h["letters"], h["sevs"], prim_cache)` looks up only single-primitive entries `(letter, sev)` in `prim_cache` (the 30 observed primitives + 6 single-primitive off-grid auxiliaries). Held-out composite statistics `v_held` never enter `predict`.
+3. **Process-independent deterministic noise seed (`src/corruptions_v2.py`):**
+   - During the v2 audit, we found that `repr(frozenset(letters))` in `condition_seed` could depend on insertion order in the 1-in-8 `PYTHONHASHSEED` case where two primitive letters collide in CPython's 8-slot small-set table. We replaced `repr(frozenset(letters))` with deterministic sorted formatting `"frozenset({" + ", ".join(repr(x) for x in sorted(set(letters))) + "})"`, ensuring `condition_seed(("B", "C"), (0.7, 0.06)) == condition_seed(("C", "B"), (0.06, 0.7))` across all processes and `PYTHONHASHSEED` values.
+
+### 7.2 Automated v2 Audit Report (`python -m src.experiment_v2 audit`)
+
+All **12/12** automated checks in `results_v2/audit_report_v2.json` **PASS**:
+
+```
+[audit] PASS  contamination_split_disjoint        held=123 observed=155 violations=[]
+[audit] PASS  pools_contain_only_observed         shape=(155, 518) overlap=set()
+[audit] PASS  corruption_deterministic
+[audit] PASS  noise_seed_order_independent
+[audit] PASS  BC_noncommutative                   maxdiff=0.2050
+[audit] PASS  clip_bounds
+[audit] PASS  control_MEMO_fails_substantively    MEMO=0.2705 vs M_B=0.0321
+[audit] PASS  control_PERM_fails                  PERM=0.4803 vs M_B=0.0321
+[audit] PASS  oracle_is_upper_bound               best_oracle=0.0045
+[audit] PASS  seed_reproducibility                maxdiff=0.00e+00
+[audit] PASS  offgrid_predictions_finite          n_offgrid=3
+[audit] PASS  M_B_associative_by_construction     assoc_err=9.88e-08
+[audit] ALL PASS (12 checks)
+```
+

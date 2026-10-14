@@ -109,9 +109,9 @@ REGIME3_OBSERVED_TRIPLES = [
 # Off-grid extrapolation conditions (updated dynamically relative to SEVERITIES
 # after load_pilot_grids so they always sit between/beyond grid points).
 OFFGRID = {
-    ("B", "C"): (0.8, 0.07),
-    ("C", "B"): (0.07, 0.8),
-    ("A", "B", "C"): (1.35, 0.8, 0.07),
+    ("B", "C"): (0.688, 0.0555),
+    ("C", "B"): (0.0555, 0.688),
+    ("A", "B", "C"): (1.463, 0.688, 0.0555),
 }
 
 # ---------------- Methods ----------------

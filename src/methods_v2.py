@@ -236,7 +236,7 @@ class BehaviorComp(nn.Module):
         nn.init.normal_(self.ord_beh.weight, std=0.02)
 
     def _p(self):
-        return 0.8 + 2.2 * torch.sigmoid(self.raw_p)
+        return 0.8 + 3.7 * torch.sigmoid(self.raw_p)
 
     def _phi(self, b, p):
         return torch.sign(b) * ((b.abs() + 1e-6).pow(p) - (1e-6 ** p))
@@ -273,10 +273,12 @@ class BehaviorComp(nn.Module):
         else:
             omega = 0.5 * piA * piB * (kB - kA)
             ord_term = self.ord_beh(omega)
-        self.last_omega = omega
+        self.last_omega = ord_term
         h_out = z_bar + self.h_net(s_in) + self.W_ord(omega)
         gate = (0.5 + torch.sigmoid(self.gate_net(torch.cat([z_bar, b_lp], dim=-1)))) if self.inter else 1.0
-        dB_beh = gate * b_lp + self.inter_net(s_in) + ord_term
+        dB_sym_beh = gate * b_lp + self.inter_net(s_in)
+        self.last_sym_dev = (0.5 * (dB_sym_beh + dec(z_bar + self.h_net(s_in))) - b_lp) if self.inter else None
+        dB_beh = dB_sym_beh + ord_term
         dB_out = 0.5 * dB_beh + 0.5 * dec(h_out)
         return h_out, dB_out
 
@@ -344,6 +346,13 @@ class BehaviorComp(nn.Module):
         ord_term = omega[:, :self.b_dim] if (getattr(self, "unidir_phys", False) and self.inter) else self.ord_beh(omega)
         dB_beh = gate * b_lp + self.inter_net(s_in) + ord_term
         dB_out = 0.5 * dB_beh + 0.5 * dec(h_out)
+        if m == 3 and self.inter:
+            h12, b12 = self.pair_forward(zs[0:1], zs[1:2], dBs[0:1], dBs[1:2], dec)
+            hL, bL = self.pair_forward(h12, zs[2:3], b12, dBs[2:3], dec)
+            h23, b23 = self.pair_forward(zs[1:2], zs[2:3], dBs[1:2], dBs[2:3], dec)
+            hR, bR = self.pair_forward(zs[0:1], h23, dBs[0:1], b23, dec)
+            h_out = 0.4 * h_out + 0.3 * (hL + hR)
+            dB_out = 0.4 * dB_out + 0.3 * (bL + bR)
         return h_out.squeeze(0), dB_out.squeeze(0)
 
 
@@ -563,7 +572,7 @@ class OperatorProductComp(nn.Module):
         nn.init.normal_(self.ord_beh.weight, std=0.02)
 
     def _p(self):
-        return 0.8 + 2.2 * torch.sigmoid(self.raw_p)
+        return 0.8 + 3.7 * torch.sigmoid(self.raw_p)
 
     def _phi(self, b):
         p = self._p()
@@ -675,8 +684,10 @@ class OperatorProductComp(nn.Module):
             gate = 0.5 + torch.sigmoid(self.gate_sym(torch.cat([z_bar, b_lp], dim=-1)))
             dB_beh = gate * b_lp + self.sym_beh(s_in)
             dB_sym = 0.5 * dB_beh + 0.5 * dec(h_sym)
+            self.last_sym_dev = dB_sym - b_lp
             dB_hat = dB_sym + (ord_vec.detach() if detach_ord else ord_vec)
         else:
+            self.last_sym_dev = None
             dB_hat = dec(h_sym)
         return h_sym, dB_hat
 
@@ -699,13 +710,21 @@ class OperatorProductComp(nn.Module):
         return self._readout(TABC, (zA + zB + zC) / 3.0, dec)
 
     def seq_forward(self, zs, dBs, dec):
-        if len(zs) == 1:
+        m = len(zs)
+        if m == 1:
             return zs[0], dBs[0]
         T_tot = self.T(zs[0:1], dBs[0:1])
-        for i in range(1, len(zs)):
+        for i in range(1, m):
             Ti = self.T(zs[i:i + 1], dBs[i:i + 1])
             T_tot = torch.matmul(Ti, T_tot)                          # left-multiply
         h, b = self._readout(T_tot, zs.mean(dim=0, keepdim=True), dec)
+        if m == 3 and self.residual and self.use_beh_in_op:
+            h12, b12 = self.pair_forward(zs[0:1], zs[1:2], dBs[0:1], dBs[1:2], dec)
+            hL, bL = self.pair_forward(h12, zs[2:3], b12, dBs[2:3], dec)
+            h23, b23 = self.pair_forward(zs[1:2], zs[2:3], dBs[1:2], dBs[2:3], dec)
+            hR, bR = self.pair_forward(zs[0:1], h23, dBs[0:1], b23, dec)
+            h = 0.4 * h + 0.3 * (hL + hR)
+            b = 0.4 * b + 0.3 * (bL + bR)
         return h.squeeze(0), b.squeeze(0)
 
 
@@ -806,15 +825,20 @@ def train_method(method, conds, seed, verbose=False, in_dim=cfg.ENCODER_IN_DIM,
     # Bidirectional pair indices for explicit order-contrast supervision (D5 fix)
     pair_key_idx = {(p["letters"], tuple(round(float(s), 6) for s in p["sevs"])): i
                     for i, p in enumerate(pairs)}
-    bidir_xy, bidir_yx = [], []
+    bidir_xy, bidir_yx, unidir_idx = [], [], []
     for i, p in enumerate(pairs):
         la, lb = p["letters"]
         sa, sb = round(float(p["sevs"][0]), 6), round(float(p["sevs"][1]), 6)
-        if la < lb and ((lb, la), (sb, sa)) in pair_key_idx:
-            bidir_xy.append(i)
-            bidir_yx.append(pair_key_idx[((lb, la), (sb, sa))])
+        if ((lb, la), (sb, sa)) in pair_key_idx:
+            if la < lb:
+                bidir_xy.append(i)
+                bidir_yx.append(pair_key_idx[((lb, la), (sb, sa))])
+        else:
+            unidir_idx.append(i)
     bidir_xy = torch.tensor(bidir_xy, dtype=torch.long)
     bidir_yx = torch.tensor(bidir_yx, dtype=torch.long)
+    bidir_all = torch.cat([bidir_xy, bidir_yx]) if len(bidir_xy) > 0 else torch.tensor([], dtype=torch.long)
+    unidir_idx = torch.tensor(unidir_idx, dtype=torch.long)
     if len(bidir_xy) == 0 and in_dim == 518:
         enc.anchor_pix_std = True
         comp.unidir_phys = True
@@ -859,8 +883,30 @@ def train_method(method, conds, seed, verbose=False, in_dim=cfg.ENCODER_IN_DIM,
             loss.backward()
             opt2.step()
     else:
-        params = list(enc.parameters()) + list(dec.parameters()) + list(comp.parameters())
-        opt = torch.optim.Adam(params, lr=cfg.TRAIN_LR, weight_decay=cfg.WEIGHT_DECAY)
+        # Stage-0 closed-form initialization of raw_p on observed training pairs ONLY
+        if hasattr(comp, "raw_p") and comp.raw_p.requires_grad and method != "PERM_control" and len(pairs) > 0:
+            p_grid = torch.linspace(0.85, 4.40, 143, device=y_prim.device, dtype=y_prim.dtype)
+            best_p_vec = torch.zeros(cfg.BEHAVIOR_DIM, device=y_prim.device, dtype=y_prim.dtype)
+            for j in range(cfg.BEHAVIOR_DIM):
+                b1, b2, yt = y_prim[idxA, j], y_prim[idxB, j], y_pair_eff[:, j]
+                errs = [
+                    float(((torch.sign(b1 + b2) * ((b1.abs() ** pv + b2.abs() ** pv) ** (1.0 / pv)) - yt) ** 2).mean())
+                    for pv in p_grid
+                ]
+                best_p_vec[j] = p_grid[int(np.argmin(errs))]
+            frac = ((best_p_vec - 0.8) / 3.7).clamp(0.02, 0.98)
+            with torch.no_grad():
+                comp.raw_p.copy_(torch.log(frac / (1.0 - frac)))
+
+        all_named = (list(enc.named_parameters()) +
+                     list(dec.named_parameters()) +
+                     list(comp.named_parameters()))
+        reg_params = [p for n, p in all_named if "raw_p" not in n and p.requires_grad]
+        raw_p_params = [p for n, p in all_named if "raw_p" in n and p.requires_grad]
+        param_groups = [{"params": reg_params, "lr": cfg.TRAIN_LR, "weight_decay": cfg.WEIGHT_DECAY}]
+        if raw_p_params:
+            param_groups.append({"params": raw_p_params, "lr": cfg.TRAIN_LR, "weight_decay": 0.0})
+        opt = torch.optim.Adam(param_groups)
         is_mb = isinstance(comp, OperatorProductComp)
 
         for step in range(cfg.TRAIN_STEPS):
@@ -887,12 +933,17 @@ def train_method(method, conds, seed, verbose=False, in_dim=cfg.ENCODER_IN_DIM,
                 if cfg.LAMBDA_REPR > 0:
                     loss = loss + 0.5 * F.mse_loss(h, z_pair_direct)
                 # 4) Explicit commutator supervision on bidirectional pairs (D5 fix)
+                #    + variance-partitioned symmetric/antisymmetric regularization (Prop. 3)
                 if len(bidir_xy) > 0 and method != "PERM_control":
                     pred_diff = dB_hat[bidir_yx] - dB_hat[bidir_xy]
                     true_diff = y_pair_eff[bidir_yx] - y_pair_eff[bidir_xy]
                     loss = loss + 2.0 * _weighted_mse(pred_diff, true_diff)
-                    if hasattr(comp, "last_omega"):
-                        loss = loss + 0.02 * (comp.last_omega ** 2).mean()
+                    if getattr(comp, "last_sym_dev", None) is not None:
+                        loss = loss + 0.25 * _weighted_mse(
+                            comp.last_sym_dev, torch.zeros_like(comp.last_sym_dev))
+                    if hasattr(comp, "last_omega") and comp.last_omega is not None:
+                        loss = loss + 0.10 * _weighted_mse(
+                            comp.last_omega, torch.zeros_like(comp.last_omega))
                 # 5) M-B within-primitive semigroup self-commutation consistency
                 if is_mb and len(semi_i1) > 0:
                     T1 = comp.T(z_prim[semi_i1], y_prim[semi_i1])

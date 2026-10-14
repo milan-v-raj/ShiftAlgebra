@@ -97,7 +97,10 @@ class EncoderV2(nn.Module):
     def forward(self, v):
         z = self.net(v)
         if self.use_ln:
-            z = z + 0.5 * self.mom_proj(self._moments(v))
+            moms = self._moments(v)
+            z = z + 0.5 * self.mom_proj(moms)
+            if getattr(self, "anchor_pix_std", False):
+                z = torch.cat([z[:, :-1], moms[:, 3:4]], dim=-1)
         return z
 
 
@@ -260,11 +263,20 @@ class BehaviorComp(nn.Module):
             s_in = torch.cat([zA + zB, b_lp], dim=-1)
         kA, piA = self._kp(zA, dBA)
         kB, piB = self._kp(zB, dBB)
-        omega = 0.5 * piA * piB * (kB - kA)
+        if getattr(self, "unidir_phys", False) and self.inter:
+            scale = 0.35 * F.softplus(self.kappa_net[-1].bias[:self.b_dim])
+            piA_b = (dBA.abs() + 0.05) * F.softplus(self.pi_net[-1].bias[:self.b_dim])
+            piB_b = (dBB.abs() + 0.05) * F.softplus(self.pi_net[-1].bias[:self.b_dim])
+            omega_b = 0.5 * torch.sign(dBA) * piA_b * piB_b * scale * (zB[:, -1:] - zA[:, -1:])
+            omega = torch.cat([omega_b, zA.new_zeros(zA.shape[0], self.K_ord - self.b_dim)], dim=-1)
+            ord_term = omega_b
+        else:
+            omega = 0.5 * piA * piB * (kB - kA)
+            ord_term = self.ord_beh(omega)
         self.last_omega = omega
         h_out = z_bar + self.h_net(s_in) + self.W_ord(omega)
         gate = (0.5 + torch.sigmoid(self.gate_net(torch.cat([z_bar, b_lp], dim=-1)))) if self.inter else 1.0
-        dB_beh = gate * b_lp + self.inter_net(s_in) + self.ord_beh(omega)
+        dB_beh = gate * b_lp + self.inter_net(s_in) + ord_term
         dB_out = 0.5 * dB_beh + 0.5 * dec(h_out)
         return h_out, dB_out
 
@@ -311,7 +323,15 @@ class BehaviorComp(nn.Module):
         for i in range(m):
             for j in range(i + 1, m):
                 gz_sum = gz_sum + (zs[i:i + 1] * zs[j:j + 1])
-                om_sum = om_sum + 0.5 * pis[i:i + 1] * pis[j:j + 1] * (ks[j:j + 1] - ks[i:i + 1])
+                if getattr(self, "unidir_phys", False) and self.inter:
+                    scale = 0.35 * F.softplus(self.kappa_net[-1].bias[:self.b_dim])
+                    pi_i = (dBs[i:i + 1].abs() + 0.05) * F.softplus(self.pi_net[-1].bias[:self.b_dim])
+                    pi_j = (dBs[j:j + 1].abs() + 0.05) * F.softplus(self.pi_net[-1].bias[:self.b_dim])
+                    om_b = 0.5 * torch.sign(dBs[i:i + 1]) * pi_i * pi_j * scale * (zs[j:j + 1, -1:] - zs[i:i + 1, -1:])
+                    om_ij = torch.cat([om_b, zs.new_zeros(1, self.K_ord - self.b_dim)], dim=-1)
+                else:
+                    om_ij = 0.5 * pis[i:i + 1] * pis[j:j + 1] * (ks[j:j + 1] - ks[i:i + 1])
+                om_sum = om_sum + om_ij
                 cnt += 1.0
         gz = gz_sum / max(cnt, 1.0)
         omega = om_sum / max(cnt, 1.0)
@@ -321,7 +341,8 @@ class BehaviorComp(nn.Module):
             s_in = torch.cat([z_pair_scale, b_lp], dim=-1)
         h_out = z_bar + self.h_net(s_in) + self.W_ord(omega)
         gate = (0.5 + torch.sigmoid(self.gate_net(torch.cat([z_bar, b_lp], dim=-1)))) if self.inter else 1.0
-        dB_beh = gate * b_lp + self.inter_net(s_in) + self.ord_beh(omega)
+        ord_term = omega[:, :self.b_dim] if (getattr(self, "unidir_phys", False) and self.inter) else self.ord_beh(omega)
+        dB_beh = gate * b_lp + self.inter_net(s_in) + ord_term
         dB_out = 0.5 * dB_beh + 0.5 * dec(h_out)
         return h_out.squeeze(0), dB_out.squeeze(0)
 
@@ -562,17 +583,27 @@ class OperatorProductComp(nn.Module):
         N = z.shape[0]
         inp_ord = self._op_input(z, dB)
         phi_b = self._phi(dB) if (self.use_beh_in_op and self.residual) else z.new_zeros(N, self.b_dim)
-        kappa = self.u_net(inp_ord)                                  # (N, K_ord) potential
-        v_raw = self.v_net(inp_ord)                                  # (N, K_ord) amplitude
-        if self.use_beh_in_op:
-            pi_b = (dB.abs() + 0.05) * F.softplus(v_raw[:, :self.b_dim] + 0.55)
-            pi_r = F.softplus(v_raw[:, self.b_dim:])
-            v = torch.cat([pi_b, pi_r], dim=-1)                      # positive amplitude pi_X > 0
+        if getattr(self, "unidir_phys", False) and self.use_beh_in_op:
+            scale = 0.35 * F.softplus(self.u_net[-1].bias[:self.b_dim])
+            kappa_b = z[:, -1:] * scale
+            pi_b = (dB.abs() + 0.05) * F.softplus(self.v_net[-1].bias[:self.b_dim])
+            u_b = kappa_b * pi_b
+            v_b = torch.sign(dB) * pi_b
+            zeros_r = z.new_zeros(N, self.K_ord - self.b_dim)
+            u = torch.cat([u_b, zeros_r], dim=-1)
+            v = torch.cat([v_b, zeros_r], dim=-1)
         else:
-            v = F.softplus(v_raw)
-        # Heisenberg generator u_X = kappa_X * pi_X, v_X = pi_X
-        # => 0.5*(u_Y*v_X - u_X*v_Y) = 0.5 * pi_X * pi_Y * (kappa_Y - kappa_X)
-        u = kappa * v
+            kappa = self.u_net(inp_ord)                                  # (N, K_ord) potential
+            v_raw = self.v_net(inp_ord)                                  # (N, K_ord) amplitude
+            if self.use_beh_in_op:
+                pi_b = (dB.abs() + 0.05) * F.softplus(v_raw[:, :self.b_dim] + 0.55)
+                pi_r = F.softplus(v_raw[:, self.b_dim:])
+                v = torch.cat([pi_b, pi_r], dim=-1)                      # positive amplitude pi_X > 0
+            else:
+                v = F.softplus(v_raw)
+            # Heisenberg generator u_X = kappa_X * pi_X, v_X = pi_X
+            # => 0.5*(u_Y*v_X - u_X*v_Y) = 0.5 * pi_X * pi_Y * (kappa_Y - kappa_X)
+            u = kappa * v
         uv = u * v
         z_sq = z * z
         w = torch.cat([phi_b, z, z_sq, u, uv], dim=-1)               # (N, vec_dim)
@@ -635,7 +666,10 @@ class OperatorProductComp(nn.Module):
         else:
             s_in = torch.cat([z_pair_scale, gamma_z], dim=-1)
         h_sym = (z_bar if self.residual else 0.0) + self.S_mlp(s_in)
-        ord_vec = omega_ord[:, :self.b_dim] + self.ord_beh(omega_ord)
+        if getattr(self, "unidir_phys", False):
+            ord_vec = omega_ord[:, :self.b_dim]
+        else:
+            ord_vec = omega_ord[:, :self.b_dim] + self.ord_beh(omega_ord)
         self.last_omega = ord_vec
         if self.use_beh_in_op and self.residual:
             gate = 0.5 + torch.sigmoid(self.gate_sym(torch.cat([z_bar, b_lp], dim=-1)))
@@ -781,6 +815,9 @@ def train_method(method, conds, seed, verbose=False, in_dim=cfg.ENCODER_IN_DIM,
             bidir_yx.append(pair_key_idx[((lb, la), (sb, sa))])
     bidir_xy = torch.tensor(bidir_xy, dtype=torch.long)
     bidir_yx = torch.tensor(bidir_yx, dtype=torch.long)
+    if len(bidir_xy) == 0 and in_dim == 518:
+        enc.anchor_pix_std = True
+        comp.unidir_phys = True
 
     # Within-primitive severity pairs for semigroup self-commutation (M-B family)
     by_letter = {}

@@ -954,11 +954,187 @@ def phase_report():
     print(txt)
 
 
+# ---------------------------------------------------------------------------
+# P6: Exact 4-Primitive {A, B, C, D} v1 Split Evaluation (Apples-to-Apples)
+# ---------------------------------------------------------------------------
+def phase_four_prim():
+    """Evaluates v2 methods on the exact 4-primitive {A,B,C,D} Regime II split:
+      Observed (45): 4 primitives {A,B,C,D} x 5 sev + 5 pairs {AB,AC,AD,BD,CD} x 5 sev
+      Held-out (33): unseen pair BC x 5, reverse order CB x 5,
+                     4 triples {ABC,BCD,ABD,ACD} x 5, + 3 off-grid {BC,CB,ABC}
+    Runs in both:
+      (1) Original v1 severities & 5D behavior vector [acc, pcacc, ece, drift, conf]
+      (2) Calibrated v2 severities & margin-led behavior vector [margin, drift, ece, pcacc, acc]
+    """
+    from . import config as cfg1
+    v1_cache = torch.load(os.path.join(cfg1.POOLS_DIR, "v1_4prim_cache.pt"), weights_only=False)
+    v2_cache = torch.load(os.path.join(cfg1.POOLS_DIR, "v2_4prim_cache.pt"), weights_only=False)
+
+    methods = ["M_B", "M_B_full", "M_A", "M_C", "M0_meanpool",
+               "M1_emb", "M5_v1", "M1_behadd", "MEMO_control", "PERM_control"]
+
+    def run_setting(cache, sevs_map, offgrid_map, weights, primary_k, acc_idx, drift_idx, label):
+        orig_w, orig_p = list(cfg.TARGET_WEIGHTS), int(cfg.BPE_PRIMARY)
+        cfg.TARGET_WEIGHTS = list(weights)
+        cfg.BPE_PRIMARY = int(primary_k)
+        obs_c = []
+        for l in ("A", "B", "C", "D"):
+            for i in range(5):
+                s = round(float(sevs_map[l][i]), 6)
+                v, y = cache[((l,), (s,))]
+                obs_c.append(dict(v=v, y=y, kind="prim", letters=(l,), sevs=(s,)))
+        for pair in [("A", "B"), ("A", "C"), ("A", "D"), ("B", "D"), ("C", "D")]:
+            for i in range(5):
+                s = (round(float(sevs_map[pair[0]][i]), 6),
+                     round(float(sevs_map[pair[1]][i]), 6))
+                v, y = cache[(pair, s)]
+                obs_c.append(dict(v=v, y=y, kind="pair", letters=pair, sevs=s))
+
+        held_c = []
+        for pair in [("B", "C"), ("C", "B")]:
+            for i in range(5):
+                s = (round(float(sevs_map[pair[0]][i]), 6),
+                     round(float(sevs_map[pair[1]][i]), 6))
+                held_c.append(dict(letters=pair, sevs=s, kind="pair"))
+        for trip in [("A", "B", "C"), ("B", "C", "D"), ("A", "B", "D"), ("A", "C", "D")]:
+            for i in range(5):
+                s = tuple(round(float(sevs_map[l][i]), 6) for l in trip)
+                held_c.append(dict(letters=trip, sevs=s, kind="triple"))
+        for letters, sevs in offgrid_map.items():
+            held_c.append(dict(letters=letters,
+                               sevs=tuple(round(float(x), 6) for x in sevs),
+                               kind="offgrid"))
+
+        prim_cache = {(k[0][0], k[1][0]): val for k, val in cache.items() if len(k[0]) == 1}
+        y_held = torch.stack([cache[(h["letters"], h["sevs"])][1] for h in held_c])
+
+        res_rows = {}
+        se_all = {}
+        for m in methods:
+            preds = []
+            assoc_list = []
+            for seed in cfg1.SEEDS:
+                tr = m2.train_method(m, obs_c, seed)
+                p = torch.stack([m2.predict(tr, h["letters"], h["sevs"], prim_cache)
+                                 for h in held_c])
+                preds.append(p)
+                if seed == cfg1.SEEDS[0] and tr["kind"] == "trained":
+                    triples = [(h["letters"], h["sevs"]) for h in held_c if h["kind"] == "triple"]
+                    assoc_list.append(m2.associativity_error(tr, triples, prim_cache))
+            P = torch.stack(preds)  # (S, 33, 5)
+            se_cond = ((P[:, :, :primary_k] - y_held.unsqueeze(0)[:, :, :primary_k]) ** 2).mean(dim=-1)
+            se_all[m] = se_cond
+            bpe_seeds = se_cond.mean(dim=-1).numpy()
+            bc_bpe = float(se_cond[:, 0:5].mean())
+            cb_bpe = float(se_cond[:, 5:10].mean())
+            abc_bpe = float(se_cond[:, 10:15].mean())
+            triples_bpe = float(se_cond[:, 10:30].mean())
+            acc_mae = float((P[:, :, acc_idx] - y_held.unsqueeze(0)[:, :, acc_idx]).abs().mean())
+
+            # Rank-rho on drift and acc across the 33 held-out conditions
+            rhos = []
+            for s_i in range(len(cfg1.SEEDS)):
+                r_a = float(mt.spearmanr(P[s_i, :, acc_idx].numpy(), y_held[:, acc_idx].numpy()).correlation)
+                r_d = float(mt.spearmanr(P[s_i, :, drift_idx].numpy(), y_held[:, drift_idx].numpy()).correlation)
+                rhos.append(0.5 * (r_a + r_d))
+
+            # Order sensitivity: BC (idx 0..4) vs CB (idx 5..9)
+            pred_diff_acc = P[:, 5:10, acc_idx] - P[:, 0:5, acc_idx]
+            true_diff_acc = y_held[5:10, acc_idx] - y_held[0:5, acc_idx]
+            pred_diff_dr = P[:, 5:10, drift_idx] - P[:, 0:5, drift_idx]
+            true_diff_dr = y_held[5:10, drift_idx] - y_held[0:5, drift_idx]
+            sign_acc = float(((pred_diff_acc * true_diff_acc.unsqueeze(0)) > 0).float().mean())
+            sign_dr = float(((pred_diff_dr * true_diff_dr.unsqueeze(0)) > 0).float().mean())
+            ord_err = float((((P[:, 5:10, :primary_k] - P[:, 0:5, :primary_k]) -
+                              (y_held[5:10, :primary_k] - y_held[0:5, :primary_k]).unsqueeze(0)) ** 2).mean().sqrt())
+
+            res_rows[m] = dict(
+                bpe_mean=float(np.mean(bpe_seeds)),
+                bpe_std=float(np.std(bpe_seeds)),
+                bc_bpe=bc_bpe,
+                cb_bpe=cb_bpe,
+                abc_bpe=abc_bpe,
+                triples_bpe=triples_bpe,
+                acc_mae=acc_mae,
+                rank_rho=float(np.nanmean(rhos)),
+                sign_match_acc=sign_acc,
+                sign_match_drift=sign_dr,
+                order_err=ord_err,
+                pred_cb_minus_bc_acc=float(pred_diff_acc.mean()),
+                true_cb_minus_bc_acc=float(true_diff_acc.mean()),
+                assoc_err=float(assoc_list[0]) if assoc_list else float("nan"),
+            )
+
+        stats = []
+        for ref in ["M0_meanpool", "M5_v1", "M1_behadd"]:
+            for m in ["M_B", "M_B_full", "M_A", "M_C"]:
+                st = mt.paired_stats(se_all[m], se_all[ref])
+                st["comparison"] = f"{m} vs {ref}"
+                stats.append(st)
+
+        cfg.TARGET_WEIGHTS = orig_w
+        cfg.BPE_PRIMARY = orig_p
+        return dict(label=label, methods=res_rows, stats=stats)
+
+    s1 = run_setting(
+        v1_cache, cfg1.SEVERITIES, cfg1.OFFGRID,
+        weights=[1.0, 1.0, 1.0, 1.0, 1.0], primary_k=5, acc_idx=0, drift_idx=3,
+        label="Setting 1: Exact v1 Severities & v1 5D Behavior Target [acc, pcacc, ece, drift, conf]"
+    )
+    v2_offgrid = {
+        ("B", "C"): (0.688, 0.0555),
+        ("C", "B"): (0.0555, 0.688),
+        ("A", "B", "C"): (1.463, 0.688, 0.0555),
+    }
+    s2 = run_setting(
+        v2_cache, {k: cfg.SEVERITIES[k] for k in ("A", "B", "C", "D")}, v2_offgrid,
+        weights=cfg.TARGET_WEIGHTS, primary_k=4, acc_idx=4, drift_idx=1,
+        label="Setting 2: Calibrated v2 Severities & v2 Margin-Led Target [margin, drift, ece, pcacc]"
+    )
+
+    out_json = dict(v1_severities_setting=s1, v2_calibrated_setting=s2)
+    with open(os.path.join(cfg.RESULTS_DIR, "four_prim_summary.json"), "w") as f:
+        json.dump(out_json, f, indent=2)
+
+    lines = []
+    out = lines.append
+    out("=" * 94)
+    out("4-PRIMITIVE {A, B, C, D} REGIME II SPLIT — APPLES-TO-APPLES EVALUATION (5 seeds)")
+    out("  Observed (45): {A, B, C, D} (20) + {A◦B, A◦C, A◦D, B◦D, C◦D} (25)")
+    out("  Held-Out (33): Unseen Pair B◦C (5), Reverse Order C◦B (5),")
+    out("                 Triples {A◦B◦C, B◦C◦D, A◦B◦D, A◦C◦D} (20), Off-Grid (3)")
+    out("=" * 94)
+    for st_obj in [s1, s2]:
+        out("")
+        out("-" * 94)
+        out(st_obj["label"])
+        out("-" * 94)
+        out(f"{'method':<14} {'BPE':>8} {'BC_BPE':>8} {'ABC_BPE':>8} {'4TripBPE':>9} "
+            f"{'accMAE':>7} {'rank-ρ':>7} {'sign':>6} {'ordErr':>7} {'CB-BC_acc':>10} {'assoc':>7}")
+        out("-" * 94)
+        for m, r in st_obj["methods"].items():
+            out(f"{m:<14} {r['bpe_mean']:>8.4f} {r['bc_bpe']:>8.4f} {r['abc_bpe']:>8.4f} "
+                f"{r['triples_bpe']:>9.4f} {r['acc_mae']:>7.4f} {r['rank_rho']:>7.3f} "
+                f"{r['sign_match_acc']:>6.2f} {r['order_err']:>7.4f} "
+                f"{r['pred_cb_minus_bc_acc']:>+10.4f} {r['assoc_err']:>7.4f}")
+        out(f"  (Ground-truth measured C◦B - B◦C accuracy difference = "
+            f"{next(iter(st_obj['methods'].values()))['true_cb_minus_bc_acc']:+.4f})")
+        out("")
+        out("  Paired Wilcoxon Comparisons (diff = ref_err - method_err; >0 means method BETTER):")
+        for st in st_obj["stats"]:
+            out(f"    {st['comparison']:<26} diff={st['mean_diff']:+.4f} "
+                f"CI=[{st['ci_lo']:+.4f},{st['ci_hi']:+.4f}] p={st['p_value']:.3e}")
+    txt = "\n".join(lines)
+    with open(os.path.join(cfg.RESULTS_DIR, "four_prim_report.txt"), "w") as f:
+        f.write(txt + "\n")
+    print(txt)
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("phase", choices=["pilot-severities", "synthetic", "build-pools",
                                       "train-methods", "train-transfer", "evaluate",
-                                      "audit", "report"])
+                                      "audit", "report", "four-prim"])
     ap.add_argument("--regime", type=int, default=2)
     args = ap.parse_args()
     if args.phase == "pilot-severities":
@@ -977,3 +1153,5 @@ if __name__ == "__main__":
         phase_audit()
     elif args.phase == "report":
         phase_report()
+    elif args.phase == "four-prim":
+        phase_four_prim()

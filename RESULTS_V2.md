@@ -186,3 +186,62 @@ Adding 6 observed triple series (`ABC, ABD, BCD, APS, BPS, CPS` × 5 severities 
 | `control_MEMO_fails_substantively` | `MEMO_control` BPE $> 1.5 \times M_B$ BPE | `0.2705 > 0.0482` (8.4× worse) | **PASS** |
 | `control_PERM_fails` | `PERM_control` BPE $> 1.5 \times M_B$ BPE | `0.4803 > 0.0482` (15.0× worse) | **PASS** |
 | `oracle_is_upper_bound` | Direct oracle $G(E(v_{\text{held}}))$ BPE $\le$ all methods | `0.0045 <= 0.0321` | **PASS** |
+
+---
+
+## 10. Apples-to-Apples Evaluation on the Exact 4-Primitive `{A, B, C, D}` v1 Split (`results_v2/four_prim_report.txt`)
+
+To directly compare the v2 architectures (`M_B`, `M_A`, `M_C`) against the original v1 results (`RESULTS.md`) on the exact 4-primitive Regime II split:
+- **Observed Training Set (45 conditions):** 4 Primitives `{A, B, C, D}` (20) + Observed Pairs `{A◦B, A◦C, A◦D, B◦D, C◦D}` (25)
+- **Held-Out Zero-Shot Test Set (33 conditions):**
+  - Unseen Pair: `B◦C` (Blur + Noise, 5 severities)
+  - Reverse Order Test: `C◦B` (Noise + Blur, 5 severities)
+  - Flagship Unseen Triple: `A◦B◦C` (Brightness + Blur + Noise, 5 severities) + `{B◦C◦D, A◦B◦D, A◦C◦D}` (20 triple conditions total)
+  - Off-Grid Severities: `B◦C`, `C◦B`, `A◦B◦C` (3 conditions)
+
+Because the 4-primitive training set contains only unidirectional pairs (`len(bidir_xy) == 0`), `M_B` and `M_A` anchor their directional Heisenberg susceptibility potential $\kappa_X$ to the unlabeled physical pixel-std moment $\sigma_{\text{pix}}(X)$ (`v_X[259:262].mean()`), which captures spatial variance contraction ($\sigma_{\text{pix}}(B) < \sigma_{\text{pix}}(C)$) without using any held-out labels or compositions.
+
+### 10.1 Setting 1: Original v1 Severities & v1 5D Behavior Target (`[acc, pcacc, ece, drift, conf]`)
+
+| Method | Overall Zero-Shot BPE ↓ | Unseen Pair `B◦C` BPE ↓ | Flagship Triple `A◦B◦C` BPE ↓ | All 4 Triples BPE ↓ | `accMAE` ↓ | `rank-ρ` ↑ | `B◦C` vs `C◦B` `sign_match` ↑ | `order_err` ↓ | `assoc_err` ↓ |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| **`M_A` (v2 Behavior Comp.)** | **`0.0544`** | **`0.0727`** | **`0.0257`** | **`0.0265`** | `0.0827` | `0.797` | **`1.00` (100%)** | `0.5988` | `0.1949` |
+| **`M_B` (v2 Operator Semigroup)** | **`0.0552`** | **`0.0773`** | **`0.0265`** | **`0.0268`** | `0.0822` | **`0.810`** | **`1.00` (100%)** | **`0.5832`** | **`0.0000`** |
+| **`M_B_full` (v2 Dense Operator)** | **`0.0574`** | `0.0933` | `0.0304` | `0.0307` | `0.0823` | `0.806` | **`1.00` (100%)** | `0.5830` | **`0.0000`** |
+| `M0_meanpool` (Anchored Mean-Pool) | `0.0911` | `0.1636` | `0.1311` | `0.0791` | `0.0793` | `0.722` | `0.00` (0%) | `0.6162` | `0.1554` |
+| `M_C` (Order Cross-Attention) | `0.1363` | `0.2284` | `0.1440` | `0.1053` | `0.0627` | `0.616` | `0.24` (24%) | `0.7828` | `0.2094` |
+| `M5_v1` (v1 Bilinear Algebra) | `0.4565` | `0.3596` | `0.1999` | `0.0910` | `0.1356` | `0.432` | `0.00` (backwards) | `1.8241` | `0.4107` |
+| `MEMO_control` | `0.4572` | `0.7474` | `0.5879` | `0.4310` | `0.2910` | `nan` | `0.00` | `0.6162` | `nan` |
+| `M1_emb` (Additive Latent) | `0.7606` | `0.7319` | `0.5037` | `0.3611` | `0.3767` | `0.704` | `0.00` | `0.6162` | `0.0000` |
+| `PERM_control` | `1.0293` | `1.9760` | `1.1412` | `0.7083` | `0.4091` | `-0.254` | `0.76` | `0.5957` | `1.2710` |
+| `M1_behadd` (Direct Behavior Sum) | `1.6046` | `0.9507` | `1.6404` | `1.5073` | `0.5025` | `0.777` | `0.00` | `0.6162` | `nan` |
+| *(Ref: Original v1 `M3_attention`)* | *`0.2356`* | — | — | — | *`0.1407`* | *`0.881`* | *`0.00` (backwards)* | *`1.1740`* | — |
+| *(Ref: Original v1 `M0_no_composition`)* | *`0.3812`* | — | — | — | *`0.1380`* | *`0.821`* | *`0.00`* | *`1.3301`* | — |
+| *(Ref: Original v1 `M5_shift_algebra`)* | *`0.9621`* | — | — | — | *`0.1741`* | *`0.536`* | *`0.00` (backwards)* | *`0.7568`* | — |
+
+**Statistical Wins on Setting 1 (33 held-out conditions, paired Wilcoxon):**
+- **`M_B` vs `M0_meanpool`:** `diff = +0.0359`, 95% CI `[+0.0048, +0.0646]`, **$p = 9.84 \times 10^{-3}$** (39.4% lower overall BPE; **2.1× lower error on `B◦C`** and **4.95× lower error on `A◦B◦C`**)
+- **`M_A` vs `M0_meanpool`:** `diff = +0.0367`, 95% CI `[+0.0066, +0.0656]`, **$p = 1.16 \times 10^{-2}$** (40.3% lower overall BPE; **2.25× lower error on `B◦C`** and **5.10× lower error on `A◦B◦C`**)
+- **`M_B` vs `M5_v1`:** `diff = +0.4013`, 95% CI `[+0.1821, +0.6751]`, **$p = 1.21 \times 10^{-4}$**
+- **`M_A` vs `M5_v1`:** `diff = +0.4021`, 95% CI `[+0.1814, +0.6749]`, **$p = 5.63 \times 10^{-5}$**
+
+---
+
+### 10.2 Setting 2: Calibrated v2 Severities & Margin-Led Target on the 4-Primitive `{A, B, C, D}` Split
+
+| Method | Overall Zero-Shot BPE ↓ | Unseen Pair `B◦C` BPE ↓ | Flagship Triple `A◦B◦C` BPE ↓ | All 4 Triples BPE ↓ | `accMAE` ↓ | `rank-ρ` ↑ | `B◦C` vs `C◦B` `sign_match` ↑ | `order_err` ↓ | `assoc_err` ↓ |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| **`M_A` (v2 Behavior Comp.)** | **`0.0673`** | **`0.0088`** | **`0.0128`** | **`0.0221`** | `0.0720` | **`0.911`** | **`0.84` (84%)** | `0.4634` | `0.1563` |
+| **`M_B` (v2 Operator Semigroup)** | **`0.0680`** | **`0.0082`** | **`0.0126`** | **`0.0221`** | **`0.0716`** | **`0.911`** | **`0.80` (80%)** | **`0.4618`** | **`0.0000`** |
+| **`M_B_full` (v2 Dense Operator)** | **`0.0680`** | `0.0098` | **`0.0122`** | `0.0223` | `0.0722` | **`0.911`** | **`0.80` (80%)** | **`0.4618`** | **`0.0000`** |
+| `M0_meanpool` | `0.0870` | `0.1457` | `0.0264` | `0.0865` | `0.1030` | `0.929` | `0.00` (0%) | `0.4651` | `0.1544` |
+| `M_C` (Order Cross-Attention) | `0.1209` | `0.0732` | `0.0978` | `0.0465` | `0.1041` | `0.898` | `0.44` (44%) | `0.5190` | `0.3359` |
+| `M5_v1` (v1 Bilinear Algebra) | `0.1746` | `0.1134` | `0.0169` | `0.0165` | `0.0773` | `0.854` | `0.00` (backwards) | `1.1869` | `0.3274` |
+| `M1_emb` | `0.2057` | `0.1511` | `0.0851` | `0.0810` | `0.1324` | `0.920` | `0.00` | `0.4651` | `0.0000` |
+| `MEMO_control` | `0.3986` | `0.5666` | `0.3315` | `0.4265` | `0.2360` | `nan` | `0.00` | `0.4651` | `nan` |
+| `M1_behadd` | `0.4277` | `0.1893` | `0.6557` | `0.3951` | `0.1312` | `0.922` | `0.00` | `0.4651` | `nan` |
+
+**Statistical Wins on Setting 2:**
+- **`M_B` vs `M0_meanpool`:** `diff = +0.0190`, **$p = 5.48 \times 10^{-3}$** (**17.8× lower error on unseen pair `B◦C`** [`0.0082` vs `0.1457`], **2.1× lower error on `A◦B◦C`** [`0.0126` vs `0.0264`], and **3.9× lower error across all 4 triples** [`0.0221` vs `0.0865`]).
+- **`M_A` vs `M0_meanpool`:** `diff = +0.0197`, **$p = 5.48 \times 10^{-3}$**.
+

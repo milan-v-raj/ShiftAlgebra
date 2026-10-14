@@ -39,12 +39,12 @@ PRIM_LETTERS = ("A", "B", "C", "D", "P", "S")
 # Recalibrated by the P0 pilot (pools_v2/severity_grids.json); values below
 # are defaults until the pilot runs (targets: ~3/8/15/25/40pp drops).
 SEVERITIES = {
-    "A": [1.10, 1.25, 1.40, 1.55, 1.70],   # brightness scale
-    "B": [0.3, 0.6, 0.9, 1.2, 1.5],        # gaussian blur sigma (px)
-    "C": [0.02, 0.05, 0.08, 0.11, 0.14],   # gaussian noise sigma
-    "D": [0.85, 0.70, 0.55, 0.40, 0.25],   # contrast factor
-    "P": [2, 3, 4, 6, 8],                  # pixelate block size (px)
-    "S": [1.5, 2.0, 2.5, 3.0, 3.5],        # saturation factor
+    "A": [1.20, 1.30, 1.40, 1.50, 1.60],   # brightness scale
+    "B": [0.30, 0.45, 0.60, 0.75, 0.90],   # gaussian blur sigma (px)
+    "C": [0.015, 0.03, 0.045, 0.06, 0.08], # gaussian noise sigma
+    "D": [0.78, 0.68, 0.58, 0.48, 0.38],   # contrast factor
+    "P": [1.15, 1.25, 1.35, 1.50, 1.70],   # pixelate factor
+    "S": [1.80, 2.20, 2.60, 3.00, 3.50],   # saturation factor
 }
 N_SEV = 5
 

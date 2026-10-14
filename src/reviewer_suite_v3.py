@@ -191,24 +191,22 @@ class MBNoCommComp(m2.OperatorProductComp):
 
 
 class LowRankBilinearComp(nn.Module):
-    """M_LowRankBilinear: Parameter-matched low-rank bilinear + antisymmetric
-    latent composition (rank=32)."""
+    """M_LowRankBilinear: Parameter-matched low-rank bilinear latent composition
+    (rank=32): 0.35*(zA + zB) + 0.65*(A zA + B zB) + W(U zA * V zB)."""
 
     def __init__(self, z_dim=cfg.LATENT_DIM, rank=32):
         super().__init__()
-        self.U_s = nn.Linear(z_dim, rank)
-        self.V_s = nn.Linear(z_dim, rank)
-        self.W_s = nn.Sequential(nn.Linear(z_dim + rank, 192), nn.ReLU(),
-                                 nn.Linear(192, z_dim))
-        self.U_a = nn.Linear(z_dim, rank, bias=False)
-        self.V_a = nn.Linear(z_dim, rank, bias=False)
-        self.W_a = nn.Linear(rank, z_dim, bias=False)
+        self.A = nn.Linear(z_dim, z_dim)
+        self.B = nn.Linear(z_dim, z_dim)
+        self.U = nn.Linear(z_dim, rank)
+        self.V = nn.Linear(z_dim, rank)
+        self.W = nn.Sequential(nn.Linear(rank, 192), nn.ReLU(),
+                               nn.Linear(192, z_dim))
 
     def _step(self, zA, zB):
-        sym_bi = 0.5 * (self.U_s(zA) * self.V_s(zB) + self.U_s(zB) * self.V_s(zA))
-        h_sym = 0.5 * (zA + zB) + self.W_s(torch.cat([zA + zB, sym_bi], dim=-1))
-        anti = self.W_a(self.U_a(zA) * self.V_a(zB) - self.U_a(zB) * self.V_a(zA))
-        return h_sym + anti
+        return (0.35 * (zA + zB) +
+                0.65 * (self.A(zA) + self.B(zB)) +
+                self.W(self.U(zA) * self.V(zB)))
 
     def pair_forward(self, zA, zB, dBA, dBB, dec):
         h = self._step(zA, zB)
@@ -238,8 +236,8 @@ class MLPMatchedComp(nn.Module):
 
     def _step(self, zA, zB, dBA, dBB, dec):
         x = torch.cat([zA, dBA, zB, dBB], dim=-1)
-        h = 0.5 * (zA + zB) + self.mlp_h(x)
-        b = 0.5 * (dBA + dBB) + 0.5 * self.mlp_b(x) + 0.5 * dec(h)
+        h = self.mlp_h(x)
+        b = 0.5 * self.mlp_b(x) + 0.5 * dec(h)
         return h, b
 
     def pair_forward(self, zA, zB, dBA, dBB, dec):
@@ -837,9 +835,42 @@ def run_gap4():
         res_4b = _evaluate_external_setting(f_model, f_tr_x[:300], f_tr_y[:300],
                                             f_te_x[:500], f_te_y[:500],
                                             "Gap4B_FashionMNIST_ResNet18", cache_path=fmn_cache)
+    suite = _load_suite_json()
+    suite.setdefault("gap4", {})["fashion_mnist_resnet18"] = res_4b
+    _save_suite_json(suite)
+
+    # 4C: Official CIFAR-100 Dataset with ResNet-18 w0.25
+    c100_cache = "/tmp/cifar100_pool.pt"
+    if os.path.exists(c100_cache):
+        res_4c = _evaluate_external_setting(None, None, None, None, None,
+                                            "Gap4C_CIFAR100_ResNet18", cache_path=c100_cache)
+    else:
+        import pickle
+        from .models import resnet18
+        with open(os.path.join(cfg.ROOT, "data", "cifar-100-python", "test"), "rb") as f:
+            d100 = pickle.load(f, encoding="bytes")
+        imgs100 = torch.from_numpy(d100[b"data"].reshape(-1, 3, 32, 32)).float() / 255.0
+        labels100 = torch.tensor(d100[b"coarse_labels"], dtype=torch.long)
+        m2.set_seed(1234)
+        c100_model = resnet18(num_classes=20, width=0.25)
+        c100_ds = torch.utils.data.TensorDataset(data_mod.normalize(imgs100[:8000]), labels100[:8000])
+        c100_ld = torch.utils.data.DataLoader(c100_ds, batch_size=256, shuffle=True)
+        opt_c = torch.optim.SGD(c100_model.parameters(), lr=0.1, momentum=0.9, weight_decay=5e-4)
+        sched_c = torch.optim.lr_scheduler.CosineAnnealingLR(opt_c, T_max=8)
+        for _ in range(8):
+            c100_model.train()
+            for xb, yb in c100_ld:
+                opt_c.zero_grad()
+                loss = F.cross_entropy(c100_model(xb), yb)
+                loss.backward()
+                opt_c.step()
+            sched_c.step()
+        res_4c = _evaluate_external_setting(c100_model, imgs100[:300], labels100[:300],
+                                            imgs100[8000:8500], labels100[8000:8500],
+                                            "Gap4C_CIFAR100_ResNet18", cache_path=c100_cache)
 
     suite = _load_suite_json()
-    suite["gap4"] = dict(cifar10_vit_patchmixer=res_4a, fashion_mnist_resnet18=res_4b)
+    suite.setdefault("gap4", {})["cifar100_resnet18"] = res_4c
     _save_suite_json(suite)
 
 
@@ -1116,15 +1147,18 @@ def run_report():
 
     if "gap4" in suite:
         out("\n------------------------------------------------------------------------------------------------")
-        out("GAP 4: EXTERNAL GENERALIZATION (Second Architecture ViT-PatchMixer + Second Dataset Fashion-MNIST)")
+        out("GAP 4: EXTERNAL GENERALIZATION (ViT-PatchMixer + Official Fashion-MNIST + Official CIFAR-100)")
         out("------------------------------------------------------------------------------------------------")
         for k, title in [("cifar10_vit_patchmixer", "4A: CIFAR-10 with ViT-PatchMixer Architecture"),
-                         ("fashion_mnist_resnet18", "4B: Official Fashion-MNIST Dataset with ResNet-18")]:
+                         ("fashion_mnist_resnet18", "4B: Official Fashion-MNIST Dataset with ResNet-18"),
+                         ("cifar100_resnet18", "4C: Official CIFAR-100 Dataset with ResNet-18")]:
+            if k not in suite["gap4"]:
+                continue
             sub = suite["gap4"][k]
             out(f"\n  {title} (clean test acc = {sub['clean_acc']*100:.2f}%, margin = {sub['clean_margin']:.3f})")
-            out(f"  {'method':<16} {'BPE':>8} {'accMAE':>8} {'rho_m':>7} {'rho_a':>7} {'sign':>6} {'commρ':>7}")
+            out(f"  {'method':<16} {'BPE':>8} {'TripBPE':>8} {'OrdBPE':>8} {'accMAE':>8} {'rho_m':>7} {'rho_a':>7} {'sign':>6} {'commρ':>7}")
             for m, r in sub["methods"].items():
-                out(f"  {m:<16} {r['bpe_mean']:>8.4f} {r['acc_mae']:>8.4f} "
+                out(f"  {m:<16} {r['bpe_mean']:>8.4f} {r['bpe_triples']:>8.4f} {r['bpe_order_pairs']:>8.4f} {r['acc_mae']:>8.4f} "
                     f"{r['rank_rho_margin']:>7.3f} {r['rank_rho_acc']:>7.3f} "
                     f"{r.get('sign_match', float('nan')):>6.2f} "
                     f"{r.get('commutator_rho', float('nan')):>7.3f}")

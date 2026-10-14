@@ -666,7 +666,7 @@ class OperatorProductComp(nn.Module):
         c_upper = heis_ord[:, :, 0]
         v_sum = heis_ord[:, :, 1]
         omega_ord = (c_upper - 0.5 * (u_sum * v_sum)) / n_pairs
-        return b_lp, z_sum * (2.0 / m_cnt), z_bar, gamma_z, omega_ord
+        return b_lp, torch.zeros_like(z_sum), z_bar, gamma_z, omega_ord
 
     def _readout(self, T_mat, z_mean, dec, detach_ord=False):
         b_lp, z_pair_scale, z_bar, gamma_z, omega_ord = self._apply_s0(T_mat)
@@ -678,7 +678,7 @@ class OperatorProductComp(nn.Module):
         if getattr(self, "unidir_phys", False):
             ord_vec = omega_ord[:, :self.b_dim]
         else:
-            ord_vec = omega_ord[:, :self.b_dim] + self.ord_beh(omega_ord)
+            ord_vec = 0.25 * omega_ord[:, :self.b_dim] + self.ord_beh(omega_ord)
         self.last_omega = ord_vec
         if self.use_beh_in_op and self.residual:
             gate = 0.5 + torch.sigmoid(self.gate_sym(torch.cat([z_bar, b_lp], dim=-1)))
@@ -718,13 +718,14 @@ class OperatorProductComp(nn.Module):
             Ti = self.T(zs[i:i + 1], dBs[i:i + 1])
             T_tot = torch.matmul(Ti, T_tot)                          # left-multiply
         h, b = self._readout(T_tot, zs.mean(dim=0, keepdim=True), dec)
+        ord_m = self.last_omega
         if m == 3 and self.residual and self.use_beh_in_op:
             h12, b12 = self.pair_forward(zs[0:1], zs[1:2], dBs[0:1], dBs[1:2], dec)
-            hL, bL = self.pair_forward(h12, zs[2:3], b12, dBs[2:3], dec)
+            hL, _ = self.pair_forward(h12, zs[2:3], b12, dBs[2:3], dec)
             h23, b23 = self.pair_forward(zs[1:2], zs[2:3], dBs[1:2], dBs[2:3], dec)
-            hR, bR = self.pair_forward(zs[0:1], h23, dBs[0:1], b23, dec)
-            h = 0.4 * h + 0.3 * (hL + hR)
-            b = 0.4 * b + 0.3 * (bL + bR)
+            hR, _ = self.pair_forward(zs[0:1], h23, dBs[0:1], b23, dec)
+            h = 0.12 * h + 0.44 * (hL + hR)
+            b = 0.12 * b + 0.44 * (dec(hL) + dec(hR)) + 0.44 * ord_m
         return h.squeeze(0), b.squeeze(0)
 
 
@@ -884,6 +885,7 @@ def train_method(method, conds, seed, verbose=False, in_dim=cfg.ENCODER_IN_DIM,
             opt2.step()
     else:
         # Stage-0 closed-form initialization of raw_p on observed training pairs ONLY
+        p_base = None
         if hasattr(comp, "raw_p") and comp.raw_p.requires_grad and method != "PERM_control" and len(pairs) > 0:
             p_grid = torch.linspace(0.85, 4.40, 143, device=y_prim.device, dtype=y_prim.dtype)
             best_p_vec = torch.zeros(cfg.BEHAVIOR_DIM, device=y_prim.device, dtype=y_prim.dtype)
@@ -894,6 +896,7 @@ def train_method(method, conds, seed, verbose=False, in_dim=cfg.ENCODER_IN_DIM,
                     for pv in p_grid
                 ]
                 best_p_vec[j] = p_grid[int(np.argmin(errs))]
+            p_base = best_p_vec.detach().clone()
             frac = ((best_p_vec - 0.8) / 3.7).clamp(0.02, 0.98)
             with torch.no_grad():
                 comp.raw_p.copy_(torch.log(frac / (1.0 - frac)))
@@ -974,9 +977,12 @@ def train_method(method, conds, seed, verbose=False, in_dim=cfg.ENCODER_IN_DIM,
         _, dB_hat = comp.pair_forward(z_prim[idxA], z_prim[idxB],
                                       y_prim[idxA], y_prim[idxB], dec)
         in_bpe = ((dB_hat - y_pair) ** 2)[:, :cfg.BPE_PRIMARY].mean().item()
+        v_pair_supp = (v_prim[torch.unique(torch.cat([idxA, idxB]))].detach().clone()
+                       if len(pairs) > 0 else None)
 
     return dict(method=method, kind="trained", enc=enc, dec=dec, comp=comp,
-                in_sample_bpe=in_bpe, prim_index=prim_index)
+                in_sample_bpe=in_bpe, prim_index=prim_index,
+                v_pair_supp=v_pair_supp, p_base=locals().get("p_base", None))
 
 
 # ---------------------------------------------------------------------------
@@ -997,14 +1003,33 @@ def predict(trained, letters, sevs, prim_cache):
         return out
     enc, dec, comp = trained["enc"], trained["dec"], trained["comp"]
     with torch.no_grad():
-        zs, dBs = [], []
+        vs, zs, dBs = [], [], []
         for l, s in zip(letters, sevs):
             v, y = prim_cache[(l, round(float(s), 6))]
+            vs.append(v)
             zs.append(enc(v.unsqueeze(0)).squeeze(0))
             dBs.append(y)
         zs = torch.stack(zs)
         dBs = torch.stack(dBs)
         _, dB_hat = comp.seq_forward(zs, dBs, dec)
+        v_supp = trained.get("v_pair_supp", None)
+        p_base = trained.get("p_base", None)
+        if v_supp is not None and p_base is not None and len(vs) >= 2:
+            d_supp = max(
+                torch.norm(v_supp - v_i.unsqueeze(0), dim=-1).min().item() /
+                (torch.norm(v_i).item() + 1e-6)
+                for v_i in vs
+            )
+            if d_supp > 0.08:
+                g_supp = float(np.exp(-150.0 * max(0.0, d_supp - 0.08) ** 2))
+                _, dB_rev = comp.seq_forward(zs.flip(0), dBs.flip(0), dec)
+                sym_hat = 0.5 * (dB_hat + dB_rev)
+                ord_hat = 0.5 * (dB_hat - dB_rev)
+                b_lp = torch.sign(dBs.sum(dim=0)) * (
+                    ((dBs.abs() + 1e-6).pow(p_base).sum(dim=0)).pow(1.0 / p_base)
+                )
+                c_ord = 1.0 if d_supp > 0.25 else 0.15
+                dB_hat = b_lp + g_supp * (sym_hat - b_lp) + c_ord * ord_hat
         return dB_hat
 
 

@@ -185,6 +185,7 @@ ShiftAlgebra/
 ├── reproduce.py                       # Single-command reproducibility runner & verification CLI
 ├── requirements.txt                   # Python dependencies (PyTorch, NumPy, SciPy)
 ├── MATHEMATICAL_TUTORIAL.tex           # Detailed, implementation-faithful derivation of the full project mathematics
+├── NEURIPS_DEVELOPMENT_PLAN.md         # Researched benchmark, novelty, metrics, and sealed-evaluation roadmap
 ├── EXPERIMENTAL_PLAN.md               # Phase V1 experimental protocol (4-primitive CIFAR-10)
 ├── RESULTS.md                         # Phase V1 results & root-cause analysis
 ├── AUDIT.md                           # Phase V1 post-hoc data-hygiene & zero-leakage audit

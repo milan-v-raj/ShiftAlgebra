@@ -28,7 +28,7 @@ Given a fixed black-box classifier $f_\theta$ with clean reference behavior $B_0
 
 - **Observed Calibration Data (Single Shifts & Selected Pairs Only)**:
   - For each individual shift primitive $X_i$ at severity $s_i$, we measure:
-    1. **Unlabeled shift representation statistics** $v_{X_i} \in \mathbb{R}^{518}$ on a small 500-image training sample: 128D feature mean $\mu_f$, 128D feature std $\sigma_f$, 3D pixel mean $\mu_{\text{pix}}$, 3D pixel std $\sigma_{\text{pix}}$, 128D mean absolute feature shift $|\Delta f|$, and 128D feature-shift std $\sigma_{\Delta f}$.
+    1. **Unlabeled shift representation statistics** $v_{X_i} \in \mathbb{R}^{518}$ on the fixed 2,000-image calibration sample: 128D feature mean $\mu_f$, 128D feature std $\sigma_f$, 3D pixel mean $\mu_{\text{pix}}$, 3D pixel std $\sigma_{\text{pix}}$, 128D signed mean paired feature displacement $\mu_{\Delta f}$, and 128D feature-displacement std $\sigma_{\Delta f}$.
     2. **Single-shift behavior delta** $\Delta B_{X_i} = B(X_i) - B_0 \in \mathbb{R}^5$:
        $$\Delta B = \big[\Delta\text{margin},\; \Delta\text{drift},\; \Delta\text{ECE},\; \Delta\text{pcacc},\; \Delta\text{acc}\big].$$
 - **Zero-Shot Prediction Target (Unseen Compositions $S = X_1 \circ X_2 \circ \cdots \circ X_m$)**:
@@ -105,7 +105,7 @@ python3 reproduce.py --all
 
 ### 1. Gap 1: 14-Method Component Ablations & Competing Baselines (6-Primitive CIFAR-10 V2, 123 Held-Out Conditions, 5 Seeds)
 
-Primitives: `A` (Contrast), `B` (Gaussian Blur), `C` (Gaussian Noise), `D` (Brightness), `P` (Pixelate/JPEG), `S` (Saturation).
+Primitives: `A` (Brightness), `B` (Gaussian Blur), `C` (Gaussian Noise), `D` (Contrast), `P` (Pixelate), `S` (Saturation).
 Split: **155 observed** (30 single primitives + 125 pairs) $\to$ **123 held-out** (100 triples + 20 order-reversed pairs + 3 off-grid conditions).
 
 | Method | Category | Overall BPE ($\downarrow$) | Triple BPE ($\downarrow$) | Order-Pair BPE ($\downarrow$) | Acc MAE ($\downarrow$) | Margin $\rho_m$ ($\uparrow$) | Order Sign Match ($\uparrow$) | Commutator $\rho$ ($\uparrow$) | Params |
@@ -148,7 +148,7 @@ Split: **155 observed** (30 single primitives + 125 pairs) $\to$ **123 held-out*
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Holdout `S` (Saturation)** | `100` (40 pairs + 60 triples) | **`0.0191` (#1)** | **`0.0202` (#2)** | `0.0219` | `0.0253` | `0.0377` | `0.3408` |
 | **Holdout `P` (Pixelate/JPEG)** | `100` (45 pairs + 55 triples) | **`0.0343` (#2)** | **`0.0287` (#1)** | `0.0352` | `0.0942` | `0.1002` | `0.5589` |
-| **Holdout `D` (Brightness)** | `95` (45 pairs + 50 triples) | **`0.0347` (#2)** | **`0.0326` (#1)** | `0.0610` | `0.0524` | `0.0881` | `0.2901` |
+| **Holdout `D` (Contrast)** | `95` (45 pairs + 50 triples) | **`0.0347` (#2)** | **`0.0326` (#1)** | `0.0610` | `0.0524` | `0.0881` | `0.2901` |
 | **Mean Across All 3 Held-Out Primitives** | **`295` unseen compositions** | **`0.0294`** | **`0.0272`** | `0.0394` | `0.0573` | `0.0753` | `0.3966` |
 
 ---
@@ -184,6 +184,7 @@ ShiftAlgebra/
 ├── README.md                          # Top-level overview, headline tables, and reproducibility guide
 ├── reproduce.py                       # Single-command reproducibility runner & verification CLI
 ├── requirements.txt                   # Python dependencies (PyTorch, NumPy, SciPy)
+├── MATHEMATICAL_TUTORIAL.tex           # Detailed, implementation-faithful derivation of the full project mathematics
 ├── EXPERIMENTAL_PLAN.md               # Phase V1 experimental protocol (4-primitive CIFAR-10)
 ├── RESULTS.md                         # Phase V1 results & root-cause analysis
 ├── AUDIT.md                           # Phase V1 post-hoc data-hygiene & zero-leakage audit

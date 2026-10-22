@@ -1,0 +1,1376 @@
+\documentclass[11pt,a4paper]{article}
+
+% -----------------------------------------------------------------------------
+% Shift Algebra: implementation-faithful mathematical tutorial
+% Compile with: pdflatex MATHEMATICAL_TUTORIAL.tex (twice for the TOC)
+% -----------------------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{booktabs,longtable,array,multirow}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{microtype}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!55!black,
+  urlcolor=blue!60!black,
+  citecolor=green!40!black,
+  pdftitle={The Mathematics of Shift Algebra},
+  pdfauthor={ShiftAlgebra repository}
+}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setcounter{tocdepth}{3}
+\allowdisplaybreaks
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\ind}{\mathbf{1}}
+\newcommand{\od}{\odot}
+\newcommand{\dB}{\Delta B}
+\newcommand{\dBh}{\widehat{\Delta B}}
+\newcommand{\MB}{\texttt{M\_B}}
+\newcommand{\MA}{\texttt{M\_A}}
+\newcommand{\MC}{\texttt{M\_C}}
+\newcommand{\LP}{L_p}
+\newcommand{\softplus}{\operatorname{softplus}}
+\newcommand{\sigmoid}{\operatorname{sigmoid}}
+\newcommand{\sign}{\operatorname{sign}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\BPE}{\operatorname{BPE}}
+\newcommand{\ECE}{\operatorname{ECE}}
+\newcommand{\pcacc}{\operatorname{pcacc}}
+\newcommand{\acc}{\operatorname{acc}}
+\newcommand{\conf}{\operatorname{conf}}
+\newcommand{\margin}{\operatorname{margin}}
+\newcommand{\drift}{\operatorname{drift}}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  frame=single,
+  breaklines=true,
+  columns=fullflexible,
+  backgroundcolor=\color{gray!5},
+  keywordstyle=\color{blue!60!black}
+}
+
+\title{\textbf{The Mathematics of Shift Algebra}\\
+\large An implementation-faithful tutorial from images to the $L_p$--Heisenberg operator product}
+\author{Companion to the \texttt{ShiftAlgebra} repository}
+\date{October 22, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document develops the complete mathematical pipeline implemented in this
+repository.  The task is to forecast how a fixed image classifier will behave
+under an unseen ordered composition of distribution shifts, using only
+measurements of the individual shifts and selected calibration pairs.  We begin
+with images and the frozen classifier, derive the 518-dimensional shift
+fingerprint and the five-dimensional behavior target, introduce the relevant
+semigroup and non-commutative algebra, derive every accumulator in the headline
+\MB{} model, state the exact neural readout and training objective, explain the
+alternative methods and baselines, and finish with evaluation statistics,
+worked examples, scope, and limitations.  Whenever the conceptual algebra and
+the literal source code differ, both are stated explicitly.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% =============================================================================
+\section{The problem in one equation}
+% =============================================================================
+
+Let $f_\theta$ be a fixed, already-trained classifier.  A primitive shift $X$
+is an image transformation such as brightness, blur, noise, contrast,
+pixelation, or saturation.  A word
+\[
+S=(X_1,X_2,\ldots,X_m)
+\]
+means ``apply $X_1$ first, then $X_2$, and so on.''  The repository's goal is to
+learn a forecasting map
+\begin{equation}
+\boxed{
+\mathcal{F}_\Theta:\big((v_{X_1},\dB_{X_1}),\ldots,
+(v_{X_m},\dB_{X_m})\big)
+\longmapsto \dBh_S\in\R^5
+}
+\label{eq:problem}
+\end{equation}
+without running images transformed by the unseen composition $S$ through the
+classifier at prediction time.
+
+For each primitive $X_i$, the model receives:
+\begin{enumerate}[label=(\roman*)]
+  \item an unlabeled fingerprint $v_{X_i}\in\R^{518}$, measured from images
+  transformed by that primitive alone; and
+  \item a measured primitive behavior change $\dB_{X_i}\in\R^5$.
+\end{enumerate}
+The output is five numbers forecasting the changes in confidence margin,
+representation drift, calibration error, per-class accuracy, and overall
+accuracy under the full ordered word.
+
+This is a \emph{zero-shot composition} claim, not a label-free claim.  Labels
+are required once to measure each primitive behavior vector and selected
+training-pair targets.  The zero-shot boundary says that the held-out composed
+images and held-out composed labels are not inputs to the predictor.
+
+\subsection{Why the problem is not ordinary regression}
+
+Two structural facts make a naive regressor unreliable.
+
+\textbf{Saturation.} If two shifts separately lower accuracy by $10$ and $15$
+percentage points, their combination need not lower it by $25$ points.  The
+same examples can be harmed twice, probabilities are bounded, and accuracy has
+a floor.  Thus
+\[
+\dB_{X\to Y}\neq \dB_X+\dB_Y
+\]
+in general.
+
+\textbf{Order.} A blur applied after noise can erase some of that noise, while
+noise applied after blur survives.  Hence the physical transformations and
+their effects can satisfy
+\[
+X\to Y\neq Y\to X,
+\qquad
+\dB_{X\to Y}\neq \dB_{Y\to X}.
+\]
+The method therefore needs a saturating symmetric component and a directional
+antisymmetric component.
+
+% =============================================================================
+\section{Data-generating objects and notation}
+% =============================================================================
+
+Let the clean calibration sample be
+\[
+\mathcal{D}_{\mathrm{cal}}=\{(x_n,y_n)\}_{n=1}^{N},
+\qquad x_n\in[0,1]^{C\times H\times W}.
+\]
+For the main CIFAR-10 V2 run, $C=3$, $H=W=32$, and $N=2000$ for calibration.
+Held-out ground truth is measured separately on all $10{,}000$ CIFAR-10 test
+images.
+
+Write $\tau_{X,s}$ for primitive $X$ at severity $s$.  For a word
+$S=((X_1,s_1),\ldots,(X_m,s_m))$, the implementation constructs
+\begin{equation}
+x_n^S=	au_{X_m,s_m}\!\left(\cdots
+\tau_{X_2,s_2}(\tau_{X_1,s_1}(x_n))\cdots\right).
+\label{eq:imageword}
+\end{equation}
+Every stage is clipped to $[0,1]$.  This convention matters: throughout this
+document, the textual word $X_1\to X_2$ means $X_1$ is physically applied
+first, whereas the corresponding linear operator product is $T_{X_2}T_{X_1}$.
+
+Let the frozen classifier factor as
+\[
+f_\theta(x)=W h_\theta(x)+b,
+\]
+where $h_\theta(x)\in\R^{d_f}$ is the penultimate feature.  In the main
+width-$0.25$ CIFAR ResNet-18, $d_f=128$.  The model input is normalized, but
+pixel statistics below are computed on the unnormalized $[0,1]$ image.
+Define
+\[
+f_n^S=h_\theta(\operatorname{Normalize}(x_n^S)),
+\qquad
+\ell_n^S=f_\theta(\operatorname{Normalize}(x_n^S)),
+\qquad
+p_n^S=\operatorname{softmax}(\ell_n^S).
+\]
+
+\subsection{The six image primitives}
+
+The literal transformations in \path{src/corruptions_v2.py} are:
+\begin{align}
+\tau_{A,s}(x)&=\operatorname{clip}(s x), &&\text{brightness scaling},\\
+\tau_{D,s}(x)&=\operatorname{clip}\big(\mu(x)+s(x-\mu(x))\big),
+&&\text{contrast about the per-image mean},\\
+\tau_{B,s}(x)&=k_s*_{\mathrm{sep}}x,
+&&\text{separable Gaussian blur},\\
+\tau_{C,s}(x)&=\operatorname{clip}(x+s\varepsilon),
+&&\varepsilon\sim\mathcal{N}(0,I),\\
+\tau_{P,s}(x)&=\operatorname{Up}_{\mathrm{nearest}}
+\big(\operatorname{Down}_{\mathrm{bilinear}}(x;\operatorname{round}(H/s))\big),\\
+\tau_{S,s}(x)&=\operatorname{clip}\big(g(x)+s(x-g(x))\big),
+&&g(x)=\text{channel mean at each pixel}.
+\end{align}
+Thus, in the source code, $A$ is brightness and $D$ is contrast.  Gaussian
+noise uses an order-independent deterministic condition seed.  Consequently,
+$B\to C$ and $C\to B$ share the same underlying noise realization; their
+difference measures order rather than a resampled noise field.
+
+% =============================================================================
+\section{From images to the 518-dimensional fingerprint}
+% =============================================================================
+
+This section answers exactly where the 518 inputs come from.
+
+For a single primitive $X$, evaluate the clean and shifted versions of the
+\emph{same} $N$ images.  Define paired feature displacements
+\[
+\delta f_n^X=f_n^X-f_n^0.
+\]
+For a vector-valued sample $a_1,\ldots,a_N$, let $\mu_n(a)$ and $\sigma_n(a)$
+denote coordinatewise sample mean and standard deviation.  For the image
+batch, let $\mu_{n,h,w}(x^X),\sigma_{n,h,w}(x^X)\in\R^3$ be the per-channel
+statistics over images and spatial locations.  The fingerprint is
+\begin{equation}
+\boxed{
+v_X=\begin{bmatrix}
+\mu_n(f^X)\\
+\sigma_n(f^X)\\
+\mu_{n,h,w}(x^X)\\
+\sigma_{n,h,w}(x^X)\\
+\mu_n(\delta f^X)\\
+\sigma_n(\delta f^X)
+\end{bmatrix}
+\in\R^{128+128+3+3+128+128}=\R^{518}.
+}
+\label{eq:518}
+\end{equation}
+No class label appears in Equation~\eqref{eq:518}.  Notice two details that are
+easy to state incorrectly:
+\begin{itemize}
+  \item The penultimate feature is 128-dimensional in the main model, not 256.
+  \item The raw displacement block is the \emph{signed mean}
+  $\mu_n(\delta f^X)$.  A later six-moment summary takes its mean absolute
+  magnitude, but the stored 128-vector itself is not replaced by an absolute
+  value.
+\end{itemize}
+
+Why include both $f^X$ and $\delta f^X$?  The former records the absolute region
+of feature space occupied by shifted data; the latter records movement from
+the paired clean reference.  Two shifts can have similar final feature
+variance but different displacement directions, so both are potentially
+informative.
+
+\subsection{The six scalar moments used as an encoder shortcut}
+
+The encoder also compresses the six blocks into
+\begin{equation}
+q(v_X)=\begin{bmatrix}
+\operatorname{mean}(v_{1:128}) &
+\operatorname{mean}(v_{129:256}) &
+\operatorname{mean}(v_{257:259}) &
+\operatorname{mean}(v_{260:262}) &
+\operatorname{mean}|v_{263:390}| &
+\operatorname{mean}(v_{391:518})
+\end{bmatrix}^{\!\top}\!\in\R^6.
+\end{equation}
+These correspond to global feature mean, feature spread, pixel mean, pixel
+spread, absolute mean displacement magnitude, and displacement spread.
+
+% =============================================================================
+\section{The five-dimensional behavior target}
+% =============================================================================
+
+The full measured behavior vector has six coordinates; the first five are the
+target and mean confidence is diagnostic only.
+
+For each example, let $p_{n,(1)}^S\ge p_{n,(2)}^S$ be the largest two class
+probabilities and $\hat y_n^S=\arg\max_c p_{n,c}^S$.  Then
+\begin{align}
+\margin(S)&=\frac1N\sum_{n=1}^N\left(p_{n,(1)}^S-p_{n,(2)}^S\right),\\
+\drift(S)&=\left\|\frac1N\sum_{n=1}^N f_n^S-
+\frac1N\sum_{n=1}^N f_n^0\right\|_2,\\
+\pcacc(S)&=\frac1C\sum_{c=1}^{C}
+\frac{\sum_n\ind[y_n=c]\ind[\hat y_n^S=c]}{\sum_n\ind[y_n=c]},\\
+\acc(S)&=\frac1N\sum_n\ind[\hat y_n^S=y_n],\\
+\conf(S)&=\frac1N\sum_n\max_c p_{n,c}^S.
+\end{align}
+
+Calibration uses ten confidence bins $I_r=[r/10,(r+1)/10)$:
+\begin{equation}
+\ECE(S)=\sum_{r=0}^{9}\frac{|I_r(S)|}{N}
+\left|
+\frac{1}{|I_r(S)|}\sum_{n\in I_r(S)}\ind[\hat y_n^S=y_n]
+-
+\frac{1}{|I_r(S)|}\sum_{n\in I_r(S)}\max_c p_{n,c}^S
+\right|.
+\end{equation}
+Empty bins contribute zero.
+
+Collect these as
+\[
+B(S)=\big[\margin(S),\drift(S),\ECE(S),\pcacc(S),\acc(S),\conf(S)\big].
+\]
+The clean baseline is $B_0=B(\varnothing)$, and the training/prediction target is
+\begin{equation}
+\boxed{
+\dB_S=\big(B(S)-B_0\big)_{1:5}\in\R^5.
+}
+\label{eq:behavior}
+\end{equation}
+Typical signs are negative for margin and accuracy, positive for drift, and
+mixed for ECE.  This is why the algebra uses a signed power transform rather
+than assuming every coordinate is nonnegative.
+
+% =============================================================================
+\section{Algebraic foundations}
+% =============================================================================
+
+\subsection{Semigroups and words}
+
+A semigroup is a set with a closed associative binary operation.  It need not
+have an identity or inverse.  Image-corruption words naturally form a free
+semigroup under concatenation:
+\[
+(XY)Z=X(YZ)=XYZ.
+\]
+The physical transformations may identify some words, but parenthesization of
+sequential application is still irrelevant.  The modeling goal is an
+approximately homomorphic representation
+\[
+\rho(X_1\cdots X_m)\approx \rho(X_m)\cdots\rho(X_1),
+\]
+where the reverse matrix order follows the ``first operation acts first''
+convention for column vectors.
+
+\subsection{Commutativity, commutators, and antisymmetry}
+
+Associativity does not imply commutativity.  Matrices always satisfy
+$(AB)C=A(BC)$ but usually satisfy $AB\ne BA$.  Their commutator is
+\[
+[A,B]=AB-BA,
+\qquad [B,A]=-[A,B].
+\]
+A useful order channel should therefore be antisymmetric: swapping two shifts
+should negate the channel while leaving symmetric severity information
+unchanged.
+
+\subsection{Why upper-triangular matrices}
+
+Upper-triangular matrices can store running sums and pair interactions in a
+closed product.  For example,
+\[
+T(w,c)=
+\begin{pmatrix}1&0&w\\0&1&c\\0&0&1\end{pmatrix}
+\quad\Longrightarrow\quad
+T(w_2,c_2)T(w_1,c_1)=T(w_1+w_2,c_1+c_2).
+\]
+Likewise, a Heisenberg block
+\begin{equation}
+H(u,v)=
+\begin{pmatrix}
+1&u&\tfrac12uv\\
+0&1&v\\
+0&0&1
+\end{pmatrix}
+\label{eq:heis}
+\end{equation}
+stores a directional cross-term under multiplication.  All products in this
+project are coordinatewise across parallel blocks; $uv$ means $u\od v$ when
+$u$ and $v$ are vectors.
+
+% =============================================================================
+\section{The signed $L_p$ power law}
+% =============================================================================
+
+For behavior coordinate $k$, define a learned exponent
+\begin{equation}
+p_k=0.8+3.7\sigmoid(r_k),
+\qquad p_k\in(0.8,4.5).
+\label{eq:p}
+\end{equation}
+Ignoring numerical stabilization for one moment, define
+\begin{equation}
+\Phi_p(b)_k=\sign(b_k)|b_k|^{p_k},
+\qquad
+\Phi_p^{-1}(a)_k=\sign(a_k)|a_k|^{1/p_k}.
+\end{equation}
+The power-semigroup aggregate is
+\begin{equation}
+b_{L_p}(X_1,\ldots,X_m)=
+\Phi_p^{-1}\!\left(\sum_{i=1}^m\Phi_p(\dB_{X_i})\right).
+\label{eq:lp}
+\end{equation}
+
+For same-sign scalar effects $b_i$, Equation~\eqref{eq:lp} has magnitude
+$(\sum_i|b_i|^p)^{1/p}$.  If $p>1$ and at least two $b_i$ are nonzero,
+\begin{equation}
+\max_i|b_i|\le \left(\sum_i|b_i|^p\right)^{1/p}
+<\sum_i|b_i|.
+\label{eq:normineq}
+\end{equation}
+For equal effects $|b_i|=\delta$, the $L_p$ result is $m^{1/p}\delta$ rather
+than the additive $m\delta$.  This is the mathematical source of saturation.
+
+A precise norm inequality worth remembering is
+\begin{equation}
+m^{1/p-1}\|b\|_1\le \|b\|_p\le \|b\|_1
+\qquad (p\ge1).
+\label{eq:correctnorm}
+\end{equation}
+The lower bound, not the upper bound, contains $m^{1/p-1}$.  Any statement with
+$\|b\|_p\le m^{1/p-1}\|b\|_1$ is generally false (take $b=(1,0)$).  This
+corrects the direction of the middle inequality printed in one prose proof in
+\path{REVIEWER_PROOFING_V3.md}; the simpler strict sub-additivity conclusion in
+Equation~\eqref{eq:normineq} remains valid.
+
+\subsection{Associativity proof}
+
+Define $a\oplus_p b=\Phi_p^{-1}(\Phi_p(a)+\Phi_p(b))$.  Because ordinary
+addition is associative and $\Phi_p$ is bijective,
+\begin{align}
+(a\oplus_p b)\oplus_p c
+&=\Phi_p^{-1}\big(\Phi_p(a)+\Phi_p(b)+\Phi_p(c)\big)\\
+&=a\oplus_p(b\oplus_p c).
+\end{align}
+This is a coordinatewise semigroup isomorphic to $(\R^5,+)$.
+
+\subsection{Literal numerical transform in the code}
+
+With $\epsilon=10^{-6}$, the source uses
+\begin{align}
+\widetilde\Phi_p(b)&=\sign(b)
+\left((|b|+\epsilon)^p-\epsilon^p\right),\\
+\widetilde\Psi_p(a)&=\sign(a)(|a|+\epsilon)^{1/p}.
+\end{align}
+The matrix always sums $\widetilde\Phi_p(\dB_i)$ once and applies
+$\widetilde\Psi_p$ once.  Thus the transformed accumulator is exactly
+associative, but $\widetilde\Psi_p$ is not the exact algebraic inverse of
+$\widetilde\Phi_p$.  Consequently, a recursively decoded binary operation has
+a tiny $\epsilon$-level deviation from the ideal proof.  Also, if a learned
+$p_k<1$, the coordinate is a signed quasi-norm and can be super-additive; the
+empirical saturation interpretation applies to learned coordinates with
+$p_k>1$.
+
+% =============================================================================
+\section{Shared encoder and decoder}
+% =============================================================================
+
+The shift encoder maps the fingerprint to a 64-dimensional latent vector:
+\begin{align}
+\widetilde z_X&=W_3\operatorname{ReLU}\!\left(
+W_2\operatorname{ReLU}\!\left(
+\operatorname{LN}(W_1v_X+b_1)\right)+b_2\right)+b_3,\\
+z_X&=E(v_X)=\widetilde z_X+\tfrac12 W_q q(v_X)+\tfrac12b_q,
+\qquad z_X\in\R^{64}.
+\end{align}
+The layer widths are $518\to256\to128\to64$.  The shared behavior decoder is
+\begin{equation}
+G(h)=W_5\operatorname{ReLU}(W_4h+b_4)+b_5,
+\qquad 64\to128\to5.
+\end{equation}
+The encoder is behavior-anchored during training by requiring $G(E(v))$ to
+predict observed behavior.  The 518-vector itself remains label-free; the
+anchor loss is not.
+
+% =============================================================================
+\section{Headline method \MB: complete derivation}
+% =============================================================================
+
+\subsection{Dimensions and a crucial clarification}
+
+The phrase ``a $3\times3$ matrix'' is shorthand.  The implementation uses many
+parallel $3\times3$ upper-triangular blocks:
+\[
+d_b=5,
+\qquad d_z=64,
+\qquad r=8,
+\qquad K_{\mathrm{ord}}=d_b+2r=21.
+\]
+Define
+\[
+d_w=d_b+2d_z+2K_{\mathrm{ord}}=175,
+\qquad
+L=d_w+d_z+K_{\mathrm{ord}}=260.
+\]
+Therefore $T_X$ is stored as an array in $\R^{260\times3\times3}$.  Equivalently,
+one could view it as a block-diagonal $780\times780$ matrix, but the code never
+needs to materialize that dense matrix.  There are 175 translation blocks, 64
+symmetric Heisenberg blocks, and 21 directional Heisenberg blocks.
+
+\subsection{Potential and amplitude}
+
+Build the operator input
+\[
+o_X=[z_X;\dB_X]\in\R^{69}.
+\]
+Two MLPs produce a potential $\kappa_X\in\R^{21}$ and raw amplitude
+$a_X\in\R^{21}$.  The positive amplitude $\pi_X$ is
+\begin{equation}
+\pi_{X,k}=
+\begin{cases}
+(|\dB_{X,k}|+0.05)\softplus(a_{X,k}+0.55),&1\le k\le5,\\
+\softplus(a_{X,k}),&6\le k\le21.
+\end{cases}
+\label{eq:pi}
+\end{equation}
+Set
+\begin{equation}
+u_X=\kappa_X\od\pi_X,
+\qquad q_X=\pi_X.
+\label{eq:uq}
+\end{equation}
+We use $q_X$ rather than $v_X$ for the second Heisenberg generator here to
+avoid confusing it with the 518-dimensional fingerprint.
+
+The directional pair term then has a potential-difference form:
+\begin{equation}
+\frac12(u_Y\od q_X-u_X\od q_Y)
+=\frac12\pi_X\od\pi_Y\od(\kappa_Y-\kappa_X).
+\label{eq:potentialdiff}
+\end{equation}
+This imposes a transitive structure: the sign comes from the ordering of
+learned scalar-like susceptibilities rather than an unrelated parameter for
+every pair.
+
+\subsection{Primitive accumulators}
+
+For one primitive, concatenate
+\begin{equation}
+w_X=\left[
+\widetilde\Phi_p(\dB_X);\ z_X;\ z_X^{\od2};\ u_X;\ u_X\od q_X
+\right]\in\R^{175}.
+\label{eq:w}
+\end{equation}
+For each coordinate $w_{X,\ell}$, create a translation block
+\begin{equation}
+A_\ell(X)=
+\begin{pmatrix}
+1&0&w_{X,\ell}\\
+0&1&1\\
+0&0&1
+\end{pmatrix}.
+\end{equation}
+For each latent coordinate $j$, create a symmetric block
+\begin{equation}
+H_j^{\mathrm{sym}}(X)=
+\begin{pmatrix}
+1&z_{X,j}&\tfrac12 z_{X,j}^2\\
+0&1&z_{X,j}\\
+0&0&1
+\end{pmatrix}.
+\end{equation}
+For each directional coordinate $k$, create
+\begin{equation}
+H_k^{\mathrm{ord}}(X)=
+\begin{pmatrix}
+1&u_{X,k}&\tfrac12u_{X,k}q_{X,k}\\
+0&1&q_{X,k}\\
+0&0&1
+\end{pmatrix}.
+\end{equation}
+The complete $T_X$ is the direct sum of all these blocks.
+
+\subsection{Ordered product}
+
+For $S=(X_1,\ldots,X_m)$ in application order,
+\begin{equation}
+\boxed{T_S=T_{X_m}T_{X_{m-1}}\cdots T_{X_1}.}
+\label{eq:orderedprod}
+\end{equation}
+Every stored $3\times3$ block is multiplied only by its corresponding block.
+Apply each block to $s_0=(0,0,1)^\top$, which is just taking its third column.
+The translation blocks return
+\begin{equation}
+\sum_iw_{X_i}
+=\left[
+\sum_i\widetilde\Phi_p(\dB_{X_i});\
+\sum_i z_{X_i};\
+\sum_i z_{X_i}^{\od2};\
+\sum_i u_{X_i};\
+\sum_i u_{X_i}\od q_{X_i}
+\right],
+\end{equation}
+and their second state coordinate returns the count $m$.
+
+\subsection{Deriving the Heisenberg top-right entry}
+
+For $H_i=H(u_i,q_i)$, direct multiplication gives
+\[
+H_2H_1=
+\begin{pmatrix}
+1&u_1+u_2&
+\tfrac12u_1q_1+\tfrac12u_2q_2+u_2q_1\\
+0&1&q_1+q_2\\
+0&0&1
+\end{pmatrix}.
+\]
+Induction yields
+\begin{equation}
+(H_m\cdots H_1)_{0,2}
+=\frac12\sum_{i=1}^m u_iq_i+
+\sum_{1\le i<j\le m}u_jq_i.
+\label{eq:heistop}
+\end{equation}
+Let $N_2=\binom{m}{2}$, with the code clamping it to at least one.  This one
+identity produces both interaction channels.
+
+\subsection{Symmetric all-pairs interaction}
+
+Set $u_i=q_i=z_i$ in the symmetric blocks.  Subtract the stored self-square
+terms:
+\begin{align}
+\Gamma_z(S)
+&=\frac{(H_S^{\mathrm{sym}})_{0,2}
+-\tfrac12\sum_i z_i^{\od2}}{N_2}\\
+&=\frac1{N_2}\sum_{i<j}z_i\od z_j.
+\label{eq:gamma}
+\end{align}
+This is invariant under every permutation of the input shifts.
+
+\subsection{Antisymmetric order interaction}
+
+Expand half the product of sums:
+\begin{equation}
+\frac12\left(\sum_i u_i\right)\od\left(\sum_iq_i\right)
+=\frac12\sum_i u_i\od q_i
++\frac12\sum_{i<j}(u_i\od q_j+u_j\od q_i).
+\end{equation}
+Subtracting this from Equation~\eqref{eq:heistop} gives
+\begin{align}
+\Omega_{\mathrm{ord}}(S)
+&=\frac{(H_S^{\mathrm{ord}})_{0,2}
+-\tfrac12(\sum_i u_i)\od(\sum_iq_i)}{N_2}\\
+&=\frac1{N_2}\sum_{i<j}\frac12
+(u_j\od q_i-u_i\od q_j)\\
+&=\frac1{N_2}\sum_{i<j}\frac12
+\pi_i\od\pi_j\od(\kappa_j-\kappa_i).
+\label{eq:omega}
+\end{align}
+For the fully reversed word $S^{\mathrm{rev}}$,
+\begin{equation}
+\Gamma_z(S^{\mathrm{rev}})=\Gamma_z(S),
+\qquad
+\Omega_{\mathrm{ord}}(S^{\mathrm{rev}})=-\Omega_{\mathrm{ord}}(S).
+\end{equation}
+This is an exact identity, not a learned preference.
+
+\subsection{Exact readout used by the source}
+
+The matrix state is reduced to
+\begin{align}
+b_{L_p}&=\widetilde\Psi_p\!\left(\sum_i
+\widetilde\Phi_p(\dB_{X_i})\right),\\
+\bar z&=\frac1m\sum_i z_{X_i},\\
+\Gamma_z&\text{ from Equation~\eqref{eq:gamma}},\\
+\Omega&\text{ from Equation~\eqref{eq:omega}}.
+\end{align}
+The current V3 source intentionally sets the former linear pair-sum input to
+zero:
+\[
+z_{\mathrm{pair\_scale}}=0.
+\]
+This prevents a network trained on pairs from relying on a first-order sum that
+scales incorrectly on triples.  Define
+\begin{equation}
+s_{\mathrm{sym}}=[0;\Gamma_z;b_{L_p}].
+\end{equation}
+Then
+\begin{align}
+h_{\mathrm{sym}}&=\bar z+S_{\mathrm{MLP}}(s_{\mathrm{sym}}),\\
+g&=0.5+\sigmoid\big(G_{\mathrm{gate}}([\bar z;b_{L_p}])\big)
+\in(0.5,1.5)^5,\\
+b_{\mathrm{beh}}&=g\od b_{L_p}+R_{\mathrm{sym}}(s_{\mathrm{sym}}),\\
+b_{\mathrm{sym}}&=\tfrac12b_{\mathrm{beh}}+	frac12G(h_{\mathrm{sym}}),\\
+a_{\mathrm{ord}}&=0.25\,\Omega_{1:5}+W_{\mathrm{ord}}^{(b)}\Omega,\\
+\boxed{\dBh_S&=b_{\mathrm{sym}}+a_{\mathrm{ord}}.}
+\label{eq:mbreadout}
+\end{align}
+All MLP residual output layers are initialized at zero, so optimization starts
+near the interpretable $L_p$ base instead of an arbitrary black-box map.  The
+source class declares a latent map named \texttt{W\_ord}; the current \MB{}
+\texttt{\_readout} does not use that map.  Order enters the behavior output
+through the direct first-five-coordinate term and \texttt{ord\_beh}, shown as
+$W_{\mathrm{ord}}^{(b)}$ above.
+
+\subsection{What is exactly associative}
+
+Matrix multiplication gives
+\begin{equation}
+T_{X_3}(T_{X_2}T_{X_1})=(T_{X_3}T_{X_2})T_{X_1}
+\label{eq:assoc}
+\end{equation}
+up to floating-point roundoff.  Therefore any single readout applied to the
+same total product is parenthesization-independent.  This is what the
+repository's \texttt{associativity\_error} diagnostic verifies for \MB{}.
+It does not claim that every arbitrary learned binary decoder is associative.
+
+\subsection{The exact three-shift Jordan-style readout}
+
+There is an additional implementation detail for $m=3$.  Let
+$\mathcal{P}((h_1,b_1),(h_2,b_2))$ denote \texttt{pair\_forward}, and let
+$(h_\star,b_\star)$ be the single-pass readout of $T_3T_2T_1$.  Compute both
+binary trees
+\begin{align}
+(h_{12},b_{12})&=\mathcal{P}((z_1,\dB_1),(z_2,\dB_2)),\\
+(h_L,\_)&=\mathcal{P}((h_{12},b_{12}),(z_3,\dB_3)),\\
+(h_{23},b_{23})&=\mathcal{P}((z_2,\dB_2),(z_3,\dB_3)),\\
+(h_R,\_)&=\mathcal{P}((z_1,\dB_1),(h_{23},b_{23})).
+\end{align}
+The source then returns
+\begin{align}
+h&=0.12h_\star+0.44(h_L+h_R),\\
+\dBh&=0.12b_\star+0.44\big(G(h_L)+G(h_R)\big)+0.44a_{\mathrm{ord},\star}.
+\label{eq:jordan}
+\end{align}
+Averaging both parenthesizations removes a preference for one binary tree while
+retaining the ordered matrix commutator.  This extra readout is not itself a
+plain matrix product.  The strongest precise statement is: the operator core
+in Equation~\eqref{eq:assoc} is exactly associative, and the triple predictor
+explicitly symmetrizes its two recursive decoding trees.  Reported
+\texttt{assoc\_err} measures the former.
+
+\subsection{Out-of-support safeguard for a new primitive}
+
+At inference, the code compares each primitive fingerprint with the primitive
+support represented in training.  Let $d$ be the maximum relative nearest
+support distance.  If $d>0.08$, it predicts both forward and reversed words,
+\[
+b_{\mathrm{sym}}=\tfrac12(\dBh_S+\dBh_{S^{\mathrm{rev}}}),
+\qquad
+b_{\mathrm{ord}}=\tfrac12(\dBh_S-\dBh_{S^{\mathrm{rev}}}),
+\]
+and shrinks toward the Stage-0 $L_p$ law:
+\begin{equation}
+\dBh_S=b_{L_p}+g_d(b_{\mathrm{sym}}-b_{L_p})+c_d b_{\mathrm{ord}},
+\end{equation}
+where
+\[
+g_d=\exp\{-150\max(0,d-0.08)^2\},
+\qquad
+c_d=\begin{cases}1,&d>0.25,\\0.15,&0.08<d\le0.25.\end{cases}
+\]
+This guard is especially relevant to primitive-holdout and counterfactual-shift
+tests.  It is part of the implemented predictor, not part of the abstract
+Heisenberg theorem.
+
+% =============================================================================
+\section{Alternative proposed methods}
+% =============================================================================
+
+\subsection{\MA: behavior-space anchored algebra}
+
+\MA{} uses the same $L_p$ base but computes interactions explicitly rather
+than extracting them from a matrix product.  For a word of length $m$,
+\begin{align}
+\bar z&=\frac1m\sum_i z_i,\\
+\Gamma_z&=\frac1{\binom m2}\sum_{i<j}z_i\od z_j,\\
+\Omega&=\frac1{\binom m2}\sum_{i<j}
+\frac12\pi_i\od\pi_j\od(\kappa_j-\kappa_i),\\
+z_{\mathrm{scale}}&=\frac2m\sum_i z_i.
+\end{align}
+Its symmetric input is $[z_{\mathrm{scale}};\Gamma_z;b_{L_p}]$.  It predicts
+both a latent representation and behavior:
+\begin{align}
+h&=\bar z+H_{\mathrm{MLP}}([z_{\mathrm{scale}};\Gamma_z;b_{L_p}])
++W_h\Omega,\\
+\widetilde b&=g(\bar z,b_{L_p})\od b_{L_p}
++R([z_{\mathrm{scale}};\Gamma_z;b_{L_p}])+W_b\Omega,\\
+\dBh&=\tfrac12\widetilde b+\tfrac12G(h).
+\end{align}
+For triples, its sequence function also averages the direct all-pairs result
+with both binary trees:
+\[
+h\leftarrow0.4h+0.3(h_L+h_R),
+\qquad
+\dBh\leftarrow0.4\dBh+0.3(b_L+b_R).
+\]
+\MA{} is therefore ``Lie-inspired'' through an antisymmetric potential
+difference.  The literal implementation is not a truncated
+Baker--Campbell--Hausdorff series.
+
+\subsection{\MC: ordered cross-attention fold}
+
+For a pair, form tokens
+\[
+t_i=[z_i;\dB_i;e_i],
+\]
+where $e_i\in\R^8$ is a learned position embedding.  Compute
+\begin{align}
+Q_i&=W_Qt_i,\quad K_i=W_Kt_i,\quad V_i=W_Vt_i,\\
+A_{ij}&=\frac{\exp(Q_i^\top K_j/\sqrt{32})}
+{\sum_{j'}\exp(Q_i^\top K_{j'}/\sqrt{32})},\\
+o_i&=\sum_jA_{ij}V_j.
+\end{align}
+The ordered feature is
+\[
+r=[o_1;o_2;\dB_1+\dB_2;\dB_1-\dB_2].
+\]
+A network produces separate gates $g_1,g_2\in(0,1.5)^5$ and residual $r_b$:
+\begin{equation}
+\dBh=g_1\od\dB_1+g_2\od\dB_2+r_b,
+\qquad
+h=\tfrac12(z_1+z_2)+r_h.
+\end{equation}
+Longer words are left-folded.  Removing position tokens yields a deliberately
+permutation-invariant ablation; its order sign accuracy collapses because it
+cannot distinguish $X\to Y$ from $Y\to X$.
+
+\subsection{Set-attention variant}
+
+The \texttt{M\_A\_att} method uses a learned query to pool a whole token set.
+With keys $k_i$, values $r_i$, and query $q$,
+\[
+\alpha_i=\frac{\exp(k_i^\top q/\sqrt{64})}
+{\sum_j\exp(k_j^\top q/\sqrt{64})},
+\qquad c=\sum_i\alpha_i r_i.
+\]
+The context $c$ controls per-shift retention gates.  It is flexible and
+sub-additive but lacks the exact matrix-product decomposition of \MB{}.
+
+% =============================================================================
+\section{Baselines and decisive ablations}
+% =============================================================================
+
+Understanding the controls is necessary to understand what the experiment
+actually tests.
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.20\textwidth}
+                  >{\raggedright\arraybackslash}p{0.72\textwidth}}
+\toprule
+Method & Mathematical rule or purpose\\
+\midrule
+\endfirsthead
+\toprule
+Method & Mathematical rule or purpose\\
+\midrule
+\endhead
+\texttt{M0\_meanpool} & $h=m^{-1}\sum_i z_i$, $\dBh=G(h)$.  Commutative and unable to encode order.\\
+\texttt{M1\_behadd} & $\dBh=\sum_i\dB_i$.  This is the $p=1$ behavior baseline and commonly overshoots triples.\\
+\texttt{M1\_emb} & $h=\sum_i z_i$, $\dBh=G(h)$.\\
+\texttt{M\_Lp\_only} & Equation~\eqref{eq:lp} with only five learned exponents.  It isolates saturation and has no order channel.\\
+\texttt{M\_PowerOffset} & $\alpha\od b_{L_p}+\beta$ with per-coordinate $p$, scale, and offset: 15 scalar parameters.\\
+\texttt{M\_Max\_pool} & $\sign(\sum_i\dB_i)\od\max_i|\dB_i|$, the $p\to\infty$ envelope.\\
+\texttt{M\_Ord\_noLp} & Full \MB{} with $p\equiv1$.  It tests whether the order network alone can replace saturation.\\
+\texttt{M\_B\_nocomm} & Full symmetric \MB{} readout with $\Omega_{\mathrm{ord}}$ zeroed.  It isolates the commutator.\\
+\texttt{M\_LowRankBilinear} & $h=0.35(z_A+z_B)+0.65(Az_A+Bz_B)+W(Uz_A\od Vz_B)$, left-folded.\\
+\texttt{M\_MLP\_matched} & Ordered black-box MLP on $[z_A;\dB_A;z_B;\dB_B]$, parameter-matched as closely as practical and left-folded.\\
+\texttt{M5\_v1} & $S([z_A+z_B;z_A\od z_B])+W(z_A\od Uz_B-z_B\od Uz_A)$; the earlier unconstrained latent algebra.\\
+\texttt{MEMO\_control} & Exact lookup on seen conditions and mean prediction otherwise.  It tests memorization.\\
+\texttt{PERM\_control} & Trains with permuted pair targets.  It tests whether results survive destroyed input--target alignment.\\
+\bottomrule
+\end{longtable}
+
+Two V3 ablations are especially diagnostic:
+\[
+\BPE(\MB)=0.0152,
+\quad
+\BPE(\text{no }L_p)=0.1170,
+\quad
+\BPE(\text{no commutator})=0.0364.
+\]
+Removing the commutator increases order-pair BPE from $0.0297$ to $0.0912$ and
+reduces order sign match from $0.90$ to $0.16$.  These comparisons isolate the
+two intended mathematical roles rather than merely comparing two differently
+sized neural networks.
+
+% =============================================================================
+\section{Training mathematics}
+% =============================================================================
+
+\subsection{Observed and held-out conditions}
+
+There are six primitives and five severity levels, giving 30 primitive
+conditions.  The main Regime-II training set has 25 ordered pair series, each
+at five matched severity levels, hence
+\[
+30+25\cdot5=155
+\]
+observed conditions.  The pair graph contains:
+\begin{itemize}
+  \item four one-direction order-test chords $BC,BA,CS,PC$;
+  \item their reverses $CB,AB,SC,CP$ held out;
+  \item ten bidirectional training families $BP,AC,AD,AP,DS,AS,BD,BS,DP,PS$;
+  \item one additional one-direction family $CD$.
+\end{itemize}
+The held-out set has 100 triples ($\binom63\cdot5$), 20 reverse-order pairs,
+and 3 off-grid conditions, for 123 total.  Regime III adds six triple families
+to training.
+
+\subsection{Stage-0 exponent fit}
+
+Before gradient training, each $p_k$ is initialized by grid search on observed
+pairs only, over 143 values from $0.85$ to $4.40$.  The grid-search predictor is
+\begin{equation}
+\widehat b_k(p)=\sign(b_{1k}+b_{2k})
+\left(|b_{1k}|^p+|b_{2k}|^p\right)^{1/p}.
+\end{equation}
+No triple target enters this selection.  The selected value is transformed
+through Equation~\eqref{eq:p} to initialize the unconstrained parameter $r_k$.
+The $r_k$ parameters are excluded from weight decay, preventing regularization
+from pulling all $p_k$ back toward the sigmoid midpoint.
+
+\subsection{Weighted behavior loss}
+
+For prediction $\hat y$ and target $y$, the source defines
+\begin{equation}
+\mathcal{L}_w(\hat y,y)=
+\frac1N\sum_{n=1}^N\sum_{k=1}^{5}w_k(\hat y_{nk}-y_{nk})^2,
+\qquad
+w=(1,1,1,1,0.3).
+\label{eq:wmse}
+\end{equation}
+Accuracy is downweighted because it floors more readily than margin, drift,
+ECE, or per-class accuracy.
+
+\subsection{Main objective}
+
+Let $z_i=E(v_i)$ for primitives, let $z_{ij}^{\mathrm{direct}}=E(v_{ij})$ be the
+encoding of an \emph{observed training pair}, and let
+$(h_{ij},\hat y_{ij})$ be the composition of the two primitive inputs.  The
+main terms are
+\begin{align}
+\mathcal{L}_{\mathrm{pair}}&=\mathcal{L}_w(\hat y_{ij},y_{ij}),\\
+\mathcal{L}_{\mathrm{anchor}}&=\tfrac12\left[
+\mathcal{L}_w(G(z_i),y_i)+
+\mathcal{L}_w(G(z_{ij}^{\mathrm{direct}}),y_{ij})\right],\\
+\mathcal{L}_{\mathrm{repr}}&=\tfrac12\|h_{ij}-z_{ij}^{\mathrm{direct}}\|_2^2.
+\end{align}
+For bidirectionally observed pairs, define
+\[
+\Delta\hat y_{ij}=\hat y_{ji}-\hat y_{ij},
+\qquad
+\Delta y_{ij}=y_{ji}-y_{ij}.
+\]
+The additional order terms are
+\begin{equation}
+\mathcal{L}_{\mathrm{order}}
+=2\mathcal{L}_w(\Delta\hat y,\Delta y)
++0.25\mathcal{L}_w(d_{\mathrm{sym}},0)
++0.10\mathcal{L}_w(a_{\mathrm{ord}},0).
+\end{equation}
+The latter two terms partition variance between symmetric and antisymmetric
+channels while the difference loss gives the order channel a supervised sign.
+For adjacent severities of the same primitive, \MB{} also penalizes a false
+self-commutator:
+\begin{equation}
+\mathcal{L}_{\mathrm{semi}}=0.05\,\E\|\Omega(X_{s_a},X_{s_b})\|_2^2.
+\end{equation}
+In Regime III, a direct triple behavior loss is added.  Schematically,
+\begin{equation}
+\mathcal{L}=\mathcal{L}_{\mathrm{pair}}+
+\mathcal{L}_{\mathrm{anchor}}+\mathcal{L}_{\mathrm{repr}}+
+\mathcal{L}_{\mathrm{order}}+
+\mathcal{L}_{\mathrm{semi}}+
+\mathcal{L}_{\mathrm{triple}}.
+\label{eq:loss}
+\end{equation}
+Only applicable terms are present for a given method/regime.
+
+An implementation detail: \path{src/config_v2.py} defines
+\texttt{LAMBDA\_REPR=0.2}, but the current training loop uses that value as an
+enable/disable check and applies an effective coefficient $0.5$ to the
+representation MSE.  Equation~\eqref{eq:loss} reflects the executable source.
+Optimization uses Adam with learning rate $10^{-3}$, 500 steps by default, and
+weight decay $10^{-4}$ on all regular parameters but zero on \texttt{raw\_p}.
+
+\subsection{What pair data is and is not used at test time}
+
+During training, an observed pair's direct fingerprint $v_{ij}$ provides a
+representation-alignment target and its measured behavior $y_{ij}$ provides
+supervision.  During zero-shot evaluation of a held-out composition, prediction
+uses only the primitive cache
+\[
+\{(v_{X_i},\dB_{X_i})\}_{i=1}^m.
+\]
+The held-out composed fingerprint and target are loaded only to score the
+prediction or compute the explicitly labeled non-zero-shot oracle
+$G(E(v_{\mathrm{held}}))$.
+
+% =============================================================================
+\section{Controlled synthetic mathematics}
+% =============================================================================
+
+The synthetic suite checks mechanisms under known ground truth before the
+vision benchmark.
+
+\subsection{S1: additive and commuting}
+
+The 64-dimensional feature space is divided into disjoint coordinate blocks.
+Each primitive changes only its own block.  Operators on disjoint blocks
+commute, so $T_XT_Y=T_YT_X$, and their behavior effects are nearly additive.
+This checks that interaction-aware models do not invent large commutators when
+none exist.
+
+\subsection{S2: interacting and saturating}
+
+A state has displacement $d$ and attenuation $a$.  Each shift updates
+schematically as
+\begin{align}
+d&\leftarrow d+a\od s\delta_X,\\
+a&\leftarrow a\od\exp(-0.55s\sigma_X),\\
+x'&=a\od x+1.4\tanh(d/1.4).
+\end{align}
+The exponential attenuation and hyperbolic tangent create diminishing returns
+and pair interactions.  This isolates why an $L_p$-like base can beat linear
+addition.
+
+\subsection{S3: non-commutative filter then perturb}
+
+Ignoring its final saturation for clarity, one step is affine:
+\begin{equation}
+x\longmapsto (I-sD_X)x+s\delta_X.
+\end{equation}
+For two shifts,
+\begin{align}
+T_Y(T_X(x))&=(I-s_YD_Y)(I-s_XD_X)x
+ +(I-s_YD_Y)s_X\delta_X+s_Y\delta_Y,\\
+T_X(T_Y(x))&=(I-s_XD_X)(I-s_YD_Y)x
+ +(I-s_XD_X)s_Y\delta_Y+s_X\delta_X.
+\end{align}
+Even if the linear damping matrices happened to commute, the affine terms need
+not: the second filter damps the first perturbation, but not its own newly
+written perturbation.  This is the synthetic analogue of blur/noise order.
+
+% =============================================================================
+\section{Evaluation metrics and statistical inference}
+% =============================================================================
+
+Let $P_{s,h,k}$ be the prediction from random seed $s$ on held-out condition
+$h$ and behavior coordinate $k$, and let $Y_{h,k}$ be ground truth.  The
+primary behavior prediction error is
+\begin{equation}
+\BPE=\frac1{S H\cdot4}\sum_{s=1}^{S}\sum_{h=1}^{H}
+\sum_{k=1}^{4}(P_{s,h,k}-Y_{h,k})^2.
+\label{eq:bpe}
+\end{equation}
+Accuracy is reported separately as
+\[
+\operatorname{AccMAE}=\frac1{SH}\sum_{s,h}|P_{s,h,5}-Y_{h,5}|.
+\]
+The first four coordinates are primary because accuracy can floor under strong
+corruption.
+
+\subsection{Ranking and order metrics}
+
+Spearman correlation is computed per seed between predicted and measured
+margin (and separately accuracy), then averaged.  For each reverse-order pair,
+order sign match is tested on drift:
+\begin{equation}
+\sign(P_{Y\to X,2}-P_{X\to Y,2})
+\stackrel{?}{=}
+\sign(Y_{Y\to X,2}-Y_{X\to Y,2}).
+\end{equation}
+Commutator correlation is the Spearman correlation between predicted and true
+magnitudes
+\[
+\|\dB_{Y\to X}-\dB_{X\to Y}\|_{2,1:4}
+\]
+across pair families and severities.  Order error is the mean absolute error
+between those predicted and true magnitudes.
+
+\subsection{Interaction residual error}
+
+For a composition $S$, define its non-additive residual
+\begin{equation}
+\gamma(S)=\dB_S-\sum_{X_i\in S}\dB_{X_i}.
+\end{equation}
+Interaction residual error (IRE) is the MSE between predicted and true
+$\gamma(S)$ over the first four coordinates, reported separately for pairs and
+triples.  It tests whether a model captures the interaction rather than merely
+ranking overall severity.
+
+\subsection{Hierarchical statistical tests}
+
+The V3 analysis avoids treating every seed--severity point as fully
+independent:
+\begin{enumerate}
+  \item It averages condition error within each of five seeds and reports a
+  paired seed-level $t$ test and confidence interval.
+  \item It averages seeds, groups 123 conditions into 25 composition families
+  (20 triple families, 4 reverse-pair families, and 1 off-grid family), then
+  cluster-bootstraps families.
+  \item It computes condition-level paired Wilcoxon signed-rank tests and
+  applies Holm--Bonferroni correction across 11 primary comparisons.
+\end{enumerate}
+For a family of $M$ raw $p$-values sorted as
+$p_{(1)}\le\cdots\le p_{(M)}$, the Holm adjusted values are the monotone
+step-down quantities
+\begin{equation}
+\widetilde p_{(i)}=
+\max_{j\le i}\min\{1,(M-j+1)p_{(j)}\}.
+\end{equation}
+
+% =============================================================================
+\section{Worked examples}
+% =============================================================================
+
+\subsection{A numerical $L_p$ example}
+
+Suppose two primitive accuracy deltas are $b_X=-0.10$ and $b_Y=-0.15$ and
+$p=2$.  Linear addition predicts $-0.25$.  The power law predicts
+\[
+b_{L_2}=-\sqrt{0.10^2+0.15^2}=-0.1803.
+\]
+It is larger in magnitude than either single drop but smaller than their sum,
+which is exactly the desired diminishing-return geometry.
+
+For three equal $-0.10$ shifts,
+\[
+b_{L_2}=-\sqrt{3}\,(0.10)=-0.1732,
+\]
+whereas addition predicts $-0.30$ and averaging predicts $-0.10$.
+
+\subsection{A numerical Heisenberg example}
+
+Take one directional coordinate with
+\[
+\kappa_X=0.2,\quad\pi_X=0.5,
+\qquad
+\kappa_Y=1.0,\quad\pi_Y=0.4.
+\]
+Then $u_X=0.1,q_X=0.5,u_Y=0.4,q_Y=0.4$, and
+\begin{align}
+\Omega(X\to Y)
+&=\tfrac12(u_Yq_X-u_Xq_Y)\\
+&=\tfrac12(0.4\cdot0.5-0.1\cdot0.4)=0.08.
+\end{align}
+Swapping the shifts gives $-0.08$ exactly.  No symmetric interaction has to
+change when the order changes.
+
+\subsection{Why the product remains associative but order-sensitive}
+
+For three primitive matrices,
+\[
+(T_ZT_Y)T_X=T_Z(T_YT_X),
+\]
+so changing parentheses does nothing.  But generally
+\[
+T_ZT_YT_X\ne T_XT_YT_Z,
+\]
+so reversing the physical order can change the result.  Associativity and
+commutativity are independent properties; \MB{} needs the first and rejects
+the second.
+
+% =============================================================================
+\section{What is universal and what is dataset-dependent}
+% =============================================================================
+
+The \emph{form} of the law is reusable:
+\begin{itemize}
+  \item signed $L_p$ accumulation for saturation;
+  \item parallel upper-triangular Heisenberg blocks for all-pairs interactions;
+  \item ordered matrix multiplication for non-commutativity and associativity;
+  \item a symmetric readout plus an antisymmetric order readout.
+\end{itemize}
+The same equations were run on CIFAR-10 with a ResNet, CIFAR-10 with a
+ViT/PatchMixer, Fashion-MNIST, and CIFAR-100 without changing the algebraic
+form.
+
+The \emph{parameters} are deployment-dependent.  A new dataset/classifier pair
+has a different feature coordinate system and behavior scale, so it requires
+new primitive fingerprints, primitive behavior measurements, and calibration
+of $E,G,p,\kappa,\pi$, and the readout networks.  Thus \MB{} is not one frozen
+universal matrix for every dataset.  It is a reusable structural model that is
+fit per dataset--classifier deployment.
+
+After such calibration, the project tests two levels of generalization:
+\begin{enumerate}
+  \item new words, orders, and severities made from known primitives; and
+  \item new primitive types supplied only through their own single-shift
+  fingerprint and behavior points, with no training pair containing that
+  primitive.
+\end{enumerate}
+The second is harder: averaged across the $S$, $P$, and $D$ primitive-holdout
+tests, the five-parameter $L_p$ model slightly outperformed \MB{} in BPE
+($0.0272$ versus $0.0294$), although \MB{} was best on held-out $S$.  This is
+important evidence that the simple saturation law can be preferable when
+interaction data are extremely scarce.
+
+% =============================================================================
+\section{What is novel, stated precisely}
+% =============================================================================
+
+None of the ingredients is individually new mathematics: $L_p$ norms,
+semigroups, upper-triangular matrices, Heisenberg groups, commutators,
+attention, and neural encoders are established tools.  The project's novel
+engineering/scientific contribution is their particular combination for
+\emph{behavior forecasting of a frozen classifier under ordered distribution
+shifts}:
+\begin{enumerate}
+  \item behavior deltas are accumulated through a learned signed $L_p$ law to
+  encode multi-shift saturation;
+  \item symmetric and antisymmetric pair terms are algebraically separated in
+  parallel $3\times3$ blocks;
+  \item the antisymmetric term is parameterized by positive amplitudes and
+  potential differences, enabling transitive order prediction;
+  \item composition is an ordered matrix product, so order sensitivity and
+  associativity coexist by construction; and
+  \item the output is a five-metric behavior forecast without evaluating the
+  held-out composed images at prediction time.
+\end{enumerate}
+The strongest evidence for the combination comes from component ablations:
+$p\equiv1$ damages overall prediction, while setting the commutator to zero
+damages reverse-order prediction.  The novelty claim should be understood as a
+claim about this modeling synthesis and experimental task, not as the invention
+of the underlying algebraic objects.
+
+% =============================================================================
+\section{Assumptions, limits, and falsifiable boundaries}
+% =============================================================================
+
+\subsection{The problem is impossible without assumptions}
+
+Primitive marginals alone cannot uniquely determine arbitrary compositions.
+One can construct two worlds with identical $(v_X,\dB_X)$ and
+$(v_Y,\dB_Y)$ but completely different $\dB_{X\to Y}$.  Pair calibration and
+the algebraic inductive bias rule out some of these worlds; they do not prove a
+universal physical law for every possible shift.
+
+\subsection{Pairwise sufficiency}
+
+The Heisenberg state summarizes all-pairs interactions.  A process with an
+irreducible three-way term that is invisible in every primitive and pair can
+still defeat pair-only training.  Regime III directly tests whether a small
+amount of triple supervision helps; it does in the reported benchmark.
+
+\subsection{Fixed classifier and reference distribution}
+
+Predictions concern a fixed classifier, preprocessing pipeline, clean reference
+distribution, and behavior definition.  Updating the classifier or changing
+the clean population can change the feature fingerprint and learned algebra.
+
+\subsection{Finite-dimensional summary loss}
+
+The 518-vector stores first and second moments, not the complete shifted image
+distribution.  Distinct distributions can share these moments.  The encoder
+cannot distinguish them unless their primitive behavior vector or other
+included moments differ.
+
+\subsection{Associativity scope}
+
+The upper-triangular operator product is exactly associative.  The neural
+binary readout need not be, and the three-shift implementation explicitly
+averages two decoding trees.  Claims of ``zero associativity error'' refer to
+the matrix core diagnostic unless a statement explicitly includes the
+symmetrized triple definition.
+
+\subsection{Empirical scope}
+
+The experiments support the method on the tested synthetic suites, corruption
+families, architectures, and datasets.  They do not establish a theorem that
+all real-world distribution shifts obey the learned $L_p$--Heisenberg law.
+The counterfactual $H$ experiment strengthens the mechanism claim by separating
+high-frequency structure from raw pixel variance, but it remains one designed
+counterfactual.
+
+% =============================================================================
+\section{A concise end-to-end algorithm}
+% =============================================================================
+
+\textbf{Calibration.}
+\begin{enumerate}
+  \item Freeze a classifier and choose a clean calibration sample.
+  \item For each primitive/severity, transform the images, run the frozen
+  classifier, and compute $v_X$ by Equation~\eqref{eq:518} and $\dB_X$ by
+  Equation~\eqref{eq:behavior}.
+  \item Measure selected pair conditions for training only.
+  \item Fit Stage-0 exponents on observed pairs, then optimize
+  Equation~\eqref{eq:loss}.
+\end{enumerate}
+
+\textbf{Prediction for an unseen word.}
+\begin{enumerate}
+  \item Retrieve only $(v_{X_i},\dB_{X_i})$ for each primitive in order.
+  \item Encode $z_i=E(v_{X_i})$.
+  \item Build every primitive's 260 parallel $3\times3$ blocks.
+  \item Left-multiply them as $T_m\cdots T_1$.
+  \item Extract $b_{L_p}$, $\bar z$, $\Gamma_z$, and $\Omega_{\mathrm{ord}}$.
+  \item Apply Equation~\eqref{eq:mbreadout}; for a triple, apply the exact
+  symmetrized readout in Equation~\eqref{eq:jordan}.
+  \item If fingerprints are out of support, apply the support safeguard.
+\end{enumerate}
+
+No image from the unseen composed condition is needed in these prediction
+steps.
+
+% =============================================================================
+\section{Code-to-math map and reproducibility}
+% =============================================================================
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.35\textwidth}
+                  >{\raggedright\arraybackslash}p{0.57\textwidth}}
+\toprule
+Source file/function & Mathematics in this tutorial\\
+\midrule
+\endfirsthead
+\toprule
+Source file/function & Mathematics in this tutorial\\
+\midrule
+\endhead
+\path{src/corruptions_v2.py} & Equation~\eqref{eq:imageword} and the six image transformations.\\
+\path{encoder_stats_from_feats} in \path{src/experiment_v2.py} & Exact construction of Equation~\eqref{eq:518}.\\
+\path{behavior_v2_from} & Margin, drift, ECE, per-class accuracy, accuracy, and confidence.\\
+\path{EncoderV2}, \path{DecoderV2} & The shared $518\to64$ encoder and $64\to5$ decoder.\\
+\path{OperatorProductComp.T} & Primitive translation, symmetric, and directional blocks.\\
+\path{OperatorProductComp._apply_s0} & Extraction of $b_{L_p}$, $\bar z$, $\Gamma_z$, and $\Omega$.\\
+\path{OperatorProductComp._readout} & Equation~\eqref{eq:mbreadout}.\\
+\path{OperatorProductComp.seq_forward} & Ordered product, triple tree symmetrization, and Equation~\eqref{eq:jordan}.\\
+\path{train_method} & Stage-0 $p$ fitting and Equation~\eqref{eq:loss}.\\
+\path{predict} & Primitive-only inference and out-of-support safeguard.\\
+\path{src/metrics_v2.py} & BPE, AccMAE, rank, and order metrics.\\
+\path{src/reviewer_suite_v3.py} & V3 ablations, budget curves, primitive holdouts, external datasets, counterfactual $H$, and hierarchical statistics.\\
+\bottomrule
+\end{longtable}
+
+To verify committed artifacts:
+\begin{lstlisting}[language=bash]
+python3 reproduce.py --verify
+\end{lstlisting}
+To rerun the synthetic suite or reviewer suite:
+\begin{lstlisting}[language=bash]
+python3 reproduce.py --synthetic
+python3 reproduce.py --v3
+\end{lstlisting}
+Compile this tutorial, on a machine with a standard LaTeX distribution, with:
+\begin{lstlisting}[language=bash]
+pdflatex MATHEMATICAL_TUTORIAL.tex
+pdflatex MATHEMATICAL_TUTORIAL.tex
+\end{lstlisting}
+The second pass resolves the table of contents and cross-references.
+
+% =============================================================================
+\section{Final mental model}
+% =============================================================================
+
+The project can be remembered as four layers:
+\begin{enumerate}
+  \item \textbf{Measure each primitive:} turn shifted images into a
+  518-dimensional unlabeled fingerprint and a five-dimensional measured
+  behavior delta.
+  \item \textbf{Saturate magnitudes:} map behavior deltas through a signed
+  power transform, add them, and invert the transform.
+  \item \textbf{Separate interaction from order:} use one Heisenberg block for
+  symmetric pair products and another for an antisymmetric potential
+  difference.
+  \item \textbf{Compose by multiplication:} multiply primitive operators in
+  physical order and decode the resulting state into five forecast numbers.
+\end{enumerate}
+The $L_p$ component answers ``how large should the combined degradation be?'';
+the symmetric channel answers ``how do these shifts overlap?''; and the
+antisymmetric channel answers ``which one came last, and did it erase or
+preserve what came before?''
+
+\begin{thebibliography}{9}
+\bibitem{repo-v2}
+\textit{Shift Algebra v2: Revised Research Plan}, repository file
+\path{PLAN_V2.md}.
+
+\bibitem{repo-results}
+\textit{Shift Algebra v2 Results}, repository file
+\path{RESULTS_V2.md}.
+
+\bibitem{repo-v3}
+\textit{Shift Algebra V3: Comprehensive Reviewer-Proofing Suite}, repository
+file \path{REVIEWER_PROOFING_V3.md}.
+
+\bibitem{heisenberg}
+The matrix law used here is the standard real three-dimensional Heisenberg
+group law, specialized coordinatewise and augmented with translation
+accumulators.
+\end{thebibliography}
+
+\end{document}

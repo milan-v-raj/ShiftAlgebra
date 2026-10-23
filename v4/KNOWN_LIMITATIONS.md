@@ -9,7 +9,7 @@
 1. The main V3 result is a six-primitive CIFAR-10 corruption experiment, not a universal law of distribution shift.
 2. Fashion-MNIST, CIFAR-100, and ViT-PatchMixer are useful stress tests but do not constitute the broad multi-model, multi-environment protocol used by ODP-Bench.
 3. The project has not yet evaluated natural temporal, geographic, demographic, camera, or subpopulation shifts.
-4. The principal held-out compositions have length two or three. Generalization through lengths four, five, and six remains untested.
+4. V4 now tests length-four through length-six words on one frozen classifier each for CIFAR-10 and EMNIST. Both Phase 1 and severity-calibrated Phase 1B failed their method gates, so this evidence limits rather than extends the positive V3 claim.
 5. The V1--V3 research loop repeatedly inspected related benchmark families. These results are development evidence, not an untouched final confirmation.
 
 ## 2. Metric comparability
@@ -48,6 +48,7 @@
 6. Historical `LAMBDA_REPR=0.2` acts as an enable flag while executable training uses a coefficient of `0.5`. V4 coefficients must be single-source and tested.
 7. Historical code contains an unused or ambiguously used `W_ord` pathway in some models. V4 must not retain dead scientific parameters.
 8. Learned exponents require a declared domain. V4 constrains `p >= 1`; any future relaxation must be preregistered and interpreted.
+9. Phase-1 pair residual and potential interactions are normalized by pair count. Phase 1B shows that this intensive correction can systematically underestimate extensive higher-order damage, even when every single primitive is mild.
 
 ## 6. Data and mechanism boundaries
 
@@ -71,4 +72,4 @@ The strongest claim supported today is:
 
 > On the audited V3 synthetic-corruption testbed, a signed-power saturation component and an antisymmetric order component improve prediction of held-out composed-shift behavior over the tested baselines, without using images from those held-out compositions at prediction time.
 
-Broader claims about natural shifts, cross-architecture ranking, length-six extrapolation, or superiority to ODP-Bench methods remain prospective.
+The independently frozen V4 evidence does **not** support superiority for length-six extrapolation: max-envelope wins the severe Phase-1 protocol, and pair residual wins severity-calibrated Phase 1B. Broader claims about natural shifts, cross-architecture ranking, or superiority to ODP-Bench methods remain prospective.

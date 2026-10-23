@@ -1,7 +1,7 @@
 # Phase 1B Preregistration — Severity-Calibrated Mason Extension
 
 **Protocol ID:** `V4-P1B-CALIBRATED-001`
-**Status:** STAGE B — STRENGTHS FROZEN; PHASE-1B PAIRS AND TARGETS UNOPENED
+**Status:** ONE-SHOT CONFIRMATION COMPLETE; DYNAMIC-RANGE AND METHOD GATES FAILED
 **Date:** 2026-10-23
 **Parent protocol:** `V4-P1-MASON-001` (completed negative result; not replaced)
 
@@ -222,3 +222,5 @@ python -m v4.phase1b.analyze
 - Stage-B strength-freeze commit: `44f55c1b0081d16339a6dd22649dc4abf7a60a46`
 - Confirmation result commit: **TBD**
 - Frozen strength file SHA-256: `f851fc920cc2d1ff677122b5de7f2fde0ab229acfcd197c8fef40913fd7c8772`
+- Final analysis SHA-256: `c52507a02e251f8a0938f1a4faaec834be4de1f84d01de213464ac693d38709d`
+- Frozen outcome: pair residual macro MAE `18.837pp`; potential algebra `20.575pp`; overall method gate failed.

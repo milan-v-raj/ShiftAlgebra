@@ -8,7 +8,7 @@ This folder executes [`NEURIPS_DEVELOPMENT_PLAN.md`](../NEURIPS_DEVELOPMENT_PLAN
 |---|---|---|
 | **0. Claim and code audit** | **IN PROGRESS** | Exact core, architecture-independent fingerprint, cyclic-order control, property tests, standard metrics, source/family baseline, schema, claim matrix, limitations, and Phase-1 draft created |
 | **1. Independent composition bridge** | **COMPLETE — METHOD GATE FAILED** | One-shot CIFAR-10 and EMNIST confirmation found severe saturation; max-envelope baseline wins |
-| **1B. Severity-calibrated extension** | **PREREGISTERED — TARGETS SEALED** | Single-only attenuation calibration and a two-stage freeze test the saturation diagnosis without changing the Phase-1 result |
+| **1B. Severity-calibrated extension** | **COMPLETE — METHOD GATE FAILED** | Max envelope loses after calibration, but pair residual beats potential algebra by 9.22%; long-word dynamic-range guard also fails |
 | 2. CIFAR model bank | NOT STARTED | — |
 | 3. ImageNet/realistic corruptions | NOT STARTED | — |
 | 4. Natural/hybrid shifts | NOT STARTED | — |
@@ -16,7 +16,7 @@ This folder executes [`NEURIPS_DEVELOPMENT_PLAN.md`](../NEURIPS_DEVELOPMENT_PLAN
 | 6. One-shot final evaluation | NOT STARTED | — |
 | 7. Paper and artifact | NOT STARTED | — |
 
-No prospective benchmark result should be inferred from scaffold or unit-test completion.
+Completed Phase-1/1B benchmark results are documented in their frozen reports; no result should be inferred for unstarted Phases 2--7.
 
 ## Layout
 
@@ -49,6 +49,13 @@ The verifier:
 3. checks the literature matrix schema;
 4. checks that all required Phase-0 artifacts exist;
 5. prints a machine-readable summary to stdout.
+
+Completed composition bridges can be verified separately:
+
+```bash
+python3 v4/phase1/verify_phase1.py
+python3 v4/phase1b/verify_phase1b.py
+```
 
 ## Scientific rules
 

@@ -1,0 +1,309 @@
+{
+  "best_non_algebraic_r2_baseline": "pair_residual",
+  "bootstrap": {
+    "ci95_pp": [
+      -3.2769753935931956,
+      -0.3800735080757432
+    ],
+    "draws": 10000,
+    "estimand": "comparator MAE minus potential MAE in percentage points",
+    "hierarchy": "dataset -> length -> unordered word family; all available orders retained",
+    "seed": 15101,
+    "word_clustered_point_pp": -1.7369388780533797
+  },
+  "dynamic_range": {
+    "CIFAR-10": {
+      "by_length": {
+        "3": {
+          "mean_accuracy": 0.4117944464087486,
+          "minimum_mean_required": 0.20176667034626006,
+          "passes": true
+        },
+        "4": {
+          "mean_accuracy": 0.2942925910154978,
+          "minimum_mean_required": 0.20176667034626006,
+          "passes": true
+        },
+        "5": {
+          "mean_accuracy": 0.21497777700424195,
+          "minimum_mean_required": 0.20176667034626006,
+          "passes": true
+        },
+        "6": {
+          "mean_accuracy": 0.1824814816315969,
+          "minimum_mean_required": 0.20176667034626006,
+          "passes": false
+        }
+      },
+      "chance_accuracy": 0.1,
+      "clean_accuracy": 0.7784444689750671,
+      "length_mean_floor": 0.20176667034626006,
+      "maximum_near_chance_fraction": 0.1,
+      "near_chance_fraction": 0.0,
+      "passed": false
+    },
+    "EMNIST": {
+      "by_length": {
+        "3": {
+          "mean_accuracy": 0.22639480084180832,
+          "minimum_mean_required": 0.14916666365684347,
+          "passes": true
+        },
+        "4": {
+          "mean_accuracy": 0.11660953437288603,
+          "minimum_mean_required": 0.14916666365684347,
+          "passes": false
+        },
+        "5": {
+          "mean_accuracy": 0.08244483843445778,
+          "minimum_mean_required": 0.14916666365684347,
+          "passes": false
+        },
+        "6": {
+          "mean_accuracy": 0.06395981051027774,
+          "minimum_mean_required": 0.14916666365684347,
+          "passes": false
+        }
+      },
+      "chance_accuracy": 0.02127659574468085,
+      "clean_accuracy": 0.8738770484924316,
+      "length_mean_floor": 0.14916666365684347,
+      "maximum_near_chance_fraction": 0.1,
+      "near_chance_fraction": 0.0,
+      "passed": false
+    }
+  },
+  "gates": {
+    "clustered_ci_excludes_zero": false,
+    "directional_gate_passed": false,
+    "dynamic_range_passed": false,
+    "no_dataset_harm_over_5_percent": false,
+    "order_channel_gate_passed": true,
+    "overall_method_gate_passed": false,
+    "potential_beats_best_baseline": false,
+    "relative_improvement_at_least_15_percent": false,
+    "strong_gate_passed": false
+  },
+  "macro_accuracy_mae_pp": {
+    "additive": 33.71564819405859,
+    "lp": 33.757968322601364,
+    "max_abs": 53.53982510618293,
+    "mean": 55.38032220103419,
+    "pair_feature_ridge": 18.8850746485991,
+    "pair_residual": 18.83740940596931,
+    "potential_algebra": 20.574909094747966
+  },
+  "order_diagnostics": {
+    "available_reverse_pairs": 10,
+    "potential_beats_lp_on_reversal_difference": true,
+    "records": [
+      {
+        "dataset": "CIFAR-10",
+        "methods": {
+          "lp": {
+            "absolute_difference_error_pp": 0.0,
+            "predicted_reversal_difference": 0.0
+          },
+          "potential_algebra": {
+            "absolute_difference_error_pp": 0.5498510995520789,
+            "predicted_reversal_difference": -0.005498510995520789
+          }
+        },
+        "reverse": "Rotate90>Invert>Contrast",
+        "sign_is_measurable": false,
+        "true_reversal_difference": 0.0,
+        "word": "Contrast>Invert>Rotate90"
+      },
+      {
+        "dataset": "CIFAR-10",
+        "methods": {
+          "lp": {
+            "absolute_difference_error_pp": 1.0222226381301769,
+            "predicted_reversal_difference": -1.1102230246251565e-16
+          },
+          "potential_algebra": {
+            "absolute_difference_error_pp": 0.5280606389683085,
+            "predicted_reversal_difference": -0.004941619991618795
+          }
+        },
+        "reverse": "Rotate90>Swirl>Contrast",
+        "sign_is_measurable": true,
+        "true_reversal_difference": -0.01022222638130188,
+        "word": "Contrast>Swirl>Rotate90"
+      },
+      {
+        "dataset": "CIFAR-10",
+        "methods": {
+          "lp": {
+            "absolute_difference_error_pp": 11.933335661888123,
+            "predicted_reversal_difference": 0.0
+          },
+          "potential_algebra": {
+            "absolute_difference_error_pp": 7.409682800789508,
+            "predicted_reversal_difference": -0.04523652861098615
+          }
+        },
+        "reverse": "ImpulseNoise>Invert>GaussianBlur",
+        "sign_is_measurable": true,
+        "true_reversal_difference": -0.11933335661888123,
+        "word": "GaussianBlur>Invert>ImpulseNoise"
+      },
+      {
+        "dataset": "CIFAR-10",
+        "methods": {
+          "lp": {
+            "absolute_difference_error_pp": 3.500002622604381,
+            "predicted_reversal_difference": 1.1102230246251565e-16
+          },
+          "potential_algebra": {
+            "absolute_difference_error_pp": 2.87445588493892,
+            "predicted_reversal_difference": -0.0062554673766545
+          }
+        },
+        "reverse": "Swirl>ImpulseNoise>GaussianBlur",
+        "sign_is_measurable": true,
+        "true_reversal_difference": -0.0350000262260437,
+        "word": "GaussianBlur>ImpulseNoise>Swirl"
+      },
+      {
+        "dataset": "CIFAR-10",
+        "methods": {
+          "lp": {
+            "absolute_difference_error_pp": 11.499999463558197,
+            "predicted_reversal_difference": 0.0
+          },
+          "potential_algebra": {
+            "absolute_difference_error_pp": 9.207930809597542,
+            "predicted_reversal_difference": 0.02292068653960655
+          }
+        },
+        "reverse": "Rotate90>GaussianBlur>Invert>Contrast>ImpulseNoise",
+        "sign_is_measurable": true,
+        "true_reversal_difference": 0.11499999463558197,
+        "word": "ImpulseNoise>Contrast>Invert>GaussianBlur>Rotate90"
+      },
+      {
+        "dataset": "EMNIST",
+        "methods": {
+          "lp": {
+            "absolute_difference_error_pp": 0.0,
+            "predicted_reversal_difference": 0.0
+          },
+          "potential_algebra": {
+            "absolute_difference_error_pp": 0.012786660874741784,
+            "predicted_reversal_difference": 0.00012786660874741784
+          }
+        },
+        "reverse": "Rotate90>Invert>Contrast",
+        "sign_is_measurable": false,
+        "true_reversal_difference": 0.0,
+        "word": "Contrast>Invert>Rotate90"
+      },
+      {
+        "dataset": "EMNIST",
+        "methods": {
+          "lp": {
+            "absolute_difference_error_pp": 0.10638236999511719,
+            "predicted_reversal_difference": 0.0
+          },
+          "potential_algebra": {
+            "absolute_difference_error_pp": 0.06526564163225057,
+            "predicted_reversal_difference": 0.00041116728362866617
+          }
+        },
+        "reverse": "Rotate90>Swirl>Contrast",
+        "sign_is_measurable": false,
+        "true_reversal_difference": 0.0010638236999511719,
+        "word": "Contrast>Swirl>Rotate90"
+      },
+      {
+        "dataset": "EMNIST",
+        "methods": {
+          "lp": {
+            "absolute_difference_error_pp": 2.0921990275383107,
+            "predicted_reversal_difference": 1.1102230246251565e-16
+          },
+          "potential_algebra": {
+            "absolute_difference_error_pp": 0.47353333454033253,
+            "predicted_reversal_difference": -0.02565732362078632
+          }
+        },
+        "reverse": "ImpulseNoise>Invert>GaussianBlur",
+        "sign_is_measurable": true,
+        "true_reversal_difference": -0.020921990275382996,
+        "word": "GaussianBlur>Invert>ImpulseNoise"
+      },
+      {
+        "dataset": "EMNIST",
+        "methods": {
+          "lp": {
+            "absolute_difference_error_pp": 0.31915009021759033,
+            "predicted_reversal_difference": 0.0
+          },
+          "potential_algebra": {
+            "absolute_difference_error_pp": 0.2352427141019131,
+            "predicted_reversal_difference": -0.0008390737611567722
+          }
+        },
+        "reverse": "Swirl>ImpulseNoise>GaussianBlur",
+        "sign_is_measurable": false,
+        "true_reversal_difference": -0.0031915009021759033,
+        "word": "GaussianBlur>ImpulseNoise>Swirl"
+      },
+      {
+        "dataset": "EMNIST",
+        "methods": {
+          "lp": {
+            "absolute_difference_error_pp": 0.620567798614502,
+            "predicted_reversal_difference": 0.0
+          },
+          "potential_algebra": {
+            "absolute_difference_error_pp": 0.7233751832324664,
+            "predicted_reversal_difference": 0.013439429818469684
+          }
+        },
+        "reverse": "Rotate90>GaussianBlur>Invert>Contrast>ImpulseNoise",
+        "sign_is_measurable": true,
+        "true_reversal_difference": 0.0062056779861450195,
+        "word": "ImpulseNoise>Contrast>Invert>GaussianBlur>Rotate90"
+      }
+    ],
+    "summary": {
+      "lp": {
+        "measurable_pairs": 6,
+        "measurable_sign_accuracy": 0.16666666666666666,
+        "reversal_difference_mae_pp": 3.1093859672546396
+      },
+      "potential_algebra": {
+        "measurable_pairs": 6,
+        "measurable_sign_accuracy": 1.0,
+        "reversal_difference_mae_pp": 2.208018476822806
+      }
+    }
+  },
+  "per_dataset_accuracy_mae_pp": {
+    "CIFAR-10": {
+      "additive": 25.15178570380578,
+      "lp": 25.191169511407747,
+      "max_abs": 42.84897350347959,
+      "mean": 43.72330463849581,
+      "pair_feature_ridge": 17.295389797127022,
+      "pair_residual": 17.202047853475438,
+      "potential_algebra": 17.76467779298686
+    },
+    "EMNIST": {
+      "additive": 42.27951068431139,
+      "lp": 42.32476713379498,
+      "max_abs": 64.23067670888626,
+      "mean": 67.03733976357258,
+      "pair_feature_ridge": 20.474759500071183,
+      "pair_residual": 20.472770958463183,
+      "potential_algebra": 23.385140396509073
+    }
+  },
+  "potential_improvement_pp": -1.7374996887786551,
+  "potential_relative_improvement": -0.09223665798907921,
+  "primary_endpoint": "dataset-macro accuracy MAE over 130 length-3--6 words",
+  "protocol": "V4-P1B-CALIBRATED-001",
+  "status": "COMPLETE_METHOD_GATE_FAILED"
+}

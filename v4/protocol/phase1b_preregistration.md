@@ -219,6 +219,6 @@ python -m v4.phase1b.analyze
 ## 13. Freeze record
 
 - Stage-A executable commit: `5ff297827e46fd0fde9b5d8298df13409d36fc74`
-- Stage-B strength-freeze commit: **TBD**
+- Stage-B strength-freeze commit: `44f55c1b0081d16339a6dd22649dc4abf7a60a46`
 - Confirmation result commit: **TBD**
 - Frozen strength file SHA-256: `f851fc920cc2d1ff677122b5de7f2fde0ab229acfcd197c8fef40913fd7c8772`

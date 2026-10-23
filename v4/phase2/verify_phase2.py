@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import csv
 import json
+import math
 import subprocess
 import sys
 from collections import Counter
@@ -72,9 +73,25 @@ def main() -> None:
         raise ValueError("invalid frozen Phase-2 method")
     analysis_path = RESULTS / "PHASE2_PILOT_ANALYSIS.json"
     analysis = json.loads(analysis_path.read_text()) if analysis_path.is_file() else None
+    confirmation_forecast = RESULTS / "confirmation-forecast.csv"
+    if confirmation_forecast.is_file():
+        with confirmation_forecast.open(newline="") as handle:
+            forecast_rows = list(csv.DictReader(handle))
+        if len(forecast_rows) != 30 * 130:
+            raise ValueError("confirmation forecast must contain 30 x 130 target rows")
+        sealed = [row for row in forecast_rows if row["word_role"] == "confirmation"]
+        if len(sealed) != 30 * 90:
+            raise ValueError("confirmation forecast must contain 30 x 90 sealed rows")
+        if analysis is not None:
+            for method in analysis["methods"]:
+                recomputed = 100 * sum(
+                    abs(float(row[method]) - float(row["true_accuracy"])) for row in sealed
+                ) / len(sealed)
+                reported = analysis["methods"][method]["accuracy_mae_pp"]
+                if not math.isclose(recomputed, reported, rel_tol=0, abs_tol=1e-10):
+                    raise ValueError(f"analysis MAE mismatch for {method}")
     if any(row["split"] == "confirmation" for row in completed) and analysis is None:
-        forecast = RESULTS / "confirmation-forecast.csv"
-        if forecast.is_file():
+        if confirmation_forecast.is_file():
             raise ValueError("confirmation forecast exists without final analysis")
     status = (
         analysis["status"] if analysis is not None

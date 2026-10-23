@@ -10,7 +10,8 @@
 2. Fashion-MNIST, CIFAR-100, and ViT-PatchMixer are useful stress tests but do not constitute the broad multi-model, multi-environment protocol used by ODP-Bench.
 3. The project has not yet evaluated natural temporal, geographic, demographic, camera, or subpopulation shifts.
 4. V4 now tests length-four through length-six words on one frozen classifier each for CIFAR-10 and EMNIST. Both Phase 1 and severity-calibrated Phase 1B failed their method gates, so this evidence limits rather than extends the positive V3 claim.
-5. The V1--V3 research loop repeatedly inspected related benchmark families. These results are development evidence, not an untouched final confirmation.
+5. The Phase-2 CPU pilot transfers across new seeds/lineages but uses only 15 independent confirmation lineages, five lightweight architecture families, three recipes, and weak two-epoch CIFAR-10 models. It is not the planned 75+ model CIFAR-10/CIFAR-100 final bank.
+6. The V1--V3 research loop repeatedly inspected related benchmark families. These results are development evidence, not an untouched final confirmation.
 
 ## 2. Metric comparability
 
@@ -19,6 +20,8 @@
 3. Current statistical clusters are composition families from a small number of trained classifiers; they are not independent datasets or architecture families.
 4. High raw across-model rank can be explained by source accuracy, architecture, or training recipe. V4 therefore requires source-controlled and within-family analyses.
 5. Statistical significance does not establish practical deployment value. Model-selection regret and calibration cost must also be measured.
+6. Phase-2 epoch-one and epoch-two snapshots are correlated; its bootstrap correctly clusters them by 15 training lineages rather than presenting 30 snapshots as independent replicates.
+7. The Phase-2 `g1` pilot improves MAE and rank, but an accuracy-space pair score has slightly lower top-1 regret. No single method dominates every deployment endpoint.
 
 ## 3. Information-access boundary
 
@@ -72,4 +75,4 @@ The strongest claim supported today is:
 
 > On the audited V3 synthetic-corruption testbed, a signed-power saturation component and an antisymmetric order component improve prediction of held-out composed-shift behavior over the tested baselines, without using images from those held-out compositions at prediction time.
 
-The independently frozen V4 evidence does **not** support superiority for length-six extrapolation: max-envelope wins the severe Phase-1 protocol, and pair residual wins severity-calibrated Phase 1B. Broader claims about natural shifts, cross-architecture ranking, or superiority to ODP-Bench methods remain prospective.
+The independently frozen V4 evidence does **not** support superiority for one-model length-six extrapolation: max-envelope wins the severe Phase-1 protocol, and pair residual wins severity-calibrated Phase 1B. A separate Phase-2 CPU pilot supports a narrower across-model claim: on 15 held-out CIFAR training lineages, frozen composition forecasts improve accuracy MAE, controlled model rank, and selection regret beyond source/model/word metadata. It does not support a positive order claim, architecture-family holdout, natural-shift generalization, or superiority to official ODP-Bench methods.

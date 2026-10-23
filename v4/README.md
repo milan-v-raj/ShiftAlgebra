@@ -9,7 +9,7 @@ This folder executes [`NEURIPS_DEVELOPMENT_PLAN.md`](../NEURIPS_DEVELOPMENT_PLAN
 | **0. Claim and code audit** | **IN PROGRESS** | Exact core, architecture-independent fingerprint, cyclic-order control, property tests, standard metrics, source/family baseline, schema, claim matrix, limitations, and Phase-1 draft created |
 | **1. Independent composition bridge** | **COMPLETE — METHOD GATE FAILED** | One-shot CIFAR-10 and EMNIST confirmation found severe saturation; max-envelope baseline wins |
 | **1B. Severity-calibrated extension** | **COMPLETE — METHOD GATE FAILED** | Max envelope loses after calibration, but pair residual beats potential algebra by 9.22%; long-word dynamic-range guard also fails |
-| **2. CIFAR model bank** | **IN PROGRESS — CPU PILOT PREREGISTERED** | 30 development + 30 confirmation snapshots; five architecture and three recipe families; extensive-hazard correction and across-model ranking/regret |
+| **2. CIFAR model bank** | **IN PROGRESS — CPU PILOT PASSED** | Composition-aware `g1` cuts MAE 47.4% vs `g0` and improves rank/regret; final 75+ model/CIFAR-100 bank remains |
 | 3. ImageNet/realistic corruptions | NOT STARTED | — |
 | 4. Natural/hybrid shifts | NOT STARTED | — |
 | 5. Method freeze/preregistration | NOT STARTED | — |
@@ -55,6 +55,7 @@ Completed composition bridges can be verified separately:
 ```bash
 python3 v4/phase1/verify_phase1.py
 python3 v4/phase1b/verify_phase1b.py
+python3 v4/phase2/verify_phase2.py
 ```
 
 ## Scientific rules

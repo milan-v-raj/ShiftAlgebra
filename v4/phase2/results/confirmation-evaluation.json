@@ -1,0 +1,24 @@
+{
+  "behavior_csv": "/home/user/ShiftAlgebra/v4/phase2/results/confirmation-behavior.csv",
+  "behavior_csv_sha256": "fabd638566ff5a991286d65b05d387158c63379af7f5524baf9a6d363076f3f7",
+  "conditions": 167,
+  "elapsed_seconds": 986.3558957576752,
+  "lineages": 15,
+  "models": 30,
+  "partition": {
+    "offset": 100,
+    "per_class": 100
+  },
+  "protocol": "V4-P2-CIFAR-BANK-PILOT-001",
+  "samples_per_condition": 1000,
+  "split": "confirmation",
+  "status": "CONFIRMATION_BANK_EVALUATED",
+  "strengths": {
+    "Contrast": 0.45,
+    "GaussianBlur": 0.35,
+    "ImpulseNoise": 0.1,
+    "Invert": 0.175,
+    "Rotate90": 0.225,
+    "Swirl": 0.225
+  }
+}

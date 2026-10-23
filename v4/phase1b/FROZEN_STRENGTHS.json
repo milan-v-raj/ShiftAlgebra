@@ -1,0 +1,56 @@
+{
+  "datasets": {
+    "cifar10": {
+      "all_selected_within_band": true,
+      "calibration_artifact": "v4/phase1b/results/cifar10-calibration.json",
+      "calibration_artifact_sha256": "918eef7c2cfea21bbed117f33ef6912062de0bf13228215d8b6758844e1b8e86",
+      "checkpoint_sha256": "9f5815dd3ab43edd5d09636e8d2688fa9ab8aaae346143ec6d5184bd99944848",
+      "dataset": "CIFAR-10",
+      "model_id": "smallcnn-w24-s1301",
+      "selected_normalized_drops": {
+        "Contrast": 0.08623298033282913,
+        "GaussianBlur": 0.07715582450832079,
+        "ImpulseNoise": 0.0983358547655069,
+        "Invert": 0.09379727685325273,
+        "Rotate90": 0.08623298033282913,
+        "Swirl": 0.08018154311649023
+      },
+      "strengths": {
+        "Contrast": 0.45,
+        "GaussianBlur": 0.35,
+        "ImpulseNoise": 0.1,
+        "Invert": 0.175,
+        "Rotate90": 0.225,
+        "Swirl": 0.225
+      }
+    },
+    "emnist": {
+      "all_selected_within_band": false,
+      "calibration_artifact": "v4/phase1b/results/emnist-calibration.json",
+      "calibration_artifact_sha256": "1730c7012934d1763ce98f9027f662b35417db31847cf8540f3f556ecc643552",
+      "checkpoint_sha256": "05c49cd3678ee537accac6380d33002e4d8f512e5eb93093b18f0701f815ca53",
+      "dataset": "EMNIST",
+      "model_id": "smallcnn-w16-s1301",
+      "selected_normalized_drops": {
+        "Contrast": 0.08446362515413071,
+        "GaussianBlur": 0.07706535141800253,
+        "ImpulseNoise": 0.09987669543773124,
+        "Invert": 0.13316892725030832,
+        "Rotate90": 0.06596794081381012,
+        "Swirl": 0.07336621454993844
+      },
+      "strengths": {
+        "Contrast": 0.25,
+        "GaussianBlur": 0.275,
+        "ImpulseNoise": 0.15,
+        "Invert": 0.05,
+        "Rotate90": 0.15,
+        "Swirl": 0.15
+      }
+    }
+  },
+  "preregistration_code_commit": "4aabe5ee45c1fb81c76433bbdb43e76dc28ff015",
+  "protocol": "V4-P1B-CALIBRATED-001",
+  "selection_rule": "nearest normalized clean-to-chance accuracy drop to 0.08 on the single-only development grid; smaller-alpha tie break",
+  "status": "STRENGTHS_FROZEN_TARGETS_UNOPENED"
+}

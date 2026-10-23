@@ -1,0 +1,1427 @@
+{
+  "acceptance_band": [
+    0.04,
+    0.12
+  ],
+  "all_selected_within_band": false,
+  "calibration_partition": {
+    "offset": 0,
+    "per_class": 40,
+    "samples": 1880,
+    "source": "Phase-1 development image partition"
+  },
+  "candidate_rows": [
+    {
+      "accuracy": 0.8840425531914894,
+      "accuracy_drop_pp": 0.0,
+      "alpha": 0.0,
+      "distance_to_target": 0.08,
+      "normalized_drop": 0.0,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.8824468085106383,
+      "accuracy_drop_pp": 0.15957446808511078,
+      "alpha": 0.025,
+      "distance_to_target": 0.07815043156596789,
+      "normalized_drop": 0.0018495684340321102,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.8803191489361702,
+      "accuracy_drop_pp": 0.37234042553191404,
+      "alpha": 0.05,
+      "distance_to_target": 0.07568434032059188,
+      "normalized_drop": 0.004315659679408128,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.8797872340425532,
+      "accuracy_drop_pp": 0.42553191489361764,
+      "alpha": 0.075,
+      "distance_to_target": 0.07506781750924783,
+      "normalized_drop": 0.004932182490752165,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.875531914893617,
+      "accuracy_drop_pp": 0.8510638297872353,
+      "alpha": 0.1,
+      "distance_to_target": 0.07013563501849568,
+      "normalized_drop": 0.00986436498150433,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.8686170212765958,
+      "accuracy_drop_pp": 1.5425531914893598,
+      "alpha": 0.125,
+      "distance_to_target": 0.062120838471023454,
+      "normalized_drop": 0.01787916152897655,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.8643617021276596,
+      "accuracy_drop_pp": 1.9680851063829774,
+      "alpha": 0.15,
+      "distance_to_target": 0.057188655980271286,
+      "normalized_drop": 0.022811344019728716,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.8569148936170212,
+      "accuracy_drop_pp": 2.7127659574468166,
+      "alpha": 0.175,
+      "distance_to_target": 0.0485573366214549,
+      "normalized_drop": 0.0314426633785451,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.8446808510638298,
+      "accuracy_drop_pp": 3.936170212765955,
+      "alpha": 0.2,
+      "distance_to_target": 0.03437731196054257,
+      "normalized_drop": 0.04562268803945743,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.8292553191489361,
+      "accuracy_drop_pp": 5.478723404255326,
+      "alpha": 0.225,
+      "distance_to_target": 0.016498150431565897,
+      "normalized_drop": 0.0635018495684341,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.8111702127659575,
+      "accuracy_drop_pp": 7.287234042553193,
+      "alpha": 0.25,
+      "distance_to_target": 0.004463625154130707,
+      "normalized_drop": 0.08446362515413071,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.7882978723404256,
+      "accuracy_drop_pp": 9.57446808510638,
+      "alpha": 0.275,
+      "distance_to_target": 0.03097410604192352,
+      "normalized_drop": 0.11097410604192352,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.7542553191489362,
+      "accuracy_drop_pp": 12.978723404255321,
+      "alpha": 0.3,
+      "distance_to_target": 0.07043156596794083,
+      "normalized_drop": 0.15043156596794083,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.7196808510638298,
+      "accuracy_drop_pp": 16.436170212765955,
+      "alpha": 0.325,
+      "distance_to_target": 0.11050554870530206,
+      "normalized_drop": 0.19050554870530206,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.6840425531914893,
+      "accuracy_drop_pp": 20.000000000000007,
+      "alpha": 0.35,
+      "distance_to_target": 0.1518125770653515,
+      "normalized_drop": 0.2318125770653515,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.6351063829787233,
+      "accuracy_drop_pp": 24.893617021276604,
+      "alpha": 0.375,
+      "distance_to_target": 0.2085326757090013,
+      "normalized_drop": 0.2885326757090013,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.5845744680851064,
+      "accuracy_drop_pp": 29.946808510638302,
+      "alpha": 0.4,
+      "distance_to_target": 0.2671023427866831,
+      "normalized_drop": 0.3471023427866831,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.5297872340425532,
+      "accuracy_drop_pp": 35.42553191489362,
+      "alpha": 0.425,
+      "distance_to_target": 0.3306041923551171,
+      "normalized_drop": 0.41060419235511714,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.4803191489361702,
+      "accuracy_drop_pp": 40.37234042553192,
+      "alpha": 0.45,
+      "distance_to_target": 0.387940813810111,
+      "normalized_drop": 0.467940813810111,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.43351063829787234,
+      "accuracy_drop_pp": 45.0531914893617,
+      "alpha": 0.475,
+      "distance_to_target": 0.44219482120838477,
+      "normalized_drop": 0.5221948212083848,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.37872340425531914,
+      "accuracy_drop_pp": 50.53191489361703,
+      "alpha": 0.5,
+      "distance_to_target": 0.5056966707768188,
+      "normalized_drop": 0.5856966707768188,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.1898936170212766,
+      "accuracy_drop_pp": 69.41489361702128,
+      "alpha": 0.6,
+      "distance_to_target": 0.7245622688039458,
+      "normalized_drop": 0.8045622688039458,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.0925531914893617,
+      "accuracy_drop_pp": 79.14893617021276,
+      "alpha": 0.7,
+      "distance_to_target": 0.8373859432799015,
+      "normalized_drop": 0.9173859432799014,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.061170212765957445,
+      "accuracy_drop_pp": 82.2872340425532,
+      "alpha": 0.8,
+      "distance_to_target": 0.8737607891491985,
+      "normalized_drop": 0.9537607891491985,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.03776595744680851,
+      "accuracy_drop_pp": 84.62765957446808,
+      "alpha": 0.9,
+      "distance_to_target": 0.9008877928483354,
+      "normalized_drop": 0.9808877928483354,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.03031914893617021,
+      "accuracy_drop_pp": 85.37234042553192,
+      "alpha": 1.0,
+      "distance_to_target": 0.9095191122071518,
+      "normalized_drop": 0.9895191122071517,
+      "primitive": "Contrast"
+    },
+    {
+      "accuracy": 0.8840425531914894,
+      "accuracy_drop_pp": 0.0,
+      "alpha": 0.0,
+      "distance_to_target": 0.08,
+      "normalized_drop": 0.0,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.8813829787234042,
+      "accuracy_drop_pp": 0.26595744680851796,
+      "alpha": 0.025,
+      "distance_to_target": 0.07691738594327982,
+      "normalized_drop": 0.0030826140567201837,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.8797872340425532,
+      "accuracy_drop_pp": 0.42553191489361764,
+      "alpha": 0.05,
+      "distance_to_target": 0.07506781750924783,
+      "normalized_drop": 0.004932182490752165,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.8776595744680851,
+      "accuracy_drop_pp": 0.638297872340432,
+      "alpha": 0.075,
+      "distance_to_target": 0.0726017262638717,
+      "normalized_drop": 0.0073982737361283114,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.8734042553191489,
+      "accuracy_drop_pp": 1.0638297872340496,
+      "alpha": 0.1,
+      "distance_to_target": 0.06766954377311953,
+      "normalized_drop": 0.012330456226880476,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.8702127659574468,
+      "accuracy_drop_pp": 1.38297872340426,
+      "alpha": 0.125,
+      "distance_to_target": 0.06397040690505543,
+      "normalized_drop": 0.016029593094944568,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.8664893617021276,
+      "accuracy_drop_pp": 1.7553191489361741,
+      "alpha": 0.15,
+      "distance_to_target": 0.0596547472256473,
+      "normalized_drop": 0.020345252774352698,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.8617021276595744,
+      "accuracy_drop_pp": 2.2340425531914954,
+      "alpha": 0.175,
+      "distance_to_target": 0.054106041923551104,
+      "normalized_drop": 0.025893958076448897,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.851063829787234,
+      "accuracy_drop_pp": 3.297872340425534,
+      "alpha": 0.2,
+      "distance_to_target": 0.04177558569667075,
+      "normalized_drop": 0.03822441430332925,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.8425531914893617,
+      "accuracy_drop_pp": 4.148936170212769,
+      "alpha": 0.225,
+      "distance_to_target": 0.03191122071516642,
+      "normalized_drop": 0.04808877928483358,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.8340425531914893,
+      "accuracy_drop_pp": 5.000000000000004,
+      "alpha": 0.25,
+      "distance_to_target": 0.022046855733662094,
+      "normalized_drop": 0.05795314426633791,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.8175531914893617,
+      "accuracy_drop_pp": 6.648936170212771,
+      "alpha": 0.275,
+      "distance_to_target": 0.002934648581997476,
+      "normalized_drop": 0.07706535141800253,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.8,
+      "accuracy_drop_pp": 8.404255319148934,
+      "alpha": 0.3,
+      "distance_to_target": 0.0174106041923551,
+      "normalized_drop": 0.0974106041923551,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.7734042553191489,
+      "accuracy_drop_pp": 11.063829787234047,
+      "alpha": 0.325,
+      "distance_to_target": 0.04823674475955615,
+      "normalized_drop": 0.12823674475955615,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.7531914893617021,
+      "accuracy_drop_pp": 13.08510638297873,
+      "alpha": 0.35,
+      "distance_to_target": 0.07166461159062891,
+      "normalized_drop": 0.1516646115906289,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.725531914893617,
+      "accuracy_drop_pp": 15.851063829787238,
+      "alpha": 0.375,
+      "distance_to_target": 0.10372379778051792,
+      "normalized_drop": 0.18372379778051792,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.6893617021276596,
+      "accuracy_drop_pp": 19.468085106382983,
+      "alpha": 0.4,
+      "distance_to_target": 0.14564734895191128,
+      "normalized_drop": 0.22564734895191127,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.6569148936170213,
+      "accuracy_drop_pp": 22.712765957446813,
+      "alpha": 0.425,
+      "distance_to_target": 0.18325524044389646,
+      "normalized_drop": 0.2632552404438965,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.6079787234042553,
+      "accuracy_drop_pp": 27.60638297872341,
+      "alpha": 0.45,
+      "distance_to_target": 0.23997533908754626,
+      "normalized_drop": 0.3199753390875463,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.5563829787234043,
+      "accuracy_drop_pp": 32.765957446808514,
+      "alpha": 0.475,
+      "distance_to_target": 0.29977805178791617,
+      "normalized_drop": 0.3797780517879162,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.5031914893617021,
+      "accuracy_drop_pp": 38.08510638297873,
+      "alpha": 0.5,
+      "distance_to_target": 0.3614303329223182,
+      "normalized_drop": 0.4414303329223182,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.29627659574468085,
+      "accuracy_drop_pp": 58.77659574468086,
+      "alpha": 0.6,
+      "distance_to_target": 0.601257706535142,
+      "normalized_drop": 0.681257706535142,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.16329787234042553,
+      "accuracy_drop_pp": 72.07446808510637,
+      "alpha": 0.7,
+      "distance_to_target": 0.7553884093711467,
+      "normalized_drop": 0.8353884093711467,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.08936170212765958,
+      "accuracy_drop_pp": 79.46808510638299,
+      "alpha": 0.8,
+      "distance_to_target": 0.8410850801479656,
+      "normalized_drop": 0.9210850801479655,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.06542553191489361,
+      "accuracy_drop_pp": 81.86170212765957,
+      "alpha": 0.9,
+      "distance_to_target": 0.8688286066584464,
+      "normalized_drop": 0.9488286066584464,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.05372340425531915,
+      "accuracy_drop_pp": 83.03191489361701,
+      "alpha": 1.0,
+      "distance_to_target": 0.8823921085080149,
+      "normalized_drop": 0.9623921085080148,
+      "primitive": "GaussianBlur"
+    },
+    {
+      "accuracy": 0.8840425531914894,
+      "accuracy_drop_pp": 0.0,
+      "alpha": 0.0,
+      "distance_to_target": 0.08,
+      "normalized_drop": 0.0,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.8803191489361702,
+      "accuracy_drop_pp": 0.37234042553191404,
+      "alpha": 0.025,
+      "distance_to_target": 0.07568434032059188,
+      "normalized_drop": 0.004315659679408128,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.8803191489361702,
+      "accuracy_drop_pp": 0.37234042553191404,
+      "alpha": 0.05,
+      "distance_to_target": 0.07568434032059188,
+      "normalized_drop": 0.004315659679408128,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.874468085106383,
+      "accuracy_drop_pp": 0.9574468085106425,
+      "alpha": 0.075,
+      "distance_to_target": 0.0689025893958076,
+      "normalized_drop": 0.011097410604192403,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.8606382978723405,
+      "accuracy_drop_pp": 2.3404255319148914,
+      "alpha": 0.1,
+      "distance_to_target": 0.05287299630086316,
+      "normalized_drop": 0.027127003699136842,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.8404255319148937,
+      "accuracy_drop_pp": 4.361702127659573,
+      "alpha": 0.125,
+      "distance_to_target": 0.02944512946979041,
+      "normalized_drop": 0.05055487053020959,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.7978723404255319,
+      "accuracy_drop_pp": 8.617021276595748,
+      "alpha": 0.15,
+      "distance_to_target": 0.01987669543773124,
+      "normalized_drop": 0.09987669543773124,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.7441489361702127,
+      "accuracy_drop_pp": 13.989361702127667,
+      "alpha": 0.175,
+      "distance_to_target": 0.08214549938347727,
+      "normalized_drop": 0.16214549938347728,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.6601063829787234,
+      "accuracy_drop_pp": 22.3936170212766,
+      "alpha": 0.2,
+      "distance_to_target": 0.17955610357583235,
+      "normalized_drop": 0.25955610357583236,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.5696808510638298,
+      "accuracy_drop_pp": 31.43617021276596,
+      "alpha": 0.225,
+      "distance_to_target": 0.28436498150431566,
+      "normalized_drop": 0.3643649815043157,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.46595744680851064,
+      "accuracy_drop_pp": 41.808510638297875,
+      "alpha": 0.25,
+      "distance_to_target": 0.40458692971639953,
+      "normalized_drop": 0.48458692971639955,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.38776595744680853,
+      "accuracy_drop_pp": 49.62765957446808,
+      "alpha": 0.275,
+      "distance_to_target": 0.49521578298397045,
+      "normalized_drop": 0.5752157829839705,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.3372340425531915,
+      "accuracy_drop_pp": 54.680851063829785,
+      "alpha": 0.3,
+      "distance_to_target": 0.5537854500616523,
+      "normalized_drop": 0.6337854500616522,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.275531914893617,
+      "accuracy_drop_pp": 60.85106382978724,
+      "alpha": 0.325,
+      "distance_to_target": 0.6253020961775587,
+      "normalized_drop": 0.7053020961775587,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.21861702127659574,
+      "accuracy_drop_pp": 66.54255319148936,
+      "alpha": 0.35,
+      "distance_to_target": 0.6912700369913687,
+      "normalized_drop": 0.7712700369913686,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.1803191489361702,
+      "accuracy_drop_pp": 70.37234042553192,
+      "alpha": 0.375,
+      "distance_to_target": 0.7356596794081383,
+      "normalized_drop": 0.8156596794081382,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.15212765957446808,
+      "accuracy_drop_pp": 73.19148936170214,
+      "alpha": 0.4,
+      "distance_to_target": 0.7683353884093712,
+      "normalized_drop": 0.8483353884093712,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.13297872340425532,
+      "accuracy_drop_pp": 75.1063829787234,
+      "alpha": 0.425,
+      "distance_to_target": 0.7905302096177559,
+      "normalized_drop": 0.8705302096177558,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.1148936170212766,
+      "accuracy_drop_pp": 76.91489361702128,
+      "alpha": 0.45,
+      "distance_to_target": 0.8114919852034527,
+      "normalized_drop": 0.8914919852034526,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.09468085106382979,
+      "accuracy_drop_pp": 78.93617021276596,
+      "alpha": 0.475,
+      "distance_to_target": 0.8349198520345253,
+      "normalized_drop": 0.9149198520345253,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.08351063829787234,
+      "accuracy_drop_pp": 80.05319148936171,
+      "alpha": 0.5,
+      "distance_to_target": 0.8478668310727498,
+      "normalized_drop": 0.9278668310727498,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.05425531914893617,
+      "accuracy_drop_pp": 82.97872340425532,
+      "alpha": 0.6,
+      "distance_to_target": 0.8817755856966708,
+      "normalized_drop": 0.9617755856966708,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.038829787234042554,
+      "accuracy_drop_pp": 84.5212765957447,
+      "alpha": 0.7,
+      "distance_to_target": 0.8996547472256474,
+      "normalized_drop": 0.9796547472256474,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.028191489361702127,
+      "accuracy_drop_pp": 85.58510638297872,
+      "alpha": 0.8,
+      "distance_to_target": 0.9119852034525279,
+      "normalized_drop": 0.9919852034525278,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.026595744680851064,
+      "accuracy_drop_pp": 85.74468085106383,
+      "alpha": 0.9,
+      "distance_to_target": 0.9138347718865599,
+      "normalized_drop": 0.9938347718865599,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.023936170212765957,
+      "accuracy_drop_pp": 86.01063829787235,
+      "alpha": 1.0,
+      "distance_to_target": 0.91691738594328,
+      "normalized_drop": 0.9969173859432799,
+      "primitive": "ImpulseNoise"
+    },
+    {
+      "accuracy": 0.8840425531914894,
+      "accuracy_drop_pp": 0.0,
+      "alpha": 0.0,
+      "distance_to_target": 0.08,
+      "normalized_drop": 0.0,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.8696808510638298,
+      "accuracy_drop_pp": 1.4361702127659637,
+      "alpha": 0.025,
+      "distance_to_target": 0.0633538840937114,
+      "normalized_drop": 0.016646115906288606,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.7691489361702127,
+      "accuracy_drop_pp": 11.489361702127665,
+      "alpha": 0.05,
+      "distance_to_target": 0.05316892725030832,
+      "normalized_drop": 0.13316892725030832,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.4968085106382979,
+      "accuracy_drop_pp": 38.72340425531915,
+      "alpha": 0.075,
+      "distance_to_target": 0.36882860665844636,
+      "normalized_drop": 0.44882860665844637,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.25957446808510637,
+      "accuracy_drop_pp": 62.446808510638306,
+      "alpha": 0.1,
+      "distance_to_target": 0.6437977805178793,
+      "normalized_drop": 0.7237977805178792,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.15,
+      "accuracy_drop_pp": 73.40425531914893,
+      "alpha": 0.125,
+      "distance_to_target": 0.7708014796547473,
+      "normalized_drop": 0.8508014796547473,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.10159574468085106,
+      "accuracy_drop_pp": 78.24468085106383,
+      "alpha": 0.15,
+      "distance_to_target": 0.8269050554870531,
+      "normalized_drop": 0.906905055487053,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.07819148936170213,
+      "accuracy_drop_pp": 80.58510638297872,
+      "alpha": 0.175,
+      "distance_to_target": 0.85403205918619,
+      "normalized_drop": 0.9340320591861899,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.061170212765957445,
+      "accuracy_drop_pp": 82.2872340425532,
+      "alpha": 0.2,
+      "distance_to_target": 0.8737607891491985,
+      "normalized_drop": 0.9537607891491985,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.05319148936170213,
+      "accuracy_drop_pp": 83.08510638297872,
+      "alpha": 0.225,
+      "distance_to_target": 0.8830086313193589,
+      "normalized_drop": 0.9630086313193589,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.04840425531914894,
+      "accuracy_drop_pp": 83.56382978723404,
+      "alpha": 0.25,
+      "distance_to_target": 0.8885573366214551,
+      "normalized_drop": 0.968557336621455,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.03776595744680851,
+      "accuracy_drop_pp": 84.62765957446808,
+      "alpha": 0.275,
+      "distance_to_target": 0.9008877928483354,
+      "normalized_drop": 0.9808877928483354,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.03563829787234043,
+      "accuracy_drop_pp": 84.8404255319149,
+      "alpha": 0.3,
+      "distance_to_target": 0.9033538840937115,
+      "normalized_drop": 0.9833538840937115,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.027659574468085105,
+      "accuracy_drop_pp": 85.63829787234043,
+      "alpha": 0.325,
+      "distance_to_target": 0.9126017262638718,
+      "normalized_drop": 0.9926017262638718,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.02446808510638298,
+      "accuracy_drop_pp": 85.95744680851064,
+      "alpha": 0.35,
+      "distance_to_target": 0.9163008631319359,
+      "normalized_drop": 0.9963008631319359,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.02127659574468085,
+      "accuracy_drop_pp": 86.27659574468085,
+      "alpha": 0.375,
+      "distance_to_target": 0.92,
+      "normalized_drop": 1.0,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.02127659574468085,
+      "accuracy_drop_pp": 86.27659574468085,
+      "alpha": 0.4,
+      "distance_to_target": 0.92,
+      "normalized_drop": 1.0,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.02127659574468085,
+      "accuracy_drop_pp": 86.27659574468085,
+      "alpha": 0.425,
+      "distance_to_target": 0.92,
+      "normalized_drop": 1.0,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.02127659574468085,
+      "accuracy_drop_pp": 86.27659574468085,
+      "alpha": 0.45,
+      "distance_to_target": 0.92,
+      "normalized_drop": 1.0,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.02127659574468085,
+      "accuracy_drop_pp": 86.27659574468085,
+      "alpha": 0.475,
+      "distance_to_target": 0.92,
+      "normalized_drop": 1.0,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.02127659574468085,
+      "accuracy_drop_pp": 86.27659574468085,
+      "alpha": 0.5,
+      "distance_to_target": 0.92,
+      "normalized_drop": 1.0,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.02127659574468085,
+      "accuracy_drop_pp": 86.27659574468085,
+      "alpha": 0.6,
+      "distance_to_target": 0.92,
+      "normalized_drop": 1.0,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.031914893617021274,
+      "accuracy_drop_pp": 85.2127659574468,
+      "alpha": 0.7,
+      "distance_to_target": 0.9076695437731197,
+      "normalized_drop": 0.9876695437731197,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.03297872340425532,
+      "accuracy_drop_pp": 85.1063829787234,
+      "alpha": 0.8,
+      "distance_to_target": 0.9064364981504316,
+      "normalized_drop": 0.9864364981504316,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.02446808510638298,
+      "accuracy_drop_pp": 85.95744680851064,
+      "alpha": 0.9,
+      "distance_to_target": 0.9163008631319359,
+      "normalized_drop": 0.9963008631319359,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.02553191489361702,
+      "accuracy_drop_pp": 85.85106382978724,
+      "alpha": 1.0,
+      "distance_to_target": 0.9150678175092479,
+      "normalized_drop": 0.9950678175092479,
+      "primitive": "Invert"
+    },
+    {
+      "accuracy": 0.8840425531914894,
+      "accuracy_drop_pp": 0.0,
+      "alpha": 0.0,
+      "distance_to_target": 0.08,
+      "normalized_drop": 0.0,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.8792553191489362,
+      "accuracy_drop_pp": 0.4787234042553212,
+      "alpha": 0.025,
+      "distance_to_target": 0.0744512946979038,
+      "normalized_drop": 0.0055487053020962015,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.875,
+      "accuracy_drop_pp": 0.9042553191489389,
+      "alpha": 0.05,
+      "distance_to_target": 0.06951911220715164,
+      "normalized_drop": 0.010480887792848366,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.872872340425532,
+      "accuracy_drop_pp": 1.1170212765957421,
+      "alpha": 0.075,
+      "distance_to_target": 0.06705302096177562,
+      "normalized_drop": 0.012946979038224385,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.8627659574468085,
+      "accuracy_drop_pp": 2.127659574468088,
+      "alpha": 0.1,
+      "distance_to_target": 0.055339087546239174,
+      "normalized_drop": 0.024660912453760824,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.850531914893617,
+      "accuracy_drop_pp": 3.3510638297872375,
+      "alpha": 0.125,
+      "distance_to_target": 0.04115906288532672,
+      "normalized_drop": 0.038840937114673284,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.8271276595744681,
+      "accuracy_drop_pp": 5.6914893617021285,
+      "alpha": 0.15,
+      "distance_to_target": 0.014032059186189882,
+      "normalized_drop": 0.06596794081381012,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.7920212765957447,
+      "accuracy_drop_pp": 9.202127659574465,
+      "alpha": 0.175,
+      "distance_to_target": 0.026658446362515395,
+      "normalized_drop": 0.1066584463625154,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.75,
+      "accuracy_drop_pp": 13.40425531914894,
+      "alpha": 0.2,
+      "distance_to_target": 0.075363748458693,
+      "normalized_drop": 0.155363748458693,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.6904255319148936,
+      "accuracy_drop_pp": 19.361702127659576,
+      "alpha": 0.225,
+      "distance_to_target": 0.14441430332922317,
+      "normalized_drop": 0.22441430332922319,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.6180851063829788,
+      "accuracy_drop_pp": 26.595744680851062,
+      "alpha": 0.25,
+      "distance_to_target": 0.22826140567200986,
+      "normalized_drop": 0.3082614056720099,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.5462765957446809,
+      "accuracy_drop_pp": 33.77659574468085,
+      "alpha": 0.275,
+      "distance_to_target": 0.3114919852034525,
+      "normalized_drop": 0.3914919852034525,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.47712765957446807,
+      "accuracy_drop_pp": 40.69148936170213,
+      "alpha": 0.3,
+      "distance_to_target": 0.39163995067817514,
+      "normalized_drop": 0.47163995067817516,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.4175531914893617,
+      "accuracy_drop_pp": 46.64893617021277,
+      "alpha": 0.325,
+      "distance_to_target": 0.46069050554870533,
+      "normalized_drop": 0.5406905055487053,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.3617021276595745,
+      "accuracy_drop_pp": 52.234042553191486,
+      "alpha": 0.35,
+      "distance_to_target": 0.5254254007398274,
+      "normalized_drop": 0.6054254007398273,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.3074468085106383,
+      "accuracy_drop_pp": 57.659574468085104,
+      "alpha": 0.375,
+      "distance_to_target": 0.5883107274969174,
+      "normalized_drop": 0.6683107274969173,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.2670212765957447,
+      "accuracy_drop_pp": 61.702127659574465,
+      "alpha": 0.4,
+      "distance_to_target": 0.635166461159063,
+      "normalized_drop": 0.7151664611590629,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.22606382978723405,
+      "accuracy_drop_pp": 65.79787234042553,
+      "alpha": 0.425,
+      "distance_to_target": 0.6826387176325525,
+      "normalized_drop": 0.7626387176325524,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.19148936170212766,
+      "accuracy_drop_pp": 69.25531914893617,
+      "alpha": 0.45,
+      "distance_to_target": 0.7227127003699138,
+      "normalized_drop": 0.8027127003699137,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.16489361702127658,
+      "accuracy_drop_pp": 71.91489361702128,
+      "alpha": 0.475,
+      "distance_to_target": 0.7535388409371148,
+      "normalized_drop": 0.8335388409371147,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.1473404255319149,
+      "accuracy_drop_pp": 73.67021276595744,
+      "alpha": 0.5,
+      "distance_to_target": 0.7738840937114674,
+      "normalized_drop": 0.8538840937114673,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.10478723404255319,
+      "accuracy_drop_pp": 77.92553191489363,
+      "alpha": 0.6,
+      "distance_to_target": 0.823205918618989,
+      "normalized_drop": 0.9032059186189889,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.09095744680851064,
+      "accuracy_drop_pp": 79.30851063829788,
+      "alpha": 0.7,
+      "distance_to_target": 0.8392355117139334,
+      "normalized_drop": 0.9192355117139334,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.08244680851063829,
+      "accuracy_drop_pp": 80.15957446808511,
+      "alpha": 0.8,
+      "distance_to_target": 0.8490998766954377,
+      "normalized_drop": 0.9290998766954377,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.09308510638297872,
+      "accuracy_drop_pp": 79.09574468085107,
+      "alpha": 0.9,
+      "distance_to_target": 0.8367694204685574,
+      "normalized_drop": 0.9167694204685574,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.09202127659574467,
+      "accuracy_drop_pp": 79.20212765957447,
+      "alpha": 1.0,
+      "distance_to_target": 0.8380024660912455,
+      "normalized_drop": 0.9180024660912455,
+      "primitive": "Rotate90"
+    },
+    {
+      "accuracy": 0.8840425531914894,
+      "accuracy_drop_pp": 0.0,
+      "alpha": 0.0,
+      "distance_to_target": 0.08,
+      "normalized_drop": 0.0,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.8808510638297873,
+      "accuracy_drop_pp": 0.31914893617021045,
+      "alpha": 0.025,
+      "distance_to_target": 0.0763008631319359,
+      "normalized_drop": 0.0036991368680640915,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.8776595744680851,
+      "accuracy_drop_pp": 0.638297872340432,
+      "alpha": 0.05,
+      "distance_to_target": 0.0726017262638717,
+      "normalized_drop": 0.0073982737361283114,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.8734042553191489,
+      "accuracy_drop_pp": 1.0638297872340496,
+      "alpha": 0.075,
+      "distance_to_target": 0.06766954377311953,
+      "normalized_drop": 0.012330456226880476,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.8643617021276596,
+      "accuracy_drop_pp": 1.9680851063829774,
+      "alpha": 0.1,
+      "distance_to_target": 0.057188655980271286,
+      "normalized_drop": 0.022811344019728716,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.8489361702127659,
+      "accuracy_drop_pp": 3.5106382978723483,
+      "alpha": 0.125,
+      "distance_to_target": 0.039309494451294606,
+      "normalized_drop": 0.040690505548705395,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.8207446808510638,
+      "accuracy_drop_pp": 6.329787234042561,
+      "alpha": 0.15,
+      "distance_to_target": 0.006633785450061561,
+      "normalized_drop": 0.07336621454993844,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.7952127659574468,
+      "accuracy_drop_pp": 8.882978723404255,
+      "alpha": 0.175,
+      "distance_to_target": 0.022959309494451297,
+      "normalized_drop": 0.1029593094944513,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.7484042553191489,
+      "accuracy_drop_pp": 13.563829787234049,
+      "alpha": 0.2,
+      "distance_to_target": 0.0772133168927251,
+      "normalized_drop": 0.1572133168927251,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.6914893617021277,
+      "accuracy_drop_pp": 19.255319148936167,
+      "alpha": 0.225,
+      "distance_to_target": 0.14318125770653511,
+      "normalized_drop": 0.2231812577065351,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.6297872340425532,
+      "accuracy_drop_pp": 25.425531914893618,
+      "alpha": 0.25,
+      "distance_to_target": 0.21469790382244142,
+      "normalized_drop": 0.29469790382244143,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.5675531914893617,
+      "accuracy_drop_pp": 31.64893617021277,
+      "alpha": 0.275,
+      "distance_to_target": 0.2868310727496918,
+      "normalized_drop": 0.3668310727496918,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.5026595744680851,
+      "accuracy_drop_pp": 38.13829787234043,
+      "alpha": 0.3,
+      "distance_to_target": 0.3620468557336622,
+      "normalized_drop": 0.4420468557336622,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.425531914893617,
+      "accuracy_drop_pp": 45.851063829787236,
+      "alpha": 0.325,
+      "distance_to_target": 0.45144266337854505,
+      "normalized_drop": 0.5314426633785451,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.3574468085106383,
+      "accuracy_drop_pp": 52.65957446808511,
+      "alpha": 0.35,
+      "distance_to_target": 0.5303575832305797,
+      "normalized_drop": 0.6103575832305796,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.3122340425531915,
+      "accuracy_drop_pp": 57.1808510638298,
+      "alpha": 0.375,
+      "distance_to_target": 0.5827620221948213,
+      "normalized_drop": 0.6627620221948213,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.26170212765957446,
+      "accuracy_drop_pp": 62.23404255319149,
+      "alpha": 0.4,
+      "distance_to_target": 0.6413316892725032,
+      "normalized_drop": 0.7213316892725031,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.2271276595744681,
+      "accuracy_drop_pp": 65.69148936170212,
+      "alpha": 0.425,
+      "distance_to_target": 0.6814056720098643,
+      "normalized_drop": 0.7614056720098643,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.19574468085106383,
+      "accuracy_drop_pp": 68.82978723404256,
+      "alpha": 0.45,
+      "distance_to_target": 0.7177805178791616,
+      "normalized_drop": 0.7977805178791616,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.16542553191489362,
+      "accuracy_drop_pp": 71.86170212765958,
+      "alpha": 0.475,
+      "distance_to_target": 0.7529223181257707,
+      "normalized_drop": 0.8329223181257707,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.14095744680851063,
+      "accuracy_drop_pp": 74.30851063829788,
+      "alpha": 0.5,
+      "distance_to_target": 0.7812823674475956,
+      "normalized_drop": 0.8612823674475956,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.08563829787234042,
+      "accuracy_drop_pp": 79.84042553191489,
+      "alpha": 0.6,
+      "distance_to_target": 0.8454007398273736,
+      "normalized_drop": 0.9254007398273736,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.05425531914893617,
+      "accuracy_drop_pp": 82.97872340425532,
+      "alpha": 0.7,
+      "distance_to_target": 0.8817755856966708,
+      "normalized_drop": 0.9617755856966708,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.04308510638297872,
+      "accuracy_drop_pp": 84.09574468085107,
+      "alpha": 0.8,
+      "distance_to_target": 0.8947225647348953,
+      "normalized_drop": 0.9747225647348953,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.04148936170212766,
+      "accuracy_drop_pp": 84.25531914893617,
+      "alpha": 0.9,
+      "distance_to_target": 0.8965721331689273,
+      "normalized_drop": 0.9765721331689272,
+      "primitive": "Swirl"
+    },
+    {
+      "accuracy": 0.036702127659574466,
+      "accuracy_drop_pp": 84.73404255319149,
+      "alpha": 1.0,
+      "distance_to_target": 0.9021208384710235,
+      "normalized_drop": 0.9821208384710235,
+      "primitive": "Swirl"
+    }
+  ],
+  "chance_accuracy": 0.02127659574468085,
+  "class_count": 47,
+  "classifier_checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase1/emnist-smallcnn-w16-s1301.pt",
+  "classifier_checkpoint_sha256": "05c49cd3678ee537accac6380d33002e4d8f512e5eb93093b18f0701f815ca53",
+  "classifier_training": {
+    "config": {
+      "batch_size": 512,
+      "class_count": 47,
+      "dataset": "EMNIST",
+      "epochs": 5,
+      "input_channels": 1,
+      "learning_rate": 0.003,
+      "seed": 1301,
+      "weight_decay": 0.0001,
+      "width": 16
+    },
+    "elapsed_seconds": 344.42990708351135,
+    "history": [
+      {
+        "epoch": 1,
+        "train_accuracy": 0.654936170212766,
+        "train_loss": 1.4906520970222799,
+        "validation_accuracy": 0.8265957446808511,
+        "validation_nll": 0.5729020565114122
+      },
+      {
+        "epoch": 2,
+        "train_accuracy": 0.8480851063829787,
+        "train_loss": 0.48653539084373637,
+        "validation_accuracy": 0.8375,
+        "validation_nll": 0.48693725748265043
+      },
+      {
+        "epoch": 3,
+        "train_accuracy": 0.8662127659574468,
+        "train_loss": 0.4005336419318585,
+        "validation_accuracy": 0.8618617021276596,
+        "validation_nll": 0.4055376777243107
+      },
+      {
+        "epoch": 4,
+        "train_accuracy": 0.8784574468085107,
+        "train_loss": 0.35926324654640035,
+        "validation_accuracy": 0.8706382978723404,
+        "validation_nll": 0.36923080626954424
+      },
+      {
+        "epoch": 5,
+        "train_accuracy": 0.8861702127659574,
+        "train_loss": 0.33457564253502703,
+        "validation_accuracy": 0.8760106382978723,
+        "validation_nll": 0.34996884041644155
+      }
+    ],
+    "model_id": "smallcnn-w16-s1301",
+    "normalization_mean": [
+      0.17512691020965576
+    ],
+    "normalization_std": [
+      0.333255410194397
+    ],
+    "parameter_count": 38079,
+    "test_clean": {
+      "accuracy": 0.8748936170212765,
+      "nll": 0.3699306268894926
+    }
+  },
+  "clean_accuracy": 0.8840425531914894,
+  "dataset": "EMNIST",
+  "elapsed_seconds": 104.11697459220886,
+  "information_access": {
+    "clean": true,
+    "length_3_to_6_targets": false,
+    "ordered_pairs": false,
+    "single_primitives": true
+  },
+  "model_id": "smallcnn-w16-s1301",
+  "protocol": "V4-P1B-CALIBRATED-001",
+  "selected": {
+    "Contrast": {
+      "accuracy": 0.8111702127659575,
+      "accuracy_drop_pp": 7.287234042553193,
+      "alpha": 0.25,
+      "distance_to_target": 0.004463625154130707,
+      "normalized_drop": 0.08446362515413071,
+      "primitive": "Contrast",
+      "within_preregistered_band": true
+    },
+    "GaussianBlur": {
+      "accuracy": 0.8175531914893617,
+      "accuracy_drop_pp": 6.648936170212771,
+      "alpha": 0.275,
+      "distance_to_target": 0.002934648581997476,
+      "normalized_drop": 0.07706535141800253,
+      "primitive": "GaussianBlur",
+      "within_preregistered_band": true
+    },
+    "ImpulseNoise": {
+      "accuracy": 0.7978723404255319,
+      "accuracy_drop_pp": 8.617021276595748,
+      "alpha": 0.15,
+      "distance_to_target": 0.01987669543773124,
+      "normalized_drop": 0.09987669543773124,
+      "primitive": "ImpulseNoise",
+      "within_preregistered_band": true
+    },
+    "Invert": {
+      "accuracy": 0.7691489361702127,
+      "accuracy_drop_pp": 11.489361702127665,
+      "alpha": 0.05,
+      "distance_to_target": 0.05316892725030832,
+      "normalized_drop": 0.13316892725030832,
+      "primitive": "Invert",
+      "within_preregistered_band": false
+    },
+    "Rotate90": {
+      "accuracy": 0.8271276595744681,
+      "accuracy_drop_pp": 5.6914893617021285,
+      "alpha": 0.15,
+      "distance_to_target": 0.014032059186189882,
+      "normalized_drop": 0.06596794081381012,
+      "primitive": "Rotate90",
+      "within_preregistered_band": true
+    },
+    "Swirl": {
+      "accuracy": 0.8207446808510638,
+      "accuracy_drop_pp": 6.329787234042561,
+      "alpha": 0.15,
+      "distance_to_target": 0.006633785450061561,
+      "normalized_drop": 0.07336621454993844,
+      "primitive": "Swirl",
+      "within_preregistered_band": true
+    }
+  },
+  "status": "CALIBRATION_ONLY_NO_PAIRS_OR_TARGET_WORDS",
+  "strength_grid": [
+    0.0,
+    0.025,
+    0.05,
+    0.075,
+    0.1,
+    0.125,
+    0.15,
+    0.175,
+    0.2,
+    0.225,
+    0.25,
+    0.275,
+    0.3,
+    0.325,
+    0.35,
+    0.375,
+    0.4,
+    0.425,
+    0.45,
+    0.475,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0
+  ],
+  "target_normalized_drop": 0.08
+}

@@ -1,7 +1,7 @@
 # Phase 1B Preregistration — Severity-Calibrated Mason Extension
 
 **Protocol ID:** `V4-P1B-CALIBRATED-001`
-**Status:** STAGE A — METHODS AND CALIBRATION RULE FROZEN; NO PHASE-1B BEHAVIOR MEASURED
+**Status:** STAGE B — STRENGTHS FROZEN; PHASE-1B PAIRS AND TARGETS UNOPENED
 **Date:** 2026-10-23
 **Parent protocol:** `V4-P1-MASON-001` (completed negative result; not replaced)
 
@@ -79,6 +79,15 @@ For each dataset and primitive independently:
 4. freeze the selected values even if one misses the band—no grid, target, or tie-break revision is allowed.
 
 The calibration executable is structurally restricted to clean and one primitive at a time. It does not accept a word manifest and cannot evaluate pairs or targets.
+
+### Frozen calibration output
+
+| Dataset | Contrast | Blur | Impulse | Invert | Rotate90 | Swirl |
+|---|---:|---:|---:|---:|---:|---:|
+| CIFAR-10 | 0.450 | 0.350 | 0.100 | 0.175 | 0.225 | 0.225 |
+| EMNIST | 0.250 | 0.275 | 0.150 | 0.050 | 0.150 | 0.150 |
+
+All CIFAR selected drops are inside `[0.04, 0.12]`. EMNIST Invert has normalized drop `0.1332`, outside the diagnostic band, because the frozen grid jumps across the target between adjacent candidates. In accordance with the preregistration, it remains frozen at the nearest candidate (`alpha=0.050`); the grid was not refined.
 
 ## 5. Two-stage seal
 
@@ -212,4 +221,4 @@ python -m v4.phase1b.analyze
 - Stage-A executable commit: `5ff297827e46fd0fde9b5d8298df13409d36fc74`
 - Stage-B strength-freeze commit: **TBD**
 - Confirmation result commit: **TBD**
-- Frozen strength file SHA-256: **TBD**
+- Frozen strength file SHA-256: `f851fc920cc2d1ff677122b5de7f2fde0ab229acfcd197c8fef40913fd7c8772`

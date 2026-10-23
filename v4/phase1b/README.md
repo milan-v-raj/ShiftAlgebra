@@ -1,7 +1,7 @@
 # Phase 1B — Severity-Calibrated Mason Extension
 
 **Protocol:** `V4-P1B-CALIBRATED-001`
-**Current status:** Stage-A implementation; target conditions remain unopened
+**Current status:** Stage-B strengths frozen; pair and target conditions remain unopened
 
 Phase 1B is a separately preregistered test of the saturation diagnosis from Phase 1. It keeps the classifiers, 167-word manifest, R2 access regime, forecasting methods, and confirmation partitions fixed, while replacing the severe primitive endpoints with a common attenuation homotopy.
 

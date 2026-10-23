@@ -186,5 +186,5 @@ Development exposed severe accuracy saturation. Before confirmation, the followi
 The primary result remains macro accuracy MAE over 130 length-3--6 words. The expected outcome is not changed: failure to beat the max envelope is a failed Phase-1 method gate and must be reported.
 
 **Generated manifest SHA-256:** `d2be1ca5c899659482204630d1f2b755587b71ee994372a7b716e5c5ad591264`
-**Frozen Git commit:** `TBD`
+**Frozen executable Git commit:** `b761987bc691db191bd2617ad05382f67a68ba18`
 **Container digest:** `TBD`

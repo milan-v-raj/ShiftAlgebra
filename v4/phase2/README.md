@@ -1,7 +1,7 @@
 # Phase 2 — CIFAR Model-Bank Development Pilot
 
 **Protocol:** `V4-P2-CIFAR-BANK-PILOT-001`
-**Status:** Stage-A implementation; no Phase-2 outcomes opened
+**Status:** Stage-B method frozen; confirmation models and outcomes unopened
 
 This CPU pilot starts the roadmap's model-bank phase with 30 development and 30 confirmation snapshots from 15 separately trained lineages per split, spanning five architecture families and three training recipes.
 

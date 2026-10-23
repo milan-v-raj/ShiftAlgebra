@@ -1,0 +1,296 @@
+{
+  "development_fit_rows": 1200,
+  "development_models": 30,
+  "hazard_pair_scaling": "n_pairs ** (q - 1) times directed pair-residual sum",
+  "primary_comparator": "g0_source_word",
+  "primary_method": "g1_plus_hazard",
+  "protocol": "V4-P2-CIFAR-BANK-PILOT-001",
+  "q_grid": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0,
+    1.1,
+    1.2,
+    1.3,
+    1.4,
+    1.5,
+    1.6,
+    1.7,
+    1.8,
+    1.9,
+    2.0
+  ],
+  "q_search": [
+    {
+      "ordered_hazard_mae_pp": 2.91118119072829,
+      "pair_accuracy_mae_pp": 5.476272222222222,
+      "q": 0.0,
+      "symmetric_hazard_mae_pp": 2.908747361573609
+    },
+    {
+      "ordered_hazard_mae_pp": 2.6184961074225575,
+      "pair_accuracy_mae_pp": 5.580999348825372,
+      "q": 0.1,
+      "symmetric_hazard_mae_pp": 2.6159311086468446
+    },
+    {
+      "ordered_hazard_mae_pp": 2.3113554495025115,
+      "pair_accuracy_mae_pp": 5.75775614079847,
+      "q": 0.2,
+      "symmetric_hazard_mae_pp": 2.308897050570989
+    },
+    {
+      "ordered_hazard_mae_pp": 2.0131754547237044,
+      "pair_accuracy_mae_pp": 6.0270491798615735,
+      "q": 0.3,
+      "symmetric_hazard_mae_pp": 2.010695399726132
+    },
+    {
+      "ordered_hazard_mae_pp": 1.745075608217001,
+      "pair_accuracy_mae_pp": 6.380277730375663,
+      "q": 0.4,
+      "symmetric_hazard_mae_pp": 1.7410757212468997
+    },
+    {
+      "ordered_hazard_mae_pp": 1.557483499385777,
+      "pair_accuracy_mae_pp": 6.815823859092078,
+      "q": 0.5,
+      "symmetric_hazard_mae_pp": 1.5529233859134661
+    },
+    {
+      "ordered_hazard_mae_pp": 1.5134042101320617,
+      "pair_accuracy_mae_pp": 7.301859638007679,
+      "q": 0.6,
+      "symmetric_hazard_mae_pp": 1.5085508853693126
+    },
+    {
+      "ordered_hazard_mae_pp": 1.6373479063481677,
+      "pair_accuracy_mae_pp": 7.863344875095926,
+      "q": 0.7,
+      "symmetric_hazard_mae_pp": 1.6335340547681914
+    },
+    {
+      "ordered_hazard_mae_pp": 1.9176714460262538,
+      "pair_accuracy_mae_pp": 8.506964691476302,
+      "q": 0.8,
+      "symmetric_hazard_mae_pp": 1.9169547907099835
+    },
+    {
+      "ordered_hazard_mae_pp": 2.3360718464012056,
+      "pair_accuracy_mae_pp": 9.06964548805953,
+      "q": 0.9,
+      "symmetric_hazard_mae_pp": 2.3360287677616713
+    },
+    {
+      "ordered_hazard_mae_pp": 2.8155854059541774,
+      "pair_accuracy_mae_pp": 9.583000000000002,
+      "q": 1.0,
+      "symmetric_hazard_mae_pp": 2.815626324904531
+    },
+    {
+      "ordered_hazard_mae_pp": 3.2996168863655058,
+      "pair_accuracy_mae_pp": 10.141204777058023,
+      "q": 1.1,
+      "symmetric_hazard_mae_pp": 3.304528037668226
+    },
+    {
+      "ordered_hazard_mae_pp": 3.7570115173158607,
+      "pair_accuracy_mae_pp": 10.76045378668422,
+      "q": 1.2,
+      "symmetric_hazard_mae_pp": 3.7645810652071106
+    },
+    {
+      "ordered_hazard_mae_pp": 4.1707482745808315,
+      "pair_accuracy_mae_pp": 11.468987321712811,
+      "q": 1.3,
+      "symmetric_hazard_mae_pp": 4.182406168247756
+    },
+    {
+      "ordered_hazard_mae_pp": 4.534907256702565,
+      "pair_accuracy_mae_pp": 12.35164382368796,
+      "q": 1.4,
+      "symmetric_hazard_mae_pp": 4.550997595387245
+    },
+    {
+      "ordered_hazard_mae_pp": 4.855642039328221,
+      "pair_accuracy_mae_pp": 13.361357374413926,
+      "q": 1.5,
+      "symmetric_hazard_mae_pp": 4.873761852377266
+    },
+    {
+      "ordered_hazard_mae_pp": 5.135119849225698,
+      "pair_accuracy_mae_pp": 14.55969829657587,
+      "q": 1.6,
+      "symmetric_hazard_mae_pp": 5.15457582761846
+    },
+    {
+      "ordered_hazard_mae_pp": 5.380985062811642,
+      "pair_accuracy_mae_pp": 16.00450847139743,
+      "q": 1.7,
+      "symmetric_hazard_mae_pp": 5.399229375110082
+    },
+    {
+      "ordered_hazard_mae_pp": 5.595523783098836,
+      "pair_accuracy_mae_pp": 17.402941873877765,
+      "q": 1.8,
+      "symmetric_hazard_mae_pp": 5.613421264081553
+    },
+    {
+      "ordered_hazard_mae_pp": 5.784490185415265,
+      "pair_accuracy_mae_pp": 18.68761529570525,
+      "q": 1.9,
+      "symmetric_hazard_mae_pp": 5.80267241888189
+    },
+    {
+      "ordered_hazard_mae_pp": 5.953371091952467,
+      "pair_accuracy_mae_pp": 19.839666666666655,
+      "q": 2.0,
+      "symmetric_hazard_mae_pp": 5.972257418945451
+    }
+  ],
+  "ridge_g0": {
+    "alpha": 1.0,
+    "coefficients": [
+      0.17223666666667609,
+      0.008921596959640376,
+      -0.0029752016469442653,
+      7.005844810450013e-05,
+      -0.010362599217350239,
+      -0.008275526110488242,
+      -0.0015741398864837742,
+      0.006311860025021526,
+      -0.014361702637791246,
+      -0.0022450239215544717,
+      -0.005894481424136619,
+      -0.006128941155257847,
+      0.009414264311211661,
+      0.008760414036423374,
+      -0.012665435399220326,
+      0.0006196982068170292,
+      -0.0041231942656258826,
+      0.006393710259611649,
+      -0.002270515994000472
+    ],
+    "family_levels": [
+      "depthwise",
+      "patchconv",
+      "pointwise",
+      "resnet",
+      "shallow"
+    ],
+    "include_composition": false,
+    "numeric_mean": [
+      0.39293333333333064,
+      9.436701352888017,
+      1.5,
+      4.5,
+      0.775,
+      0.725,
+      0.75,
+      0.675,
+      0.85,
+      0.725
+    ],
+    "numeric_scale": [
+      0.05710979678556782,
+      0.6281387993885318,
+      0.5,
+      1.118033988749895,
+      0.41758232721224936,
+      0.4465142774872944,
+      0.4330127018922193,
+      0.4683748498798807,
+      0.35707142142714077,
+      0.4465142774872944
+    ],
+    "recipe_levels": [
+      "erm_flip",
+      "label_smooth",
+      "noise_aug"
+    ]
+  },
+  "ridge_g1": {
+    "alpha": 1.0,
+    "coefficients": [
+      0.1722366666666839,
+      -0.0069245384610593635,
+      -0.002399712477800376,
+      0.0017646634292838666,
+      0.0009490064263176846,
+      0.002075472817023979,
+      0.0016393814873763223,
+      -0.0021078163348729616,
+      0.0014641790427025766,
+      -1.2185670256646975e-05,
+      -0.0006861791954828446,
+      0.014843294679951675,
+      0.0226206403438426,
+      -0.005302780302000886,
+      0.0032066757704417117,
+      -0.00034595754990713977,
+      0.007698245103896618,
+      -0.018288486165413467,
+      -0.0008271594086396652,
+      0.011763358020017442,
+      -0.006986459352604402,
+      0.004680075344259612,
+      0.0023063840083221735
+    ],
+    "family_levels": [
+      "depthwise",
+      "patchconv",
+      "pointwise",
+      "resnet",
+      "shallow"
+    ],
+    "include_composition": true,
+    "numeric_mean": [
+      0.39293333333333064,
+      9.436701352888017,
+      1.5,
+      4.5,
+      0.775,
+      0.725,
+      0.75,
+      0.675,
+      0.85,
+      0.725,
+      0.17134575014226305,
+      0.17126599894483305,
+      0.21812061030711552,
+      0.2963433333333339
+    ],
+    "numeric_scale": [
+      0.05710979678556782,
+      0.6281387993885318,
+      0.5,
+      1.118033988749895,
+      0.41758232721224936,
+      0.4465142774872944,
+      0.4330127018922193,
+      0.4683748498798807,
+      0.35707142142714077,
+      0.4465142774872944,
+      0.042197316768617994,
+      0.04205774075619601,
+      0.05235139550637156,
+      0.04864143078579095
+    ],
+    "recipe_levels": [
+      "erm_flip",
+      "label_smooth",
+      "noise_aug"
+    ]
+  },
+  "selected_q": 0.6,
+  "status": "METHOD_FROZEN_CONFIRMATION_UNOPENED",
+  "target_access": "method_development words on development models only"
+}

@@ -1,7 +1,7 @@
 # Phase 2 Preregistration — CIFAR Model-Bank CPU Pilot
 
 **Protocol:** `V4-P2-CIFAR-BANK-PILOT-001`
-**Status:** STAGE A — CODE, BANK, SPLITS, METHODS, AND GATES FROZEN; NO PHASE-2 OUTCOMES OPENED
+**Status:** STAGE B — DEVELOPMENT COMPLETE; METHOD FROZEN; CONFIRMATION MODELS/OUTCOMES UNOPENED
 **Date:** 2026-10-23
 
 ## 1. Scope
@@ -170,3 +170,6 @@ Only hash/data corruption, non-finite model output, class-mapping failure, or ex
 - Stage-B method-freeze commit: **TBD**
 - Confirmation result commit: **TBD**
 - Phase-2 manifest SHA-256: `7ed83c1074359ac4669b0d8f77d493af093d13cc5bbf88dac55573bb52960b0d`
+- Frozen method SHA-256: `78c3a4b27810ce4932359e933670cb872c3eba551d8faf930e7b0ff5baa13753`
+- Selected extensive-hazard exponent: `q=0.6`
+- Confirmation remains unopened at this record.

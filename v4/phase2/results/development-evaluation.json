@@ -1,0 +1,24 @@
+{
+  "behavior_csv": "/home/user/ShiftAlgebra/v4/phase2/results/development-behavior.csv",
+  "behavior_csv_sha256": "3cc936dbb1f66f24c41bffe093e00a8c1716b2de02edd507bd09f3078b8f00d0",
+  "conditions": 167,
+  "elapsed_seconds": 506.92716240882874,
+  "lineages": 15,
+  "models": 30,
+  "partition": {
+    "offset": 0,
+    "per_class": 50
+  },
+  "protocol": "V4-P2-CIFAR-BANK-PILOT-001",
+  "samples_per_condition": 500,
+  "split": "development",
+  "status": "DEVELOPMENT_BANK_EVALUATED",
+  "strengths": {
+    "Contrast": 0.45,
+    "GaussianBlur": 0.35,
+    "ImpulseNoise": 0.1,
+    "Invert": 0.175,
+    "Rotate90": 0.225,
+    "Swirl": 0.225
+  }
+}

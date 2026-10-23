@@ -3,6 +3,7 @@
 **Protocol:** `V4-P2-CIFAR-BANK-PILOT-001`
 **Stage-A executable commit:** `63f257b777aa8cf1b63fca9cd5f8abea30fc145e`
 **Stage-B method-freeze commit:** `9dd98357ca8af2e6122e399be66046ca659a3566`
+**Confirmation result commit:** `1cffdcfd5f6b06f3b4e42acf66d64d1db3e88ad4`
 **Status:** one-shot CPU pilot complete; preregistered incremental-value gate passed; full Phase 2 remains incomplete
 
 ## 1. Executive result

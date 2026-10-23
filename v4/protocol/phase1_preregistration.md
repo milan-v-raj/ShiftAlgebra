@@ -1,6 +1,6 @@
 # Phase 1 Preregistration: Mason Exact-Protocol Bridge
 
-**Status:** DRAFT / LABELS NOT ACCESSED FOR V4
+**Status:** DEVELOPMENT LABELS ACCESSED; CONFIRMATORY IMAGE SUBSETS NOT YET EVALUATED
 **Protocol ID:** `V4-P1-MASON-001`
 **Source manifest:** `v4/benchmark/manifests/mason_exact.json`
 **Upstream source commit:** `fc62a92ccd11f64eec26c7a019e9e0957fd9bd33`
@@ -153,7 +153,37 @@ Every exclusion must be emitted before target metrics are computed and recorded 
 - [ ] Statistical script frozen.
 - [ ] Exclusion script frozen.
 - [ ] Compute budget approved.
-- [ ] No length-3--6 labels inspected during V4 model selection.
+- [x] Development length-3--6 labels were confined to the declared development image subset.
+- [ ] Non-overlapping confirmatory images remain unevaluated until the freeze commit.
+
+## 11. Amendment P1-A1 after development, before confirmation
+
+Official upstream checkpoints were not published, and the internal FaceScrub subset is unavailable. The executable bridge therefore uses independently trained frozen SmallCNN classifiers on CIFAR-10 and EMNIST. This is an exact word-list bridge, not a checkpoint or pixel-bitwise reproduction.
+
+Frozen independent classifiers:
+
+- CIFAR-10: SmallCNN width 24, seed 1301, 8 epochs, AdamW, batch 256, learning rate `3e-3`, weight decay `1e-4`;
+- EMNIST Balanced: SmallCNN width 16, seed 1301, 5 epochs, AdamW, batch 512, learning rate `3e-3`, weight decay `1e-4`.
+
+Development subsets:
+
+- CIFAR-10: first 100 stable test examples/class;
+- EMNIST Balanced: first 40 stable test examples/class.
+
+Reserved one-shot confirmation:
+
+- CIFAR-10: remaining 900 examples/class, offset 100;
+- EMNIST Balanced: remaining 360 examples/class, offset 40.
+
+Development exposed severe accuracy saturation. Before confirmation, the following rules are frozen for every method:
+
+1. fit signed-power exponents on 30 calibration pairs only;
+2. freeze exponents before fitting interaction parameters;
+3. constrain predicted absolute accuracy to `[0,1]` and report the clipping fraction;
+4. fit no parameter on length-3--6 confirmatory outcomes;
+5. retain the max-absolute primitive envelope as a mandatory baseline.
+
+The primary result remains macro accuracy MAE over 130 length-3--6 words. The expected outcome is not changed: failure to beat the max envelope is a failed Phase-1 method gate and must be reported.
 
 **Generated manifest SHA-256:** `d2be1ca5c899659482204630d1f2b755587b71ee994372a7b716e5c5ad591264`
 **Frozen Git commit:** `TBD`

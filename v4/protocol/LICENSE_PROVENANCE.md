@@ -50,20 +50,24 @@ The manifest stores these values explicitly. Reverse-order stochastic conditions
 
 ### EMNIST
 
-- Upstream loader uses the torchvision EMNIST distribution.
-- Download/version/checksum and underlying NIST terms remain to be pinned before inference.
+- Upstream loader uses EMNIST Balanced (47 classes).
+- This restricted-network run used lossless WebP packaging from `0r4nd/emnist-packed` at commit `0f121efc642634809af4f2f443b70152f71b9a51` as a transport mirror.
+- The mirror declares the original dataset source but contains no detected license; it is not redistributed here.
+- The loader records SHA-256 for every packed file and metadata file, validates 112,800 train/18,800 test examples, and validates labels 0--46.
+- The class-stable split matches Mason: first 2,000/class train and last 400/class validation.
 - Data must not be committed to Git.
 
-**Status:** usable after checksum/terms verification.
+**Status:** enabled for internal reproducibility with explicit transport provenance; canonical-host retrieval and terms should be rechecked before public artifact release.
 
 ### CIFAR-10
 
 - Upstream loader uses torchvision `CIFAR10`.
-- The upstream split takes the first 4,000 sorted training examples per class for training and the last 1,000 per class for validation; the standard test set remains test.
-- Download archive checksum and dataset terms remain to be recorded.
+- This restricted-network run used `wikiabhi/Cifar-10` at commit `fad27e50dfca620330fa5f824432abcf1781c161` only as transport.
+- Every Python batch matches the canonical widely published batch MD5 recorded in `v4/phase1/data.py`.
+- The split matches Mason: first 4,000 sorted examples/class train and last 1,000/class validation; the standard test set remains test.
 - Data must not be committed to Git.
 
-**Status:** usable after checksum/terms verification.
+**Status:** hash-verified and enabled; do not infer that the mirror repository's MIT license relicenses the CIFAR data.
 
 ### FaceScrub
 
@@ -93,8 +97,8 @@ These shell settings are not a complete training contract. Optimizer, scheduler,
 ## Required closure evidence
 
 - [ ] author/repository license clarified;
-- [ ] EMNIST archive/version/checksum and terms recorded;
-- [ ] CIFAR-10 archive/version/checksum and terms recorded;
+- [x] EMNIST transport version/checksums recorded; canonical terms still require public-release review;
+- [x] CIFAR-10 transport version/canonical batch hashes recorded; canonical terms still require public-release review;
 - [ ] FaceScrub access decision recorded;
 - [ ] model implementation provenance recorded;
 - [ ] optimizer/scheduler/augmentation settings recorded;

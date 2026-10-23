@@ -1,6 +1,7 @@
 # Large artifacts: data, checkpoints, pools, caches (kept out of Git)
 data/
 checkpoints/
+checkpoints_v4/
 pools/
 pools_v2/
 results/*.npz

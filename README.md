@@ -107,7 +107,11 @@ V4 is isolated under [`v4/`](v4/README.md) and does not alter historical experim
 python3 v4/verify_phase0.py
 ```
 
-See [`v4/PHASE0_REPORT.md`](v4/PHASE0_REPORT.md) for completed work and remaining freeze blockers.
+See [`v4/PHASE0_REPORT.md`](v4/PHASE0_REPORT.md) for the foundation audit and [`v4/phase1/PHASE1_DEVELOPMENT_REPORT.md`](v4/phase1/PHASE1_DEVELOPMENT_REPORT.md) for the active independent length-six benchmark bridge.
+
+```bash
+python3 v4/phase1/verify_phase1.py
+```
 
 ---
 

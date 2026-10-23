@@ -230,6 +230,8 @@ def run_forecast_evaluation(
     lp_steps: int = 1500,
     potential_steps: int = 2500,
     split_name: str = "development",
+    protocol_id: str = "V4-P1-MASON-001",
+    include_target_rows: bool = False,
 ) -> dict:
     targets, metadata = load_behavior_csv(behavior_csv)
     primitive_to_id = {primitive: index for index, primitive in enumerate(primitives)}
@@ -290,6 +292,8 @@ def run_forecast_evaluation(
     clean_accuracy = float(metadata[("Identity",)]["accuracy"])
     accuracy_lower, accuracy_upper = -clean_accuracy, 1.0 - clean_accuracy
     result_methods = {}
+    scored_predictions: dict[str, Tensor] = {}
+    clipped_masks: dict[str, Tensor] = {}
     for name, values in predictions.items():
         raw_prediction = torch.stack(values)
         invalid_accuracy = (
@@ -298,6 +302,8 @@ def run_forecast_evaluation(
         )
         prediction = raw_prediction.clone()
         prediction[:, ACC_INDEX].clamp_(accuracy_lower, accuracy_upper)
+        scored_predictions[name] = prediction
+        clipped_masks[name] = invalid_accuracy
         absolute = (prediction - truth_tensor).abs()
         by_length = {}
         for length in sorted(set(lengths)):
@@ -318,8 +324,32 @@ def run_forecast_evaluation(
             "by_length": by_length,
         }
 
+    target_rows = []
+    if include_target_rows:
+        for index, word in enumerate(target_words):
+            row = {
+                "word": ">".join(word),
+                "length": len(word),
+                "word_family": ">".join(sorted(word)),
+                "true_accuracy": float(metadata[word]["accuracy"]),
+                "true_delta_accuracy": float(truth_tensor[index, ACC_INDEX]),
+                "methods": {},
+            }
+            for name, prediction in scored_predictions.items():
+                predicted_delta = float(prediction[index, ACC_INDEX])
+                predicted_accuracy = clean_accuracy + predicted_delta
+                row["methods"][name] = {
+                    "predicted_accuracy": predicted_accuracy,
+                    "predicted_delta_accuracy": predicted_delta,
+                    "absolute_error_pp": 100.0 * abs(
+                        predicted_delta - float(truth_tensor[index, ACC_INDEX])
+                    ),
+                    "accuracy_was_clipped": bool(clipped_masks[name][index]),
+                }
+            target_rows.append(row)
+
     result = {
-        "protocol": f"V4-P1-MASON-001-{split_name}",
+        "protocol": f"{protocol_id}-{split_name}",
         "behavior_csv": str(behavior_csv),
         "calibration_pairs": len(pair_words),
         "target_words": len(target_words),
@@ -332,6 +362,8 @@ def run_forecast_evaluation(
         "methods": result_methods,
         "target_access_during_fit": False,
     }
+    if include_target_rows:
+        result["target_rows"] = target_rows
     output_json = Path(output_json)
     output_json.parent.mkdir(parents=True, exist_ok=True)
     output_json.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")

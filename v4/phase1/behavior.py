@@ -7,7 +7,7 @@ import json
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Iterable, Sequence
+from typing import Callable, Iterable, Sequence
 
 import torch
 import torch.nn.functional as F
@@ -100,6 +100,7 @@ def evaluate_word(
     *,
     batch_size: int = 256,
     collect_fingerprint: bool = False,
+    word_transform: Callable[[Tensor, Sequence[str], Tensor], Tensor] = apply_word,
 ) -> tuple[Behavior, Tensor | None]:
     model.eval()
     logits_parts, final_parts = [], []
@@ -108,7 +109,7 @@ def evaluate_word(
     for start in range(0, labels.numel(), batch_size):
         stop = min(start + batch_size, labels.numel())
         pixels = images_uint8[start:stop].float().div(255.0)
-        shifted = apply_word(pixels, word, sample_ids[start:stop])
+        shifted = word_transform(pixels, word, sample_ids[start:stop])
         logits, layers = model.forward_with_layers(_normalize(shifted, mean, std))
         logits_parts.append(logits.cpu())
         final_parts.append(layers[-1].cpu())
@@ -163,6 +164,7 @@ def evaluate_protocol(
     fingerprint_json: str | Path,
     *,
     batch_size: int = 256,
+    word_transform: Callable[[Tensor, Sequence[str], Tensor], Tensor] = apply_word,
 ) -> dict:
     if len(words) != len(condition_ids):
         raise ValueError("word and condition id counts differ")
@@ -171,7 +173,7 @@ def evaluate_protocol(
     identity = words.index(("Identity",))
     clean, _ = evaluate_word(
         model, images_uint8, labels, sample_ids, words[identity], mean, std, cache,
-        batch_size=batch_size,
+        batch_size=batch_size, word_transform=word_transform,
     )
 
     rows = []
@@ -189,6 +191,7 @@ def evaluate_protocol(
             cache,
             batch_size=batch_size,
             collect_fingerprint=collect,
+            word_transform=word_transform,
         )
         delta = behavior.delta(clean)
         row = {

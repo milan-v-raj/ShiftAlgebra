@@ -99,6 +99,16 @@ python3 reproduce.py --v1
 python3 reproduce.py --all
 ```
 
+### 3. Verify the Prospective V4 Development Workspace
+
+V4 is isolated under [`v4/`](v4/README.md) and does not alter historical experiments:
+
+```bash
+python3 v4/verify_phase0.py
+```
+
+See [`v4/PHASE0_REPORT.md`](v4/PHASE0_REPORT.md) for completed work and remaining freeze blockers.
+
 ---
 
 ## Headline Experimental Results
@@ -192,6 +202,7 @@ ShiftAlgebra/
 ├── PLAN_V2.md                         # Phase V2 architectural & benchmark redesign (S1-S3 + 6-prim V2)
 ├── RESULTS_V2.md                      # Phase V2 complete results (§1-10) + Phase V3 summary (§11)
 ├── REVIEWER_PROOFING_V3.md            # Phase V3 Reviewer-Proofing Suite report (Gaps 1-5 + Propositions 1-4)
+├── v4/                                # Phase-by-phase NeurIPS development workspace (Phase 0 active)
 ├── src/
 │   ├── config_v2.py                   # 6-primitive V2 benchmark configuration, severities, Regime II/III splits
 │   ├── corruptions_v2.py              # Deterministic GPU/CPU image corruptions {A, B, C, D, P, S}

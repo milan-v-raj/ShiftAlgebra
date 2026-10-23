@@ -1,0 +1,67 @@
+# Shift Algebra V4 Development Workspace
+
+This folder executes [`NEURIPS_DEVELOPMENT_PLAN.md`](../NEURIPS_DEVELOPMENT_PLAN.md) without changing the historical V1--V3 implementation or results.
+
+## Phase status
+
+| Phase | Status | Current evidence |
+|---|---|---|
+| **0. Claim and code audit** | **IN PROGRESS** | Exact core, architecture-independent fingerprint, cyclic-order control, property tests, standard metrics, source/family baseline, schema, claim matrix, limitations, and Phase-1 draft created |
+| 1. Independent composition bridge | NOT STARTED | Mason word manifest generated, but no dataset/model inference run |
+| 2. CIFAR model bank | NOT STARTED | — |
+| 3. ImageNet/realistic corruptions | NOT STARTED | — |
+| 4. Natural/hybrid shifts | NOT STARTED | — |
+| 5. Method freeze/preregistration | NOT STARTED | — |
+| 6. One-shot final evaluation | NOT STARTED | — |
+| 7. Paper and artifact | NOT STARTED | — |
+
+No prospective benchmark result should be inferred from scaffold or unit-test completion.
+
+## Layout
+
+```text
+v4/
+├── src/                       # Exact V4 algebra and prospective models
+├── tests/                     # Invariant, schema, metric, and baseline tests
+├── benchmark/                 # Versioned schema and external protocol manifests
+│   └── manifests/
+├── baselines/                 # R0/R1/R2/R3 baselines
+├── analysis/                  # Comparable metrics and later inference
+├── literature/                # Prior-work claim matrix
+├── protocol/                  # Preregistrations and freeze contracts
+├── KNOWN_LIMITATIONS.md       # Claim boundaries and current failure modes
+└── verify_phase0.py           # One-command Phase-0 verifier
+```
+
+## Verify Phase 0
+
+From the repository root:
+
+```bash
+python3 v4/verify_phase0.py
+```
+
+The verifier:
+
+1. runs all V4 unit/property tests;
+2. validates the Mason manifest and exact word counts;
+3. checks the literature matrix schema;
+4. checks that all required Phase-0 artifacts exist;
+5. prints a machine-readable summary to stdout.
+
+## Scientific rules
+
+1. V1--V3 files are immutable except for documentation corrections.
+2. R0--R4 information access must be declared for every method.
+3. Matrix, streaming, and closed-form implementations must remain numerically equivalent.
+4. The matrix form is not compared as if it were different from its exact closed form.
+5. Natural factors are commutative unless a physical order actually exists.
+6. Final conditions remain sealed after method freeze.
+7. Failed preregistered gates are reported, not rescued under the same protocol ID.
+
+## Immediate remaining Phase-0 tasks
+
+- complete the multi-index literature search outside GitHub and refresh the claim matrix;
+- freeze Phase-1 model/checkpoint provenance and hyperparameter budgets;
+- complete license review, especially FaceScrub;
+- run a five-model CIFAR compute/variance pilot on development-only conditions.

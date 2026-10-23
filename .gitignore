@@ -13,3 +13,4 @@ results_v2/preds/
 results_v2/models/
 __pycache__/
 *.pyc
+.venv/

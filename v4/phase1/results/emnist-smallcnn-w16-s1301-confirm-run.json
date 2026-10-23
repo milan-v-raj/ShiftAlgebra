@@ -1,0 +1,362 @@
+{
+  "classifier_training": {
+    "config": {
+      "batch_size": 512,
+      "class_count": 47,
+      "dataset": "EMNIST",
+      "epochs": 5,
+      "input_channels": 1,
+      "learning_rate": 0.003,
+      "seed": 1301,
+      "weight_decay": 0.0001,
+      "width": 16
+    },
+    "elapsed_seconds": 347.3260118961334,
+    "history": [
+      {
+        "epoch": 1,
+        "train_accuracy": 0.654936170212766,
+        "train_loss": 1.4906520970222799,
+        "validation_accuracy": 0.8265957446808511,
+        "validation_nll": 0.5729020565114122
+      },
+      {
+        "epoch": 2,
+        "train_accuracy": 0.8480851063829787,
+        "train_loss": 0.48653539084373637,
+        "validation_accuracy": 0.8375,
+        "validation_nll": 0.48693725748265043
+      },
+      {
+        "epoch": 3,
+        "train_accuracy": 0.8662127659574468,
+        "train_loss": 0.4005336419318585,
+        "validation_accuracy": 0.8618617021276596,
+        "validation_nll": 0.4055376777243107
+      },
+      {
+        "epoch": 4,
+        "train_accuracy": 0.8784574468085107,
+        "train_loss": 0.35926324654640035,
+        "validation_accuracy": 0.8706382978723404,
+        "validation_nll": 0.36923080626954424
+      },
+      {
+        "epoch": 5,
+        "train_accuracy": 0.8861702127659574,
+        "train_loss": 0.33457564253502703,
+        "validation_accuracy": 0.8760106382978723,
+        "validation_nll": 0.34996884041644155
+      }
+    ],
+    "model_id": "smallcnn-w16-s1301",
+    "normalization_mean": [
+      0.17512691020965576
+    ],
+    "normalization_std": [
+      0.333255410194397
+    ],
+    "parameter_count": 38079,
+    "test_clean": {
+      "accuracy": 0.8748936170212765,
+      "nll": 0.3699306268894926
+    }
+  },
+  "dataset": "EMNIST",
+  "dataset_provenance": {
+    "hashes": {
+      "test": {
+        "file_sha256": {
+          "X_test_0_to_18495.webp": "8a6b47ffcb3b1cf637ad47c585ce20c2c0e2b7a4e124044c492b4bbcf1d76f19",
+          "X_test_18496_to_18799.webp": "5712f1444f789cd79c1d4be172b5e5569e8a1e488757ce86a4906fc2e5d94e53"
+        },
+        "metadata_sha256": "20faf7db533d45ec8d3948c208f4f33653f86d73fe107694d42dec090e13050c"
+      },
+      "train": {
+        "file_sha256": {
+          "X_train_0_to_20735.webp": "008309c45e126711ae2ca072f799159a2b7919087b2fb51393557249e54570e3",
+          "X_train_103680_to_112799.webp": "d452acc36d3735adf96f3656432d5843b2cbb9e22c56d2a06edad76b56c824cb",
+          "X_train_20736_to_41471.webp": "69e17d9772d4ec74204901d23e00c40d156813810a4a1f43362f7290ceec0a2f",
+          "X_train_41472_to_62207.webp": "1ec0f618c42951ef55716408fefd29059b19911ab349c95813cc4c07e2114b51",
+          "X_train_62208_to_82943.webp": "f7c357b81827b9323a4376626075d13d292c5b8be939dd0317abb5cf267c4d15",
+          "X_train_82944_to_103679.webp": "6d4fe869a16e791920febb90b6caccd10b74192f4c481a188fb8dffe2aea3207"
+        },
+        "metadata_sha256": "717a624ae268c44754c89ef5324f53207ffe07c8ee531e8b8481d4ee59c128a7"
+      }
+    },
+    "mirror": "https://github.com/0r4nd/emnist-packed",
+    "mirror_role": "transport-only lossless WebP packaging of EMNIST balanced",
+    "split": "class-stable first 2000 train / last 400 validation"
+  },
+  "development_subset": {
+    "offset": 40,
+    "per_class": 360,
+    "samples": 16920
+  },
+  "elapsed_seconds": 1116.7280206680298,
+  "evaluation": {
+    "clean": {
+      "accuracy": 0.8738770484924316,
+      "drift": 0.0,
+      "ece": 0.021065138280391693,
+      "margin": 0.7565591335296631,
+      "nll": 0.37261542677879333,
+      "sample_count": 16920
+    },
+    "conditions": 167,
+    "dataset": "EMNIST",
+    "elapsed_seconds": 977.838668346405,
+    "fingerprint_json": "/home/user/ShiftAlgebra/v4/phase1/results/emnist-smallcnn-w16-s1301-confirm-fingerprints.json",
+    "model_id": "smallcnn-w16-s1301",
+    "output_csv": "/home/user/ShiftAlgebra/v4/phase1/results/emnist-smallcnn-w16-s1301-confirm-behavior.csv",
+    "samples": 16920
+  },
+  "forecast": {
+    "accuracy_constraint": [
+      -0.8738770484924316,
+      0.12612295150756836
+    ],
+    "behavior_csv": "/home/user/ShiftAlgebra/v4/phase1/results/emnist-smallcnn-w16-s1301-confirm-behavior.csv",
+    "behavior_order": [
+      "margin",
+      "drift",
+      "ece",
+      "nll",
+      "accuracy"
+    ],
+    "calibration_pairs": 30,
+    "clean_accuracy": 0.8738770484924316,
+    "lp_exponents": [
+      7.369044907281348,
+      5.5445665971553915,
+      9.203599550690582,
+      3.408450900239096,
+      9.550391268899068
+    ],
+    "methods": {
+      "additive": {
+        "accuracy_clipped_fraction": 1.0,
+        "accuracy_mae_pp": 2.269594440093407,
+        "accuracy_rmse_pp": 2.2895724487088893,
+        "by_length": {
+          "3": {
+            "accuracy_mae_pp": 2.348995255306363,
+            "conditions": 40,
+            "normalized_behavior_mae": 4.9500248450183975
+          },
+          "4": {
+            "accuracy_mae_pp": 2.2945232316851616,
+            "conditions": 30,
+            "normalized_behavior_mae": 7.515176213201396
+          },
+          "5": {
+            "accuracy_mae_pp": 2.198384509732326,
+            "conditions": 30,
+            "normalized_behavior_mae": 10.117143385650289
+          },
+          "6": {
+            "accuracy_mae_pp": 2.2100078252454596,
+            "conditions": 30,
+            "normalized_behavior_mae": 12.761083958538551
+          }
+        },
+        "normalized_behavior_mae": 8.536946927095714,
+        "worst_decile_accuracy_mae_pp": 2.950081830987563
+      },
+      "lp": {
+        "accuracy_clipped_fraction": 1.0,
+        "accuracy_mae_pp": 2.269594440093407,
+        "accuracy_rmse_pp": 2.2895724487088893,
+        "by_length": {
+          "3": {
+            "accuracy_mae_pp": 2.348995255306363,
+            "conditions": 40,
+            "normalized_behavior_mae": 0.7916117450491513
+          },
+          "4": {
+            "accuracy_mae_pp": 2.2945232316851616,
+            "conditions": 30,
+            "normalized_behavior_mae": 0.8923917593841089
+          },
+          "5": {
+            "accuracy_mae_pp": 2.198384509732326,
+            "conditions": 30,
+            "normalized_behavior_mae": 0.9623501279968527
+          },
+          "6": {
+            "accuracy_mae_pp": 2.2100078252454596,
+            "conditions": 30,
+            "normalized_behavior_mae": 1.14305919470433
+          }
+        },
+        "normalized_behavior_mae": 0.9353730943424984,
+        "worst_decile_accuracy_mae_pp": 2.950081830987563
+      },
+      "max_abs": {
+        "accuracy_clipped_fraction": 0.0,
+        "accuracy_mae_pp": 0.45712863596586084,
+        "accuracy_rmse_pp": 0.5030052764444449,
+        "by_length": {
+          "3": {
+            "accuracy_mae_pp": 0.47724590636789804,
+            "conditions": 40,
+            "normalized_behavior_mae": 0.6496684405296176
+          },
+          "4": {
+            "accuracy_mae_pp": 0.4643420626719793,
+            "conditions": 30,
+            "normalized_behavior_mae": 0.6972265900375237
+          },
+          "5": {
+            "accuracy_mae_pp": 0.44838463887572294,
+            "conditions": 30,
+            "normalized_behavior_mae": 0.6893074201945084
+          },
+          "6": {
+            "accuracy_mae_pp": 0.43183617914716405,
+            "conditions": 30,
+            "normalized_behavior_mae": 0.7615009468047683
+          }
+        },
+        "normalized_behavior_mae": 0.695598356402221,
+        "worst_decile_accuracy_mae_pp": 0.9028914599464489
+      },
+      "mean": {
+        "accuracy_clipped_fraction": 0.0,
+        "accuracy_mae_pp": 2.061359661225326,
+        "accuracy_rmse_pp": 2.1767840466909525,
+        "by_length": {
+          "3": {
+            "accuracy_mae_pp": 1.9859141049285747,
+            "conditions": 40,
+            "normalized_behavior_mae": 1.1035450252480659
+          },
+          "4": {
+            "accuracy_mae_pp": 2.0346729767819247,
+            "conditions": 30,
+            "normalized_behavior_mae": 1.2106700358691729
+          },
+          "5": {
+            "accuracy_mae_pp": 2.1308116987347603,
+            "conditions": 30,
+            "normalized_behavior_mae": 1.2898511970025102
+          },
+          "6": {
+            "accuracy_mae_pp": 2.1191883832216303,
+            "conditions": 30,
+            "normalized_behavior_mae": 1.4245617758561522
+          }
+        },
+        "normalized_behavior_mae": 1.2453407020904437,
+        "worst_decile_accuracy_mae_pp": 3.3098062667518096
+      },
+      "pair_feature_ridge": {
+        "accuracy_clipped_fraction": 1.0,
+        "accuracy_mae_pp": 2.269594440093407,
+        "accuracy_rmse_pp": 2.2895724487088893,
+        "by_length": {
+          "3": {
+            "accuracy_mae_pp": 2.348995255306363,
+            "conditions": 40,
+            "normalized_behavior_mae": 0.6840801176718361
+          },
+          "4": {
+            "accuracy_mae_pp": 2.2945232316851616,
+            "conditions": 30,
+            "normalized_behavior_mae": 0.8041143967451707
+          },
+          "5": {
+            "accuracy_mae_pp": 2.198384509732326,
+            "conditions": 30,
+            "normalized_behavior_mae": 0.8593197347669711
+          },
+          "6": {
+            "accuracy_mae_pp": 2.2100078252454596,
+            "conditions": 30,
+            "normalized_behavior_mae": 1.0420165577436977
+          }
+        },
+        "normalized_behavior_mae": 0.8348209644965279,
+        "worst_decile_accuracy_mae_pp": 2.950081830987563
+      },
+      "pair_residual": {
+        "accuracy_clipped_fraction": 0.9615384615384616,
+        "accuracy_mae_pp": 2.2617412647381987,
+        "accuracy_rmse_pp": 2.2805837051534055,
+        "by_length": {
+          "3": {
+            "accuracy_mae_pp": 2.323472435401936,
+            "conditions": 40,
+            "normalized_behavior_mae": 0.578417990702008
+          },
+          "4": {
+            "accuracy_mae_pp": 2.2945232316851616,
+            "conditions": 30,
+            "normalized_behavior_mae": 0.776291536340222
+          },
+          "5": {
+            "accuracy_mae_pp": 2.198384509732326,
+            "conditions": 30,
+            "normalized_behavior_mae": 0.8477629038117246
+          },
+          "6": {
+            "accuracy_mae_pp": 2.2100078252454596,
+            "conditions": 30,
+            "normalized_behavior_mae": 1.040395151688125
+          }
+        },
+        "normalized_behavior_mae": 0.7928477491021728,
+        "worst_decile_accuracy_mae_pp": 2.8964053789588604
+      },
+      "potential_algebra": {
+        "accuracy_clipped_fraction": 0.9769230769230769,
+        "accuracy_mae_pp": 2.2667847383700703,
+        "accuracy_rmse_pp": 2.28552222197079,
+        "by_length": {
+          "3": {
+            "accuracy_mae_pp": 2.3398637247055176,
+            "conditions": 40,
+            "normalized_behavior_mae": 0.730100194770985
+          },
+          "4": {
+            "accuracy_mae_pp": 2.2945232316851616,
+            "conditions": 30,
+            "normalized_behavior_mae": 0.831042060631024
+          },
+          "5": {
+            "accuracy_mae_pp": 2.198384509732326,
+            "conditions": 30,
+            "normalized_behavior_mae": 0.8887863876059027
+          },
+          "6": {
+            "accuracy_mae_pp": 2.2100078252454596,
+            "conditions": 30,
+            "normalized_behavior_mae": 1.0705455015262222
+          }
+        },
+        "normalized_behavior_mae": 0.8685786637210298,
+        "worst_decile_accuracy_mae_pp": 2.923715805901668
+      }
+    },
+    "potential_ensemble_size": 5,
+    "primitive_order": [
+      "Contrast",
+      "GaussianBlur",
+      "ImpulseNoise",
+      "Invert",
+      "Rotate90",
+      "Swirl"
+    ],
+    "protocol": "V4-P1-MASON-001-confirm",
+    "target_access_during_fit": false,
+    "target_words": 130
+  },
+  "manifest_sha256": "d2be1ca5c899659482204630d1f2b755587b71ee994372a7b716e5c5ad591264",
+  "model_id": "smallcnn-w16-s1301",
+  "protocol": "V4-P1-MASON-001",
+  "status": "CONFIRMATORY_ONE_SHOT",
+  "transport_commits": {
+    "cifar_mirror": null,
+    "emnist_mirror": "0f121efc642634809af4f2f443b70152f71b9a51"
+  }
+}

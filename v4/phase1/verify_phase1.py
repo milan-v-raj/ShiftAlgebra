@@ -61,12 +61,21 @@ def main() -> None:
         validate_result(path)
         for path in sorted((ROOT / "v4/phase1/results").glob("*-behavior.csv"))
     ]
+    confirmatory = [run for run in completed if run["split"] == "confirm"]
+    gate_passed = bool(confirmatory) and all(
+        run["best_accuracy_method"] == "potential_algebra" for run in confirmatory
+    )
     summary = {
         "phase": 1,
-        "status": "DEVELOPMENT_ACTIVE",
+        "status": (
+            "COMPLETE_GATE_PASSED" if gate_passed
+            else "COMPLETE_METHOD_GATE_FAILED" if len(confirmatory) == 2
+            else "DEVELOPMENT_ACTIVE"
+        ),
         "tests": "PASS",
         "completed_runs": completed,
-        "confirmatory_run_opened": any(run["split"] == "confirm" for run in completed),
+        "confirmatory_run_opened": bool(confirmatory),
+        "method_gate_passed": gate_passed,
     }
     print(json.dumps(summary, indent=2, sort_keys=True))
 

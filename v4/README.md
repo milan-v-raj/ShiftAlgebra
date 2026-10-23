@@ -7,7 +7,7 @@ This folder executes [`NEURIPS_DEVELOPMENT_PLAN.md`](../NEURIPS_DEVELOPMENT_PLAN
 | Phase | Status | Current evidence |
 |---|---|---|
 | **0. Claim and code audit** | **IN PROGRESS** | Exact core, architecture-independent fingerprint, cyclic-order control, property tests, standard metrics, source/family baseline, schema, claim matrix, limitations, and Phase-1 draft created |
-| **1. Independent composition bridge** | **DEVELOPMENT ACTIVE** | CIFAR-10 and EMNIST 167-word development runs completed; non-overlapping confirmation still sealed |
+| **1. Independent composition bridge** | **COMPLETE — METHOD GATE FAILED** | One-shot CIFAR-10 and EMNIST confirmation found severe saturation; max-envelope baseline wins |
 | 2. CIFAR model bank | NOT STARTED | — |
 | 3. ImageNet/realistic corruptions | NOT STARTED | — |
 | 4. Natural/hybrid shifts | NOT STARTED | — |

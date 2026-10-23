@@ -1,7 +1,9 @@
 # Phase 1 — Independent Mason Protocol Bridge
 
-**Status:** development run started; not confirmatory
+**Status:** one-shot confirmation complete; method gate failed
 **Protocol:** `V4-P1-MASON-001`
+
+See [`PHASE1_FINAL_REPORT.md`](PHASE1_FINAL_REPORT.md) for the frozen result and saturation diagnosis.
 
 ## Aim
 

@@ -1,6 +1,6 @@
 # Phase 1 Preregistration: Mason Exact-Protocol Bridge
 
-**Status:** DEVELOPMENT LABELS ACCESSED; CONFIRMATORY IMAGE SUBSETS NOT YET EVALUATED
+**Status:** ONE-SHOT CONFIRMATION COMPLETE; METHOD GATE FAILED
 **Protocol ID:** `V4-P1-MASON-001`
 **Source manifest:** `v4/benchmark/manifests/mason_exact.json`
 **Upstream source commit:** `fc62a92ccd11f64eec26c7a019e9e0957fd9bd33`
@@ -154,7 +154,7 @@ Every exclusion must be emitted before target metrics are computed and recorded 
 - [ ] Exclusion script frozen.
 - [ ] Compute budget approved.
 - [x] Development length-3--6 labels were confined to the declared development image subset.
-- [ ] Non-overlapping confirmatory images remain unevaluated until the freeze commit.
+- [x] Non-overlapping confirmatory images were evaluated once after the freeze commits.
 
 ## 11. Amendment P1-A1 after development, before confirmation
 

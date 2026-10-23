@@ -4,6 +4,7 @@
 **Parent result:** `V4-P1-MASON-001` (unchanged)
 **Stage-A executable commit:** `5ff297827e46fd0fde9b5d8298df13409d36fc74`
 **Stage-B severity freeze:** `44f55c1b0081d16339a6dd22649dc4abf7a60a46`
+**Confirmation result commit:** `271a0f2898d8d708e2c0ef52bfccd5fbcd501af9`
 **Status:** one-shot confirmation complete; dynamic-range and method gates failed
 
 ## 1. Executive result

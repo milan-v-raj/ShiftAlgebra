@@ -220,7 +220,7 @@ python -m v4.phase1b.analyze
 
 - Stage-A executable commit: `5ff297827e46fd0fde9b5d8298df13409d36fc74`
 - Stage-B strength-freeze commit: `44f55c1b0081d16339a6dd22649dc4abf7a60a46`
-- Confirmation result commit: **TBD**
+- Confirmation result commit: `271a0f2898d8d708e2c0ef52bfccd5fbcd501af9`
 - Frozen strength file SHA-256: `f851fc920cc2d1ff677122b5de7f2fde0ab229acfcd197c8fef40913fd7c8772`
 - Final analysis SHA-256: `c52507a02e251f8a0938f1a4faaec834be4de1f84d01de213464ac693d38709d`
 - Frozen outcome: pair residual macro MAE `18.837pp`; potential algebra `20.575pp`; overall method gate failed.

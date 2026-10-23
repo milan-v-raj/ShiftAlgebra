@@ -167,7 +167,7 @@ Only hash/data corruption, non-finite model output, class-mapping failure, or ex
 ## 13. Freeze record
 
 - Stage-A executable commit: `63f257b777aa8cf1b63fca9cd5f8abea30fc145e`
-- Stage-B method-freeze commit: **TBD**
+- Stage-B method-freeze commit: `9dd98357ca8af2e6122e399be66046ca659a3566`
 - Confirmation result commit: **TBD**
 - Phase-2 manifest SHA-256: `7ed83c1074359ac4669b0d8f77d493af093d13cc5bbf88dac55573bb52960b0d`
 - Frozen method SHA-256: `78c3a4b27810ce4932359e933670cb872c3eba551d8faf930e7b0ff5baa13753`

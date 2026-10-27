@@ -1,0 +1,1085 @@
+\documentclass[11pt,a4paper]{article}
+
+% =============================================================================
+% Pre-deployment compositional performance forecasting:
+% problem statement, literature review, mathematical definition, and results.
+% =============================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=0.88in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools,bm}
+\usepackage{booktabs,longtable,array,multirow}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{pdflscape}
+\usepackage[colorlinks=true,linkcolor=blue!55!black,citecolor=green!40!black,urlcolor=blue!60!black]{hyperref}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist{leftmargin=1.5em,itemsep=2pt,topsep=3pt}
+\allowdisplaybreaks
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\acc}{\operatorname{acc}}
+\newcommand{\MAE}{\operatorname{MAE}}
+\newcommand{\clip}{\operatorname{clip}}
+\newcommand{\sign}{\operatorname{sign}}
+\newcommand{\softmax}{\operatorname{softmax}}
+\newcommand{\pp}{\,\text{percentage points}}
+\newcommand{\Rzero}{\mathrm{R0}}
+\newcommand{\Rone}{\mathrm{R1}}
+\newcommand{\Rtwo}{\mathrm{R2}}
+\newcommand{\Rthree}{\mathrm{R3}}
+\newcommand{\Rfour}{\mathrm{R4}}
+
+\title{\textbf{Pre-Deployment Compositional Performance Forecasting}\\
+\large Problem Definition, Mathematical Approach, Literature Review, and CIFAR Results}
+\author{Technical research summary for the ShiftAlgebra repository}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A deployed classifier can encounter several shifts at once: blur followed by
+noise, low contrast followed by rotation, or a natural domain shift followed by
+a sensor corruption.  Evaluating every ordered combination is combinatorially
+expensive.  This project studies a specific earlier-stage forecasting problem:
+predict the behavior of a frozen model under an unavailable composition using
+measurements of primitive shifts and a limited number of ordered pairs, without
+processing images from the composed target at forecast time.  This document
+states that problem in plain and mathematical language, distinguishes it from
+robust training and ordinary out-of-distribution (OOD) performance prediction,
+reviews the closest literature, explains the matrix and hazard formulations,
+and reports the complete empirical progression from the original CIFAR
+experiments through the sealed Phase-2 model-bank pilot.  The record is mixed
+and is reported as such: historical development experiments were positive,
+independent Phase-1 and Phase-1B long-word tests rejected the original primary
+method, while the Phase-2 pilot found that composition-aware hazard forecasts
+substantially improve prediction and model selection across a bank of CIFAR
+models.  The evidence supports a narrow composition-aware forecasting claim,
+not a universal algebra of distribution shift.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% =============================================================================
+\section{The problem in plain language}
+% =============================================================================
+
+Suppose a cloud or vision system has already been trained.  Engineers can test
+one fault or one shift at a time: blur, noise, low contrast, packet delay,
+resource pressure, or sensor failure.  Real deployments can encounter several
+of them together and in a meaningful order.  Testing every possible sequence
+is expensive because the number of ordered words grows rapidly.  With $K$
+primitive shifts, there are $2^K-1$ nonempty unordered subsets, and the number
+of distinct ordered words of lengths $1$ through $K$ is
+\[
+\sum_{m=1}^{K}\frac{K!}{(K-m)!},
+\]
+which is even larger.
+
+The practical question is:
+
+\begin{quote}
+\textbf{Can we forecast how an already-trained model will behave under a new
+ordered combination of shifts before samples from that combination are
+available?}
+\end{quote}
+
+The proposed workflow measures each simple shift and a controlled budget of
+pairs.  It then learns a rule for combining those measurements.  At deployment
+planning time, the rule receives the name/order of a new composition and the
+stored primitive/pair profiles; it does \emph{not} run the unavailable target
+composition through the classifier.
+
+This is useful for pre-deployment risk analysis, test prioritization, and model
+selection.  It does not make the classifier robust by itself.  It forecasts
+where the classifier is likely to fail.
+
+% =============================================================================
+\section{Formal problem definition}
+% =============================================================================
+
+\subsection{Frozen model, primitive shifts, and words}
+
+Let
+\[
+f:\mathcal{X}\rightarrow\Delta^{C-1}
+\]
+be a frozen $C$-class classifier, where $f(x)$ is a probability vector.  Let
+$D_0$ be a labeled clean reference distribution.  A primitive shift $X$ is an
+operator
+\[
+\tau_X:\mathcal{X}\rightarrow\mathcal{X}.
+\]
+Examples include contrast change, blur, noise, inversion, rotation, and swirl.
+An ordered word
+\[
+w=(X_1,X_2,\ldots,X_m)
+\]
+means that $X_1$ is applied first:
+\[
+\tau_w(x)=\tau_{X_m}\!\left(\cdots
+\tau_{X_2}(\tau_{X_1}(x))\cdots\right).
+\]
+Order can matter.  In general,
+\[
+\tau_{X\to Y}\neq\tau_{Y\to X},
+\qquad
+\acc_f(X\to Y)\neq\acc_f(Y\to X).
+\]
+For example, noise added after blur remains sharp, while blur applied after
+noise can remove some high-frequency noise.
+
+\subsection{Behavior to be forecast}
+
+The simplest target is accuracy
+\[
+a_f(w)=\Pr_{(x,y)\sim D_0}
+\left[\arg\max_c f_c(\tau_w(x))=y\right].
+\]
+The broader project also forecasts confidence margin, negative log likelihood,
+expected calibration error, and representation drift.  Write the behavior
+vector as
+\[
+B_f(w)=[\text{margin},\text{drift},\text{ECE},\text{NLL},\text{accuracy}],
+\]
+and the change from clean behavior as
+\[
+\Delta B_f(w)=B_f(w)-B_f(\varnothing).
+\]
+
+For every primitive $X$, the system can store:
+\begin{itemize}
+  \item a measured behavior vector $\Delta B_f(X)$;
+  \item an architecture-independent fingerprint $v_f(X)$ containing fixed-size
+  summaries of pixel, feature, logit, probability, displacement, and spectral
+  changes.
+\end{itemize}
+For selected ordered pairs, it can additionally store
+$\Delta B_f(X\to Y)$.
+
+\subsection{Forecasting objective}
+
+The primary target-free forecaster is
+\begin{equation}
+\widehat B_f(w)=
+\mathcal{F}_{\Theta}\!\left(
+  f\text{-metadata},
+  \{v_f(X_i),\Delta B_f(X_i)\}_{i=1}^{m},
+  \{\Delta B_f(X_i\to X_j)\}_{(i,j)\in\mathcal{C}},
+  w
+\right),
+\label{eq:forecast}
+\end{equation}
+where $\mathcal{C}$ is a declared pair-calibration budget.  The target images
+$\{\tau_w(x)\}$ and target labels are unavailable to
+$\mathcal{F}_{\Theta}$ at forecast time.
+
+The primary accuracy error is reported in percentage points:
+\begin{equation}
+\MAE_{\mathrm{acc}}=100\cdot
+\frac{1}{|\mathcal{W}_{\mathrm{test}}|}
+\sum_{w\in\mathcal{W}_{\mathrm{test}}}
+\left|\widehat a_f(w)-a_f(w)\right|.
+\end{equation}
+When many classifiers are available, the task also asks whether
+$\widehat a_f(w)$ correctly ranks models for a fixed environment $w$ and
+selects a good deployment model.
+
+\subsection{What ``zero-shot'' means here}
+
+``Zero-shot'' refers only to the held-out composition.  It does \emph{not}
+mean that the system uses no labels at all.  Primitive behaviors and selected
+pair behaviors can be measured with labeled calibration data.  The claim is:
+\begin{quote}
+No images or labels from the held-out composed target enter the ordinary
+\Rtwo{} forecast.
+\end{quote}
+This access boundary must be stated whenever results are compared with methods
+that see actual unlabeled target images.
+
+% =============================================================================
+\section{Information regimes: fair comparisons require equal access}
+% =============================================================================
+
+\begin{center}
+\begin{tabular}{P{1.2cm}P{5.4cm}P{4.6cm}P{3.5cm}}
+\toprule
+\textbf{Regime} & \textbf{Available at forecast time} & \textbf{Examples} & \textbf{Interpretation} \\
+\midrule
+\Rzero{} & Clean/source labels and model metadata; no primitive or target images & Clean accuracy, architecture/recipe ridge & Minimum source baseline \\
+\Rone{} & \Rzero{} plus primitive profiles and primitive behavior & Mean, max damage, product retention, signed $L_p$ & Primitive-only forecast \\
+\Rtwo{} & \Rone{} plus a declared set of labeled ordered pairs; no composed target images & Shift Algebra, pair residual, hazard composition, sequence baselines & Primary pre-deployment regime \\
+\Rthree{} & Actual unlabeled composed target images are available & ATC, DoC, COT/COTT, MaNo, MDE, Agreement & Standard target-available OOD prediction \\
+\Rfour{} & Labeled composed target is available & Direct measurement/oracle & Evaluation ceiling only \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The primary scientific comparison must be within \Rtwo{}.  An \Rthree{} method
+can be operationally valuable, but it has information that an \Rtwo{} method
+does not.  Therefore a claim such as ``better than ATC'' is meaningful only if
+both information regimes are clearly labeled and the official implementation
+is used.
+
+% =============================================================================
+\section{Two mathematical approaches used in this project}
+% =============================================================================
+
+\subsection{Shift Algebra: transformed behavior, symmetric interaction, order}
+
+For behavior coordinate $b$ and exponent $p\geq 1$, define the exact signed
+power transform
+\begin{align}
+\phi_p(b)&=\sign(b)\left((|b|+\epsilon)^p-\epsilon^p\right),\\
+\phi_p^{-1}(u)&=\sign(u)
+\left((|u|+\epsilon^p)^{1/p}-\epsilon\right).
+\end{align}
+The base composition of primitive behaviors is
+\begin{equation}
+B_{L_p}(w)=
+\phi_p^{-1}\!\left(\sum_{i=1}^{m}\phi_p(\Delta B_f(X_i))\right).
+\label{eq:lp}
+\end{equation}
+For effects with the same sign, $p>1$ lies between a maximum and an additive
+sum, providing a simple saturation law.
+
+Each primitive also receives a symmetric coordinate $z_i$ and directional
+coordinates $(\pi_i,\kappa_i)$.  For a word of length $m$, the closed-form
+features are
+\begin{align}
+\Gamma(w)&=\frac{1}{\binom{m}{2}}
+\sum_{i<j}z_i\odot z_j,\\
+\Omega(w)&=\frac{1}{\binom{m}{2}}
+\sum_{i<j}\frac12\pi_i\odot\pi_j\odot
+(\kappa_j-\kappa_i).
+\label{eq:order}
+\end{align}
+The symmetric channel is unchanged by reversal, while the ordered channel
+changes sign.  A decoder maps
+$[B_{L_p}(w),\Gamma(w),\Omega(w)]$ to predicted behavior.
+
+\subsection{Where the matrices come from}
+
+The matrix structure is fixed analytically; training learns the coordinates
+inserted into it.  For one directional coordinate, a primitive has the
+Heisenberg block
+\begin{equation}
+H(u,v)=
+\begin{pmatrix}
+1 & u & \tfrac12uv\\
+0 & 1 & v\\
+0 & 0 & 1
+\end{pmatrix},
+\qquad u=\kappa\pi,\quad v=\pi.
+\end{equation}
+If Blur has $(\pi_B,\kappa_B)=(0.6,-0.3)$ and Noise has
+$(\pi_N,\kappa_N)=(0.7,0.4)$, then
+\[
+H_B=
+\begin{pmatrix}1&-0.18&-0.054\\0&1&0.6\\0&0&1\end{pmatrix},
+\qquad
+H_N=
+\begin{pmatrix}1&0.28&0.098\\0&1&0.7\\0&0&1\end{pmatrix}.
+\]
+Chronological Blur then Noise is $H_NH_B$; reversing the word gives $H_BH_N$.
+After removing the order-independent central part, the directional features are
+$+0.147$ and $-0.147$.  Pair-supervision backpropagation changes the encoder,
+$(\pi,\kappa)$, and decoder weights so that these features reduce measured pair
+prediction error.
+
+This is supervised behavior prediction, not an autoencoder.  There is no
+objective that reconstructs the original image.  Also, the matrix extractor is
+exactly equivalent to the closed-form all-pairs expressions in
+Equations~\eqref{eq:lp}--\eqref{eq:order}; the matrix form supplies an
+associative streaming state, not a different predictor by itself.
+
+\subsection{Why the original algebra failed on long calibrated words}
+
+Phase 1B showed that averaging pair interactions by $\binom{m}{2}$ can make the
+correction too weak when damage accumulates extensively with length.  The
+method can be stable but systematically optimistic.  That negative result led
+to the Phase-2 hazard formulation.
+
+\subsection{Phase-2 extensive hazard formulation}
+
+Let $a_0$ be clean accuracy and $c=1/C$ chance accuracy.  Define normalized
+retention and hazard
+\begin{align}
+r(a)&=\clip\!\left(\frac{a-c}{a_0-c},0.02,2\right),\\
+h(a)&=-\log r(a).
+\end{align}
+For primitive $i$, write $h_i=h(a_i)$.  For ordered pair $i\to j$, define the
+pair residual
+\begin{equation}
+R_{ij}=h(a_{i\to j})-h_i-h_j.
+\end{equation}
+For a word $w$ with $N=\binom{m}{2}$ ordered constituent pairs, Phase 2 uses
+\begin{align}
+\widehat h(w)&=\sum_i h_i+N^{q-1}\sum_{i<j}R_{ij},\\
+\widehat a(w)&=\clip\!\left(c+(a_0-c)e^{-\widehat h(w)},0,1\right).
+\label{eq:hazard}
+\end{align}
+Here $q=0$ means an average pair correction and $q=1$ means a full pair sum.
+The development bank selected $q=0.6$ before confirmation, so pair damage grows
+sub-extensively: faster than an average but slower than a quadratic pair sum.
+
+Phase 2 compares two regressions:
+\begin{align}
+g_0 &= \text{clean accuracy + log parameter count + epoch + architecture
++ recipe} \notag\\
+&\quad +\text{word length + the six primitive counts},\\
+g_1 &= g_0 + \text{product, symmetric-hazard, ordered-hazard, and
+max-damage forecasts}.
+\end{align}
+The central question is whether $g_1$ adds predictive value beyond $g_0$ on
+new models and sealed words.
+
+% =============================================================================
+\section{Literature review}
+% =============================================================================
+
+\subsection{Robustness benchmarks are not performance forecasters}
+
+ImageNet-C/CIFAR-C and ImageNet-P standardized evaluation under common
+corruptions and perturbations, with metrics such as Corruption Error, mCE,
+relative mCE, flip rate, and top-5 distance
+\cite{hendrycks2019}.  RobustBench standardized robust model loading and
+comparison \cite{croce2021}, while 3D Common Corruptions introduced more
+geometry-aware failures \cite{kar2022}.  These works define important target
+quantities and realistic model banks.  However, they normally measure a model
+on labeled target data; they do not forecast an unavailable ordered
+composition from its factors.
+
+AugMix composes stochastic augmentation chains during training to improve
+robustness and calibration \cite{hendrycks2020}.  This is close in its use of
+compositions but different in objective: AugMix changes the classifier so that
+it is robust, whereas the present project freezes the classifier and predicts
+its future behavior.
+
+\subsection{OOD performance prediction usually sees the target}
+
+ATC estimates target accuracy from confidence or entropy thresholds applied to
+actual unlabeled target predictions \cite{garg2022}.  Agreement-on-the-Line
+uses agreement among models on actual target samples \cite{baek2022}; later
+work extends this idea to foundation models and test-time adaptation
+\cite{foundationagreement2024,ttaagreement2024}.  ODP-Bench places ten such
+predictor families across 1,444 models and 29 OOD datasets, emphasizing
+cross-model Spearman correlation \cite{yu2025}.
+
+These are the closest works in task---predicting model performance---but they
+operate in \Rthree{}.  Our intended regime is \Rtwo{}: the composed target
+samples do not yet exist.  A fair paper must report the price of this stricter
+information boundary, not pretend the methods receive equal inputs.
+
+\subsection{Source accuracy is a strong confounder}
+
+Accuracy-on-the-Line shows that in-distribution accuracy can strongly explain
+OOD accuracy across model collections \cite{miller2021}.  This makes a raw
+across-model correlation insufficient.  Our model-bank experiments therefore
+need $g_0$, controlled rank after removing source accuracy/family/recipe, and
+model-selection regret.  Recent benchmark critiques further warn that pooled
+ID/OOD lines can hide split-level failure \cite{dgmisspecified2025}.
+
+\subsection{The closest ordered-composition protocol}
+
+Mason et al. study compositional robustness under six ordered primitives:
+Contrast, Gaussian Blur, Impulse Noise, Invert, Rotate90, and Swirl
+\cite{mason2023}.  Their protocol contains identity, six singles, all 30
+ordered distinct pairs, and sampled words through length six---167 conditions
+per dataset.  Their goal is to train and compare robust classifiers, not to
+forecast a frozen classifier's behavior without target compositions.  We reuse
+their independently designed word list as a falsification bridge.  This bridge
+was scientifically important because it rejected our original primary method
+under both fixed and severity-calibrated settings.
+
+\subsection{Natural shifts and compositional semantics}
+
+WILDS, DomainBed, BREEDS, and MetaShift provide natural domain, group, context,
+and subpopulation shifts \cite{koh2021,gulrajani2021,santurkar2021,liang2022}.
+These benchmarks are essential for external validity, but many metadata
+intersections are commutative.  A region-by-year group should not be described
+as a physical non-commutative operator.  A defensible extension separates
+commutative factor intersections from physically ordered natural-plus-operator
+words.
+
+Sparse Differentiable Tree Machines study compositional generalization under
+lexical, structural, length, template, and maximum-compound-divergence splits
+\cite{soulos2024}.  This provides broad compositional-generalization context,
+but it is a symbolic sequence/tree task rather than image-corruption
+performance forecasting.
+
+\subsection{Invariant learning is adjacent, not the same task}
+
+Invariant Risk Minimization and related domain-generalization methods attempt
+to learn predictors that remain stable across environments
+\cite{arjovsky2019}.  They modify training and representations.  Our task is
+complementary: take a frozen model, including one that may not be invariant,
+and estimate its behavior under an unavailable composition.  A forecasting
+paper should not claim that invariance methods ``fail'' in general; it should
+show that they answer a different question.
+
+% =============================================================================
+\section{Paper-by-paper comparison and required proof of difference}
+% =============================================================================
+
+\begin{landscape}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{longtable}{P{3.1cm}P{3.4cm}P{4.4cm}P{4.4cm}P{5.0cm}}
+\caption{Closest literature, overlap, distinction, and evidence required.}
+\label{tab:literature}\\
+\toprule
+\textbf{Paper / year} & \textbf{What it studies} & \textbf{What is similar to our work} & \textbf{How our task differs} & \textbf{What we must prove to justify the difference} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Paper / year} & \textbf{What it studies} & \textbf{What is similar to our work} & \textbf{How our task differs} & \textbf{Required evidence} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{5}{r}{\emph{Continued on next page}}\\
+\endfoot
+\bottomrule
+\endlastfoot
+
+Hendrycks \& Dietterich, \emph{Common Corruptions and Perturbations}, 2019 \cite{hendrycks2019}
+& Standardized corruption/perturbation robustness evaluation.
+& Same broad object: model behavior under image corruption; supplies mCE, relative mCE, flip-rate metrics.
+& Measures labeled targets, mainly individual corruption/severity conditions; does not forecast unavailable ordered words.
+& Predict standard accuracy/error and eventually mCE contributions on held-out compositions; use common corruption definitions and disclose deviations. \\
+
+Hendrycks et al., \emph{AugMix}, 2020 \cite{hendrycks2020}
+& Trains robust, calibrated classifiers with mixed augmentation chains.
+& Uses composed image transformations and recognizes that mixtures improve robustness training.
+& Changes classifier training; ours freezes the classifier and forecasts failure before the composed target is available.
+& Evaluate frozen standard and robust models; show value is predictive rather than an artifact of retraining; include AugMix/robust recipes in the bank. \\
+
+Arjovsky et al., \emph{Invariant Risk Minimization}, 2019 \cite{arjovsky2019}
+& Learns invariant predictors across environments.
+& Motivated by deployment under distribution change.
+& Attempts to remove environment-specific dependence; does not represent and forecast ordered operators for a frozen model.
+& Demonstrate prediction for models with different training recipes, control for source accuracy, and avoid claiming that forecasting replaces robust training. \\
+
+Miller et al., \emph{Accuracy on the Line}, 2021 \cite{miller2021}
+& Relates ID and OOD accuracy across model collections.
+& Directly relevant source-only performance baseline and across-model unit.
+& Does not use primitive/pair composition information or ordered words.
+& Show $g_1$ improves over clean accuracy, family, recipe, epoch, and parameter count; report controlled rank and selection regret with clustered intervals. \\
+
+Koh et al., \emph{WILDS}, 2021 \cite{koh2021}
+& Natural in-the-wild distribution shifts and worst-group evaluation.
+& Supplies realistic domains and deployment metrics.
+& Natural groups are not generally sequential image operators; benchmark evaluates rather than forecasts compositions.
+& Test commutative metadata intersections separately from natural-plus-physical ordered shifts on at least two datasets. \\
+
+Gulrajani \& Lopez-Paz, \emph{DomainBed}, 2021 \cite{gulrajani2021}
+& Standardized domain-generalization algorithms and model selection.
+& Emphasizes controlled protocols and held-out domains.
+& Trains domain-generalized models rather than predicting behavior of arbitrary frozen models.
+& Use architecture/recipe holdouts and fixed selection protocols; show composition score transfers beyond seen model families. \\
+
+Santurkar et al., \emph{BREEDS}, 2021 \cite{santurkar2021}
+& Subpopulation shift benchmarks.
+& Relevant natural factor and model-bank test source.
+& Does not define physical ordered composition or target-free behavior forecasting.
+& Forecast subpopulation intersections without inventing order; demonstrate calibrated error on natural factors. \\
+
+Croce et al., \emph{RobustBench}, 2021 \cite{croce2021}
+& Standardized robust model zoo and evaluation.
+& Provides architecture/training diversity needed for model ranking.
+& Primarily evaluates adversarial/common-corruption robustness with target labels.
+& Use public preprocessing-correct checkpoints, hashes, and licenses; demonstrate incremental value across standard, corruption-robust, and adversarial recipes. \\
+
+Garg et al., \emph{Leveraging Unlabeled Data / ATC}, 2022 \cite{garg2022}
+& Estimates OOD accuracy from actual unlabeled target confidence.
+& Same output: target accuracy estimate.
+& ATC sees target images (\Rthree{}); our primary forecaster does not (\Rtwo{}).
+& Enforce code-level no-target access; compare equal regimes; report the error cost of not seeing target images using official ATC. \\
+
+Baek et al., \emph{Agreement-on-the-Line}, 2022 \cite{baek2022}
+& Predicts OOD performance from agreement among models on target samples.
+& Motivates cross-model ranking and selection.
+& Requires target samples and a model ensemble; no primitive/pair factorization.
+& Build a diverse model bank; report per-environment model rank and regret; compare with Agreement only as target-available \Rthree{}. \\
+
+Kar et al., \emph{3D Common Corruptions}, 2022 \cite{kar2022}
+& Geometry-aware realistic corruption benchmark.
+& Supplies physically richer primitive shifts and five severities.
+& Evaluates observed corruptions rather than unseen words.
+& Show transfer beyond low-level synthetic CIFAR operations, with deterministic generation and standard metrics. \\
+
+Liang \& Zou, \emph{MetaShift}, 2022 \cite{liang2022}
+& Contextual distribution shifts and conflicts over many natural subsets.
+& Provides factor annotations for compositional groups.
+& Factors are semantic/contextual and usually commutative, not chronological operators.
+& Define a mathematically appropriate commutative track and a separate natural-plus-operator ordered track. \\
+
+Mason et al., \emph{Modularity Trumps Invariance}, 2023 \cite{mason2023}
+& Trains/analyzes models under ordered corruption compositions through length six.
+& Closest exact word protocol: same six primitives, 30 pairs, 167 conditions.
+& Their endpoint is robustness/invariance after training; ours forecasts a frozen model using primitive/pair calibration.
+& Beat strong max, retention, pair-residual, and sequence baselines on an independent word protocol. Our Phase 1 and 1B currently fail this method requirement and must remain disclosed. \\
+
+CorruptionBenchCV, 2023 \cite{corruptionbench2023}
+& Unifies C/C-bar/P/3DCC evaluation and robustness/calibration metrics.
+& Defines the quantities a practical forecast should recover.
+& Measures observed target data; no pre-deployment factor composition.
+& Forecast per-severity accuracy, ECE, relative robustness, and model ordering under compatible transformations. \\
+
+\emph{Foundation Models via Agreement-on-the-Line}, 2024 \cite{foundationagreement2024}
+& Agreement-based prediction for lightly fine-tuned foundation models.
+& Highlights the role of heterogeneous model banks and ensemble diversity.
+& Uses target samples and agreement, not primitive profiles or ordered composition.
+& Demonstrate value with heterogeneous backbones and compare against target-available agreement under identical model pools. \\
+
+\emph{Test-Time Adaptation Induces Stronger Agreement-on-the-Line}, 2024 \cite{ttaagreement2024}
+& Uses adaptation to improve agreement/performance estimation.
+& Shares deployment selection motivation.
+& Changes models at target time and consumes target images; ours freezes models and forecasts before target arrival.
+& Keep models frozen in the primary claim; treat adaptation as a separate operational regime. \\
+
+Soulos et al., \emph{Sparse Tree Operations}, 2024 \cite{soulos2024}
+& Neurosymbolic sequence/tree compositional generalization.
+& Tests length and structural extrapolation.
+& Symbolic grammar and parse trees are not image-shift operators or performance estimates.
+& Include matched sequence baselines (GRU/Transformer/MLP) and show gains are not generic sequence-model capacity. \\
+
+Salaudeen et al., \emph{DG Benchmarks with Accuracy on the Line}, 2025 \cite{dgmisspecified2025}
+& Audits whether benchmark conclusions are dominated by ID/OOD lines.
+& Direct warning for our Phase-2 model-bank claim.
+& Audits benchmark validity rather than proposing composition forecasting.
+& Report split-level results, source-controlled rank, family/recipe holdouts, and avoid one pooled correlation as proof. \\
+
+Yu et al., \emph{ODP-Bench}, 2025 \cite{yu2025}
+& Ten OOD predictors over 1,444 models and 29 datasets.
+& Closest umbrella benchmark for performance prediction; uses model-rank Spearman.
+& Existing predictors see actual unlabeled targets; benchmark has no ordered pre-deployment composition track.
+& Scale beyond the CPU pilot, use official algorithms, reproduce ODP-style ranking, and establish the new information regime without claiming direct SOTA prematurely. \\
+
+\end{longtable}
+\end{landscape}
+
+\subsection{Provisional novelty statement}
+
+The defensible working statement is:
+\begin{quote}
+Existing OOD performance prediction estimates performance after unlabeled target
+samples become available, while compositional-robustness work measures or
+improves classifiers on observed compositions.  We study the earlier
+pre-deployment problem of forecasting an unavailable ordered target composition
+from characterized primitives and limited pair calibration.
+\end{quote}
+This is provisional.  Before submission, forward/backward citation searches
+must be repeated in Semantic Scholar, OpenAlex, Google Scholar, OpenReview, and
+conference proceedings.  The project must not claim to have invented
+semigroups, matrix multiplication, commutators, $L_p$ norms, hazards, or
+mixture-of-experts.
+
+% =============================================================================
+\section{What must be proved empirically and mathematically}
+% =============================================================================
+
+\subsection{Empirical obligations}
+
+A credible difference from prior work requires all of the following:
+\begin{enumerate}
+  \item \textbf{Target-access proof.}  Code and artifacts must show that target
+  composition images/labels do not enter \Rtwo{} fitting or prediction.
+  \item \textbf{Incremental value.}  Composition-aware $g_1$ must beat $g_0$
+  containing clean accuracy, architecture, training recipe, parameter count,
+  epoch, length, and primitive identity, with a family/lineage-clustered
+  confidence interval excluding zero.
+  \item \textbf{Strong same-regime baselines.}  Compare max damage, additive,
+  product retention, signed $L_p$, pair ANOVA/residual, and matched neural
+  sequence models using the same primitive/pair information.
+  \item \textbf{Across-model utility.}  Report model-rank Spearman, controlled
+  rank, top-$k$ selection regret, and near-oracle selection rate.
+  \item \textbf{Breadth.}  Test held-out model families, recipes, severities,
+  datasets, and realistic corruptions; one weak CIFAR bank is not sufficient.
+  \item \textbf{R2 versus R3 clarity.}  Compare official target-image methods
+  separately and report the price of not seeing the target.
+  \item \textbf{Failure disclosure.}  Retain Phase-1/1B negative results and
+  report clipping, saturation, support distance, and per-length behavior.
+  \item \textbf{Order claim discipline.}  Claim non-commutativity only if the
+  ordered model beats a symmetric capacity-matched model on preregistered
+  reverse pairs across datasets and model families.  Current Phase-2 evidence
+  does not satisfy this obligation.
+\end{enumerate}
+
+\subsection{Mathematical obligations}
+
+The implementation-matched theory should establish:
+\begin{enumerate}
+  \item exact inverse consistency of the numerical $\phi_p,\phi_p^{-1}$ pair;
+  \item associativity of the accumulated state, not automatically of every
+  nonlinear decoder heuristic;
+  \item permutation invariance of $\Gamma$ and reversal antisymmetry of
+  $\Omega$;
+  \item equivalence of matrix and closed-form extraction;
+  \item a length-dependent error decomposition of the form
+  \[
+  \|\widehat B(w)-B(w)\|
+  \le C_1m\epsilon_{\mathrm{primitive}}
+  +C_2\binom{m}{2}\epsilon_{\mathrm{pair}}
+  +C_3\epsilon_{\mathrm{higher-order}};
+  \]
+  \item an identifiability limitation: primitive marginals alone cannot
+  determine arbitrary pair behavior;
+  \item the expressivity limit of a transitive potential order---it cannot
+  represent arbitrary cyclic pair preferences.
+\end{enumerate}
+
+% =============================================================================
+\section{Experimental evidence: complete and honest progression}
+% =============================================================================
+
+\subsection{V1: the original four-primitive CIFAR experiment failed}
+
+The original CIFAR-10 study used 45 observed conditions and 33 held-out
+conditions.  It is important not to replace this first result with later
+improvements.
+
+\begin{center}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Method} & \textbf{BPE $\downarrow$} & \textbf{Accuracy MAE $\downarrow$} & \textbf{Rank $\rho$ $\uparrow$} & \textbf{Interpretation}\\
+\midrule
+Cross-attention M3 & \textbf{0.236} & 7.96pp & \textbf{0.881} & Best zero-shot method\\
+No-composition M0 & 0.381 & \textbf{7.62pp} & 0.821 & Strong simple baseline\\
+No-order algebra M6 & 0.536 & 7.76pp & 0.647 & Better than full M5\\
+Original Shift Algebra M5 & 0.962 & 11.62pp & 0.536 & Primary hypothesis failed\\
+Additive behavior & 1.828 & 34.21pp & 0.708 & Severe over-composition\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+M5 beat the additive and reconstruction-only controls, but it was significantly
+worse than the no-composition, MLP, and attention baselines.  It also predicted
+the flagship Blur/Noise order direction incorrectly.  This motivated smaller,
+behavior-anchored, exactly associative V2 models.
+
+\subsection{V2/V3: positive but development-cycle CIFAR evidence}
+
+The six-primitive V2 CIFAR-10 benchmark used 155 observed conditions and 123
+held-out conditions.  Later reviewer-proofing compared 14 methods and added
+primitive holdouts, a second architecture, external datasets, counterfactuals,
+and clustered inference.
+
+\begin{center}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+\textbf{Method} & \textbf{BPE} & \textbf{Triple BPE} & \textbf{Order BPE} & \textbf{Acc. MAE} & $\bm{\rho_m}$ & \textbf{Order sign}\\
+\midrule
+$M_B$ operator algebra & \textbf{0.0152} & \textbf{0.0122} & 0.0297 & 4.24pp & \textbf{0.929} & \textbf{0.90}\\
+$M_A$ behavior algebra & 0.0164 & 0.0152 & \textbf{0.0234} & \textbf{4.23pp} & 0.915 & \textbf{0.90}\\
+Power+offset & 0.0285 & 0.0260 & 0.0331 & 6.44pp & 0.924 & 0.00\\
+Signed $L_p$ only & 0.0289 & 0.0262 & 0.0351 & 6.46pp & 0.926 & 0.00\\
+Low-rank bilinear & 0.0301 & 0.0215 & 0.0662 & 4.75pp & 0.922 & 0.85\\
+Matched MLP & 0.0344 & 0.0234 & 0.0761 & 5.74pp & 0.872 & 0.82\\
+Mean pooling & 0.0544 & 0.0530 & 0.0545 & 8.31pp & 0.925 & 0.00\\
+Additive behavior & 0.5674 & 0.6040 & 0.3826 & 11.48pp & 0.919 & 0.00\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Ablations were supportive: removing the $L_p$ law increased BPE from 0.0152 to
+0.1170, and removing the commutator increased order BPE from 0.0297 to 0.0912
+and reduced sign match from 0.90 to 0.16.  However, these V1--V3 experiments
+were part of an iterative development cycle, used custom BPE, and mainly
+ranked environments for one model.  They are useful development evidence, not
+an untouched final confirmation or an ODP-Bench-equivalent result.
+
+\subsection{Phase 1: independent fixed-severity bridge failed}
+
+Phase 1 reused the independently designed Mason word list with 9,000 CIFAR-10
+and 16,920 EMNIST confirmation images.  All six singles and 30 ordered pairs
+were calibration inputs; 130 words of lengths three through six were targets.
+
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Method} & \textbf{CIFAR-10 MAE} & \textbf{EMNIST MAE} & \textbf{Dataset macro}\\
+\midrule
+Max-absolute primitive envelope & \textbf{4.664pp} & \textbf{0.457pp} & \textbf{2.561pp}\\
+Pair residual & 6.652pp & 2.262pp & 4.457pp\\
+Potential Shift Algebra & 7.081pp & 2.267pp & 4.674pp\\
+Signed $L_p$ & 7.214pp & 2.270pp & 4.742pp\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Potential Shift Algebra was 82.5\% worse than the max envelope.  The reason was
+severe floor saturation: mean CIFAR accuracy fell from 23.69\% at length one to
+7.76\% at length six, while EMNIST was near its 2.13\% chance level from short
+words onward.  This is a transparent failed method gate.
+
+\subsection{Phase 1B: severity calibration changed the winner, not the verdict}
+
+Phase 1B attenuated each primitive to approximately an 8\% normalized
+clean-to-chance single-shift drop and froze strengths before target evaluation.
+The max envelope ceased to be competitive, confirming that its Phase-1 victory
+was severity dependent.  Nevertheless, all methods underestimated accumulated
+higher-order damage.
+
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Method} & \textbf{CIFAR-10 MAE} & \textbf{EMNIST MAE} & \textbf{Dataset macro}\\
+\midrule
+Pair residual & \textbf{17.202pp} & \textbf{20.473pp} & \textbf{18.837pp}\\
+Pair-feature ridge & 17.295pp & 20.475pp & 18.885pp\\
+Potential Shift Algebra & 17.765pp & 23.385pp & 20.575pp\\
+Product/additive-style fixed laws & \multicolumn{3}{c}{substantially worse; see frozen report}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Potential algebra was 9.22\% worse than pair residual in macro MAE.  Its order
+channel did improve a small reversal diagnostic, but the dynamic-range and
+primary method gates failed.  The mechanistic lesson was that an
+interaction average is too \emph{intensive}: it remains bounded as word length
+grows even when total damage accumulates.
+
+% =============================================================================
+\section{Phase 2: what was done, in simple mathematical terms}
+% =============================================================================
+
+\subsection{Why Phase 2 changed the evaluation unit}
+
+Earlier phases mostly asked:
+\begin{quote}
+For one classifier, can we rank and predict many composed environments?
+\end{quote}
+Phase 2 asks the OOD-prediction-style question:
+\begin{quote}
+For one composed environment, can we rank many classifiers and select a good
+model before running that environment?
+\end{quote}
+These are different estimands.  Phase 2 created:
+\begin{itemize}
+  \item 30 development snapshots from 15 independent training lineages;
+  \item 30 confirmation snapshots from 15 new lineages;
+  \item five lightweight architecture families and three training recipes;
+  \item 37 clean/single/pair calibration conditions;
+  \item 40 method-development words and 90 sealed confirmation words;
+  \item disjoint 500-image development and 1,000-image confirmation behavior
+  partitions.
+\end{itemize}
+Epoch-one and epoch-two snapshots share a lineage, so inference clusters them
+rather than pretending there are 30 independent training runs.
+
+\subsection{Step-by-step Phase-2 prediction}
+
+For each model $f$:
+\begin{enumerate}
+  \item Measure clean accuracy $a_0(f)$.
+  \item Measure six primitive accuracies $a_i(f)$.
+  \item Measure all 30 ordered pair accuracies $a_{i\to j}(f)$.
+  \item Convert primitive and pair accuracies to hazards.
+  \item Compute ordered pair residuals $R_{ij}$.
+  \item Compose a new word using Equation~\eqref{eq:hazard} with frozen
+  $q=0.6$.
+  \item Give these forecasts, together with source/model/word metadata, to
+  $g_1$.
+  \item Compare against $g_0$, which receives the same metadata but no
+  composition forecast.
+\end{enumerate}
+The exponent, ridge coefficients, feature scales, metrics, and gates were
+committed before confirmation lineages were trained/evaluated.
+
+\subsection{A small numerical example}
+
+Suppose clean accuracy is $a_0=0.80$ and chance is $c=0.10$.  Blur accuracy is
+$0.70$ and Noise accuracy is $0.65$.  Their retentions and hazards are
+\begin{align}
+r_B&=\frac{0.70-0.10}{0.80-0.10}=0.857,
+&h_B&=-\log(0.857)=0.154,\\
+r_N&=\frac{0.65-0.10}{0.80-0.10}=0.786,
+&h_N&=-\log(0.786)=0.241.
+\end{align}
+If measured Blur$\to$Noise accuracy is 0.55, then
+\[
+h_{B\to N}=-\log\left(\frac{0.55-0.10}{0.80-0.10}\right)=0.442
+\]
+and
+\[
+R_{BN}=0.442-0.154-0.241=0.047.
+\]
+A longer word sums primitive hazards and scaled pair residuals, then converts
+hazard back to bounded accuracy.  Unlike raw additive accuracy loss, the output
+is naturally tied to clean and chance performance.
+
+\subsection{Phase-2 sealed results}
+
+On 30 confirmation snapshots and 90 sealed words, all preregistered incremental
+criteria passed.
+
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Metric} & $\bm{g_0}$ \textbf{source/model/word} & $\bm{g_1}$ \textbf{+ composition}\\
+\midrule
+Accuracy MAE & 3.304pp & \textbf{1.737pp}\\
+Raw model-rank Spearman & 0.242 & \textbf{0.665}\\
+Source/family/recipe-controlled Spearman & $-0.235$ & \textbf{0.657}\\
+Top-1 model-selection regret & 2.158pp & \textbf{0.489pp}\\
+Top-3 model-selection regret & 1.907pp & \textbf{0.214pp}\\
+Selected model within 1pp of oracle & 44.4\% & \textbf{78.9\%}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The direct MAE reduction is 47.4\%.  A 10,000-draw paired bootstrap clustered
+by reverse-word group and training lineage estimated a 1.529pp improvement,
+with 95\% interval $[0.981,2.191]$pp.
+
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Forecast} & \textbf{Information} & \textbf{MAE} & \textbf{Model-rank $\rho$}\\
+\midrule
+$g_1$ metadata + composition & \Rtwo{} & \textbf{1.737pp} & \textbf{0.665}\\
+Symmetric hazard ($q=0.6$) & \Rtwo{} & 2.089pp & 0.610\\
+Ordered hazard ($q=0.6$) & \Rtwo{} & 2.093pp & 0.607\\
+$g_0$ source/model/word & \Rzero{} + word & 3.304pp & 0.242\\
+Product retention & \Rone{} & 5.226pp & 0.249\\
+Accuracy-space pair residual & \Rtwo{} & 7.265pp & 0.526\\
+Max primitive damage & \Rone{} & 12.033pp & 0.119\\
+ATC (simplified pilot implementation) & \Rthree{} & 20.495pp & $-0.180$\\
+DoC (simplified pilot implementation) & \Rthree{} & 19.247pp & $-0.067$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The ATC/DoC numbers must not be generalized to official ODP-Bench: the pilot
+used weak, poorly calibrated two-epoch models and simplified declared
+implementations.  The accuracy-space pair residual also achieved slightly
+lower top-1 regret than $g_1$ despite worse MAE, showing that no method dominates
+every endpoint.
+
+\subsection{What Phase 2 did not prove}
+
+The symmetric hazard model slightly beat the ordered model:
+\[
+\MAE_{\mathrm{sym}}=2.089\text{pp}
+<\MAE_{\mathrm{ord}}=2.093\text{pp}.
+\]
+On the reversal diagnostic, symmetric MAE was 0.570pp versus ordered 0.582pp,
+and ordered sign accuracy was 65\%.  Therefore Phase 2 supports extensive
+composition-aware forecasting, not a general non-commutative order claim.
+
+The bank also contains only 15 independent confirmation lineages, five
+lightweight architecture families, three recipes, CIFAR-10 only, and models
+with 29.8--53.5\% clean accuracy.  It is a positive CPU pilot, not the planned
+75+ model Phase-2B benchmark.
+
+% =============================================================================
+\section{Current scientific conclusion and recommended framing}
+% =============================================================================
+
+The combined evidence does not support a universal Shift Algebra.  Instead, it
+shows multiple composition regimes:
+\begin{enumerate}
+  \item Under severe floor saturation, a dominant-shift envelope can be best.
+  \item Under calibrated but rapidly accumulating damage, pair-average
+  interaction laws can be too optimistic.
+  \item Across a model bank, sub-extensive hazard composition plus model/word
+  metadata can add substantial predictive value.
+  \item Order features can work on selected mechanisms but are not yet broadly
+  reliable.
+\end{enumerate}
+
+The safest paper-level framing is therefore:
+\begin{quote}
+\textbf{Pre-deployment compositional performance forecasting:} characterize
+when max, independent-retention, pair-compounding, and order-sensitive laws are
+useful, and learn an adaptive forecast without observing the composed target.
+\end{quote}
+Shift Algebra can remain an interpretable order-aware expert, but the current
+headline should be composition-aware forecasting and adaptive law selection,
+not a claim that all distribution shifts obey one non-commutative algebra.
+
+A future adaptive method can combine hazards from several experts,
+\[
+\widehat h(w)=
+\alpha_{\max}h_{\max}(w)+
+\alpha_{\mathrm{prod}}h_{\mathrm{prod}}(w)+
+\alpha_{\mathrm{sym}}h_{\mathrm{sym}}(w)+
+\alpha_{\mathrm{ord}}h_{\mathrm{ord}}(w),
+\quad
+\alpha_k\ge0,\quad\sum_k\alpha_k=1,
+\]
+where the gate uses only pre-target information.  Such a method must be
+developed on opened data and evaluated once on fresh models, severities,
+words, and preferably CIFAR-100 or natural shifts.
+
+% =============================================================================
+\section{Checklist before a NeurIPS submission}
+% =============================================================================
+
+\begin{enumerate}
+  \item Complete a refreshed multi-index novelty search and update the claim
+  matrix; do not claim ``first'' until overlap is audited.
+  \item Freeze an adaptive or hazard method before another confirmation.
+  \item Evaluate at least 75 final checkpoints, six architecture families,
+  four recipe families, and CIFAR-10/CIFAR-100, preferably using public models.
+  \item Add architecture-family and recipe holdouts rather than seed-only
+  transfer.
+  \item Integrate official ODP predictors and clearly label \Rtwo{} versus
+  \Rthree{} access.
+  \item Add uncertainty, support detection, and abstention with coverage tests.
+  \item Test realistic corruptions and at least two natural/hybrid settings.
+  \item Report all negative phases and all primary endpoints, not only the best
+  method/metric.
+  \item Obtain an independent mathematical and leakage audit.
+\end{enumerate}
+
+% =============================================================================
+\section{Reproducibility map}
+% =============================================================================
+
+\begin{center}
+\begin{tabular}{P{5.0cm}P{9.5cm}}
+\toprule
+\textbf{Artifact} & \textbf{Purpose}\\
+\midrule
+\texttt{MATHEMATICAL\_TUTORIAL.tex} & Full implementation-faithful derivation of historical and V4 algebra.\\
+\texttt{NEURIPS\_DEVELOPMENT\_PLAN.md} & Benchmark, literature, metric, compute, and gate roadmap.\\
+\texttt{RESULTS.md} & Original V1 negative CIFAR result.\\
+\texttt{RESULTS\_V2.md} and \texttt{REVIEWER\_PROOFING\_V3.md} & Historical development-cycle positive CIFAR/external evidence.\\
+\texttt{v4/phase1/PHASE1\_FINAL\_REPORT.md} & Independent fixed-severity long-word failure.\\
+\texttt{v4/phase1b/PHASE1B\_FINAL\_REPORT.md} & Severity-calibrated long-word failure.\\
+\texttt{v4/phase2/PHASE2\_PILOT\_FINAL\_REPORT.md} & Sealed positive CIFAR model-bank pilot.\\
+\texttt{v4/phase2/INFORMATION\_AUDIT.md} & Post-confirmation leak and correctness audit.\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% =============================================================================
+\begin{thebibliography}{99}
+% =============================================================================
+
+\bibitem{arjovsky2019}
+M. Arjovsky, L. Bottou, I. Gulrajani, and D. Lopez-Paz.
+\newblock Invariant Risk Minimization.
+\newblock arXiv preprint, 2019.
+
+\bibitem{hendrycks2019}
+D. Hendrycks and T. Dietterich.
+\newblock Benchmarking Neural Network Robustness to Common Corruptions and Perturbations.
+\newblock ICLR, 2019.
+\newblock \url{https://github.com/hendrycks/robustness}.
+
+\bibitem{hendrycks2020}
+D. Hendrycks et al.
+\newblock AugMix: A Simple Data Processing Method to Improve Robustness and Uncertainty.
+\newblock ICLR, 2020.
+\newblock \url{https://github.com/google-research/augmix}.
+
+\bibitem{miller2021}
+J. Miller et al.
+\newblock Accuracy on the Line: On the Strong Correlation Between Out-of-Distribution and In-Distribution Generalization.
+\newblock ICML, 2021.
+\newblock \url{https://github.com/millerjohnp/linearfits_app}.
+
+\bibitem{koh2021}
+P. W. Koh et al.
+\newblock WILDS: A Benchmark of in-the-Wild Distribution Shifts.
+\newblock ICML, 2021.
+\newblock \url{https://github.com/p-lambda/wilds}.
+
+\bibitem{gulrajani2021}
+I. Gulrajani and D. Lopez-Paz.
+\newblock In Search of Lost Domain Generalization.
+\newblock ICLR, 2021.
+\newblock \url{https://github.com/facebookresearch/DomainBed}.
+
+\bibitem{santurkar2021}
+S. Santurkar et al.
+\newblock BREEDS: Benchmarks for Subpopulation Shift.
+\newblock ICLR, 2021.
+\newblock \url{https://github.com/MadryLab/BREEDS-Benchmarks}.
+
+\bibitem{croce2021}
+F. Croce et al.
+\newblock RobustBench: A Standardized Adversarial Robustness Benchmark.
+\newblock NeurIPS Datasets and Benchmarks, 2021.
+\newblock \url{https://github.com/RobustBench/robustbench}.
+
+\bibitem{garg2022}
+S. Garg et al.
+\newblock Leveraging Unlabeled Data to Predict Out-of-Distribution Performance.
+\newblock ICLR, 2022.
+\newblock \url{https://github.com/saurabhgarg1996/ATC_code}.
+
+\bibitem{baek2022}
+C. Baek et al.
+\newblock Agreement-on-the-Line: Predicting the Performance of Neural Networks under Distribution Shift.
+\newblock NeurIPS, 2022.
+\newblock \url{https://github.com/kebaek/Agreement-on-the-line}.
+
+\bibitem{kar2022}
+O. F. Kar et al.
+\newblock 3D Common Corruptions and Data Augmentation.
+\newblock CVPR Oral, 2022.
+\newblock \url{https://github.com/EPFL-VILAB/3DCommonCorruptions}.
+
+\bibitem{liang2022}
+W. Liang and J. Zou.
+\newblock MetaShift: A Dataset of Datasets for Evaluating Contextual Distribution Shifts and Training Conflicts.
+\newblock ICLR, 2022.
+\newblock \url{https://github.com/Weixin-Liang/MetaShift}.
+
+\bibitem{mason2023}
+I. Mason et al.
+\newblock Modularity Trumps Invariance for Compositional Robustness.
+\newblock Preprint, 2023.
+\newblock \url{https://github.com/ianxmason/compositional-robustness}.
+
+\bibitem{corruptionbench2023}
+CorruptionBenchCV project.
+\newblock A Survey on the Robustness of Computer Vision Models against Common Corruptions / CorruptionBenchCV.
+\newblock Survey and benchmark tool, 2023.
+\newblock \url{https://github.com/nis-research/CorruptionBenchCV}.
+
+\bibitem{foundationagreement2024}
+\newblock Predicting the Performance of Foundation Models via Agreement-on-the-Line.
+\newblock NeurIPS, 2024.
+\newblock \url{https://openreview.net/forum?id=aJx9onwsR4}.
+
+\bibitem{ttaagreement2024}
+\newblock Test-Time Adaptation Induces Stronger Accuracy and Agreement-on-the-Line.
+\newblock NeurIPS, 2024.
+\newblock \url{https://openreview.net/forum?id=giXUx4VH9t}.
+
+\bibitem{soulos2024}
+P. Soulos et al.
+\newblock Compositional Generalization Across Distributional Shifts with Sparse Tree Operations.
+\newblock NeurIPS Spotlight, 2024.
+\newblock \url{https://github.com/psoulos/sdtm}.
+
+\bibitem{dgmisspecified2025}
+O. Salaudeen et al.
+\newblock Are Domain Generalization Benchmarks with Accuracy on the Line Misspecified?
+\newblock Preprint, 2025.
+\newblock \url{https://github.com/olawalesalaudeen/misspecified_DG_benchmarks}.
+
+\bibitem{yu2025}
+H. Yu et al.
+\newblock ODP-Bench: Benchmarking Out-of-Distribution Performance Prediction.
+\newblock ICCV, 2025.
+\newblock \url{https://github.com/h-yu16/Performance_Prediction}.
+
+\end{thebibliography}
+
+\end{document}

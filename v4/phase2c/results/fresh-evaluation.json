@@ -1,0 +1,17 @@
+{
+  "behavior_csv": "/home/user/ShiftAlgebra/v4/phase2c/results/fresh-behavior.csv",
+  "behavior_csv_sha256": "3e8d7b2640098ef3e5f6bf0c57bdf2a0534d16a8e0d253b6291249b3cbe769fb",
+  "calibration_conditions": 37,
+  "conditions": 101,
+  "elapsed_seconds": 417.59005069732666,
+  "fresh_confirmation_words": 64,
+  "lineages": 15,
+  "models": 30,
+  "partition": {
+    "offset": 300,
+    "per_class": 100
+  },
+  "protocol": "V4-P2C-ACTIVE-PAIR-CPU-001",
+  "samples_per_condition": 1000,
+  "status": "FRESH_PAIR_CONFIRMATION_EVALUATED"
+}

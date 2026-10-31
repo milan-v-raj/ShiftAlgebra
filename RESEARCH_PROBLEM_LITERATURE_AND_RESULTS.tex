@@ -906,6 +906,24 @@ order sign accuracy was only 61.2\%, and expert disagreement failed as an
 uncertainty score.  Thus Phase 2B supplies a useful negative gate and
 calibration-cost result, not evidence that ACHM supersedes the Phase-2 model.
 
+\subsection{Phase 2C: active pair calibration under a fixed budget}
+
+A separate fresh experiment tested the practical question of which five
+bidirectional pairs should be measured.  The active design was frozen from
+development interaction magnitude, word frequency, and primitive coverage.
+It was compared at equal cost with twenty uniform-random five-group designs on
+15 new lineages, a new 1,000-image partition, and another 64 new words.
+
+The selected design obtained 3.176pp MAE versus 3.636pp expected random MAE,
+a 0.459pp improvement with clustered 95\% interval $[0.119,0.889]$pp.
+Controlled rank was 0.474 versus a random-design median of 0.417, and top-1
+regret was 3.870pp versus 3.984pp.  All preregistered Phase-2C criteria passed.
+The selected design beat 17 of 20 random subsets, but the best random subset
+reached 2.592pp.  Full fifteen-group ACHM and prior $g_1$ reached 1.603pp and
+1.410pp, respectively, using three times as many directed pair measurements.
+The result therefore supports selection over expected random calibration, not
+global optimality or full-budget equivalence.
+
 % =============================================================================
 \section{Current scientific conclusion and recommended framing}
 % =============================================================================
@@ -920,6 +938,9 @@ shows multiple composition regimes:
   metadata can add substantial predictive value.
   \item Order features can work on selected mechanisms but are not yet broadly
   reliable.
+  \item Under a constrained calibration budget, development-informed pair
+  selection can outperform expected random pair selection, although it remains
+  materially weaker than complete pair calibration.
 \end{enumerate}
 
 The safest paper-level framing is therefore:
@@ -964,6 +985,8 @@ rescued by tuning on this confirmation.
   transfer.
   \item Integrate official ODP predictors and clearly label \Rtwo{} versus
   \Rthree{} access.
+  \item Compare active pair selection with random, magnitude-only, coverage-only,
+  and D-optimal designs on a new held-out architecture/dataset.
   \item Add uncertainty, support detection, and abstention with coverage tests.
   \item Test realistic corruptions and at least two natural/hybrid settings.
   \item Report all negative phases and all primary endpoints, not only the best
@@ -990,6 +1013,8 @@ rescued by tuning on this confirmation.
 \texttt{v4/phase2/INFORMATION\_AUDIT.md} & Post-confirmation leak and correctness audit.\\
 \texttt{v4/phase2b/PHASE2B\_FINAL\_REPORT.md} & Fresh adaptive-mixture and pair-budget results, including the failed primary gate.\\
 \texttt{v4/phase2b/INFORMATION\_AUDIT.md} & Phase-2B chronology, information-access, clustering, and numerical audit.\\
+\texttt{v4/phase2c/PHASE2C\_FINAL\_REPORT.md} & Fresh active-versus-random pair-calibration results.\\
+\texttt{v4/phase2c/INFORMATION\_AUDIT.md} & Phase-2C access, equal-budget, clustering, and numerical audit.\\
 \bottomrule
 \end{tabular}
 \end{center}

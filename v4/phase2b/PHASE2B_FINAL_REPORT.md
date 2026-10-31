@@ -119,3 +119,5 @@ Therefore disagreement must not be presented as calibrated uncertainty. A future
 The fresh result supports a narrow statement: **adaptive convex mixing can reduce the pointwise MAE of a fixed hazard law, particularly on longer words.** It does not support the stronger claim that ACHM is the best forecasting method or that its improvement is statistically established across independent clusters. The earlier `g1` result transferred better and remains the strongest CPU evidence.
 
 The appropriate next method question is not to tune ACHM on these outcomes. This entire Phase-2B confirmation is now opened. Any revision requires another fresh test. Under the current CPU constraint, the responsible stopping point is to retain this negative gate, publish the budget curve, and avoid a rescue run.
+
+A later Phase-2C experiment therefore kept this ACHM failure unchanged and tested the distinct calibration-efficiency question of selected versus random pair measurement on another fresh bank.

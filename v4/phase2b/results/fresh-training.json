@@ -1,0 +1,400 @@
+{
+  "dataset_training_images": 40000,
+  "elapsed_seconds": 1278.7958495616913,
+  "lineages": 15,
+  "models": 30,
+  "protocol": "V4-P2B-ACHM-CPU-001",
+  "status": "FRESH_CONFIRMATION_BANK_TRAINED",
+  "summaries": [
+    {
+      "elapsed_seconds": 70.04853796958923,
+      "family": "shallow",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-shallow-erm_flip-s42100-e1.pt",
+          "checkpoint_sha256": "bb6a128734c4bce1c020bb46acea571f8f560eb7f185d6128de993554bf278c4",
+          "epoch": 1,
+          "model_id": "p2b-shallow-erm_flip-s42100-e1",
+          "train_accuracy": 0.40165,
+          "train_loss": 1.6692308359146117
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-shallow-erm_flip-s42100-e2.pt",
+          "checkpoint_sha256": "1e5a8167dca369d30eee58f177f426c572139c4293f6f553391b964cb4c7d4e1",
+          "epoch": 2,
+          "model_id": "p2b-shallow-erm_flip-s42100-e2",
+          "train_accuracy": 0.514025,
+          "train_loss": 1.3553384506225585
+        }
+      ],
+      "lineage_id": "p2b-shallow-erm_flip-s42100",
+      "parameter_count": 25226,
+      "recipe": "erm_flip",
+      "seed": 42100
+    },
+    {
+      "elapsed_seconds": 73.23751139640808,
+      "family": "shallow",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-shallow-label_smooth-s42101-e1.pt",
+          "checkpoint_sha256": "e0e0c1ee513f2d702c38372afde6383c4b6f39a492cf096323605399b0014e01",
+          "epoch": 1,
+          "model_id": "p2b-shallow-label_smooth-s42101-e1",
+          "train_accuracy": 0.4007,
+          "train_loss": 1.8040010269165039
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-shallow-label_smooth-s42101-e2.pt",
+          "checkpoint_sha256": "64db15564eeb8ce294f5e99f35a4c5469b64f2b95cef2342ce68645cba8967a2",
+          "epoch": 2,
+          "model_id": "p2b-shallow-label_smooth-s42101-e2",
+          "train_accuracy": 0.521975,
+          "train_loss": 1.555715174484253
+        }
+      ],
+      "lineage_id": "p2b-shallow-label_smooth-s42101",
+      "parameter_count": 25226,
+      "recipe": "label_smooth",
+      "seed": 42101
+    },
+    {
+      "elapsed_seconds": 77.05875039100647,
+      "family": "shallow",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-shallow-noise_aug-s42102-e1.pt",
+          "checkpoint_sha256": "62b8c2ec12d0b60725e99feccb8e7b7c5203bb522f052a5fe1b49939b33e1641",
+          "epoch": 1,
+          "model_id": "p2b-shallow-noise_aug-s42102-e1",
+          "train_accuracy": 0.3763,
+          "train_loss": 1.7225939929962157
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-shallow-noise_aug-s42102-e2.pt",
+          "checkpoint_sha256": "ba7b82387d59ca3987165655a671999167c4dce9d7353f4cc5548e9fda9a0da9",
+          "epoch": 2,
+          "model_id": "p2b-shallow-noise_aug-s42102-e2",
+          "train_accuracy": 0.50085,
+          "train_loss": 1.3864774589538573
+        }
+      ],
+      "lineage_id": "p2b-shallow-noise_aug-s42102",
+      "parameter_count": 25226,
+      "recipe": "noise_aug",
+      "seed": 42102
+    },
+    {
+      "elapsed_seconds": 123.09825491905212,
+      "family": "resnet",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-resnet-erm_flip-s42200-e1.pt",
+          "checkpoint_sha256": "ff601329ec40f669514d55c6e69e1603e4b3b6c73d95c70f1b49f2626fc8e30c",
+          "epoch": 1,
+          "model_id": "p2b-resnet-erm_flip-s42200-e1",
+          "train_accuracy": 0.348025,
+          "train_loss": 1.7468399648666382
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-resnet-erm_flip-s42200-e2.pt",
+          "checkpoint_sha256": "bf4a81edf137cfef3d6354655c895de3cd6d76cda7d5ebbf99934bd717b35528",
+          "epoch": 2,
+          "model_id": "p2b-resnet-erm_flip-s42200-e2",
+          "train_accuracy": 0.4776,
+          "train_loss": 1.4301237743377686
+        }
+      ],
+      "lineage_id": "p2b-resnet-erm_flip-s42200",
+      "parameter_count": 19954,
+      "recipe": "erm_flip",
+      "seed": 42200
+    },
+    {
+      "elapsed_seconds": 126.74649119377136,
+      "family": "resnet",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-resnet-label_smooth-s42201-e1.pt",
+          "checkpoint_sha256": "31ba3d43a9c4ddda053290063ae3ce4ca88211b8e30bdcc57fc90e2afdc96d19",
+          "epoch": 1,
+          "model_id": "p2b-resnet-label_smooth-s42201-e1",
+          "train_accuracy": 0.362225,
+          "train_loss": 1.8639129638671874
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-resnet-label_smooth-s42201-e2.pt",
+          "checkpoint_sha256": "f10069e53a03ce2675479308ccd3da79257342c47ce909e210de3913a3328267",
+          "epoch": 2,
+          "model_id": "p2b-resnet-label_smooth-s42201-e2",
+          "train_accuracy": 0.48485,
+          "train_loss": 1.6273038312911987
+        }
+      ],
+      "lineage_id": "p2b-resnet-label_smooth-s42201",
+      "parameter_count": 19954,
+      "recipe": "label_smooth",
+      "seed": 42201
+    },
+    {
+      "elapsed_seconds": 131.91317296028137,
+      "family": "resnet",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-resnet-noise_aug-s42202-e1.pt",
+          "checkpoint_sha256": "489a7c37488b9faede776ba1929f3a72322d36454e6d0e905954ddbbf54b58f2",
+          "epoch": 1,
+          "model_id": "p2b-resnet-noise_aug-s42202-e1",
+          "train_accuracy": 0.33475,
+          "train_loss": 1.7894624464035034
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-resnet-noise_aug-s42202-e2.pt",
+          "checkpoint_sha256": "a5853159af21b2a37c249d51344bbe0bdf728c4e306e1f50abdbdadedff5740f",
+          "epoch": 2,
+          "model_id": "p2b-resnet-noise_aug-s42202-e2",
+          "train_accuracy": 0.47125,
+          "train_loss": 1.447695346069336
+        }
+      ],
+      "lineage_id": "p2b-resnet-noise_aug-s42202",
+      "parameter_count": 19954,
+      "recipe": "noise_aug",
+      "seed": 42202
+    },
+    {
+      "elapsed_seconds": 178.1112518310547,
+      "family": "depthwise",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-depthwise-erm_flip-s42300-e1.pt",
+          "checkpoint_sha256": "5fe619639cbfbbe430e7108160b712db3fb4ae03c61e726391e04256427aa13a",
+          "epoch": 1,
+          "model_id": "p2b-depthwise-erm_flip-s42300-e1",
+          "train_accuracy": 0.2992,
+          "train_loss": 1.8787413570404052
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-depthwise-erm_flip-s42300-e2.pt",
+          "checkpoint_sha256": "482d2c6d3d12a25a100d268aa7f82cd7b9779f45ae323ea54c190fb2a49c90cb",
+          "epoch": 2,
+          "model_id": "p2b-depthwise-erm_flip-s42300-e2",
+          "train_accuracy": 0.429825,
+          "train_loss": 1.5470633949279786
+        }
+      ],
+      "lineage_id": "p2b-depthwise-erm_flip-s42300",
+      "parameter_count": 4858,
+      "recipe": "erm_flip",
+      "seed": 42300
+    },
+    {
+      "elapsed_seconds": 171.63202667236328,
+      "family": "depthwise",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-depthwise-label_smooth-s42301-e1.pt",
+          "checkpoint_sha256": "5ac0f1971807b6464e95d00341458f3a5951000733ca593f906ff55f37c7fb2c",
+          "epoch": 1,
+          "model_id": "p2b-depthwise-label_smooth-s42301-e1",
+          "train_accuracy": 0.3074,
+          "train_loss": 1.9496783084869385
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-depthwise-label_smooth-s42301-e2.pt",
+          "checkpoint_sha256": "bd3e129af1fad90b9487872aa27e67c77b62d4238d6945761f4bd065e584b6f3",
+          "epoch": 2,
+          "model_id": "p2b-depthwise-label_smooth-s42301-e2",
+          "train_accuracy": 0.434475,
+          "train_loss": 1.7152846160888673
+        }
+      ],
+      "lineage_id": "p2b-depthwise-label_smooth-s42301",
+      "parameter_count": 4858,
+      "recipe": "label_smooth",
+      "seed": 42301
+    },
+    {
+      "elapsed_seconds": 162.89083695411682,
+      "family": "depthwise",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-depthwise-noise_aug-s42302-e1.pt",
+          "checkpoint_sha256": "e5605835923f8b7b2101ed0d342bdeee4ba657f8bb956c6311b29a31d89b7ee3",
+          "epoch": 1,
+          "model_id": "p2b-depthwise-noise_aug-s42302-e1",
+          "train_accuracy": 0.313275,
+          "train_loss": 1.862658101463318
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-depthwise-noise_aug-s42302-e2.pt",
+          "checkpoint_sha256": "fa9974921db621c1acce9d8c22876468c362b2c14c56fd5452dcb09d79caed82",
+          "epoch": 2,
+          "model_id": "p2b-depthwise-noise_aug-s42302-e2",
+          "train_accuracy": 0.437225,
+          "train_loss": 1.5428315521240235
+        }
+      ],
+      "lineage_id": "p2b-depthwise-noise_aug-s42302",
+      "parameter_count": 4858,
+      "recipe": "noise_aug",
+      "seed": 42302
+    },
+    {
+      "elapsed_seconds": 21.976553440093994,
+      "family": "patchconv",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-patchconv-erm_flip-s42400-e1.pt",
+          "checkpoint_sha256": "3c5118671972cdbc38f3ec38640e0b7134271b8fbd6327ec38d94a9d20717eab",
+          "epoch": 1,
+          "model_id": "p2b-patchconv-erm_flip-s42400-e1",
+          "train_accuracy": 0.3316,
+          "train_loss": 1.8225474521636962
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-patchconv-erm_flip-s42400-e2.pt",
+          "checkpoint_sha256": "511a03e3a3096e06e760828c8b28777e8e7b5b2d056f9c6a42f0fac4f95d3d98",
+          "epoch": 2,
+          "model_id": "p2b-patchconv-erm_flip-s42400-e2",
+          "train_accuracy": 0.440275,
+          "train_loss": 1.5294370780944824
+        }
+      ],
+      "lineage_id": "p2b-patchconv-erm_flip-s42400",
+      "parameter_count": 7426,
+      "recipe": "erm_flip",
+      "seed": 42400
+    },
+    {
+      "elapsed_seconds": 22.850751161575317,
+      "family": "patchconv",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-patchconv-label_smooth-s42401-e1.pt",
+          "checkpoint_sha256": "f18c6b9428b03cd7b1936185e109ec432fdc6cc88c91774c36de115834827517",
+          "epoch": 1,
+          "model_id": "p2b-patchconv-label_smooth-s42401-e1",
+          "train_accuracy": 0.333175,
+          "train_loss": 1.9290216688156128
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-patchconv-label_smooth-s42401-e2.pt",
+          "checkpoint_sha256": "dc221101a269673bb85daa28bf6e01b7789330fbecfb15f5cdaeb79eabbecb22",
+          "epoch": 2,
+          "model_id": "p2b-patchconv-label_smooth-s42401-e2",
+          "train_accuracy": 0.431275,
+          "train_loss": 1.7211014862060547
+        }
+      ],
+      "lineage_id": "p2b-patchconv-label_smooth-s42401",
+      "parameter_count": 7426,
+      "recipe": "label_smooth",
+      "seed": 42401
+    },
+    {
+      "elapsed_seconds": 23.97019672393799,
+      "family": "patchconv",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-patchconv-noise_aug-s42402-e1.pt",
+          "checkpoint_sha256": "277e3ce785fe123f0d6ae6ea58cec2d98977979b6e7cc5309e4ec3f302afc5e1",
+          "epoch": 1,
+          "model_id": "p2b-patchconv-noise_aug-s42402-e1",
+          "train_accuracy": 0.31865,
+          "train_loss": 1.8651306238174439
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-patchconv-noise_aug-s42402-e2.pt",
+          "checkpoint_sha256": "94ab041aff95812708699b5ea87579956d11241be554c7102574e1f06606c55e",
+          "epoch": 2,
+          "model_id": "p2b-patchconv-noise_aug-s42402-e2",
+          "train_accuracy": 0.423425,
+          "train_loss": 1.5705680229187011
+        }
+      ],
+      "lineage_id": "p2b-patchconv-noise_aug-s42402",
+      "parameter_count": 7426,
+      "recipe": "noise_aug",
+      "seed": 42402
+    },
+    {
+      "elapsed_seconds": 29.75718665122986,
+      "family": "pointwise",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-pointwise-erm_flip-s42500-e1.pt",
+          "checkpoint_sha256": "7109742e8f70cb5355313e857edb1525a65b99b64608cc6a12f7726ae0c78056",
+          "epoch": 1,
+          "model_id": "p2b-pointwise-erm_flip-s42500-e1",
+          "train_accuracy": 0.22945,
+          "train_loss": 2.0527877840042112
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-pointwise-erm_flip-s42500-e2.pt",
+          "checkpoint_sha256": "6fc408e2c37f5c9a649ae4c3a814d312dfa43452185c98c9f3f7ae725cd890d3",
+          "epoch": 2,
+          "model_id": "p2b-pointwise-erm_flip-s42500-e2",
+          "train_accuracy": 0.329375,
+          "train_loss": 1.7805944736480712
+        }
+      ],
+      "lineage_id": "p2b-pointwise-erm_flip-s42500",
+      "parameter_count": 17070,
+      "recipe": "erm_flip",
+      "seed": 42500
+    },
+    {
+      "elapsed_seconds": 28.589171648025513,
+      "family": "pointwise",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-pointwise-label_smooth-s42501-e1.pt",
+          "checkpoint_sha256": "c2b45514153ad9c62f9c022a57418d99c7e968d38010fe0345077882b9d93aeb",
+          "epoch": 1,
+          "model_id": "p2b-pointwise-label_smooth-s42501-e1",
+          "train_accuracy": 0.2351,
+          "train_loss": 2.0869663860321044
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-pointwise-label_smooth-s42501-e2.pt",
+          "checkpoint_sha256": "c799c778e63c2f35b9c3860c0180eebd109f5da97cb42508ea458d380594a352",
+          "epoch": 2,
+          "model_id": "p2b-pointwise-label_smooth-s42501-e2",
+          "train_accuracy": 0.322025,
+          "train_loss": 1.905625821685791
+        }
+      ],
+      "lineage_id": "p2b-pointwise-label_smooth-s42501",
+      "parameter_count": 17070,
+      "recipe": "label_smooth",
+      "seed": 42501
+    },
+    {
+      "elapsed_seconds": 34.08590388298035,
+      "family": "pointwise",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-pointwise-noise_aug-s42502-e1.pt",
+          "checkpoint_sha256": "a46eee5f5d1168f0749caded00e27ec7cc6c7db2cb8c000108afbebbadb84fe4",
+          "epoch": 1,
+          "model_id": "p2b-pointwise-noise_aug-s42502-e1",
+          "train_accuracy": 0.235225,
+          "train_loss": 2.020738027763367
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2b/p2b-pointwise-noise_aug-s42502-e2.pt",
+          "checkpoint_sha256": "f3282550284bbc91eca213cbc6a51482a23c24335fa3a26444462651cdffbc87",
+          "epoch": 2,
+          "model_id": "p2b-pointwise-noise_aug-s42502-e2",
+          "train_accuracy": 0.336,
+          "train_loss": 1.7655769386291504
+        }
+      ],
+      "lineage_id": "p2b-pointwise-noise_aug-s42502",
+      "parameter_count": 17070,
+      "recipe": "noise_aug",
+      "seed": 42502
+    }
+  ]
+}

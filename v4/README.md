@@ -10,13 +10,14 @@ This folder executes [`NEURIPS_DEVELOPMENT_PLAN.md`](../NEURIPS_DEVELOPMENT_PLAN
 | **1. Independent composition bridge** | **COMPLETE — METHOD GATE FAILED** | One-shot CIFAR-10 and EMNIST confirmation found severe saturation; max-envelope baseline wins |
 | **1B. Severity-calibrated extension** | **COMPLETE — METHOD GATE FAILED** | Max envelope loses after calibration, but pair residual beats potential algebra by 9.22%; long-word dynamic-range guard also fails |
 | **2. CIFAR model bank** | **IN PROGRESS — CPU PILOT PASSED** | Composition-aware `g1` cuts MAE 47.4% vs `g0` and improves rank/regret; final 75+ model/CIFAR-100 bank remains |
+| **2B. Adaptive hazard mixture** | **COMPLETE — PRIMARY GATE FAILED** | Fresh ACHM MAE improves 1.719pp to 1.593pp, but clustered CI includes zero and controlled rank declines; prior `g1` remains best at 1.241pp |
 | 3. ImageNet/realistic corruptions | NOT STARTED | — |
 | 4. Natural/hybrid shifts | NOT STARTED | — |
 | 5. Method freeze/preregistration | NOT STARTED | — |
 | 6. One-shot final evaluation | NOT STARTED | — |
 | 7. Paper and artifact | NOT STARTED | — |
 
-Completed Phase-1/1B benchmark results are documented in their frozen reports; no result should be inferred for unstarted Phases 2--7.
+Completed Phase-1, Phase-1B, Phase-2 pilot, and Phase-2B results are documented in their frozen reports; no result should be inferred for unstarted Phases 3--7.
 
 ## Layout
 
@@ -56,6 +57,7 @@ Completed composition bridges can be verified separately:
 python3 v4/phase1/verify_phase1.py
 python3 v4/phase1b/verify_phase1b.py
 python3 v4/phase2/verify_phase2.py
+python3 v4/phase2b/verify_phase2b.py
 ```
 
 ## Scientific rules

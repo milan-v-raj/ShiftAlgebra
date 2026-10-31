@@ -881,7 +881,30 @@ composition-aware forecasting, not a general non-commutative order claim.
 The bank also contains only 15 independent confirmation lineages, five
 lightweight architecture families, three recipes, CIFAR-10 only, and models
 with 29.8--53.5\% clean accuracy.  It is a positive CPU pilot, not the planned
-75+ model Phase-2B benchmark.
+75+ model final benchmark.
+
+\subsection{Phase 2B: adaptive mixture on a fresh CPU confirmation}
+
+After the Phase-2 result, the project tested an Adaptive Composition Hazard
+Mixture (ACHM) that forms a convex combination of dominant-shift, independent,
+symmetric, and ordered hazard experts.  The gate was fitted only on the earlier
+development roles and frozen before training 15 new lineages.  Confirmation
+used 30 new snapshots, a disjoint 1,000-image behavior partition, and 64 words
+that did not occur in the earlier 167-word protocol.
+
+ACHM reduced MAE from 1.719pp for the preregistered ordered-hazard comparator
+to 1.593pp, a 7.3\% relative reduction.  However, the clustered 95\% interval
+for the 0.126pp improvement was $[-0.025,0.295]$pp, and controlled model-rank
+Spearman declined from 0.822 to 0.811.  The complete gate therefore failed.
+The earlier frozen metadata-plus-composition regression remained stronger at
+1.241pp MAE.  A pair-budget curve improved from 5.357pp with no pairs to
+3.431pp, 1.726pp, and 1.593pp with 5, 10, and 15 bidirectional pair groups,
+respectively, but no random-selection comparator was preregistered.
+
+The adaptive gate placed 80.8\% average weight on symmetric compounding.  Its
+order sign accuracy was only 61.2\%, and expert disagreement failed as an
+uncertainty score.  Thus Phase 2B supplies a useful negative gate and
+calibration-cost result, not evidence that ACHM supersedes the Phase-2 model.
 
 % =============================================================================
 \section{Current scientific conclusion and recommended framing}
@@ -902,14 +925,16 @@ shows multiple composition regimes:
 The safest paper-level framing is therefore:
 \begin{quote}
 \textbf{Pre-deployment compositional performance forecasting:} characterize
-when max, independent-retention, pair-compounding, and order-sensitive laws are
-useful, and learn an adaptive forecast without observing the composed target.
+when max, independent-retention, and pair-compounding laws are useful, and test
+whether their forecasts add value beyond model and word metadata without
+observing the composed target.
 \end{quote}
 Shift Algebra can remain an interpretable order-aware expert, but the current
-headline should be composition-aware forecasting and adaptive law selection,
-not a claim that all distribution shifts obey one non-commutative algebra.
+headline should be composition-aware forecasting, not a claim that all shifts
+obey one non-commutative algebra or that adaptive law selection is already
+established.
 
-A future adaptive method can combine hazards from several experts,
+Phase 2B tested the natural convex mixture
 \[
 \widehat h(w)=
 \alpha_{\max}h_{\max}(w)+
@@ -919,9 +944,10 @@ A future adaptive method can combine hazards from several experts,
 \quad
 \alpha_k\ge0,\quad\sum_k\alpha_k=1,
 \]
-where the gate uses only pre-target information.  Such a method must be
-developed on opened data and evaluated once on fresh models, severities,
-words, and preferably CIFAR-100 or natural shifts.
+using only pre-target gate inputs.  The small MAE gain did not satisfy the full
+gate.  Any revised adaptive model must treat all Phase-2B outcomes as opened
+development evidence and use another genuinely fresh test; it must not be
+rescued by tuning on this confirmation.
 
 % =============================================================================
 \section{Checklist before a NeurIPS submission}
@@ -930,7 +956,8 @@ words, and preferably CIFAR-100 or natural shifts.
 \begin{enumerate}
   \item Complete a refreshed multi-index novelty search and update the claim
   matrix; do not claim ``first'' until overlap is audited.
-  \item Freeze an adaptive or hazard method before another confirmation.
+  \item Do not tune ACHM on Phase-2B confirmation; freeze any revision on a
+  separate development set before another fresh confirmation.
   \item Evaluate at least 75 final checkpoints, six architecture families,
   four recipe families, and CIFAR-10/CIFAR-100, preferably using public models.
   \item Add architecture-family and recipe holdouts rather than seed-only
@@ -961,6 +988,8 @@ words, and preferably CIFAR-100 or natural shifts.
 \texttt{v4/phase1b/PHASE1B\_FINAL\_REPORT.md} & Severity-calibrated long-word failure.\\
 \texttt{v4/phase2/PHASE2\_PILOT\_FINAL\_REPORT.md} & Sealed positive CIFAR model-bank pilot.\\
 \texttt{v4/phase2/INFORMATION\_AUDIT.md} & Post-confirmation leak and correctness audit.\\
+\texttt{v4/phase2b/PHASE2B\_FINAL\_REPORT.md} & Fresh adaptive-mixture and pair-budget results, including the failed primary gate.\\
+\texttt{v4/phase2b/INFORMATION\_AUDIT.md} & Phase-2B chronology, information-access, clustering, and numerical audit.\\
 \bottomrule
 \end{tabular}
 \end{center}

@@ -6,14 +6,17 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
 
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 from v4.phase2b import PROTOCOL_ID
 from v4.phase2b.manifest import fresh_words
-
-ROOT = Path(__file__).resolve().parents[2]
 BASE = ROOT / "v4/phase2b"
 RESULTS = BASE / "results"
 

@@ -1,0 +1,17 @@
+{
+  "behavior_csv": "/home/user/ShiftAlgebra/v4/phase2b/results/fresh-behavior.csv",
+  "behavior_csv_sha256": "20150e31f96b0083cbe90db7d4a493d6e14072b3ff928aa4dea2d32effb260da",
+  "calibration_conditions": 37,
+  "conditions": 101,
+  "elapsed_seconds": 629.3759627342224,
+  "fresh_confirmation_words": 64,
+  "lineages": 15,
+  "models": 30,
+  "partition": {
+    "offset": 200,
+    "per_class": 100
+  },
+  "protocol": "V4-P2B-ACHM-CPU-001",
+  "samples_per_condition": 1000,
+  "status": "FRESH_CONFIRMATION_EVALUATED"
+}

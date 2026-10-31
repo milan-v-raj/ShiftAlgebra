@@ -107,12 +107,13 @@ V4 is isolated under [`v4/`](v4/README.md) and does not alter historical experim
 python3 v4/verify_phase0.py
 ```
 
-See [`v4/PHASE0_REPORT.md`](v4/PHASE0_REPORT.md) for the foundation audit, [`v4/phase1/PHASE1_FINAL_REPORT.md`](v4/phase1/PHASE1_FINAL_REPORT.md) and [`v4/phase1b/PHASE1B_FINAL_REPORT.md`](v4/phase1b/PHASE1B_FINAL_REPORT.md) for the retained negative length-extrapolation results, and [`v4/phase2/PHASE2_PILOT_FINAL_REPORT.md`](v4/phase2/PHASE2_PILOT_FINAL_REPORT.md) for the positive 30-model confirmation-bank pilot.
+See [`v4/PHASE0_REPORT.md`](v4/PHASE0_REPORT.md) for the foundation audit, [`v4/phase1/PHASE1_FINAL_REPORT.md`](v4/phase1/PHASE1_FINAL_REPORT.md) and [`v4/phase1b/PHASE1B_FINAL_REPORT.md`](v4/phase1b/PHASE1B_FINAL_REPORT.md) for the retained negative length-extrapolation results, [`v4/phase2/PHASE2_PILOT_FINAL_REPORT.md`](v4/phase2/PHASE2_PILOT_FINAL_REPORT.md) for the positive 30-model confirmation-bank pilot, and [`v4/phase2b/PHASE2B_FINAL_REPORT.md`](v4/phase2b/PHASE2B_FINAL_REPORT.md) for the fresh adaptive-mixture gate failure and pair-budget curve.
 
 ```bash
 python3 v4/phase1/verify_phase1.py
 python3 v4/phase1b/verify_phase1b.py
 python3 v4/phase2/verify_phase2.py
+python3 v4/phase2b/verify_phase2b.py
 ```
 
 ---

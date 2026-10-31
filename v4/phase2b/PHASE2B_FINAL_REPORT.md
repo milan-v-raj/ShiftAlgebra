@@ -1,7 +1,7 @@
 # Phase 2B Final Report — Adaptive Composition Hazard Mixture
 
-**Protocol:** `V4-P2B-ACHM-CPU-001`  
-**Decision:** **ACHM PRIMARY GATE FAILED; useful MAE improvement retained**  
+**Protocol:** `V4-P2B-ACHM-CPU-001`
+**Decision:** **ACHM PRIMARY GATE FAILED; useful MAE improvement retained**
 **Scope:** completed CPU-only fresh-confirmation pilot; not the roadmap's final 75+ model Phase 2
 
 ## Executive result

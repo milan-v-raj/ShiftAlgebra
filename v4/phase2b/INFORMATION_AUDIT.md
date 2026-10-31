@@ -1,6 +1,6 @@
 # Phase 2B Information and Correctness Audit
 
-**Protocol:** `V4-P2B-ACHM-CPU-001`  
+**Protocol:** `V4-P2B-ACHM-CPU-001`
 **Audit outcome:** no target leak detected; primary gate correctly failed
 
 ## Chronology

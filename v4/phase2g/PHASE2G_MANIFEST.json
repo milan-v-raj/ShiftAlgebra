@@ -1,0 +1,1751 @@
+{
+  "architecture_boundary": {
+    "confirmation_families": [
+      "residual_holdout",
+      "depthwise_holdout",
+      "convnext_holdout",
+      "shuffle_holdout",
+      "dilated_holdout",
+      "gated_holdout"
+    ],
+    "development_families": [
+      "vgg_holdout",
+      "dense_holdout",
+      "inception_holdout",
+      "squeeze_holdout",
+      "mixer_holdout",
+      "attention_holdout"
+    ],
+    "family_overlap": [],
+    "unknown_family_encoding": "all six frozen family indicators equal zero"
+  },
+  "chance": 0.01,
+  "classes": 100,
+  "counts": {
+    "calibration_conditions": 37,
+    "families": 6,
+    "lineages": 18,
+    "recipes": 3,
+    "snapshots": 36,
+    "target_words": 60
+  },
+  "data_provenance": {
+    "canonical_test_md5": "f0ef6b0ae62326f3e7ffdfab6717acfc",
+    "canonical_test_pixel_matches": 10000,
+    "class_names": [
+      "apple",
+      "aquarium_fish",
+      "baby",
+      "bear",
+      "beaver",
+      "bed",
+      "bee",
+      "beetle",
+      "bicycle",
+      "bottle",
+      "bowl",
+      "boy",
+      "bridge",
+      "bus",
+      "butterfly",
+      "camel",
+      "can",
+      "castle",
+      "caterpillar",
+      "cattle",
+      "chair",
+      "chimpanzee",
+      "clock",
+      "cloud",
+      "cockroach",
+      "couch",
+      "crab",
+      "crocodile",
+      "cup",
+      "dinosaur",
+      "dolphin",
+      "elephant",
+      "flatfish",
+      "forest",
+      "fox",
+      "girl",
+      "hamster",
+      "house",
+      "kangaroo",
+      "keyboard",
+      "lamp",
+      "lawn_mower",
+      "leopard",
+      "lion",
+      "lizard",
+      "lobster",
+      "man",
+      "maple_tree",
+      "motorcycle",
+      "mountain",
+      "mouse",
+      "mushroom",
+      "oak_tree",
+      "orange",
+      "orchid",
+      "otter",
+      "palm_tree",
+      "pear",
+      "pickup_truck",
+      "pine_tree",
+      "plain",
+      "plate",
+      "poppy",
+      "porcupine",
+      "possum",
+      "rabbit",
+      "raccoon",
+      "ray",
+      "road",
+      "rocket",
+      "rose",
+      "sea",
+      "seal",
+      "shark",
+      "shrew",
+      "skunk",
+      "skyscraper",
+      "snail",
+      "snake",
+      "spider",
+      "squirrel",
+      "streetcar",
+      "sunflower",
+      "sweet_pepper",
+      "table",
+      "tank",
+      "telephone",
+      "television",
+      "tiger",
+      "tractor",
+      "train",
+      "trout",
+      "tulip",
+      "turtle",
+      "wardrobe",
+      "whale",
+      "willow_tree",
+      "wolf",
+      "woman",
+      "worm"
+    ],
+    "image_transport": "https://github.com/cyizhuo/CIFAR-100-dataset",
+    "image_transport_commit": "b105b30e79972558f19db69658f34b9d0a9b009b",
+    "note": "GitHub repositories are transport only; dataset files are not redistributed.",
+    "test_count": 10000,
+    "test_pickle_transport": "https://github.com/DevFelas/cifar-100-python",
+    "test_pickle_transport_commit": "7113a884221682cf835bd6009d3bb0ffef134241",
+    "train_count": 50000
+  },
+  "dataset": "CIFAR-100 fine labels",
+  "frozen_method": {
+    "allowed_change": "none: coefficients, q, scales, full/magnitude/random designs all transfer verbatim",
+    "development_behavior_sha256": "8c3289ac47c01267751a2f3d8104d1940f04e20b8fa0cec4dea0c2baef7b90a7",
+    "path": "v4/phase2f/FROZEN_FULL_VECTOR_METHODS.json",
+    "sha256": "243761ddd3749dcc0149e83cca7e40241d43a3800320d8f777bac624b1f5827e"
+  },
+  "gates": {
+    "full_vector": [
+      "macro normalized MAE full15 < g0",
+      "family/lineage/reversal hierarchical 95% CI for improvement excludes zero",
+      "at least four of six coordinate MAEs improve",
+      "macro controlled model-rank Spearman improves",
+      "accuracy top-1 selection regret is no worse",
+      "at least five of six held-out family mean improvements are positive"
+    ],
+    "magnitude": [
+      "macro normalized MAE below mean of twenty frozen random five-pair designs",
+      "hierarchical 95% CI versus expected random excludes zero",
+      "macro controlled rank at least random-design median",
+      "accuracy regret no worse than random-design median"
+    ]
+  },
+  "image_partition": {
+    "offset": 40,
+    "per_class": 20
+  },
+  "metrics": [
+    "margin",
+    "feature_drift",
+    "ece",
+    "balanced_accuracy",
+    "accuracy",
+    "mean_confidence"
+  ],
+  "models": [
+    {
+      "epoch": 1,
+      "family": "residual_holdout",
+      "lineage_id": "p2g-residual_holdout-erm_flip-s67100",
+      "model_id": "p2g-residual_holdout-erm_flip-s67100-e1",
+      "parameter_count": 34564,
+      "recipe": "erm_flip",
+      "seed": 67100
+    },
+    {
+      "epoch": 2,
+      "family": "residual_holdout",
+      "lineage_id": "p2g-residual_holdout-erm_flip-s67100",
+      "model_id": "p2g-residual_holdout-erm_flip-s67100-e2",
+      "parameter_count": 34564,
+      "recipe": "erm_flip",
+      "seed": 67100
+    },
+    {
+      "epoch": 1,
+      "family": "residual_holdout",
+      "lineage_id": "p2g-residual_holdout-label_smooth-s67101",
+      "model_id": "p2g-residual_holdout-label_smooth-s67101-e1",
+      "parameter_count": 34564,
+      "recipe": "label_smooth",
+      "seed": 67101
+    },
+    {
+      "epoch": 2,
+      "family": "residual_holdout",
+      "lineage_id": "p2g-residual_holdout-label_smooth-s67101",
+      "model_id": "p2g-residual_holdout-label_smooth-s67101-e2",
+      "parameter_count": 34564,
+      "recipe": "label_smooth",
+      "seed": 67101
+    },
+    {
+      "epoch": 1,
+      "family": "residual_holdout",
+      "lineage_id": "p2g-residual_holdout-noise_aug-s67102",
+      "model_id": "p2g-residual_holdout-noise_aug-s67102-e1",
+      "parameter_count": 34564,
+      "recipe": "noise_aug",
+      "seed": 67102
+    },
+    {
+      "epoch": 2,
+      "family": "residual_holdout",
+      "lineage_id": "p2g-residual_holdout-noise_aug-s67102",
+      "model_id": "p2g-residual_holdout-noise_aug-s67102-e2",
+      "parameter_count": 34564,
+      "recipe": "noise_aug",
+      "seed": 67102
+    },
+    {
+      "epoch": 1,
+      "family": "depthwise_holdout",
+      "lineage_id": "p2g-depthwise_holdout-erm_flip-s67200",
+      "model_id": "p2g-depthwise_holdout-erm_flip-s67200-e1",
+      "parameter_count": 17244,
+      "recipe": "erm_flip",
+      "seed": 67200
+    },
+    {
+      "epoch": 2,
+      "family": "depthwise_holdout",
+      "lineage_id": "p2g-depthwise_holdout-erm_flip-s67200",
+      "model_id": "p2g-depthwise_holdout-erm_flip-s67200-e2",
+      "parameter_count": 17244,
+      "recipe": "erm_flip",
+      "seed": 67200
+    },
+    {
+      "epoch": 1,
+      "family": "depthwise_holdout",
+      "lineage_id": "p2g-depthwise_holdout-label_smooth-s67201",
+      "model_id": "p2g-depthwise_holdout-label_smooth-s67201-e1",
+      "parameter_count": 17244,
+      "recipe": "label_smooth",
+      "seed": 67201
+    },
+    {
+      "epoch": 2,
+      "family": "depthwise_holdout",
+      "lineage_id": "p2g-depthwise_holdout-label_smooth-s67201",
+      "model_id": "p2g-depthwise_holdout-label_smooth-s67201-e2",
+      "parameter_count": 17244,
+      "recipe": "label_smooth",
+      "seed": 67201
+    },
+    {
+      "epoch": 1,
+      "family": "depthwise_holdout",
+      "lineage_id": "p2g-depthwise_holdout-noise_aug-s67202",
+      "model_id": "p2g-depthwise_holdout-noise_aug-s67202-e1",
+      "parameter_count": 17244,
+      "recipe": "noise_aug",
+      "seed": 67202
+    },
+    {
+      "epoch": 2,
+      "family": "depthwise_holdout",
+      "lineage_id": "p2g-depthwise_holdout-noise_aug-s67202",
+      "model_id": "p2g-depthwise_holdout-noise_aug-s67202-e2",
+      "parameter_count": 17244,
+      "recipe": "noise_aug",
+      "seed": 67202
+    },
+    {
+      "epoch": 1,
+      "family": "convnext_holdout",
+      "lineage_id": "p2g-convnext_holdout-erm_flip-s67300",
+      "model_id": "p2g-convnext_holdout-erm_flip-s67300-e1",
+      "parameter_count": 27932,
+      "recipe": "erm_flip",
+      "seed": 67300
+    },
+    {
+      "epoch": 2,
+      "family": "convnext_holdout",
+      "lineage_id": "p2g-convnext_holdout-erm_flip-s67300",
+      "model_id": "p2g-convnext_holdout-erm_flip-s67300-e2",
+      "parameter_count": 27932,
+      "recipe": "erm_flip",
+      "seed": 67300
+    },
+    {
+      "epoch": 1,
+      "family": "convnext_holdout",
+      "lineage_id": "p2g-convnext_holdout-label_smooth-s67301",
+      "model_id": "p2g-convnext_holdout-label_smooth-s67301-e1",
+      "parameter_count": 27932,
+      "recipe": "label_smooth",
+      "seed": 67301
+    },
+    {
+      "epoch": 2,
+      "family": "convnext_holdout",
+      "lineage_id": "p2g-convnext_holdout-label_smooth-s67301",
+      "model_id": "p2g-convnext_holdout-label_smooth-s67301-e2",
+      "parameter_count": 27932,
+      "recipe": "label_smooth",
+      "seed": 67301
+    },
+    {
+      "epoch": 1,
+      "family": "convnext_holdout",
+      "lineage_id": "p2g-convnext_holdout-noise_aug-s67302",
+      "model_id": "p2g-convnext_holdout-noise_aug-s67302-e1",
+      "parameter_count": 27932,
+      "recipe": "noise_aug",
+      "seed": 67302
+    },
+    {
+      "epoch": 2,
+      "family": "convnext_holdout",
+      "lineage_id": "p2g-convnext_holdout-noise_aug-s67302",
+      "model_id": "p2g-convnext_holdout-noise_aug-s67302-e2",
+      "parameter_count": 27932,
+      "recipe": "noise_aug",
+      "seed": 67302
+    },
+    {
+      "epoch": 1,
+      "family": "shuffle_holdout",
+      "lineage_id": "p2g-shuffle_holdout-erm_flip-s67400",
+      "model_id": "p2g-shuffle_holdout-erm_flip-s67400-e1",
+      "parameter_count": 6788,
+      "recipe": "erm_flip",
+      "seed": 67400
+    },
+    {
+      "epoch": 2,
+      "family": "shuffle_holdout",
+      "lineage_id": "p2g-shuffle_holdout-erm_flip-s67400",
+      "model_id": "p2g-shuffle_holdout-erm_flip-s67400-e2",
+      "parameter_count": 6788,
+      "recipe": "erm_flip",
+      "seed": 67400
+    },
+    {
+      "epoch": 1,
+      "family": "shuffle_holdout",
+      "lineage_id": "p2g-shuffle_holdout-label_smooth-s67401",
+      "model_id": "p2g-shuffle_holdout-label_smooth-s67401-e1",
+      "parameter_count": 6788,
+      "recipe": "label_smooth",
+      "seed": 67401
+    },
+    {
+      "epoch": 2,
+      "family": "shuffle_holdout",
+      "lineage_id": "p2g-shuffle_holdout-label_smooth-s67401",
+      "model_id": "p2g-shuffle_holdout-label_smooth-s67401-e2",
+      "parameter_count": 6788,
+      "recipe": "label_smooth",
+      "seed": 67401
+    },
+    {
+      "epoch": 1,
+      "family": "shuffle_holdout",
+      "lineage_id": "p2g-shuffle_holdout-noise_aug-s67402",
+      "model_id": "p2g-shuffle_holdout-noise_aug-s67402-e1",
+      "parameter_count": 6788,
+      "recipe": "noise_aug",
+      "seed": 67402
+    },
+    {
+      "epoch": 2,
+      "family": "shuffle_holdout",
+      "lineage_id": "p2g-shuffle_holdout-noise_aug-s67402",
+      "model_id": "p2g-shuffle_holdout-noise_aug-s67402-e2",
+      "parameter_count": 6788,
+      "recipe": "noise_aug",
+      "seed": 67402
+    },
+    {
+      "epoch": 1,
+      "family": "dilated_holdout",
+      "lineage_id": "p2g-dilated_holdout-erm_flip-s67500",
+      "model_id": "p2g-dilated_holdout-erm_flip-s67500-e1",
+      "parameter_count": 15196,
+      "recipe": "erm_flip",
+      "seed": 67500
+    },
+    {
+      "epoch": 2,
+      "family": "dilated_holdout",
+      "lineage_id": "p2g-dilated_holdout-erm_flip-s67500",
+      "model_id": "p2g-dilated_holdout-erm_flip-s67500-e2",
+      "parameter_count": 15196,
+      "recipe": "erm_flip",
+      "seed": 67500
+    },
+    {
+      "epoch": 1,
+      "family": "dilated_holdout",
+      "lineage_id": "p2g-dilated_holdout-label_smooth-s67501",
+      "model_id": "p2g-dilated_holdout-label_smooth-s67501-e1",
+      "parameter_count": 15196,
+      "recipe": "label_smooth",
+      "seed": 67501
+    },
+    {
+      "epoch": 2,
+      "family": "dilated_holdout",
+      "lineage_id": "p2g-dilated_holdout-label_smooth-s67501",
+      "model_id": "p2g-dilated_holdout-label_smooth-s67501-e2",
+      "parameter_count": 15196,
+      "recipe": "label_smooth",
+      "seed": 67501
+    },
+    {
+      "epoch": 1,
+      "family": "dilated_holdout",
+      "lineage_id": "p2g-dilated_holdout-noise_aug-s67502",
+      "model_id": "p2g-dilated_holdout-noise_aug-s67502-e1",
+      "parameter_count": 15196,
+      "recipe": "noise_aug",
+      "seed": 67502
+    },
+    {
+      "epoch": 2,
+      "family": "dilated_holdout",
+      "lineage_id": "p2g-dilated_holdout-noise_aug-s67502",
+      "model_id": "p2g-dilated_holdout-noise_aug-s67502-e2",
+      "parameter_count": 15196,
+      "recipe": "noise_aug",
+      "seed": 67502
+    },
+    {
+      "epoch": 1,
+      "family": "gated_holdout",
+      "lineage_id": "p2g-gated_holdout-erm_flip-s67600",
+      "model_id": "p2g-gated_holdout-erm_flip-s67600-e1",
+      "parameter_count": 71324,
+      "recipe": "erm_flip",
+      "seed": 67600
+    },
+    {
+      "epoch": 2,
+      "family": "gated_holdout",
+      "lineage_id": "p2g-gated_holdout-erm_flip-s67600",
+      "model_id": "p2g-gated_holdout-erm_flip-s67600-e2",
+      "parameter_count": 71324,
+      "recipe": "erm_flip",
+      "seed": 67600
+    },
+    {
+      "epoch": 1,
+      "family": "gated_holdout",
+      "lineage_id": "p2g-gated_holdout-label_smooth-s67601",
+      "model_id": "p2g-gated_holdout-label_smooth-s67601-e1",
+      "parameter_count": 71324,
+      "recipe": "label_smooth",
+      "seed": 67601
+    },
+    {
+      "epoch": 2,
+      "family": "gated_holdout",
+      "lineage_id": "p2g-gated_holdout-label_smooth-s67601",
+      "model_id": "p2g-gated_holdout-label_smooth-s67601-e2",
+      "parameter_count": 71324,
+      "recipe": "label_smooth",
+      "seed": 67601
+    },
+    {
+      "epoch": 1,
+      "family": "gated_holdout",
+      "lineage_id": "p2g-gated_holdout-noise_aug-s67602",
+      "model_id": "p2g-gated_holdout-noise_aug-s67602-e1",
+      "parameter_count": 71324,
+      "recipe": "noise_aug",
+      "seed": 67602
+    },
+    {
+      "epoch": 2,
+      "family": "gated_holdout",
+      "lineage_id": "p2g-gated_holdout-noise_aug-s67602",
+      "model_id": "p2g-gated_holdout-noise_aug-s67602-e2",
+      "parameter_count": 71324,
+      "recipe": "noise_aug",
+      "seed": 67602
+    }
+  ],
+  "protocol": "V4-P2G-CIFAR100-NOREFIT-ARCH-001",
+  "status": "STRICT_NOREFIT_ARCHITECTURE_PROTOCOL_FROZEN_OUTCOMES_UNOPENED",
+  "word_seed": 22711,
+  "words": [
+    {
+      "condition_index": 0,
+      "length": 0,
+      "reverse_group": "Identity",
+      "role": "calibration",
+      "word": [
+        "Identity"
+      ],
+      "word_string": "Identity"
+    },
+    {
+      "condition_index": 1,
+      "length": 1,
+      "reverse_group": "Contrast",
+      "role": "calibration",
+      "word": [
+        "Contrast"
+      ],
+      "word_string": "Contrast"
+    },
+    {
+      "condition_index": 2,
+      "length": 1,
+      "reverse_group": "GaussianBlur",
+      "role": "calibration",
+      "word": [
+        "GaussianBlur"
+      ],
+      "word_string": "GaussianBlur"
+    },
+    {
+      "condition_index": 3,
+      "length": 1,
+      "reverse_group": "ImpulseNoise",
+      "role": "calibration",
+      "word": [
+        "ImpulseNoise"
+      ],
+      "word_string": "ImpulseNoise"
+    },
+    {
+      "condition_index": 4,
+      "length": 1,
+      "reverse_group": "Invert",
+      "role": "calibration",
+      "word": [
+        "Invert"
+      ],
+      "word_string": "Invert"
+    },
+    {
+      "condition_index": 5,
+      "length": 1,
+      "reverse_group": "Rotate90",
+      "role": "calibration",
+      "word": [
+        "Rotate90"
+      ],
+      "word_string": "Rotate90"
+    },
+    {
+      "condition_index": 6,
+      "length": 1,
+      "reverse_group": "Swirl",
+      "role": "calibration",
+      "word": [
+        "Swirl"
+      ],
+      "word_string": "Swirl"
+    },
+    {
+      "condition_index": 7,
+      "length": 2,
+      "reverse_group": "Contrast>GaussianBlur",
+      "role": "calibration",
+      "word": [
+        "Contrast",
+        "GaussianBlur"
+      ],
+      "word_string": "Contrast>GaussianBlur"
+    },
+    {
+      "condition_index": 8,
+      "length": 2,
+      "reverse_group": "Contrast>ImpulseNoise",
+      "role": "calibration",
+      "word": [
+        "Contrast",
+        "ImpulseNoise"
+      ],
+      "word_string": "Contrast>ImpulseNoise"
+    },
+    {
+      "condition_index": 9,
+      "length": 2,
+      "reverse_group": "Contrast>Invert",
+      "role": "calibration",
+      "word": [
+        "Contrast",
+        "Invert"
+      ],
+      "word_string": "Contrast>Invert"
+    },
+    {
+      "condition_index": 10,
+      "length": 2,
+      "reverse_group": "Contrast>Rotate90",
+      "role": "calibration",
+      "word": [
+        "Contrast",
+        "Rotate90"
+      ],
+      "word_string": "Contrast>Rotate90"
+    },
+    {
+      "condition_index": 11,
+      "length": 2,
+      "reverse_group": "Contrast>Swirl",
+      "role": "calibration",
+      "word": [
+        "Contrast",
+        "Swirl"
+      ],
+      "word_string": "Contrast>Swirl"
+    },
+    {
+      "condition_index": 12,
+      "length": 2,
+      "reverse_group": "Contrast>GaussianBlur",
+      "role": "calibration",
+      "word": [
+        "GaussianBlur",
+        "Contrast"
+      ],
+      "word_string": "GaussianBlur>Contrast"
+    },
+    {
+      "condition_index": 13,
+      "length": 2,
+      "reverse_group": "GaussianBlur>ImpulseNoise",
+      "role": "calibration",
+      "word": [
+        "GaussianBlur",
+        "ImpulseNoise"
+      ],
+      "word_string": "GaussianBlur>ImpulseNoise"
+    },
+    {
+      "condition_index": 14,
+      "length": 2,
+      "reverse_group": "GaussianBlur>Invert",
+      "role": "calibration",
+      "word": [
+        "GaussianBlur",
+        "Invert"
+      ],
+      "word_string": "GaussianBlur>Invert"
+    },
+    {
+      "condition_index": 15,
+      "length": 2,
+      "reverse_group": "GaussianBlur>Rotate90",
+      "role": "calibration",
+      "word": [
+        "GaussianBlur",
+        "Rotate90"
+      ],
+      "word_string": "GaussianBlur>Rotate90"
+    },
+    {
+      "condition_index": 16,
+      "length": 2,
+      "reverse_group": "GaussianBlur>Swirl",
+      "role": "calibration",
+      "word": [
+        "GaussianBlur",
+        "Swirl"
+      ],
+      "word_string": "GaussianBlur>Swirl"
+    },
+    {
+      "condition_index": 17,
+      "length": 2,
+      "reverse_group": "Contrast>ImpulseNoise",
+      "role": "calibration",
+      "word": [
+        "ImpulseNoise",
+        "Contrast"
+      ],
+      "word_string": "ImpulseNoise>Contrast"
+    },
+    {
+      "condition_index": 18,
+      "length": 2,
+      "reverse_group": "GaussianBlur>ImpulseNoise",
+      "role": "calibration",
+      "word": [
+        "ImpulseNoise",
+        "GaussianBlur"
+      ],
+      "word_string": "ImpulseNoise>GaussianBlur"
+    },
+    {
+      "condition_index": 19,
+      "length": 2,
+      "reverse_group": "ImpulseNoise>Invert",
+      "role": "calibration",
+      "word": [
+        "ImpulseNoise",
+        "Invert"
+      ],
+      "word_string": "ImpulseNoise>Invert"
+    },
+    {
+      "condition_index": 20,
+      "length": 2,
+      "reverse_group": "ImpulseNoise>Rotate90",
+      "role": "calibration",
+      "word": [
+        "ImpulseNoise",
+        "Rotate90"
+      ],
+      "word_string": "ImpulseNoise>Rotate90"
+    },
+    {
+      "condition_index": 21,
+      "length": 2,
+      "reverse_group": "ImpulseNoise>Swirl",
+      "role": "calibration",
+      "word": [
+        "ImpulseNoise",
+        "Swirl"
+      ],
+      "word_string": "ImpulseNoise>Swirl"
+    },
+    {
+      "condition_index": 22,
+      "length": 2,
+      "reverse_group": "Contrast>Invert",
+      "role": "calibration",
+      "word": [
+        "Invert",
+        "Contrast"
+      ],
+      "word_string": "Invert>Contrast"
+    },
+    {
+      "condition_index": 23,
+      "length": 2,
+      "reverse_group": "GaussianBlur>Invert",
+      "role": "calibration",
+      "word": [
+        "Invert",
+        "GaussianBlur"
+      ],
+      "word_string": "Invert>GaussianBlur"
+    },
+    {
+      "condition_index": 24,
+      "length": 2,
+      "reverse_group": "ImpulseNoise>Invert",
+      "role": "calibration",
+      "word": [
+        "Invert",
+        "ImpulseNoise"
+      ],
+      "word_string": "Invert>ImpulseNoise"
+    },
+    {
+      "condition_index": 25,
+      "length": 2,
+      "reverse_group": "Invert>Rotate90",
+      "role": "calibration",
+      "word": [
+        "Invert",
+        "Rotate90"
+      ],
+      "word_string": "Invert>Rotate90"
+    },
+    {
+      "condition_index": 26,
+      "length": 2,
+      "reverse_group": "Invert>Swirl",
+      "role": "calibration",
+      "word": [
+        "Invert",
+        "Swirl"
+      ],
+      "word_string": "Invert>Swirl"
+    },
+    {
+      "condition_index": 27,
+      "length": 2,
+      "reverse_group": "Contrast>Rotate90",
+      "role": "calibration",
+      "word": [
+        "Rotate90",
+        "Contrast"
+      ],
+      "word_string": "Rotate90>Contrast"
+    },
+    {
+      "condition_index": 28,
+      "length": 2,
+      "reverse_group": "GaussianBlur>Rotate90",
+      "role": "calibration",
+      "word": [
+        "Rotate90",
+        "GaussianBlur"
+      ],
+      "word_string": "Rotate90>GaussianBlur"
+    },
+    {
+      "condition_index": 29,
+      "length": 2,
+      "reverse_group": "ImpulseNoise>Rotate90",
+      "role": "calibration",
+      "word": [
+        "Rotate90",
+        "ImpulseNoise"
+      ],
+      "word_string": "Rotate90>ImpulseNoise"
+    },
+    {
+      "condition_index": 30,
+      "length": 2,
+      "reverse_group": "Invert>Rotate90",
+      "role": "calibration",
+      "word": [
+        "Rotate90",
+        "Invert"
+      ],
+      "word_string": "Rotate90>Invert"
+    },
+    {
+      "condition_index": 31,
+      "length": 2,
+      "reverse_group": "Rotate90>Swirl",
+      "role": "calibration",
+      "word": [
+        "Rotate90",
+        "Swirl"
+      ],
+      "word_string": "Rotate90>Swirl"
+    },
+    {
+      "condition_index": 32,
+      "length": 2,
+      "reverse_group": "Contrast>Swirl",
+      "role": "calibration",
+      "word": [
+        "Swirl",
+        "Contrast"
+      ],
+      "word_string": "Swirl>Contrast"
+    },
+    {
+      "condition_index": 33,
+      "length": 2,
+      "reverse_group": "GaussianBlur>Swirl",
+      "role": "calibration",
+      "word": [
+        "Swirl",
+        "GaussianBlur"
+      ],
+      "word_string": "Swirl>GaussianBlur"
+    },
+    {
+      "condition_index": 34,
+      "length": 2,
+      "reverse_group": "ImpulseNoise>Swirl",
+      "role": "calibration",
+      "word": [
+        "Swirl",
+        "ImpulseNoise"
+      ],
+      "word_string": "Swirl>ImpulseNoise"
+    },
+    {
+      "condition_index": 35,
+      "length": 2,
+      "reverse_group": "Invert>Swirl",
+      "role": "calibration",
+      "word": [
+        "Swirl",
+        "Invert"
+      ],
+      "word_string": "Swirl>Invert"
+    },
+    {
+      "condition_index": 36,
+      "length": 2,
+      "reverse_group": "Rotate90>Swirl",
+      "role": "calibration",
+      "word": [
+        "Swirl",
+        "Rotate90"
+      ],
+      "word_string": "Swirl>Rotate90"
+    },
+    {
+      "condition_index": 37,
+      "length": 4,
+      "reverse_group": "ImpulseNoise>Invert>Contrast>Swirl",
+      "role": "confirmation",
+      "word": [
+        "ImpulseNoise",
+        "Invert",
+        "Contrast",
+        "Swirl"
+      ],
+      "word_string": "ImpulseNoise>Invert>Contrast>Swirl"
+    },
+    {
+      "condition_index": 38,
+      "length": 4,
+      "reverse_group": "ImpulseNoise>Invert>Contrast>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Swirl",
+        "Contrast",
+        "Invert",
+        "ImpulseNoise"
+      ],
+      "word_string": "Swirl>Contrast>Invert>ImpulseNoise"
+    },
+    {
+      "condition_index": 39,
+      "length": 4,
+      "reverse_group": "Contrast>GaussianBlur>Invert>Rotate90",
+      "role": "confirmation",
+      "word": [
+        "Contrast",
+        "GaussianBlur",
+        "Invert",
+        "Rotate90"
+      ],
+      "word_string": "Contrast>GaussianBlur>Invert>Rotate90"
+    },
+    {
+      "condition_index": 40,
+      "length": 4,
+      "reverse_group": "Contrast>GaussianBlur>Invert>Rotate90",
+      "role": "confirmation",
+      "word": [
+        "Rotate90",
+        "Invert",
+        "GaussianBlur",
+        "Contrast"
+      ],
+      "word_string": "Rotate90>Invert>GaussianBlur>Contrast"
+    },
+    {
+      "condition_index": 41,
+      "length": 4,
+      "reverse_group": "Invert>Contrast>GaussianBlur>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Invert",
+        "Contrast",
+        "GaussianBlur",
+        "Swirl"
+      ],
+      "word_string": "Invert>Contrast>GaussianBlur>Swirl"
+    },
+    {
+      "condition_index": 42,
+      "length": 4,
+      "reverse_group": "Invert>Contrast>GaussianBlur>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Swirl",
+        "GaussianBlur",
+        "Contrast",
+        "Invert"
+      ],
+      "word_string": "Swirl>GaussianBlur>Contrast>Invert"
+    },
+    {
+      "condition_index": 43,
+      "length": 4,
+      "reverse_group": "Invert>ImpulseNoise>Rotate90>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Invert",
+        "ImpulseNoise",
+        "Rotate90",
+        "Swirl"
+      ],
+      "word_string": "Invert>ImpulseNoise>Rotate90>Swirl"
+    },
+    {
+      "condition_index": 44,
+      "length": 4,
+      "reverse_group": "Invert>ImpulseNoise>Rotate90>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Swirl",
+        "Rotate90",
+        "ImpulseNoise",
+        "Invert"
+      ],
+      "word_string": "Swirl>Rotate90>ImpulseNoise>Invert"
+    },
+    {
+      "condition_index": 45,
+      "length": 4,
+      "reverse_group": "Contrast>Rotate90>ImpulseNoise>GaussianBlur",
+      "role": "confirmation",
+      "word": [
+        "Contrast",
+        "Rotate90",
+        "ImpulseNoise",
+        "GaussianBlur"
+      ],
+      "word_string": "Contrast>Rotate90>ImpulseNoise>GaussianBlur"
+    },
+    {
+      "condition_index": 46,
+      "length": 4,
+      "reverse_group": "Contrast>Rotate90>ImpulseNoise>GaussianBlur",
+      "role": "confirmation",
+      "word": [
+        "GaussianBlur",
+        "ImpulseNoise",
+        "Rotate90",
+        "Contrast"
+      ],
+      "word_string": "GaussianBlur>ImpulseNoise>Rotate90>Contrast"
+    },
+    {
+      "condition_index": 47,
+      "length": 4,
+      "reverse_group": "ImpulseNoise>Swirl>Contrast>Rotate90",
+      "role": "confirmation",
+      "word": [
+        "ImpulseNoise",
+        "Swirl",
+        "Contrast",
+        "Rotate90"
+      ],
+      "word_string": "ImpulseNoise>Swirl>Contrast>Rotate90"
+    },
+    {
+      "condition_index": 48,
+      "length": 4,
+      "reverse_group": "ImpulseNoise>Swirl>Contrast>Rotate90",
+      "role": "confirmation",
+      "word": [
+        "Rotate90",
+        "Contrast",
+        "Swirl",
+        "ImpulseNoise"
+      ],
+      "word_string": "Rotate90>Contrast>Swirl>ImpulseNoise"
+    },
+    {
+      "condition_index": 49,
+      "length": 4,
+      "reverse_group": "GaussianBlur>ImpulseNoise>Invert>Swirl",
+      "role": "confirmation",
+      "word": [
+        "GaussianBlur",
+        "ImpulseNoise",
+        "Invert",
+        "Swirl"
+      ],
+      "word_string": "GaussianBlur>ImpulseNoise>Invert>Swirl"
+    },
+    {
+      "condition_index": 50,
+      "length": 4,
+      "reverse_group": "GaussianBlur>ImpulseNoise>Invert>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Swirl",
+        "Invert",
+        "ImpulseNoise",
+        "GaussianBlur"
+      ],
+      "word_string": "Swirl>Invert>ImpulseNoise>GaussianBlur"
+    },
+    {
+      "condition_index": 51,
+      "length": 4,
+      "reverse_group": "GaussianBlur>Contrast>Invert>ImpulseNoise",
+      "role": "confirmation",
+      "word": [
+        "GaussianBlur",
+        "Contrast",
+        "Invert",
+        "ImpulseNoise"
+      ],
+      "word_string": "GaussianBlur>Contrast>Invert>ImpulseNoise"
+    },
+    {
+      "condition_index": 52,
+      "length": 4,
+      "reverse_group": "GaussianBlur>Contrast>Invert>ImpulseNoise",
+      "role": "confirmation",
+      "word": [
+        "ImpulseNoise",
+        "Invert",
+        "Contrast",
+        "GaussianBlur"
+      ],
+      "word_string": "ImpulseNoise>Invert>Contrast>GaussianBlur"
+    },
+    {
+      "condition_index": 53,
+      "length": 4,
+      "reverse_group": "ImpulseNoise>GaussianBlur>Contrast>Invert",
+      "role": "confirmation",
+      "word": [
+        "ImpulseNoise",
+        "GaussianBlur",
+        "Contrast",
+        "Invert"
+      ],
+      "word_string": "ImpulseNoise>GaussianBlur>Contrast>Invert"
+    },
+    {
+      "condition_index": 54,
+      "length": 4,
+      "reverse_group": "ImpulseNoise>GaussianBlur>Contrast>Invert",
+      "role": "confirmation",
+      "word": [
+        "Invert",
+        "Contrast",
+        "GaussianBlur",
+        "ImpulseNoise"
+      ],
+      "word_string": "Invert>Contrast>GaussianBlur>ImpulseNoise"
+    },
+    {
+      "condition_index": 55,
+      "length": 4,
+      "reverse_group": "Contrast>Invert>ImpulseNoise>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Contrast",
+        "Invert",
+        "ImpulseNoise",
+        "Swirl"
+      ],
+      "word_string": "Contrast>Invert>ImpulseNoise>Swirl"
+    },
+    {
+      "condition_index": 56,
+      "length": 4,
+      "reverse_group": "Contrast>Invert>ImpulseNoise>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Swirl",
+        "ImpulseNoise",
+        "Invert",
+        "Contrast"
+      ],
+      "word_string": "Swirl>ImpulseNoise>Invert>Contrast"
+    },
+    {
+      "condition_index": 57,
+      "length": 5,
+      "reverse_group": "Invert>GaussianBlur>ImpulseNoise>Rotate90>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Invert",
+        "GaussianBlur",
+        "ImpulseNoise",
+        "Rotate90",
+        "Swirl"
+      ],
+      "word_string": "Invert>GaussianBlur>ImpulseNoise>Rotate90>Swirl"
+    },
+    {
+      "condition_index": 58,
+      "length": 5,
+      "reverse_group": "Invert>GaussianBlur>ImpulseNoise>Rotate90>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Swirl",
+        "Rotate90",
+        "ImpulseNoise",
+        "GaussianBlur",
+        "Invert"
+      ],
+      "word_string": "Swirl>Rotate90>ImpulseNoise>GaussianBlur>Invert"
+    },
+    {
+      "condition_index": 59,
+      "length": 5,
+      "reverse_group": "Contrast>GaussianBlur>Invert>ImpulseNoise>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Contrast",
+        "GaussianBlur",
+        "Invert",
+        "ImpulseNoise",
+        "Swirl"
+      ],
+      "word_string": "Contrast>GaussianBlur>Invert>ImpulseNoise>Swirl"
+    },
+    {
+      "condition_index": 60,
+      "length": 5,
+      "reverse_group": "Contrast>GaussianBlur>Invert>ImpulseNoise>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Swirl",
+        "ImpulseNoise",
+        "Invert",
+        "GaussianBlur",
+        "Contrast"
+      ],
+      "word_string": "Swirl>ImpulseNoise>Invert>GaussianBlur>Contrast"
+    },
+    {
+      "condition_index": 61,
+      "length": 5,
+      "reverse_group": "GaussianBlur>Swirl>ImpulseNoise>Rotate90>Invert",
+      "role": "confirmation",
+      "word": [
+        "GaussianBlur",
+        "Swirl",
+        "ImpulseNoise",
+        "Rotate90",
+        "Invert"
+      ],
+      "word_string": "GaussianBlur>Swirl>ImpulseNoise>Rotate90>Invert"
+    },
+    {
+      "condition_index": 62,
+      "length": 5,
+      "reverse_group": "GaussianBlur>Swirl>ImpulseNoise>Rotate90>Invert",
+      "role": "confirmation",
+      "word": [
+        "Invert",
+        "Rotate90",
+        "ImpulseNoise",
+        "Swirl",
+        "GaussianBlur"
+      ],
+      "word_string": "Invert>Rotate90>ImpulseNoise>Swirl>GaussianBlur"
+    },
+    {
+      "condition_index": 63,
+      "length": 5,
+      "reverse_group": "Invert>Rotate90>Contrast>GaussianBlur>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Invert",
+        "Rotate90",
+        "Contrast",
+        "GaussianBlur",
+        "Swirl"
+      ],
+      "word_string": "Invert>Rotate90>Contrast>GaussianBlur>Swirl"
+    },
+    {
+      "condition_index": 64,
+      "length": 5,
+      "reverse_group": "Invert>Rotate90>Contrast>GaussianBlur>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Swirl",
+        "GaussianBlur",
+        "Contrast",
+        "Rotate90",
+        "Invert"
+      ],
+      "word_string": "Swirl>GaussianBlur>Contrast>Rotate90>Invert"
+    },
+    {
+      "condition_index": 65,
+      "length": 5,
+      "reverse_group": "ImpulseNoise>Rotate90>GaussianBlur>Contrast>Swirl",
+      "role": "confirmation",
+      "word": [
+        "ImpulseNoise",
+        "Rotate90",
+        "GaussianBlur",
+        "Contrast",
+        "Swirl"
+      ],
+      "word_string": "ImpulseNoise>Rotate90>GaussianBlur>Contrast>Swirl"
+    },
+    {
+      "condition_index": 66,
+      "length": 5,
+      "reverse_group": "ImpulseNoise>Rotate90>GaussianBlur>Contrast>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Swirl",
+        "Contrast",
+        "GaussianBlur",
+        "Rotate90",
+        "ImpulseNoise"
+      ],
+      "word_string": "Swirl>Contrast>GaussianBlur>Rotate90>ImpulseNoise"
+    },
+    {
+      "condition_index": 67,
+      "length": 5,
+      "reverse_group": "ImpulseNoise>GaussianBlur>Contrast>Invert>Rotate90",
+      "role": "confirmation",
+      "word": [
+        "ImpulseNoise",
+        "GaussianBlur",
+        "Contrast",
+        "Invert",
+        "Rotate90"
+      ],
+      "word_string": "ImpulseNoise>GaussianBlur>Contrast>Invert>Rotate90"
+    },
+    {
+      "condition_index": 68,
+      "length": 5,
+      "reverse_group": "ImpulseNoise>GaussianBlur>Contrast>Invert>Rotate90",
+      "role": "confirmation",
+      "word": [
+        "Rotate90",
+        "Invert",
+        "Contrast",
+        "GaussianBlur",
+        "ImpulseNoise"
+      ],
+      "word_string": "Rotate90>Invert>Contrast>GaussianBlur>ImpulseNoise"
+    },
+    {
+      "condition_index": 69,
+      "length": 5,
+      "reverse_group": "ImpulseNoise>Contrast>GaussianBlur>Rotate90>Swirl",
+      "role": "confirmation",
+      "word": [
+        "ImpulseNoise",
+        "Contrast",
+        "GaussianBlur",
+        "Rotate90",
+        "Swirl"
+      ],
+      "word_string": "ImpulseNoise>Contrast>GaussianBlur>Rotate90>Swirl"
+    },
+    {
+      "condition_index": 70,
+      "length": 5,
+      "reverse_group": "ImpulseNoise>Contrast>GaussianBlur>Rotate90>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Swirl",
+        "Rotate90",
+        "GaussianBlur",
+        "Contrast",
+        "ImpulseNoise"
+      ],
+      "word_string": "Swirl>Rotate90>GaussianBlur>Contrast>ImpulseNoise"
+    },
+    {
+      "condition_index": 71,
+      "length": 5,
+      "reverse_group": "Invert>ImpulseNoise>Swirl>GaussianBlur>Rotate90",
+      "role": "confirmation",
+      "word": [
+        "Invert",
+        "ImpulseNoise",
+        "Swirl",
+        "GaussianBlur",
+        "Rotate90"
+      ],
+      "word_string": "Invert>ImpulseNoise>Swirl>GaussianBlur>Rotate90"
+    },
+    {
+      "condition_index": 72,
+      "length": 5,
+      "reverse_group": "Invert>ImpulseNoise>Swirl>GaussianBlur>Rotate90",
+      "role": "confirmation",
+      "word": [
+        "Rotate90",
+        "GaussianBlur",
+        "Swirl",
+        "ImpulseNoise",
+        "Invert"
+      ],
+      "word_string": "Rotate90>GaussianBlur>Swirl>ImpulseNoise>Invert"
+    },
+    {
+      "condition_index": 73,
+      "length": 5,
+      "reverse_group": "Contrast>ImpulseNoise>Invert>GaussianBlur>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Contrast",
+        "ImpulseNoise",
+        "Invert",
+        "GaussianBlur",
+        "Swirl"
+      ],
+      "word_string": "Contrast>ImpulseNoise>Invert>GaussianBlur>Swirl"
+    },
+    {
+      "condition_index": 74,
+      "length": 5,
+      "reverse_group": "Contrast>ImpulseNoise>Invert>GaussianBlur>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Swirl",
+        "GaussianBlur",
+        "Invert",
+        "ImpulseNoise",
+        "Contrast"
+      ],
+      "word_string": "Swirl>GaussianBlur>Invert>ImpulseNoise>Contrast"
+    },
+    {
+      "condition_index": 75,
+      "length": 5,
+      "reverse_group": "Invert>ImpulseNoise>Contrast>Rotate90>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Invert",
+        "ImpulseNoise",
+        "Contrast",
+        "Rotate90",
+        "Swirl"
+      ],
+      "word_string": "Invert>ImpulseNoise>Contrast>Rotate90>Swirl"
+    },
+    {
+      "condition_index": 76,
+      "length": 5,
+      "reverse_group": "Invert>ImpulseNoise>Contrast>Rotate90>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Swirl",
+        "Rotate90",
+        "Contrast",
+        "ImpulseNoise",
+        "Invert"
+      ],
+      "word_string": "Swirl>Rotate90>Contrast>ImpulseNoise>Invert"
+    },
+    {
+      "condition_index": 77,
+      "length": 6,
+      "reverse_group": "ImpulseNoise>GaussianBlur>Swirl>Contrast>Rotate90>Invert",
+      "role": "confirmation",
+      "word": [
+        "ImpulseNoise",
+        "GaussianBlur",
+        "Swirl",
+        "Contrast",
+        "Rotate90",
+        "Invert"
+      ],
+      "word_string": "ImpulseNoise>GaussianBlur>Swirl>Contrast>Rotate90>Invert"
+    },
+    {
+      "condition_index": 78,
+      "length": 6,
+      "reverse_group": "ImpulseNoise>GaussianBlur>Swirl>Contrast>Rotate90>Invert",
+      "role": "confirmation",
+      "word": [
+        "Invert",
+        "Rotate90",
+        "Contrast",
+        "Swirl",
+        "GaussianBlur",
+        "ImpulseNoise"
+      ],
+      "word_string": "Invert>Rotate90>Contrast>Swirl>GaussianBlur>ImpulseNoise"
+    },
+    {
+      "condition_index": 79,
+      "length": 6,
+      "reverse_group": "ImpulseNoise>GaussianBlur>Rotate90>Invert>Contrast>Swirl",
+      "role": "confirmation",
+      "word": [
+        "ImpulseNoise",
+        "GaussianBlur",
+        "Rotate90",
+        "Invert",
+        "Contrast",
+        "Swirl"
+      ],
+      "word_string": "ImpulseNoise>GaussianBlur>Rotate90>Invert>Contrast>Swirl"
+    },
+    {
+      "condition_index": 80,
+      "length": 6,
+      "reverse_group": "ImpulseNoise>GaussianBlur>Rotate90>Invert>Contrast>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Swirl",
+        "Contrast",
+        "Invert",
+        "Rotate90",
+        "GaussianBlur",
+        "ImpulseNoise"
+      ],
+      "word_string": "Swirl>Contrast>Invert>Rotate90>GaussianBlur>ImpulseNoise"
+    },
+    {
+      "condition_index": 81,
+      "length": 6,
+      "reverse_group": "Contrast>Swirl>ImpulseNoise>Invert>Rotate90>GaussianBlur",
+      "role": "confirmation",
+      "word": [
+        "Contrast",
+        "Swirl",
+        "ImpulseNoise",
+        "Invert",
+        "Rotate90",
+        "GaussianBlur"
+      ],
+      "word_string": "Contrast>Swirl>ImpulseNoise>Invert>Rotate90>GaussianBlur"
+    },
+    {
+      "condition_index": 82,
+      "length": 6,
+      "reverse_group": "Contrast>Swirl>ImpulseNoise>Invert>Rotate90>GaussianBlur",
+      "role": "confirmation",
+      "word": [
+        "GaussianBlur",
+        "Rotate90",
+        "Invert",
+        "ImpulseNoise",
+        "Swirl",
+        "Contrast"
+      ],
+      "word_string": "GaussianBlur>Rotate90>Invert>ImpulseNoise>Swirl>Contrast"
+    },
+    {
+      "condition_index": 83,
+      "length": 6,
+      "reverse_group": "Rotate90>Contrast>ImpulseNoise>Invert>GaussianBlur>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Rotate90",
+        "Contrast",
+        "ImpulseNoise",
+        "Invert",
+        "GaussianBlur",
+        "Swirl"
+      ],
+      "word_string": "Rotate90>Contrast>ImpulseNoise>Invert>GaussianBlur>Swirl"
+    },
+    {
+      "condition_index": 84,
+      "length": 6,
+      "reverse_group": "Rotate90>Contrast>ImpulseNoise>Invert>GaussianBlur>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Swirl",
+        "GaussianBlur",
+        "Invert",
+        "ImpulseNoise",
+        "Contrast",
+        "Rotate90"
+      ],
+      "word_string": "Swirl>GaussianBlur>Invert>ImpulseNoise>Contrast>Rotate90"
+    },
+    {
+      "condition_index": 85,
+      "length": 6,
+      "reverse_group": "Invert>Contrast>GaussianBlur>ImpulseNoise>Swirl>Rotate90",
+      "role": "confirmation",
+      "word": [
+        "Invert",
+        "Contrast",
+        "GaussianBlur",
+        "ImpulseNoise",
+        "Swirl",
+        "Rotate90"
+      ],
+      "word_string": "Invert>Contrast>GaussianBlur>ImpulseNoise>Swirl>Rotate90"
+    },
+    {
+      "condition_index": 86,
+      "length": 6,
+      "reverse_group": "Invert>Contrast>GaussianBlur>ImpulseNoise>Swirl>Rotate90",
+      "role": "confirmation",
+      "word": [
+        "Rotate90",
+        "Swirl",
+        "ImpulseNoise",
+        "GaussianBlur",
+        "Contrast",
+        "Invert"
+      ],
+      "word_string": "Rotate90>Swirl>ImpulseNoise>GaussianBlur>Contrast>Invert"
+    },
+    {
+      "condition_index": 87,
+      "length": 6,
+      "reverse_group": "Rotate90>GaussianBlur>Contrast>ImpulseNoise>Invert>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Rotate90",
+        "GaussianBlur",
+        "Contrast",
+        "ImpulseNoise",
+        "Invert",
+        "Swirl"
+      ],
+      "word_string": "Rotate90>GaussianBlur>Contrast>ImpulseNoise>Invert>Swirl"
+    },
+    {
+      "condition_index": 88,
+      "length": 6,
+      "reverse_group": "Rotate90>GaussianBlur>Contrast>ImpulseNoise>Invert>Swirl",
+      "role": "confirmation",
+      "word": [
+        "Swirl",
+        "Invert",
+        "ImpulseNoise",
+        "Contrast",
+        "GaussianBlur",
+        "Rotate90"
+      ],
+      "word_string": "Swirl>Invert>ImpulseNoise>Contrast>GaussianBlur>Rotate90"
+    },
+    {
+      "condition_index": 89,
+      "length": 6,
+      "reverse_group": "GaussianBlur>Contrast>Swirl>Invert>Rotate90>ImpulseNoise",
+      "role": "confirmation",
+      "word": [
+        "GaussianBlur",
+        "Contrast",
+        "Swirl",
+        "Invert",
+        "Rotate90",
+        "ImpulseNoise"
+      ],
+      "word_string": "GaussianBlur>Contrast>Swirl>Invert>Rotate90>ImpulseNoise"
+    },
+    {
+      "condition_index": 90,
+      "length": 6,
+      "reverse_group": "GaussianBlur>Contrast>Swirl>Invert>Rotate90>ImpulseNoise",
+      "role": "confirmation",
+      "word": [
+        "ImpulseNoise",
+        "Rotate90",
+        "Invert",
+        "Swirl",
+        "Contrast",
+        "GaussianBlur"
+      ],
+      "word_string": "ImpulseNoise>Rotate90>Invert>Swirl>Contrast>GaussianBlur"
+    },
+    {
+      "condition_index": 91,
+      "length": 6,
+      "reverse_group": "GaussianBlur>Swirl>Contrast>Invert>Rotate90>ImpulseNoise",
+      "role": "confirmation",
+      "word": [
+        "GaussianBlur",
+        "Swirl",
+        "Contrast",
+        "Invert",
+        "Rotate90",
+        "ImpulseNoise"
+      ],
+      "word_string": "GaussianBlur>Swirl>Contrast>Invert>Rotate90>ImpulseNoise"
+    },
+    {
+      "condition_index": 92,
+      "length": 6,
+      "reverse_group": "GaussianBlur>Swirl>Contrast>Invert>Rotate90>ImpulseNoise",
+      "role": "confirmation",
+      "word": [
+        "ImpulseNoise",
+        "Rotate90",
+        "Invert",
+        "Contrast",
+        "Swirl",
+        "GaussianBlur"
+      ],
+      "word_string": "ImpulseNoise>Rotate90>Invert>Contrast>Swirl>GaussianBlur"
+    },
+    {
+      "condition_index": 93,
+      "length": 6,
+      "reverse_group": "Contrast>Swirl>Rotate90>ImpulseNoise>Invert>GaussianBlur",
+      "role": "confirmation",
+      "word": [
+        "Contrast",
+        "Swirl",
+        "Rotate90",
+        "ImpulseNoise",
+        "Invert",
+        "GaussianBlur"
+      ],
+      "word_string": "Contrast>Swirl>Rotate90>ImpulseNoise>Invert>GaussianBlur"
+    },
+    {
+      "condition_index": 94,
+      "length": 6,
+      "reverse_group": "Contrast>Swirl>Rotate90>ImpulseNoise>Invert>GaussianBlur",
+      "role": "confirmation",
+      "word": [
+        "GaussianBlur",
+        "Invert",
+        "ImpulseNoise",
+        "Rotate90",
+        "Swirl",
+        "Contrast"
+      ],
+      "word_string": "GaussianBlur>Invert>ImpulseNoise>Rotate90>Swirl>Contrast"
+    },
+    {
+      "condition_index": 95,
+      "length": 6,
+      "reverse_group": "GaussianBlur>Invert>Swirl>Contrast>Rotate90>ImpulseNoise",
+      "role": "confirmation",
+      "word": [
+        "GaussianBlur",
+        "Invert",
+        "Swirl",
+        "Contrast",
+        "Rotate90",
+        "ImpulseNoise"
+      ],
+      "word_string": "GaussianBlur>Invert>Swirl>Contrast>Rotate90>ImpulseNoise"
+    },
+    {
+      "condition_index": 96,
+      "length": 6,
+      "reverse_group": "GaussianBlur>Invert>Swirl>Contrast>Rotate90>ImpulseNoise",
+      "role": "confirmation",
+      "word": [
+        "ImpulseNoise",
+        "Rotate90",
+        "Contrast",
+        "Swirl",
+        "Invert",
+        "GaussianBlur"
+      ],
+      "word_string": "ImpulseNoise>Rotate90>Contrast>Swirl>Invert>GaussianBlur"
+    }
+  ]
+}

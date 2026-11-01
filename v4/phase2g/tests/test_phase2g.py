@@ -5,6 +5,7 @@ from pathlib import Path
 import torch
 
 from v4.phase2f.manifest import target_words as phase2f_target_words
+from v4.phase2f.method import feature_vector
 from v4.phase2g import METRICS, PROTOCOL_ID
 from v4.phase2g.manifest import EXPECTED_METHOD_SHA256, model_records, payload, target_words
 from v4.phase2g.models import FAMILIES, logits_and_features, make_model
@@ -48,6 +49,19 @@ class Phase2GTests(unittest.TestCase):
             self.assertEqual(features.ndim, 2)
             self.assertTrue(torch.isfinite(logits).all())
             self.assertTrue(torch.isfinite(features).all())
+
+    def test_new_families_use_frozen_unknown_encoding(self):
+        components = {"clean": 0.1, "ordered": 0.2, "symmetric": 0.2, "independent": 0.1, "envelope": 0.1}
+        for family in FAMILIES:
+            truth = {
+                "word": "Contrast>Invert>Swirl>Rotate90",
+                "parameter_count": 10_000,
+                "epoch": 2,
+                "family": family,
+                "recipe": "erm_flip",
+            }
+            vector = feature_vector(truth, "accuracy", components, False)
+            self.assertEqual(vector[10:16], [0.0] * 6)
 
     def test_phase2f_method_status_is_frozen(self):
         frozen = json.loads((ROOT / "v4/phase2f/FROZEN_FULL_VECTOR_METHODS.json").read_text())

@@ -976,6 +976,27 @@ The coefficients were fit on CIFAR-100 development data, so this establishes
 sealed within-dataset confirmation of the full-vector methodology rather than
 strict no-refit coefficient transfer from CIFAR-10.
 
+\subsection{Phase 2G: strict no-refit architecture transfer}
+
+Phase 2G then transferred the complete Phase-2F method byte-for-byte to six
+new CIFAR-100 architecture families: residual, depthwise-separable,
+ConvNeXt-style, grouped/shuffle, dilated-pyramid, and gated-convolution
+models.  All old-family indicators were zero, and no exponent, coefficient,
+scale, or pair design was refit.
+
+Frozen full composition reduced macro normalized MAE from 0.912 to 0.326,
+improved all six coordinates and all six held-out family means, raised macro
+controlled rank from 0.054 to 0.779, and reduced accuracy regret from 2.872pp
+to 0.307pp.  The hierarchical improvement interval was
+$[0.381,0.789]$, so the strict-transfer gate passed all six criteria.  The
+frozen magnitude design also passed all four criteria: 0.329 versus 0.484
+expected-random MAE, with interval $[0.089,0.234]$.
+
+This establishes no-refit architecture transfer within the tested CIFAR-100
+regime.  It does not establish transfer across datasets, corruption systems,
+model scales, natural shifts, or information regimes without pair
+calibration.
+
 % =============================================================================
 \section{Current scientific conclusion and recommended framing}
 % =============================================================================
@@ -997,6 +1018,9 @@ shows multiple composition regimes:
   forecasting improves every coordinate of the six-dimensional behavior
   vector and magnitude-based pair selection beats expected random calibration;
   this is methodology confirmation, not strict coefficient transfer.
+  \item The byte-identical full-vector method and magnitude pair design also
+  transfer to six unseen CIFAR-100 architecture families, providing strict
+  no-refit architecture evidence within one dataset.
 \end{enumerate}
 
 The safest paper-level framing is therefore:
@@ -1035,10 +1059,11 @@ rescued by tuning on this confirmation.
   matrix; do not claim ``first'' until overlap is audited.
   \item Do not tune ACHM on Phase-2B confirmation; freeze any revision on a
   separate development set before another fresh confirmation.
-  \item Evaluate at least 75 final checkpoints, six architecture families,
-  four recipe families, and CIFAR-10/CIFAR-100, preferably using public models.
-  \item Add architecture-family and recipe holdouts rather than seed-only
-  transfer.
+  \item Replace the tiny two-epoch banks with at least 75 modern or public
+  final checkpoints, four recipe families, and broader CIFAR-10/CIFAR-100
+  coverage.
+  \item Add a recipe-family holdout; architecture-family holdout is now
+  positive within CIFAR-100 but remains untested on another dataset.
   \item Integrate official ODP predictors and clearly label \Rtwo{} versus
   \Rthree{} access.
   \item Compare active pair selection with random, magnitude-only, coverage-only,
@@ -1074,6 +1099,7 @@ rescued by tuning on this confirmation.
 \texttt{v4/phase2d/PHASE2D\_FINAL\_REPORT.md} & First unseen-architecture transfer test.\\
 \texttt{v4/phase2e/PHASE2E\_FINAL\_REPORT.md} & Four-family prospective breadth extension.\\
 \texttt{v4/phase2f/PHASE2F\_FINAL\_REPORT.md} & CIFAR-100 complete-vector confirmation.\\
+\texttt{v4/phase2g/PHASE2G\_FINAL\_REPORT.md} & Strict no-refit transfer to six unseen architectures.\\
 \texttt{v4/results/CPU\_CROSS\_PHASE\_SYNTHESIS.md} & No-refit synthesis across five CIFAR-10 CPU confirmation banks.\\
 \bottomrule
 \end{tabular}

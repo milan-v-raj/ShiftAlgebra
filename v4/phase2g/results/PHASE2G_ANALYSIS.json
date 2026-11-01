@@ -1,0 +1,950 @@
+{
+  "families": 6,
+  "families_positive": 6,
+  "family_improvements": {
+    "convnext_holdout": 0.21339941596047754,
+    "depthwise_holdout": 0.7799338500828438,
+    "dilated_holdout": 0.3773215406813433,
+    "gated_holdout": 0.6221662363254725,
+    "residual_holdout": 0.8659760250525889,
+    "shuffle_holdout": 0.6599940954826906
+  },
+  "interpretation_boundary": "strict no-refit architecture transfer within CIFAR-100; not independent-dataset transfer",
+  "lineages": 18,
+  "magnitude_confirmation": {
+    "bootstrap": {
+      "ci95": [
+        0.0892223523732926,
+        0.23432154915602574
+      ],
+      "draws": 10000,
+      "hierarchy": "architecture family -> lineage; crossed with reversal group",
+      "point_normalized_mae": 0.1544291041906194,
+      "seed": 22713
+    },
+    "gates": {
+      "accuracy_regret_no_worse_random_median": true,
+      "hierarchical_ci_excludes_zero": true,
+      "macro_controlled_rank_at_least_random_median": true,
+      "mae_below_random_mean": true,
+      "magnitude_gate_passed": true
+    },
+    "random_macro_normalized_mae_mean": 0.4836879187720549,
+    "random_macro_normalized_mae_median": 0.4740224453860364,
+    "random_range": [
+      0.3740825702832007,
+      0.6067965717727518
+    ]
+  },
+  "methods": {
+    "full15": {
+      "accuracy_top1_regret_pp": 0.30749999999999994,
+      "macro_controlled_rank": 0.778779520192003,
+      "macro_normalized_mae": 0.3259947095710078,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.6780011400607291,
+          "mae": 0.005989108609241703,
+          "rank_models_per_environment": 0.8495536234046253,
+          "top1_selection_regret_pp": 0.30749999999999994
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.6790226065646412,
+          "mae": 0.005989108604907589,
+          "rank_models_per_environment": 0.8486052426732157
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.7007861950426845,
+          "mae": 0.021668509974721733,
+          "rank_models_per_environment": 0.8988588588588587
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.8508681172218474,
+          "mae": 0.3167065474190785,
+          "rank_models_per_environment": 0.9274860574860578
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.8513975892613556,
+          "mae": 0.005406248739484673,
+          "rank_models_per_environment": 0.9575718575718575
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.912601473000761,
+          "mae": 0.009876279428393505,
+          "rank_models_per_environment": 0.9785156585156588
+        }
+      }
+    },
+    "g0": {
+      "accuracy_top1_regret_pp": 2.8724999999999996,
+      "macro_controlled_rank": 0.05352865284878758,
+      "macro_normalized_mae": 0.9124599035019108,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.1661811312139633,
+          "mae": 0.01727344920023233,
+          "rank_models_per_environment": 0.050548289534569704,
+          "top1_selection_regret_pp": 2.8724999999999996
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.16914679911556607,
+          "mae": 0.01727344932739461,
+          "rank_models_per_environment": 0.05109644714288055
+        },
+        "ece": {
+          "controlled_model_rank_spearman": -0.23755040350237908,
+          "mae": 0.041880104457575264,
+          "rank_models_per_environment": 0.4978078955349996
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.11848910415398879,
+          "mae": 1.547165969733279,
+          "rank_models_per_environment": 0.3932089232089232
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.036518227279770936,
+          "mae": 0.01293179231888877,
+          "rank_models_per_environment": 0.7285371085371087
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.06838705883181546,
+          "mae": 0.02624593729104958,
+          "rank_models_per_environment": 0.7867438867438867
+        }
+      }
+    },
+    "magnitude5": {
+      "accuracy_top1_regret_pp": 0.5900000000000001,
+      "macro_controlled_rank": 0.7643119806705281,
+      "macro_normalized_mae": 0.3292588145814355,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.6109220180614223,
+          "mae": 0.0061598495218533516,
+          "rank_models_per_environment": 0.8350675346690212,
+          "top1_selection_regret_pp": 0.5900000000000001
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.6099196179021779,
+          "mae": 0.006159849508701701,
+          "rank_models_per_environment": 0.8343431423231725
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.6821828792689767,
+          "mae": 0.021377039889132695,
+          "rank_models_per_environment": 0.8875632775632776
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.8944832698826382,
+          "mae": 0.31430595034423214,
+          "rank_models_per_environment": 0.9589661089661091
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.886413506991542,
+          "mae": 0.0050662491509011285,
+          "rank_models_per_environment": 0.967812097812098
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.9019505919164117,
+          "mae": 0.011288906367090665,
+          "rank_models_per_environment": 0.972981552981553
+        }
+      }
+    }
+  },
+  "metrics": [
+    "margin",
+    "feature_drift",
+    "ece",
+    "balanced_accuracy",
+    "accuracy",
+    "mean_confidence"
+  ],
+  "metrics_improved": 6,
+  "models": 36,
+  "primary_gates": {
+    "accuracy_regret_not_worse": true,
+    "at_least_five_families_positive": true,
+    "at_least_four_metrics_better": true,
+    "full_vector_gate_passed": true,
+    "hierarchical_ci_excludes_zero": true,
+    "macro_controlled_rank_better": true,
+    "macro_normalized_mae_better": true
+  },
+  "primary_increment": {
+    "ci95": [
+      0.38114449475677714,
+      0.7893469745686379
+    ],
+    "draws": 10000,
+    "hierarchy": "architecture family -> lineage; crossed with reversal group",
+    "point_normalized_mae": 0.5864651939309028,
+    "seed": 22712
+  },
+  "protocol": "V4-P2G-CIFAR100-NOREFIT-ARCH-001",
+  "random_methods": {
+    "random_00": {
+      "accuracy_top1_regret_pp": 0.9241666666666667,
+      "macro_controlled_rank": 0.7231864329251909,
+      "macro_normalized_mae": 0.3740825702832007,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.6342084595877042,
+          "mae": 0.006573673959138972,
+          "rank_models_per_environment": 0.8416413276596432,
+          "top1_selection_regret_pp": 0.9241666666666667
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.6356635440076952,
+          "mae": 0.00657367402799692,
+          "rank_models_per_environment": 0.8415139025777246
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.47096421205999034,
+          "mae": 0.028329270470291285,
+          "rank_models_per_environment": 0.7822093522093524
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.8885647362831581,
+          "mae": 0.30305504754808055,
+          "rank_models_per_environment": 0.947987987987988
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.8132485078704701,
+          "mae": 0.006284835223428908,
+          "rank_models_per_environment": 0.943976833976834
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.8964691377421279,
+          "mae": 0.011014975392168412,
+          "rank_models_per_environment": 0.9716216216216217
+        }
+      }
+    },
+    "random_01": {
+      "accuracy_top1_regret_pp": 1.0475,
+      "macro_controlled_rank": 0.7179494628519918,
+      "macro_normalized_mae": 0.4127738544411377,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.6417234298106163,
+          "mae": 0.007234643045085811,
+          "rank_models_per_environment": 0.8423965633419367,
+          "top1_selection_regret_pp": 1.0475
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.6432656765371271,
+          "mae": 0.007234643031594352,
+          "rank_models_per_environment": 0.8421854211858203
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.5185036408947952,
+          "mae": 0.02672764591954478,
+          "rank_models_per_environment": 0.8083998283998284
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.8816600676853397,
+          "mae": 0.34200119013205493,
+          "rank_models_per_environment": 0.9431317031317032
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.7495553587185263,
+          "mae": 0.007953028419738968,
+          "rank_models_per_environment": 0.9271900471900473
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.8729886034655466,
+          "mae": 0.013749015102847798,
+          "rank_models_per_environment": 0.9632861432861434
+        }
+      }
+    },
+    "random_02": {
+      "accuracy_top1_regret_pp": 0.9800000000000001,
+      "macro_controlled_rank": 0.7140643352643413,
+      "macro_normalized_mae": 0.4174100874677309,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.6723094999033474,
+          "mae": 0.007287090595248579,
+          "rank_models_per_environment": 0.8424356186602604,
+          "top1_selection_regret_pp": 0.9800000000000001
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.6749287002388249,
+          "mae": 0.007287090649420721,
+          "rank_models_per_environment": 0.8427602588453187
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.4559961276490542,
+          "mae": 0.031063481446564657,
+          "rank_models_per_environment": 0.762917202917203
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.8309364979005286,
+          "mae": 0.3252280377481033,
+          "rank_models_per_environment": 0.9238095238095239
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.7788638367804119,
+          "mae": 0.006929030359557945,
+          "rank_models_per_environment": 0.927975117975118
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.8713513491138808,
+          "mae": 0.013698397756145383,
+          "rank_models_per_environment": 0.9601158301158302
+        }
+      }
+    },
+    "random_03": {
+      "accuracy_top1_regret_pp": 1.2858333333333332,
+      "macro_controlled_rank": 0.652723861587894,
+      "macro_normalized_mae": 0.5278239118366415,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.7071620122430681,
+          "mae": 0.0082169452847715,
+          "rank_models_per_environment": 0.8431658834424406,
+          "top1_selection_regret_pp": 1.2858333333333332
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.7089085769189364,
+          "mae": 0.00821694532398192,
+          "rank_models_per_environment": 0.8431850305617208
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.341258417374224,
+          "mae": 0.03451358370922964,
+          "rank_models_per_environment": 0.6568339768339768
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.744223205062086,
+          "mae": 0.43051362246185876,
+          "rank_models_per_environment": 0.8854826254826257
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.6530092878743653,
+          "mae": 0.010171010692091595,
+          "rank_models_per_environment": 0.8845945945945946
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.761781670054684,
+          "mae": 0.021445239181803608,
+          "rank_models_per_environment": 0.9143929643929645
+        }
+      }
+    },
+    "random_04": {
+      "accuracy_top1_regret_pp": 1.5599999999999998,
+      "macro_controlled_rank": 0.6117541868475392,
+      "macro_normalized_mae": 0.6067965717727518,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.7262676153863743,
+          "mae": 0.009882103162760168,
+          "rank_models_per_environment": 0.8266925995680311,
+          "top1_selection_regret_pp": 1.5599999999999998
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.7286686940449834,
+          "mae": 0.009882103131112542,
+          "rank_models_per_environment": 0.8269666901880566
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.30596446515921016,
+          "mae": 0.04086599924733495,
+          "rank_models_per_environment": 0.5403088803088802
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.6828650940431836,
+          "mae": 0.43988685694200447,
+          "rank_models_per_environment": 0.860875160875161
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.5483209895230347,
+          "mae": 0.011779923167146981,
+          "rank_models_per_environment": 0.8476919776919778
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.6784382629284494,
+          "mae": 0.02356443022123956,
+          "rank_models_per_environment": 0.8936593736593736
+        }
+      }
+    },
+    "random_05": {
+      "accuracy_top1_regret_pp": 0.7783333333333334,
+      "macro_controlled_rank": 0.7067546326294822,
+      "macro_normalized_mae": 0.4570604645611181,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.6873061959886752,
+          "mae": 0.008005909550370623,
+          "rank_models_per_environment": 0.8363394557387641,
+          "top1_selection_regret_pp": 0.7783333333333334
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.6884647602494245,
+          "mae": 0.008005909632263218,
+          "rank_models_per_environment": 0.8360399321998062
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.44765901137077474,
+          "mae": 0.03188230678429798,
+          "rank_models_per_environment": 0.772908622908623
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.7903346560889091,
+          "mae": 0.3780139441034991,
+          "rank_models_per_environment": 0.9096053196053197
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.7552313453205374,
+          "mae": 0.008298207408443094,
+          "rank_models_per_environment": 0.9201587301587303
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.8715318267585732,
+          "mae": 0.014346288606588178,
+          "rank_models_per_environment": 0.9610896610896609
+        }
+      }
+    },
+    "random_06": {
+      "accuracy_top1_regret_pp": 1.535,
+      "macro_controlled_rank": 0.6509385557577705,
+      "macro_normalized_mae": 0.5387980242400828,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.6897766329907852,
+          "mae": 0.008362430407363794,
+          "rank_models_per_environment": 0.8401257044818617,
+          "top1_selection_regret_pp": 1.535
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.6918923508547604,
+          "mae": 0.008362430431085465,
+          "rank_models_per_environment": 0.8402313605373877
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.410868502197551,
+          "mae": 0.03583017745596449,
+          "rank_models_per_environment": 0.637923637923638
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.7412466369790678,
+          "mae": 0.4128865408492987,
+          "rank_models_per_environment": 0.8775847275847278
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.6250500780690912,
+          "mae": 0.010685433276611853,
+          "rank_models_per_environment": 0.8779107679107678
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.7467971334553672,
+          "mae": 0.021556393365659256,
+          "rank_models_per_environment": 0.9120935220935221
+        }
+      }
+    },
+    "random_07": {
+      "accuracy_top1_regret_pp": 0.7216666666666667,
+      "macro_controlled_rank": 0.6936002093919947,
+      "macro_normalized_mae": 0.4779419348531225,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.7020429936882123,
+          "mae": 0.008110305942208134,
+          "rank_models_per_environment": 0.841432656281665,
+          "top1_selection_regret_pp": 0.7216666666666667
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.7033617802524501,
+          "mae": 0.008110306020476082,
+          "rank_models_per_environment": 0.8413017438024809
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.4233279536278938,
+          "mae": 0.031099521213926114,
+          "rank_models_per_environment": 0.7570313170313173
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.7665165212137198,
+          "mae": 0.40150094118314555,
+          "rank_models_per_environment": 0.8948820248820247
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.7266838347698434,
+          "mae": 0.009112213983386937,
+          "rank_models_per_environment": 0.9097468897468897
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.8396681727998486,
+          "mae": 0.016844209362044192,
+          "rank_models_per_environment": 0.948811668811669
+        }
+      }
+    },
+    "random_08": {
+      "accuracy_top1_regret_pp": 0.8825000000000002,
+      "macro_controlled_rank": 0.6949074041116835,
+      "macro_normalized_mae": 0.46983358823895954,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.6873295463611513,
+          "mae": 0.007586600811403011,
+          "rank_models_per_environment": 0.8404346561069913,
+          "top1_selection_regret_pp": 0.8825000000000002
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.6904473136520608,
+          "mae": 0.007586600812410061,
+          "rank_models_per_environment": 0.8408491647771633
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.42707508015087015,
+          "mae": 0.032946743678231444,
+          "rank_models_per_environment": 0.7234277134277136
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.7938114362618488,
+          "mae": 0.3995043786187565,
+          "rank_models_per_environment": 0.891025311025311
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.7277097259391491,
+          "mae": 0.008706638354166853,
+          "rank_models_per_environment": 0.912972972972973
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.8430713223050208,
+          "mae": 0.016178445795907822,
+          "rank_models_per_environment": 0.9504375804375804
+        }
+      }
+    },
+    "random_09": {
+      "accuracy_top1_regret_pp": 0.8616666666666667,
+      "macro_controlled_rank": 0.7011983413445267,
+      "macro_normalized_mae": 0.4470213325357391,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.6572827640636043,
+          "mae": 0.007731931103355181,
+          "rank_models_per_environment": 0.832321214428404,
+          "top1_selection_regret_pp": 0.8616666666666667
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.6587494533913577,
+          "mae": 0.007731931186446308,
+          "rank_models_per_environment": 0.8320780523604284
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.4619017526022533,
+          "mae": 0.03060044137136655,
+          "rank_models_per_environment": 0.7816559416559417
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.8248632071731715,
+          "mae": 0.35663250146496583,
+          "rank_models_per_environment": 0.9228871728871729
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.7435151411191185,
+          "mae": 0.008417937280306586,
+          "rank_models_per_environment": 0.9171342771342772
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.8608777297176551,
+          "mae": 0.014656739402144115,
+          "rank_models_per_environment": 0.9580351780351781
+        }
+      }
+    },
+    "random_10": {
+      "accuracy_top1_regret_pp": 0.7791666666666667,
+      "macro_controlled_rank": 0.6889123625826307,
+      "macro_normalized_mae": 0.4822568546326949,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.6908659392106185,
+          "mae": 0.00823671078877482,
+          "rank_models_per_environment": 0.8406135889027238,
+          "top1_selection_regret_pp": 0.7791666666666667
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.6931253371578181,
+          "mae": 0.008236710884022159,
+          "rank_models_per_environment": 0.8406045478407805
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.3702653045798581,
+          "mae": 0.03404680483738408,
+          "rank_models_per_environment": 0.728820248820249
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.794419754243459,
+          "mae": 0.3764868351265743,
+          "rank_models_per_environment": 0.9088588588588589
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.7359533713827836,
+          "mae": 0.008821193149042712,
+          "rank_models_per_environment": 0.9116302016302016
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.8488444689212462,
+          "mae": 0.016172433210003292,
+          "rank_models_per_environment": 0.9525611325611326
+        }
+      }
+    },
+    "random_11": {
+      "accuracy_top1_regret_pp": 0.8525000000000001,
+      "macro_controlled_rank": 0.6744064015472498,
+      "macro_normalized_mae": 0.5421204328862685,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.7238161255002579,
+          "mae": 0.008785866179411945,
+          "rank_models_per_environment": 0.8374758042648955,
+          "top1_selection_regret_pp": 0.8525000000000001
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.7256040525132309,
+          "mae": 0.008785866268322527,
+          "rank_models_per_environment": 0.8375565374788405
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.4455776535184507,
+          "mae": 0.03647767846425994,
+          "rank_models_per_environment": 0.6833161733161733
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.7234498952287338,
+          "mae": 0.41675150844269515,
+          "rank_models_per_environment": 0.8730630630630631
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.6757795980038284,
+          "mae": 0.01000943806834322,
+          "rank_models_per_environment": 0.8890733590733593
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.7522110845189972,
+          "mae": 0.021748340494926743,
+          "rank_models_per_environment": 0.9117546117546118
+        }
+      }
+    },
+    "random_12": {
+      "accuracy_top1_regret_pp": 1.5025,
+      "macro_controlled_rank": 0.6493041196449588,
+      "macro_normalized_mae": 0.5212842950316671,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.6897336045263872,
+          "mae": 0.008285242150456411,
+          "rank_models_per_environment": 0.8416828528598956,
+          "top1_selection_regret_pp": 1.5025
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.6922030862873261,
+          "mae": 0.008285242212881603,
+          "rank_models_per_environment": 0.8417994033502418
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.3273574251768055,
+          "mae": 0.03607662864905259,
+          "rank_models_per_environment": 0.6649292149292149
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.7499882098660182,
+          "mae": 0.39223969187850444,
+          "rank_models_per_environment": 0.8812226512226514
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.6426314421001574,
+          "mae": 0.010188080191267037,
+          "rank_models_per_environment": 0.8840197340197341
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.7939109499130591,
+          "mae": 0.019373265082275482,
+          "rank_models_per_environment": 0.9338138138138137
+        }
+      }
+    },
+    "random_13": {
+      "accuracy_top1_regret_pp": 1.5599999999999998,
+      "macro_controlled_rank": 0.6197454374551574,
+      "macro_normalized_mae": 0.5884124559004035,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.7156750115828754,
+          "mae": 0.009269311280613698,
+          "rank_models_per_environment": 0.83748264582502,
+          "top1_selection_regret_pp": 1.5599999999999998
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.718086155907467,
+          "mae": 0.00926931128073004,
+          "rank_models_per_environment": 0.8377217621411207
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.35766878644962863,
+          "mae": 0.03958663650520165,
+          "rank_models_per_environment": 0.5694422994422995
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.6910441111175901,
+          "mae": 0.43706509070188426,
+          "rank_models_per_environment": 0.8589317889317891
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.5534325331087452,
+          "mae": 0.01146398572669216,
+          "rank_models_per_environment": 0.8600085800085803
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.6825660265646382,
+          "mae": 0.023604340080268914,
+          "rank_models_per_environment": 0.894028314028314
+        }
+      }
+    },
+    "random_14": {
+      "accuracy_top1_regret_pp": 1.1558333333333333,
+      "macro_controlled_rank": 0.6907668434830124,
+      "macro_normalized_mae": 0.48828795499366423,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.7073286473191179,
+          "mae": 0.008394011519482169,
+          "rank_models_per_environment": 0.844216230698008,
+          "top1_selection_regret_pp": 1.1558333333333333
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.710638110643522,
+          "mae": 0.008394011570910182,
+          "rank_models_per_environment": 0.8445600162793073
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.3898776574008399,
+          "mae": 0.03280837870956215,
+          "rank_models_per_environment": 0.7206606606606607
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.7746052963009684,
+          "mae": 0.37651577657221863,
+          "rank_models_per_environment": 0.8931788931788932
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.719581542145436,
+          "mae": 0.009353706420001476,
+          "rank_models_per_environment": 0.9055770055770057
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.8425698070881907,
+          "mae": 0.016867764912435357,
+          "rank_models_per_environment": 0.9487430287430286
+        }
+      }
+    },
+    "random_15": {
+      "accuracy_top1_regret_pp": 0.49833333333333346,
+      "macro_controlled_rank": 0.7253322680395108,
+      "macro_normalized_mae": 0.42635284328326867,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.6900961411920431,
+          "mae": 0.007802660962138456,
+          "rank_models_per_environment": 0.8419062659314139,
+          "top1_selection_regret_pp": 0.49833333333333346
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.6923093284273559,
+          "mae": 0.007802660991494103,
+          "rank_models_per_environment": 0.8418979544546814
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.46811169706435635,
+          "mae": 0.029072197422846526,
+          "rank_models_per_environment": 0.8215744315744316
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.8077898747304386,
+          "mae": 0.38787709765163136,
+          "rank_models_per_environment": 0.9131102531102531
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.8016839571049409,
+          "mae": 0.007352383540235126,
+          "rank_models_per_environment": 0.9380780780780781
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.8920026097179297,
+          "mae": 0.01251495064066656,
+          "rank_models_per_environment": 0.9689618189618191
+        }
+      }
+    },
+    "random_16": {
+      "accuracy_top1_regret_pp": 1.0016666666666667,
+      "macro_controlled_rank": 0.6329333168599426,
+      "macro_normalized_mae": 0.5519078594190442,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.7152656570230805,
+          "mae": 0.008969517431933308,
+          "rank_models_per_environment": 0.8361793537988097,
+          "top1_selection_regret_pp": 1.0016666666666667
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.7178401708796666,
+          "mae": 0.008969517554874901,
+          "rank_models_per_environment": 0.8363446740770939
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.24733443961420026,
+          "mae": 0.03866959282252257,
+          "rank_models_per_environment": 0.6341141141141142
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.7089918975939509,
+          "mae": 0.40497699436590145,
+          "rank_models_per_environment": 0.8746203346203347
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.6461337673645674,
+          "mae": 0.01021421656790929,
+          "rank_models_per_environment": 0.8823595023595023
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.7620339686841897,
+          "mae": 0.021162984390615248,
+          "rank_models_per_environment": 0.9183054483054485
+        }
+      }
+    },
+    "random_17": {
+      "accuracy_top1_regret_pp": 0.9858333333333332,
+      "macro_controlled_rank": 0.6958713387906581,
+      "macro_normalized_mae": 0.4701029559189503,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.701222354208116,
+          "mae": 0.008159629397157983,
+          "rank_models_per_environment": 0.8446470564039635,
+          "top1_selection_regret_pp": 0.9858333333333332
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.7035686790975358,
+          "mae": 0.008159629553722923,
+          "rank_models_per_environment": 0.8448367909923212
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.40864565722481516,
+          "mae": 0.03475552313390351,
+          "rank_models_per_environment": 0.7132732732732733
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.7691115999234025,
+          "mae": 0.3635103727256168,
+          "rank_models_per_environment": 0.8978120978120978
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.7506337097893719,
+          "mae": 0.00773264544205352,
+          "rank_models_per_environment": 0.9162934362934362
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.8420460325007066,
+          "mae": 0.016121464747513914,
+          "rank_models_per_environment": 0.9491291291291293
+        }
+      }
+    },
+    "random_18": {
+      "accuracy_top1_regret_pp": 1.4716666666666665,
+      "macro_controlled_rank": 0.7239552951953678,
+      "macro_normalized_mae": 0.423293368871271,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.6511971104034866,
+          "mae": 0.007184979005500993,
+          "rank_models_per_environment": 0.843613718646971,
+          "top1_selection_regret_pp": 1.4716666666666665
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.653328314260776,
+          "mae": 0.007184979004154147,
+          "rank_models_per_environment": 0.8435475396514237
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.5291753887280893,
+          "mae": 0.02940953210255128,
+          "rank_models_per_environment": 0.805010725010725
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.8664005412764332,
+          "mae": 0.32947861711680504,
+          "rank_models_per_environment": 0.9296310596310596
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.7613672588463838,
+          "mae": 0.008327106450964546,
+          "rank_models_per_environment": 0.924873444873445
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.8822631576570378,
+          "mae": 0.013333591619662364,
+          "rank_models_per_environment": 0.9671171171171171
+        }
+      }
+    },
+    "random_19": {
+      "accuracy_top1_regret_pp": 1.5599999999999998,
+      "macro_controlled_rank": 0.7225952982331877,
+      "macro_normalized_mae": 0.45019701427338116,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.6866097220329855,
+          "mae": 0.007996747897246843,
+          "rank_models_per_environment": 0.8453440739649694,
+          "top1_selection_regret_pp": 1.5599999999999998
+        },
+        "balanced_accuracy": {
+          "controlled_model_rank_spearman": 0.6893224667899887,
+          "mae": 0.00799674794986737,
+          "rank_models_per_environment": 0.8453772531236703
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.5058782706457766,
+          "mae": 0.02940699959069993,
+          "rank_models_per_environment": 0.7822584715643911
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.8681890910138,
+          "mae": 0.3330341059285863,
+          "rank_models_per_environment": 0.9252681252681253
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.7313058314245702,
+          "mae": 0.008790334398892841,
+          "rank_models_per_environment": 0.9159502359502361
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.8542664074920052,
+          "mae": 0.015467972232655358,
+          "rank_models_per_environment": 0.957091377091377
+        }
+      }
+    }
+  },
+  "rows": 2160,
+  "status": "STRICT_NOREFIT_FULL_VECTOR_GATE_PASSED",
+  "words": 60
+}

@@ -9,19 +9,20 @@ This folder executes [`NEURIPS_DEVELOPMENT_PLAN.md`](../NEURIPS_DEVELOPMENT_PLAN
 | **0. Claim and code audit** | **IN PROGRESS** | Exact core, architecture-independent fingerprint, cyclic-order control, property tests, standard metrics, source/family baseline, schema, claim matrix, limitations, and Phase-1 draft created |
 | **1. Independent composition bridge** | **COMPLETE — METHOD GATE FAILED** | One-shot CIFAR-10 and EMNIST confirmation found severe saturation; max-envelope baseline wins |
 | **1B. Severity-calibrated extension** | **COMPLETE — METHOD GATE FAILED** | Max envelope loses after calibration, but pair residual beats potential algebra by 9.22%; long-word dynamic-range guard also fails |
-| **2. CIFAR model bank** | **IN PROGRESS — CPU PILOT PASSED** | Composition-aware `g1` cuts MAE 47.4% vs `g0` and improves rank/regret; final 75+ model/CIFAR-100 bank remains |
+| **2. CIFAR model bank** | **COMPLETE — CPU PILOT PASSED** | Composition-aware `g1` cuts MAE 47.4% vs `g0` and improves rank/regret; later full-vector CIFAR-100 evidence is recorded in 2F/2G |
 | **2B. Adaptive hazard mixture** | **COMPLETE — PRIMARY GATE FAILED** | Fresh ACHM MAE improves 1.719pp to 1.593pp, but clustered CI includes zero and controlled rank declines; prior `g1` remains best at 1.241pp |
 | **2C. Active pair calibration** | **COMPLETE — PRIMARY GATE PASSED** | Five selected pair groups reach 3.176pp vs 3.636pp expected random MAE; clustered improvement CI [0.119, 0.889]pp |
 | **2D. Architecture-family holdout** | **COMPLETE — PRIMARY GATE FAILED** | `g1` improves 2.978pp to 1.800pp and rank/regret, but six-lineage CI [-0.042, 2.293]pp includes zero |
 | **2E. Architecture-breadth extension** | **COMPLETE — PRIMARY GATE FAILED** | Four new families: `g1` improves 4.443pp to 2.034pp, but family-hierarchical CI [-0.072, 5.287]pp includes zero |
 | **2F. CIFAR-100 full vector** | **COMPLETE — BOTH GATES PASSED** | Six-coordinate macro normalized MAE 0.554→0.254; all metrics improve; magnitude five-pair 0.271 vs 0.338 expected random |
+| **2G. No-refit architecture transfer** | **COMPLETE — BOTH GATES PASSED** | Frozen Phase-2F method transfers to six unseen families: 0.912→0.326; all metrics/families improve; frozen magnitude 0.329 vs 0.484 random |
 | 3. ImageNet/realistic corruptions | NOT STARTED | — |
 | 4. Natural/hybrid shifts | NOT STARTED | — |
 | 5. Method freeze/preregistration | NOT STARTED | — |
 | 6. One-shot final evaluation | NOT STARTED | — |
 | 7. Paper and artifact | NOT STARTED | — |
 
-Completed Phase-1, Phase-1B, Phase-2 pilot, Phase-2B, Phase-2C, Phase-2D, Phase-2E, and Phase-2F results are documented in their frozen reports; no result should be inferred for unstarted Phases 3--7.
+Completed Phase-1, Phase-1B, Phase-2 pilot, Phase-2B, Phase-2C, Phase-2D, Phase-2E, Phase-2F, and Phase-2G results are documented in their frozen reports; no result should be inferred for unstarted Phases 3--7.
 
 ## Layout
 
@@ -66,6 +67,7 @@ python3 v4/phase2c/verify_phase2c.py
 python3 v4/phase2d/verify_phase2d.py
 python3 v4/phase2e/verify_phase2e.py
 python3 v4/phase2f/verify_phase2f.py
+python3 v4/phase2g/verify_phase2g.py
 python3 -m v4.reproduce_cpu --verify --summary
 ```
 

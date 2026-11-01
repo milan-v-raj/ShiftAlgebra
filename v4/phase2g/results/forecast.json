@@ -1,0 +1,15 @@
+{
+  "frozen_method_sha256": "243761ddd3749dcc0149e83cca7e40241d43a3800320d8f777bac624b1f5827e",
+  "metrics": [
+    "margin",
+    "feature_drift",
+    "ece",
+    "balanced_accuracy",
+    "accuracy",
+    "mean_confidence"
+  ],
+  "protocol": "V4-P2G-CIFAR100-NOREFIT-ARCH-001",
+  "rows": 2160,
+  "sha256": "9cbc8b426a6e6af60cf52e63ff1014e96554d0a17853f51d85f37a66ee5325fb",
+  "status": "STRICT_NOREFIT_FULL_VECTOR_FORECAST"
+}

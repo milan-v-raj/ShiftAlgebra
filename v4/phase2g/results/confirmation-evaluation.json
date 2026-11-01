@@ -1,0 +1,23 @@
+{
+  "behavior_csv": "v4/phase2g/results/confirmation-behavior.csv",
+  "conditions": 97,
+  "elapsed_seconds": 1722.589035987854,
+  "lineages": 18,
+  "metrics": [
+    "margin",
+    "feature_drift",
+    "ece",
+    "balanced_accuracy",
+    "accuracy",
+    "mean_confidence"
+  ],
+  "models": 36,
+  "partition": {
+    "offset": 40,
+    "per_class": 20
+  },
+  "protocol": "V4-P2G-CIFAR100-NOREFIT-ARCH-001",
+  "samples_per_condition": 2000,
+  "sha256": "23a64c4943bfd54cf6a24dbb5259a664ac4f7de272bb2a49c3c58cd52783356a",
+  "status": "CONFIRMATION_FULL_VECTOR_EVALUATED_ONCE"
+}

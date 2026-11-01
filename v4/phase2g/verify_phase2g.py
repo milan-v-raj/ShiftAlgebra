@@ -66,9 +66,13 @@ def verify():
         histories = [history for summary in training["summaries"] for history in summary["history"]]
         hashes = [history["sha256"] for history in histories]
         assert len(hashes) == 36 and len(set(hashes)) == 36
-        for history in histories:
-            assert sha256(ROOT / history["checkpoint"]) == history["sha256"]
-        checks.append("training record and checkpoint hashes")
+        checkpoint_paths = [ROOT / history["checkpoint"] for history in histories]
+        present = [path.exists() for path in checkpoint_paths]
+        assert sum(present) in (0, 36)
+        if all(present):
+            for history, path in zip(histories, checkpoint_paths):
+                assert sha256(path) == history["sha256"]
+        checks.append("training record and checkpoint hash ledger")
 
     behavior_path = RESULTS / "confirmation-behavior.csv"
     if behavior_path.exists():
@@ -86,12 +90,17 @@ def verify():
         metadata = json.loads((RESULTS / "forecast.json").read_text())
         assert len(rows) == 2160 and sha256(forecast_path) == metadata["sha256"]
         assert metadata["frozen_method_sha256"] == EXPECTED_METHOD_SHA256
+        methods = ("g0", "full15", "magnitude5", *(f"random_{index:02d}" for index in range(20)))
         for metric in METRICS:
-            for method in ("g0", "full15", "magnitude5"):
+            for method in methods:
                 values = np.asarray([float(row[f"{method}_{metric}"]) for row in rows])
                 assert np.isfinite(values).all() and (values >= 0).all()
                 assert metric == "feature_drift" or (values <= 1).all()
         analysis = json.loads((RESULTS / "PHASE2G_ANALYSIS.json").read_text())
+        assert analysis["status"] == "STRICT_NOREFIT_FULL_VECTOR_GATE_PASSED"
+        assert analysis["metrics_improved"] == 6 and analysis["families_positive"] == 6
+        assert all(analysis["primary_gates"].values())
+        assert all(analysis["magnitude_confirmation"]["gates"].values())
         for metric in METRICS:
             for method in ("g0", "full15", "magnitude5"):
                 mae = np.mean([
@@ -101,6 +110,13 @@ def verify():
                 assert abs(mae - analysis["methods"][method]["per_metric"][metric]["mae"]) < 1e-12
         assert analysis["metrics"] == list(METRICS)
         checks.append("all six forecast coordinates and analysis arithmetic")
+        robustness = json.loads((RESULTS / "POST_OUTCOME_ROBUSTNESS.json").read_text())
+        assert robustness["primary_gate_remains"] == "PASSED"
+        assert robustness["magnitude_gate_remains"] == "PASSED"
+        assert robustness["families_positive"] == 6
+        assert all(robustness["full_gates"].values())
+        assert all(robustness["magnitude_gates"].values())
+        checks.append("unique-coordinate sensitivity retains both gates")
     return checks
 
 

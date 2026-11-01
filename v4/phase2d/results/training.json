@@ -1,0 +1,165 @@
+{
+  "elapsed_seconds": 1120.89426612854,
+  "lineages": 6,
+  "models": 12,
+  "protocol": "V4-P2D-ARCH-HOLDOUT-CPU-001",
+  "status": "UNSEEN_FAMILIES_TRAINED",
+  "summaries": [
+    {
+      "elapsed_seconds": 97.77490043640137,
+      "family": "vgg_holdout",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2d/p2d-vgg_holdout-erm_flip-s62100-e1.pt",
+          "epoch": 1,
+          "model_id": "p2d-vgg_holdout-erm_flip-s62100-e1",
+          "sha256": "0b6d50c030f771293dbdc5c43a115ba73493876f793e7a1092ff5ed43f3f3c46",
+          "train_accuracy": 0.392,
+          "train_loss": 1.6774523393630982
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2d/p2d-vgg_holdout-erm_flip-s62100-e2.pt",
+          "epoch": 2,
+          "model_id": "p2d-vgg_holdout-erm_flip-s62100-e2",
+          "sha256": "1f4b867e182004f9bbf2bfb5366ec9b6f42ed559bd18dd7d482ba7760987b5b3",
+          "train_accuracy": 0.537275,
+          "train_loss": 1.2869380773544312
+        }
+      ],
+      "lineage_id": "p2d-vgg_holdout-erm_flip-s62100",
+      "parameter_count": 20542,
+      "recipe": "erm_flip",
+      "seed": 62100
+    },
+    {
+      "elapsed_seconds": 100.22099876403809,
+      "family": "vgg_holdout",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2d/p2d-vgg_holdout-label_smooth-s62101-e1.pt",
+          "epoch": 1,
+          "model_id": "p2d-vgg_holdout-label_smooth-s62101-e1",
+          "sha256": "54fd0af5bbe04cd711587203955a8d765e6001aabc45d753e26a2f99d15b3437",
+          "train_accuracy": 0.375225,
+          "train_loss": 1.82382878074646
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2d/p2d-vgg_holdout-label_smooth-s62101-e2.pt",
+          "epoch": 2,
+          "model_id": "p2d-vgg_holdout-label_smooth-s62101-e2",
+          "sha256": "ee154c3810df88c84fddc6e54221f12dc8d20c2aed13d17e3f95a933bccd0504",
+          "train_accuracy": 0.5396,
+          "train_loss": 1.5134087688446045
+        }
+      ],
+      "lineage_id": "p2d-vgg_holdout-label_smooth-s62101",
+      "parameter_count": 20542,
+      "recipe": "label_smooth",
+      "seed": 62101
+    },
+    {
+      "elapsed_seconds": 102.01780128479004,
+      "family": "vgg_holdout",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2d/p2d-vgg_holdout-noise_aug-s62102-e1.pt",
+          "epoch": 1,
+          "model_id": "p2d-vgg_holdout-noise_aug-s62102-e1",
+          "sha256": "5a2664f97817ef59b8d49164181b666a8acf6e62ce82150d310009329c430f46",
+          "train_accuracy": 0.37815,
+          "train_loss": 1.6996428379058839
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2d/p2d-vgg_holdout-noise_aug-s62102-e2.pt",
+          "epoch": 2,
+          "model_id": "p2d-vgg_holdout-noise_aug-s62102-e2",
+          "sha256": "efa2ab662d4016e8c801169a962675f418eb025a88a7570258bbedaf2ee432f2",
+          "train_accuracy": 0.511975,
+          "train_loss": 1.3390568593978882
+        }
+      ],
+      "lineage_id": "p2d-vgg_holdout-noise_aug-s62102",
+      "parameter_count": 20542,
+      "recipe": "noise_aug",
+      "seed": 62102
+    },
+    {
+      "elapsed_seconds": 260.4678738117218,
+      "family": "dense_holdout",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2d/p2d-dense_holdout-erm_flip-s62200-e1.pt",
+          "epoch": 1,
+          "model_id": "p2d-dense_holdout-erm_flip-s62200-e1",
+          "sha256": "c8c0e5a01f65d02de448aa4ac6114cdcc128bf9385049b3f4551d1a3977f88bf",
+          "train_accuracy": 0.311,
+          "train_loss": 1.8445145957946778
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2d/p2d-dense_holdout-erm_flip-s62200-e2.pt",
+          "epoch": 2,
+          "model_id": "p2d-dense_holdout-erm_flip-s62200-e2",
+          "sha256": "12c2b1669707fd1afda3ea9803538f35fdd93ede73cac92fcb43bb168c9aadbf",
+          "train_accuracy": 0.46285,
+          "train_loss": 1.4590384044647218
+        }
+      ],
+      "lineage_id": "p2d-dense_holdout-erm_flip-s62200",
+      "parameter_count": 9508,
+      "recipe": "erm_flip",
+      "seed": 62200
+    },
+    {
+      "elapsed_seconds": 283.04143142700195,
+      "family": "dense_holdout",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2d/p2d-dense_holdout-label_smooth-s62201-e1.pt",
+          "epoch": 1,
+          "model_id": "p2d-dense_holdout-label_smooth-s62201-e1",
+          "sha256": "6869e128d98766fabbe4ea8b6d15f0894773cca400f6ebe1bc409dcd27724775",
+          "train_accuracy": 0.350325,
+          "train_loss": 1.897887500190735
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2d/p2d-dense_holdout-label_smooth-s62201-e2.pt",
+          "epoch": 2,
+          "model_id": "p2d-dense_holdout-label_smooth-s62201-e2",
+          "sha256": "e45eb65696da557004bbd287ac0734bd7d5ef16da63e5c53a0797688729d0206",
+          "train_accuracy": 0.490175,
+          "train_loss": 1.6092533786773682
+        }
+      ],
+      "lineage_id": "p2d-dense_holdout-label_smooth-s62201",
+      "parameter_count": 9508,
+      "recipe": "label_smooth",
+      "seed": 62201
+    },
+    {
+      "elapsed_seconds": 275.24347019195557,
+      "family": "dense_holdout",
+      "history": [
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2d/p2d-dense_holdout-noise_aug-s62202-e1.pt",
+          "epoch": 1,
+          "model_id": "p2d-dense_holdout-noise_aug-s62202-e1",
+          "sha256": "9f7ef4a3d45ba1bd99e44e4923740906fea6caaa92322571141cd8de34e667ba",
+          "train_accuracy": 0.308325,
+          "train_loss": 1.8448324520111083
+        },
+        {
+          "checkpoint": "/home/user/ShiftAlgebra/checkpoints_v4/phase2d/p2d-dense_holdout-noise_aug-s62202-e2.pt",
+          "epoch": 2,
+          "model_id": "p2d-dense_holdout-noise_aug-s62202-e2",
+          "sha256": "f498b272d4f75394c6ed2ed1498e4c11de9ec92c580f13fdcd838d052dbcb329",
+          "train_accuracy": 0.432425,
+          "train_loss": 1.510498114013672
+        }
+      ],
+      "lineage_id": "p2d-dense_holdout-noise_aug-s62202",
+      "parameter_count": 9508,
+      "recipe": "noise_aug",
+      "seed": 62202
+    }
+  ]
+}

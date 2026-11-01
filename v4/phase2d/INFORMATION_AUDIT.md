@@ -42,4 +42,6 @@ The primary gate failed solely because the clustered interval included zero. The
 
 ## Limitations
 
-Six lineages and two holdout families provide low inferential power. The architectures are lightweight CPU models on CIFAR-10, not modern high-accuracy public models. Recipe names transfer, but datasets and corruption mechanisms do not. These results do not satisfy the roadmap's final architecture-breadth gate.
+Six lineages and two holdout families provide low inferential power. The architectures are lightweight CPU models on CIFAR-10, not modern high-accuracy public models. Recipe names transfer, but datasets and corruption mechanisms do not. Controlled rank uses twelve correlated snapshots with many controls and is descriptive. These results do not satisfy the roadmap's final architecture-breadth gate.
+
+A subsequent sensitivity review (`POST_OUTCOME_ROBUSTNESS_AUDIT.md`) verified all twelve checkpoint hashes, found one negative lineage and both positive family means, and obtained an exact lineage sign-flip p=0.0625 one-sided. It found no leak and did not revise the failed gate.

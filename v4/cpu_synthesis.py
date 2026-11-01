@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Cross-phase synthesis of all independently frozen CPU confirmation banks."""
 from __future__ import annotations
-import csv,json
+import csv,json,math
 from collections import defaultdict
 from pathlib import Path
 import numpy as np
@@ -56,7 +56,7 @@ def meta_bootstrap(banks):
   for bank in [names[i] for i in rng.integers(0,len(names),len(names))]:
    g=grouped[bank]; gs=sorted(g); ls=sorted({r["lineage_id"] for r in banks[bank]}); sgs=[gs[i] for i in rng.integers(0,len(gs),len(gs))]; sls=[ls[i] for i in rng.integers(0,len(ls),len(ls))]; values.append(bank_est(bank,sgs,sls))
   draws.append(np.mean(values))
- return {"macro_bank_improvement_pp":point,"ci95_pp":[float(np.quantile(draws,.025)),float(np.quantile(draws,.975))],"draws":DRAWS,"seed":SEED,"hierarchy":"bank -> reversal group and lineage"}
+ return {"macro_bank_improvement_pp":point,"ci95_pp":[float(np.quantile(draws,.025)),float(np.quantile(draws,.975))],"draws":DRAWS,"seed":SEED,"hierarchy":"bank -> reversal group and lineage","banks_favoring_g1":int(wins:=sum(bank_est(b)>0 for b in banks)),"bank_count":len(banks),"exact_one_sided_sign_p_assuming_independent_banks":float(sum(math.comb(len(banks),k) for k in range(wins,len(banks)+1))/2**len(banks)),"interpretation":"Retrospective descriptive stability interval. Four banks share CIFAR-10, transformations, and some architecture classes; do not interpret as independent-dataset confirmation."}
 
 def run():
  banks=load_banks(); per={}
@@ -67,6 +67,6 @@ def run():
  OUT.mkdir(parents=True,exist_ok=True); (OUT/"CPU_CROSS_PHASE_SYNTHESIS.json").write_text(json.dumps(result,indent=2,sort_keys=True,allow_nan=False)+"\n")
  lines=["# CPU Cross-Phase Synthesis","","Four independently frozen confirmation banks are summarized without refitting any method. This retrospective aggregation is not a new confirmation and does not revise any stage gate.","","| Bank | Lineages | Models | Words | g0 MAE | g1 MAE | Controlled rank g0 → g1 |","|---|---:|---:|---:|---:|---:|---:|"]
  for b,x in per.items(): lines.append(f"| {b} | {x['lineages']} | {x['models']} | {x['words']} | {x['g0']['accuracy_mae_pp']:.3f}pp | {x['g1']['accuracy_mae_pp']:.3f}pp | {x['g0']['controlled_model_rank_spearman']:.3f} → {x['g1']['controlled_model_rank_spearman']:.3f} |")
- lines += ["",f"Macro-bank MAE: **{macro['g0']:.3f}pp (`g0`) → {macro['g1']:.3f}pp (`g1`)**.",f"Hierarchical macro-bank improvement: **{meta['macro_bank_improvement_pp']:.3f}pp**, 95% CI **[{meta['ci95_pp'][0]:.3f}, {meta['ci95_pp'][1]:.3f}]pp**.","",f"Total: {result['totals']['lineages']} lineages, {result['totals']['models']} snapshots, {result['totals']['bank_word_instances']} bank-word environments, and {result['totals']['rows']} prediction rows.","","Gate record: Phase 2 PASS; Phase 2B FAIL; Phase 2C PASS; Phase 2D FAIL. These outcomes are not pooled into a single all-positive claim."]
+ lines += ["",f"Macro-bank MAE: **{macro['g0']:.3f}pp (`g0`) → {macro['g1']:.3f}pp (`g1`)**.",f"Hierarchical macro-bank improvement: **{meta['macro_bank_improvement_pp']:.3f}pp**, bootstrap sensitivity interval **[{meta['ci95_pp'][0]:.3f}, {meta['ci95_pp'][1]:.3f}]pp**.",f"All {meta['banks_favoring_g1']}/{meta['bank_count']} banks favor `g1`; an independence-assuming one-sided sign test gives p={meta['exact_one_sided_sign_p_assuming_independent_banks']:.4f}.","","**Inference warning:** the four banks share CIFAR-10, transformation semantics, and some architecture classes. The interval is descriptive retrospective stability analysis, not independent-dataset confirmation.","",f"Total: {result['totals']['lineages']} lineages, {result['totals']['models']} snapshots, {result['totals']['bank_word_instances']} bank-word environments, and {result['totals']['rows']} prediction rows.","","Gate record: Phase 2 PASS; Phase 2B FAIL; Phase 2C PASS; Phase 2D FAIL. These outcomes are not pooled into a single all-positive claim."]
  (OUT/"CPU_CROSS_PHASE_SYNTHESIS.md").write_text("\n".join(lines)+"\n"); print(json.dumps(result,indent=2,sort_keys=True)); return result
 if __name__=="__main__": run()

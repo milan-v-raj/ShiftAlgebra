@@ -17,9 +17,12 @@ ROOT=Path(__file__).resolve().parents[2]; STRENGTHS=ROOT/"v4/phase1b/FROZEN_STRE
 
 def run():
  torch.set_num_threads(min(2,torch.get_num_threads())); started=time.time(); bundle=load_cifar10(DEFAULT_CIFAR); mean,std=normalization(bundle); subset=balanced_subset(bundle.test_labels,100,offset=400); images,labels=bundle.test_images[subset],bundle.test_labels[subset]
- records=model_records(); models=[]
+ records=model_records(); training=json.loads((RESULTS/"training.json").read_text()); expected={h["model_id"]:h["sha256"] for s in training["summaries"] for h in s["history"]}; models=[]
+ if training["status"]!="UNSEEN_FAMILIES_TRAINED" or set(expected)!={r.model_id for r in records}: raise ValueError("training record does not match frozen manifest")
  for r in records:
-  m=make_model(r.family); m.load_state_dict(torch.load(CHECKPOINTS/f"{r.model_id}.pt",map_location="cpu",weights_only=True)); m.eval(); models.append(m)
+  checkpoint=CHECKPOINTS/f"{r.model_id}.pt"
+  if sha256(checkpoint)!=expected[r.model_id]: raise ValueError(f"checkpoint hash mismatch: {r.model_id}")
+  m=make_model(r.family); m.load_state_dict(torch.load(checkpoint,map_location="cpu",weights_only=True)); m.eval(); models.append(m)
  clean=clean_statistics(models,images,labels,mean,std,256); strengths=json.loads(STRENGTHS.read_text())["datasets"]["cifar10"]["strengths"]; roles={r["word_string"]:r for r in word_records()}; rows=[]; words=evaluation_words()
  for ci,word in enumerate(words):
   metrics=evaluate_condition(models,clean,images,labels,subset,word,strengths,mean,std,256); ws=">".join(word); role=roles[ws]

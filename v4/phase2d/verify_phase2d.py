@@ -20,6 +20,11 @@ def verify():
   for method in ("g0_prior","g1_prior","full15","active","magnitude","variance","coverage","d_optimal"):
    mae=100*np.mean([abs(float(r[method])-float(r["true_accuracy"])) for r in rows]); assert abs(mae-a["methods"].get(method,a["alternative_selectors"].get(method))["accuracy_mae_pp"])<1e-10
   checks.append("forecast bounds and MAE recomputation")
+ if (RESULTS/"POST_OUTCOME_ROBUSTNESS.json").exists():
+  p=json.loads((RESULTS/"POST_OUTCOME_ROBUSTNESS.json").read_text())
+  for rel,digest in p["artifact_sha256"].items(): assert hashlib.sha256((ROOT/rel).read_bytes()).hexdigest()==digest
+  assert p["primary_gate_status"]=="ARCHITECTURE_HOLDOUT_GATE_FAILED" and p["lineage_sign_flip_sensitivity"]["exact_one_sided_p"]==0.0625
+  checks.append("post-outcome provenance and sensitivity")
  return checks
 if __name__=="__main__":
  c=verify(); print(f"Phase-2D verification: {len(c)}/{len(c)} passed"); [print("PASS",x) for x in c]

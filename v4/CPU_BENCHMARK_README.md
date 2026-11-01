@@ -35,7 +35,8 @@ This deterministically regenerates Phase-2B, Phase-2C, Phase-2D, and cross-phase
 - `phase2c/PHASE2C_FINAL_REPORT.md` — positive active pair-calibration gate;
 - `phase2d/PHASE2D_FINAL_REPORT.md` — failed formal architecture-holdout gate with encouraging point transfer;
 - `phase2d/SELECTOR_COMPARISON.md` — equal-budget alternative selector comparison;
-- `results/CPU_CROSS_PHASE_SYNTHESIS.{json,md}` — no-refit meta-analysis;
+- `phase2d/POST_OUTCOME_ROBUSTNESS_AUDIT.md` — hash, leak, heterogeneity, and sensitivity review;
+- `results/CPU_CROSS_PHASE_SYNTHESIS.{json,md}` — no-refit retrospective synthesis;
 - each phase's `INFORMATION_AUDIT.md`, manifest, frozen method, and verifier.
 
 ## Frozen gate record
@@ -47,4 +48,4 @@ This deterministically regenerates Phase-2B, Phase-2C, Phase-2D, and cross-phase
 | Phase 2C active pair selection | PASS |
 | Phase 2D architecture holdout | FAIL |
 
-The artifact intentionally preserves this mixed record. Verification success means artifacts and arithmetic are correct; it does not turn failed scientific gates into passes.
+The artifact intentionally preserves this mixed record. The cross-phase interval is a retrospective sensitivity analysis: all banks share CIFAR-10 and related shift semantics, so it is not independent-dataset confirmation. Verification success means artifacts and arithmetic are correct; it does not turn failed scientific gates into passes.

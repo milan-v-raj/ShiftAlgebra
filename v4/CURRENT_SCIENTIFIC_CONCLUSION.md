@@ -16,4 +16,4 @@ Phase 2D will not revise any method. It applies already frozen `g0`, `g1`, full 
 
 ## Recorded Phase-2D outcome
 
-The formal architecture-holdout gate failed because the six-lineage clustered interval included zero, although `g1` improved point MAE, controlled rank, and regret. The earlier active-pair gate also did not fully replicate. These results narrow rather than replace the frozen conclusion.
+The formal architecture-holdout gate failed because the six-lineage clustered interval included zero, although `g1` improved point MAE, controlled rank, and regret. The earlier active-pair gate also did not fully replicate. A post-outcome audit found no leak, but confirmed heterogeneity (five of six positive lineages; exact lineage sign-flip p=0.0625 one-sided) and only two family-level units. The four-bank synthesis is retrospective and not independent-dataset confirmation. These results narrow rather than replace the frozen conclusion.

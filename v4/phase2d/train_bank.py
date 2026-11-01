@@ -29,7 +29,7 @@ def train():
     loss=F.cross_entropy(logits,labels,label_smoothing=.1 if t.recipe=="label_smooth" else 0.); loss.backward(); opt.step()
     correct+=int((logits.argmax(-1)==labels).sum()); count+=labels.numel(); loss_sum+=float(loss.detach())*labels.numel()
    rec=next(r for r in records if r.lineage_id==t.lineage_id and r.epoch==epoch); path=CHECKPOINTS/f"{rec.model_id}.pt"; path.parent.mkdir(parents=True,exist_ok=True); torch.save(model.state_dict(),path)
-   hist.append({"epoch":epoch,"model_id":rec.model_id,"train_accuracy":correct/count,"train_loss":loss_sum/count,"checkpoint":str(path),"sha256":sha256(path)})
+   hist.append({"epoch":epoch,"model_id":rec.model_id,"train_accuracy":correct/count,"train_loss":loss_sum/count,"checkpoint":str(path.relative_to(ROOT)),"sha256":sha256(path)})
    print(f"[p2d {i}/6] {t.lineage_id} epoch={epoch} train_acc={correct/count:.4f}",flush=True)
   summaries.append({"lineage_id":t.lineage_id,"family":t.family,"recipe":t.recipe,"seed":t.seed,"parameter_count":t.parameter_count,"elapsed_seconds":time.time()-started,"history":hist})
  out={"protocol":PROTOCOL_ID,"status":"UNSEEN_FAMILIES_TRAINED","lineages":6,"models":12,"elapsed_seconds":time.time()-start_all,"summaries":summaries}; RESULTS.mkdir(parents=True,exist_ok=True); (RESULTS/"training.json").write_text(json.dumps(out,indent=2,sort_keys=True)+"\n"); return out

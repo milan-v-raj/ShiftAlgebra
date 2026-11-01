@@ -1,0 +1,109 @@
+{
+  "artifact_sha256": {
+    "v4/phase2d/FROZEN_HOLDOUT_METHODS.json": "da5b0be0da273742fbe52983080d60b0c5ba822f8c5a68d1489fc25643a55890",
+    "v4/phase2d/PHASE2D_MANIFEST.json": "5810896db8e23db16ce55620289cd285c96454b4b982b6784b267391137a6119",
+    "v4/phase2d/results/PHASE2D_ANALYSIS.json": "185cda04816c0349c6904baa093ebc6bd4a7b845564a4a6d5d7e2ac11082171c",
+    "v4/phase2d/results/behavior.csv": "f0870e47d7a6d751bf941e8249b7362ae32467c3325ccdb5ba5f341ef5e88328",
+    "v4/phase2d/results/forecast.csv": "72acc5fbdb9efe53d78d1a026b9d27d84733899e4fffdac7a01e7e9fc0b65f49",
+    "v4/phase2d/results/training.json": "cd1be975be2e1f4c61d472bca95ab25b8a10eddae0e15e6e8d0883022078a99f"
+  },
+  "audit_conclusion": "No outcome leak or artifact mismatch detected. Evidence remains heterogeneous and the preregistered gate remains failed.",
+  "checkpoint_audit": {
+    "available": 12,
+    "expected": 12,
+    "hashes_matching_training_record": 12
+  },
+  "directional_counts": {
+    "lineages": 6,
+    "positive_lineages": 5,
+    "positive_reversal_groups": 32,
+    "reversal_groups": 32
+  },
+  "frozen_ci95_pp": [
+    -0.042140199408425144,
+    2.2929142322656606
+  ],
+  "frozen_setup_commit": "e71b360",
+  "lineage_sign_flip_sensitivity": {
+    "assignments": 64,
+    "exact_one_sided_p": 0.0625,
+    "exact_two_sided_p": 0.125,
+    "interpretation": "descriptive post-outcome sensitivity; not a replacement gate",
+    "observed_mean_pp": 1.1783455191024264
+  },
+  "point_improvement_pp": 1.1783455191024264,
+  "primary_gate_status": "ARCHITECTURE_HOLDOUT_GATE_FAILED",
+  "protocol": "V4-P2D-ARCH-HOLDOUT-CPU-001",
+  "status": "POST_OUTCOME_AUDIT_COMPLETE_NO_GATE_CHANGE",
+  "stratified_improvement_pp": {
+    "family": {
+      "dense_holdout": {
+        "mean_improvement_pp": 0.45281249140647706,
+        "rows": 384
+      },
+      "vgg_holdout": {
+        "mean_improvement_pp": 1.9038785467983759,
+        "rows": 384
+      }
+    },
+    "length": {
+      "3": {
+        "mean_improvement_pp": 2.920697500450347,
+        "rows": 192
+      },
+      "4": {
+        "mean_improvement_pp": 0.805217322920651,
+        "rows": 192
+      },
+      "5": {
+        "mean_improvement_pp": 0.25503676731670605,
+        "rows": 192
+      },
+      "6": {
+        "mean_improvement_pp": 0.7324304857220012,
+        "rows": 192
+      }
+    },
+    "lineage": {
+      "p2d-dense_holdout-erm_flip-s62200": {
+        "mean_improvement_pp": 2.2395362087958732,
+        "rows": 128
+      },
+      "p2d-dense_holdout-label_smooth-s62201": {
+        "mean_improvement_pp": -1.4201228216880457,
+        "rows": 128
+      },
+      "p2d-dense_holdout-noise_aug-s62202": {
+        "mean_improvement_pp": 0.5390240871116038,
+        "rows": 128
+      },
+      "p2d-vgg_holdout-erm_flip-s62100": {
+        "mean_improvement_pp": 2.740254536979463,
+        "rows": 128
+      },
+      "p2d-vgg_holdout-label_smooth-s62101": {
+        "mean_improvement_pp": 1.2974574520298674,
+        "rows": 128
+      },
+      "p2d-vgg_holdout-noise_aug-s62102": {
+        "mean_improvement_pp": 1.6739236513857971,
+        "rows": 128
+      }
+    },
+    "recipe": {
+      "erm_flip": {
+        "mean_improvement_pp": 2.489895372887668,
+        "rows": 256
+      },
+      "label_smooth": {
+        "mean_improvement_pp": -0.06133268482908916,
+        "rows": 256
+      },
+      "noise_aug": {
+        "mean_improvement_pp": 1.1064738692487004,
+        "rows": 256
+      }
+    }
+  },
+  "training_record_commit": "9cbdc6a"
+}

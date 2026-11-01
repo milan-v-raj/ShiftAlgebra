@@ -939,9 +939,12 @@ A no-refit synthesis across four independently frozen banks totals 51
 lineages, 102 snapshots, 282 bank-specific environments, and 7,308 prediction
 rows.  Macro-bank MAE fell from 3.005pp for $g_0$ to 1.547pp for $g_1$; a
 hierarchical bank/reversal/lineage bootstrap estimated a 1.448pp improvement
-with 95\% interval $[0.954,1.901]$pp.  This strengthens the narrow incremental
-forecasting conclusion while preserving the failed Phase-2B and Phase-2D
-gates.
+with descriptive 95\% sensitivity interval $[0.954,1.901]$pp.  Because the
+four banks share CIFAR-10, transformation semantics, and some architecture
+classes, this is retrospective stability analysis rather than an
+independent-dataset confidence statement.  This strengthens the narrow
+incremental forecasting conclusion while preserving the failed Phase-2B and
+Phase-2D gates.
 
 % =============================================================================
 \section{Current scientific conclusion and recommended framing}

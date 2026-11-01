@@ -17,7 +17,7 @@ def verify():
  for method in ("g0","g1"):
   expected=np.mean([p["banks"][b][method]["accuracy_mae_pp"] for b in banks]); assert abs(expected-p["macro_bank_mae_pp"][method])<1e-12
  checks.append("macro-bank arithmetic")
- assert p["totals"]=={"rows":7308,"models":102,"lineages":51,"bank_word_instances":282}; checks.append("cross-bank accounting")
+ assert p["totals"]=={"rows":7308,"models":102,"lineages":51,"bank_word_instances":282}; assert p["incremental_meta_bootstrap"]["banks_favoring_g1"]==4 and p["incremental_meta_bootstrap"]["exact_one_sided_sign_p_assuming_independent_banks"]==0.0625; checks.append("cross-bank accounting and directional sensitivity")
  q=json.loads((ROOT/"v4/phase2d/results/PHASE2D_ANALYSIS.json").read_text()); assert q["status"]=="ARCHITECTURE_HOLDOUT_GATE_FAILED" and not q["active_replication"]["gates"]["active_replication_passed"]; checks.append("failed Phase-2D gates retained")
  return checks
 if __name__=="__main__":

@@ -27,7 +27,8 @@ def summary():
   print(f"{bank:8s} lineages={row['lineages']:2d} words={row['words']:2d} g0={row['g0']['accuracy_mae_pp']:.3f}pp g1={row['g1']['accuracy_mae_pp']:.3f}pp")
  macro=syn["macro_bank_mae_pp"]; ci=syn["incremental_meta_bootstrap"]["ci95_pp"]
  print(f"macro-bank MAE: {macro['g0']:.3f}pp -> {macro['g1']:.3f}pp")
- print(f"incremental improvement 95% CI: [{ci[0]:.3f}, {ci[1]:.3f}]pp")
+ print(f"retrospective bootstrap sensitivity interval: [{ci[0]:.3f}, {ci[1]:.3f}]pp")
+ print("warning: four banks share CIFAR-10; this is not independent-dataset confirmation")
  print("gates:",syn["gate_summary"])
 
 def main():

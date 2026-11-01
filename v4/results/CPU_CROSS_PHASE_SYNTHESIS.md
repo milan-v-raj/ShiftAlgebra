@@ -10,7 +10,10 @@ Four independently frozen confirmation banks are summarized without refitting an
 | phase2d | 6 | 12 | 64 | 2.978pp | 1.800pp | 0.270 → 0.621 |
 
 Macro-bank MAE: **3.005pp (`g0`) → 1.547pp (`g1`)**.
-Hierarchical macro-bank improvement: **1.448pp**, 95% CI **[0.954, 1.901]pp**.
+Hierarchical macro-bank improvement: **1.448pp**, bootstrap sensitivity interval **[0.954, 1.901]pp**.
+All 4/4 banks favor `g1`; an independence-assuming one-sided sign test gives p=0.0625.
+
+**Inference warning:** the four banks share CIFAR-10, transformation semantics, and some architecture classes. The interval is descriptive retrospective stability analysis, not independent-dataset confirmation.
 
 Total: 51 lineages, 102 snapshots, 282 bank-word environments, and 7308 prediction rows.
 

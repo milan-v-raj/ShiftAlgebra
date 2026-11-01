@@ -128,12 +128,16 @@
     "phase2d_architecture_holdout": "FAIL"
   },
   "incremental_meta_bootstrap": {
+    "bank_count": 4,
+    "banks_favoring_g1": 4,
     "ci95_pp": [
       0.9542088908706917,
       1.9007495842240798
     ],
     "draws": 10000,
+    "exact_one_sided_sign_p_assuming_independent_banks": 0.0625,
     "hierarchy": "bank -> reversal group and lineage",
+    "interpretation": "Retrospective descriptive stability interval. Four banks share CIFAR-10, transformations, and some architecture classes; do not interpret as independent-dataset confirmation.",
     "macro_bank_improvement_pp": 1.448407229748888,
     "seed": 22601
   },

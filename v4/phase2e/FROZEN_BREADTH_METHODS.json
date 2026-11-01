@@ -1,0 +1,22 @@
+{
+  "method_source": "v4/phase2d/FROZEN_HOLDOUT_METHODS.json",
+  "method_source_sha256": "da5b0be0da273742fbe52983080d60b0c5ba822f8c5a68d1489fc25643a55890",
+  "no_refitting": true,
+  "primary_comparator": "g0_prior",
+  "primary_gate": {
+    "all_required": true,
+    "criteria": [
+      "g1_mae_better",
+      "family_lineage_reversal_ci_excludes_zero",
+      "at_least_three_of_four_family_means_positive",
+      "g1_controlled_rank_better",
+      "g1_regret_not_worse"
+    ]
+  },
+  "primary_method": "g1_prior",
+  "prior_regressions": "v4/phase2/FROZEN_METHOD.json",
+  "prior_regressions_sha256": "78c3a4b27810ce4932359e933670cb872c3eba551d8faf930e7b0ff5baa13753",
+  "protocol": "V4-P2E-ARCH-BREADTH-CPU-001",
+  "secondary_selectors": "descriptive_only",
+  "status": "INHERITED_METHODS_AND_GATES_FROZEN_OUTCOMES_UNOPENED"
+}

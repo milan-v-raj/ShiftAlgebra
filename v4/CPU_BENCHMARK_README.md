@@ -1,12 +1,12 @@
 # V4 CPU Benchmark Artifact
 
-This package consolidates the independently frozen Phase-2 through Phase-2G CPU banks. Phases 2--2E are CIFAR-10 accuracy studies; Phases 2F--2G are six-coordinate CIFAR-100 confirmation benchmarks.
+This package consolidates the independently frozen Phase-2 through Phase-2H CPU banks. Phases 2--2E are CIFAR-10 accuracy studies; Phases 2F--2H are six-coordinate CIFAR-100 confirmation benchmarks.
 
 ## Scope
 
-- 117 independent training lineages and 234 epoch snapshots overall;
+- 135 independent training lineages and 270 epoch snapshots overall;
 - 8,748 CIFAR-10 accuracy prediction rows across five frozen banks;
-- 4,320 sealed CIFAR-100 full-vector prediction rows, each with six outputs;
+- 6,480 sealed CIFAR-100 full-vector prediction rows, each with six outputs;
 - twelve CIFAR-100 architecture families and lightweight CPU models;
 - canonical CIFAR-100 test provenance verified pixel-for-pixel.
 
@@ -26,7 +26,7 @@ Verification uses committed CSV/JSON artifacts and does not require datasets or 
 python -m v4.reproduce_cpu --reanalyze --summary
 ```
 
-This deterministically regenerates Phase-2B, Phase-2C, Phase-2D, Phase-2E, Phase-2F, Phase-2G, and cross-phase analysis JSON from committed forecasts. It does not retrain models or reopen a confirmation.
+This deterministically regenerates Phase-2B, Phase-2C, Phase-2D, Phase-2E, Phase-2F, Phase-2G, Phase-2H, and cross-phase analysis JSON from committed forecasts. It does not retrain models or reopen a confirmation.
 
 ## Core artifacts
 
@@ -39,6 +39,7 @@ This deterministically regenerates Phase-2B, Phase-2C, Phase-2D, Phase-2E, Phase
 - `phase2e/PHASE2E_FINAL_REPORT.md` — prospective four-family breadth extension;
 - `phase2f/PHASE2F_FINAL_REPORT.md` — positive CIFAR-100 six-coordinate confirmation;
 - `phase2g/PHASE2G_FINAL_REPORT.md` — positive strict no-refit transfer to six unseen architectures;
+- `phase2h/PHASE2H_FINAL_REPORT.md` — failed prospective order-awareness gate with small positive MAE/contrast effects;
 - `SELECTOR_TRANSFER_SYNTHESIS.md` — retrospective equal-budget transfer table;
 - `results/CPU_CROSS_PHASE_SYNTHESIS.{json,md}` — no-refit retrospective bank synthesis;
 - `results/ARCHITECTURE_SYNTHESIS.{json,md}` — retrospective six-family sensitivity analysis;
@@ -57,5 +58,6 @@ This deterministically regenerates Phase-2B, Phase-2C, Phase-2D, Phase-2E, Phase
 | Phase 2F magnitude five-pair selector | PASS |
 | Phase 2G strict no-refit architecture transfer | PASS |
 | Phase 2G frozen magnitude selector transfer | PASS |
+| Phase 2H incremental order awareness | FAIL |
 
-The artifact intentionally preserves this mixed record. The Phases 2--2E cross-phase interval is a retrospective sensitivity analysis: those five banks share CIFAR-10 and related shift semantics. Phase 2F is a separate CIFAR-100 development/confirmation experiment; Phase 2G transfers its method without refitting to six unseen architecture families. Both remain within CIFAR-100, so neither is independent-dataset transfer. Verification success means artifacts and arithmetic are correct; it does not turn failed scientific gates into passes.
+The artifact intentionally preserves this mixed record. The Phases 2--2E cross-phase interval is a retrospective sensitivity analysis: those five banks share CIFAR-10 and related shift semantics. Phase 2F is a separate CIFAR-100 development/confirmation experiment; Phase 2G transfers its method without refitting to six unseen architecture families. Both remain within CIFAR-100, so neither is independent-dataset transfer. Phase 2H retains a failed all-required order gate despite small positive error and reversal-contrast effects. Verification success means artifacts and arithmetic are correct; it does not turn failed scientific gates into passes.

@@ -16,13 +16,14 @@ This folder executes [`NEURIPS_DEVELOPMENT_PLAN.md`](../NEURIPS_DEVELOPMENT_PLAN
 | **2E. Architecture-breadth extension** | **COMPLETE — PRIMARY GATE FAILED** | Four new families: `g1` improves 4.443pp to 2.034pp, but family-hierarchical CI [-0.072, 5.287]pp includes zero |
 | **2F. CIFAR-100 full vector** | **COMPLETE — BOTH GATES PASSED** | Six-coordinate macro normalized MAE 0.554→0.254; all metrics improve; magnitude five-pair 0.271 vs 0.338 expected random |
 | **2G. No-refit architecture transfer** | **COMPLETE — BOTH GATES PASSED** | Frozen Phase-2F method transfers to six unseen families: 0.912→0.326; all metrics/families improve; frozen magnitude 0.329 vs 0.484 random |
+| **2H. Order-awareness ablation** | **COMPLETE — PRIMARY GATE FAILED** | Symmetric composition 0.352 vs order-aware 0.349; 4/6 metrics and reversal contrast improve, but controlled rank declines 0.732→0.729 |
 | 3. ImageNet/realistic corruptions | NOT STARTED | — |
 | 4. Natural/hybrid shifts | NOT STARTED | — |
 | 5. Method freeze/preregistration | NOT STARTED | — |
 | 6. One-shot final evaluation | NOT STARTED | — |
 | 7. Paper and artifact | NOT STARTED | — |
 
-Completed Phase-1, Phase-1B, Phase-2 pilot, Phase-2B, Phase-2C, Phase-2D, Phase-2E, Phase-2F, and Phase-2G results are documented in their frozen reports; no result should be inferred for unstarted Phases 3--7.
+Completed Phase-1, Phase-1B, Phase-2 pilot, Phase-2B, Phase-2C, Phase-2D, Phase-2E, Phase-2F, Phase-2G, and Phase-2H results are documented in their frozen reports; no result should be inferred for unstarted Phases 3--7.
 
 ## Layout
 
@@ -68,6 +69,7 @@ python3 v4/phase2d/verify_phase2d.py
 python3 v4/phase2e/verify_phase2e.py
 python3 v4/phase2f/verify_phase2f.py
 python3 v4/phase2g/verify_phase2g.py
+python3 v4/phase2h/verify_phase2h.py
 python3 -m v4.reproduce_cpu --verify --summary
 ```
 

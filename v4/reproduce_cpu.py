@@ -9,7 +9,7 @@ def command(*args):
  print(">>>"," ".join(map(str,args)),flush=True); subprocess.run([str(x) for x in args],cwd=ROOT,check=True)
 
 def verify():
- for script in ("v4/phase2/verify_phase2.py","v4/phase2b/verify_phase2b.py","v4/phase2c/verify_phase2c.py","v4/phase2d/verify_phase2d.py","v4/phase2e/verify_phase2e.py","v4/phase2f/verify_phase2f.py","v4/phase2g/verify_phase2g.py","v4/verify_cpu_synthesis.py"):
+ for script in ("v4/phase2/verify_phase2.py","v4/phase2b/verify_phase2b.py","v4/phase2c/verify_phase2c.py","v4/phase2d/verify_phase2d.py","v4/phase2e/verify_phase2e.py","v4/phase2f/verify_phase2f.py","v4/phase2g/verify_phase2g.py","v4/phase2h/verify_phase2h.py","v4/verify_cpu_synthesis.py"):
   command(sys.executable,script)
  command(sys.executable,"-m","unittest","discover","-s","v4/phase2b/tests","-q")
  command(sys.executable,"-m","unittest","discover","-s","v4/phase2c/tests","-q")
@@ -17,10 +17,11 @@ def verify():
  command(sys.executable,"-m","unittest","discover","-s","v4/phase2e/tests","-q")
  command(sys.executable,"-m","unittest","discover","-s","v4/phase2f/tests","-q")
  command(sys.executable,"-m","unittest","discover","-s","v4/phase2g/tests","-q")
+ command(sys.executable,"-m","unittest","discover","-s","v4/phase2h/tests","-q")
  print("V4 CPU verification complete")
 
 def reanalyze():
- for module in ("v4.phase2b.analyze","v4.phase2c.analyze","v4.phase2d.analyze","v4.phase2e.analyze","v4.phase2f.analyze","v4.phase2f.robustness","v4.phase2g.analyze","v4.phase2g.robustness","v4.architecture_synthesis","v4.cpu_synthesis"):
+ for module in ("v4.phase2b.analyze","v4.phase2c.analyze","v4.phase2d.analyze","v4.phase2e.analyze","v4.phase2f.analyze","v4.phase2f.robustness","v4.phase2g.analyze","v4.phase2g.robustness","v4.phase2h.analyze","v4.phase2h.robustness","v4.architecture_synthesis","v4.cpu_synthesis"):
   command(sys.executable,"-m",module)
 
 def summary():
@@ -39,6 +40,8 @@ def summary():
  p2g=json.loads((ROOT/"v4/phase2g/results/PHASE2G_ANALYSIS.json").read_text())
  print(f"CIFAR-100 strict architecture transfer: g0={p2g['methods']['g0']['macro_normalized_mae']:.3f} -> composition={p2g['methods']['full15']['macro_normalized_mae']:.3f}; gate={p2g['status']}")
  print("CIFAR-100 frozen magnitude transfer gate:","PASS" if p2g['magnitude_confirmation']['gates']['magnitude_gate_passed'] else "FAIL")
+ p2h=json.loads((ROOT/"v4/phase2h/results/PHASE2H_ANALYSIS.json").read_text())
+ print(f"CIFAR-100 order ablation: symmetric={p2h['methods']['symmetric']['macro_normalized_mae']:.3f} vs order-aware={p2h['methods']['order_aware']['macro_normalized_mae']:.3f}; gate={p2h['status']}")
  print("CIFAR-10 gates:",syn["gate_summary"])
 
 def main():

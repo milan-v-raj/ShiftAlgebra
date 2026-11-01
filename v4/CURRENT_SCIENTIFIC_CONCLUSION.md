@@ -33,3 +33,9 @@ This supports transfer of the forecasting methodology to CIFAR-100 and a full be
 Phase 2G transferred the byte-frozen Phase-2F method without refitting to six disjoint architecture families, fresh lineages, images, and words on CIFAR-100. Full composition reduced macro normalized MAE from 0.912 to 0.326, improved all six coordinates and all six family means, produced hierarchical improvement CI [0.381, 0.789], raised controlled rank from 0.054 to 0.779, and reduced accuracy regret from 2.872pp to 0.307pp. The strict-transfer gate passed 6/6. The already-frozen magnitude design also passed 4/4 (0.329 versus 0.484 expected-random MAE; CI [0.089, 0.234]).
 
 This removes the Phase-2F coefficient-refitting qualification for architecture transfer within CIFAR-100. It still does not establish transfer across datasets, corruption systems, natural shifts, large modern models, or information regimes without pair calibration.
+
+## Recorded Phase-2H outcome
+
+A prospective equal-budget ablation compared symmetric composition against the same model plus one directed order feature on fresh models, images, and reversal-paired words. Order awareness slightly reduced macro normalized MAE from 0.3524 to 0.3494, with hierarchical improvement CI [0.00031, 0.00722], improved four of six coordinate MAEs and reversal-contrast error, and favored all six family means. However, controlled rank declined from 0.7320 to 0.7285; the all-required order-awareness gate therefore failed 5/6. Accuracy regret was unchanged.
+
+The headline claim should remain composition-aware forecasting. Directed order contains detectable signal—especially for feature drift, margin, and confidence—but is not established as a broadly reliable improvement or evidence for a universal non-commutative algebra.

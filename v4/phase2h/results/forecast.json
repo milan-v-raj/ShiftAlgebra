@@ -1,0 +1,15 @@
+{
+  "frozen_method_sha256": "9c4eef64aa2e1812306c6df3ba7c90e5f8a7bbf02f97eeece6603509d31e375e",
+  "metrics": [
+    "margin",
+    "feature_drift",
+    "ece",
+    "balanced_accuracy",
+    "accuracy",
+    "mean_confidence"
+  ],
+  "protocol": "V4-P2H-CIFAR100-ORDER-ABLATION-001",
+  "rows": 2160,
+  "sha256": "68ec0b0ed7743342e81bcb772c1d9936bc92ad2aa05a7a5095c3769f5acf2bcd",
+  "status": "FROZEN_ORDER_ABLATION_FORECAST"
+}

@@ -1,0 +1,187 @@
+{
+  "families_positive": 6,
+  "family_improvements": {
+    "convnext_holdout": 0.0003177475703260421,
+    "depthwise_holdout": 0.012011822673143402,
+    "dilated_holdout": 0.00026559180380073135,
+    "gated_holdout": 0.006816897943630302,
+    "residual_holdout": 0.0038379476135661198,
+    "shuffle_holdout": 0.00029036322275312007
+  },
+  "methods": {
+    "g0": {
+      "accuracy_top1_regret_pp": 3.751666666666668,
+      "macro_controlled_rank": 0.03291884757361839,
+      "macro_normalized_mae": 0.9890770033656121,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.07118391897707564,
+          "mae": 0.017477937911438302,
+          "rank_models_per_environment": 0.025736923267111515,
+          "top1_selection_regret_pp": 3.751666666666668
+        },
+        "ece": {
+          "controlled_model_rank_spearman": -0.32796775021497016,
+          "mae": 0.046110300637258725,
+          "rank_models_per_environment": 0.4072967866022232
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.04201006950193451,
+          "mae": 1.4711763027932723,
+          "rank_models_per_environment": 0.307005577005577
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.17874657947545064,
+          "mae": 0.01595562289996758,
+          "rank_models_per_environment": 0.8015658515658518
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.20062142012860132,
+          "mae": 0.027911858407364005,
+          "rank_models_per_environment": 0.8321492921492923
+        }
+      }
+    },
+    "order_aware": {
+      "accuracy_top1_regret_pp": 0.65,
+      "macro_controlled_rank": 0.7602279264610704,
+      "macro_normalized_mae": 0.3589419502087119,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.5719896461134828,
+          "mae": 0.006436773951886278,
+          "rank_models_per_environment": 0.8830300727936672,
+          "top1_selection_regret_pp": 0.65
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.649839983837733,
+          "mae": 0.02251725873055195,
+          "rank_models_per_environment": 0.8795795795795797
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.8954728330924993,
+          "mae": 0.31741738938292124,
+          "rank_models_per_environment": 0.9391419991419993
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.7750749345565827,
+          "mae": 0.006252713352856051,
+          "rank_models_per_environment": 0.9514671814671817
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.9087622347050538,
+          "mae": 0.010809965222097715,
+          "rank_models_per_environment": 0.9790647790647792
+        }
+      }
+    },
+    "symmetric": {
+      "accuracy_top1_regret_pp": 0.65,
+      "macro_controlled_rank": 0.7626429727154453,
+      "macro_normalized_mae": 0.3628653453465819,
+      "per_metric": {
+        "accuracy": {
+          "controlled_model_rank_spearman": 0.5808408749574986,
+          "mae": 0.006398749778855138,
+          "rank_models_per_environment": 0.8835449275613324,
+          "top1_selection_regret_pp": 0.65
+        },
+        "ece": {
+          "controlled_model_rank_spearman": 0.650860666997154,
+          "mae": 0.02252428899054437,
+          "rank_models_per_environment": 0.8796396396396398
+        },
+        "feature_drift": {
+          "controlled_model_rank_spearman": 0.8991232335488835,
+          "mae": 0.32225690964273696,
+          "rank_models_per_environment": 0.9429129129129129
+        },
+        "margin": {
+          "controlled_model_rank_spearman": 0.7764514479141581,
+          "mae": 0.006351328437220377,
+          "rank_models_per_environment": 0.9517503217503217
+        },
+        "mean_confidence": {
+          "controlled_model_rank_spearman": 0.905938640159532,
+          "mae": 0.01124242899631159,
+          "rank_models_per_environment": 0.9781038181038182
+        }
+      }
+    }
+  },
+  "metrics": [
+    "margin",
+    "feature_drift",
+    "ece",
+    "accuracy",
+    "mean_confidence"
+  ],
+  "metrics_improved": 4,
+  "primary_gates": {
+    "accuracy_regret_not_worse": true,
+    "at_least_four_metrics_better": true,
+    "hierarchical_ci_excludes_zero": true,
+    "macro_controlled_rank_not_worse": false,
+    "macro_normalized_mae_better": true,
+    "order_awareness_gate_passed": false,
+    "reversal_contrast_mae_better": true
+  },
+  "primary_increment": {
+    "ci95": [
+      0.0003875069741943302,
+      0.009369274331736956
+    ],
+    "draws": 10000,
+    "hierarchy": "architecture family -> lineage; crossed with reversal group",
+    "point": 0.003923395137869953,
+    "seed": 22724
+  },
+  "reason": "balanced accuracy duplicates accuracy on the balanced partition",
+  "reversal_contrast": {
+    "order_aware": {
+      "macro_normalized_mae": 0.17451041456778213,
+      "per_metric_normalized_mae": {
+        "accuracy": 0.10456626817900526,
+        "ece": 0.2587994256630648,
+        "feature_drift": 0.13099374389306448,
+        "margin": 0.21830100283629167,
+        "mean_confidence": 0.15989163226748446
+      }
+    },
+    "order_aware_contrast_spearman": {
+      "accuracy": 0.04919215790515719,
+      "ece": -0.20750784000561392,
+      "feature_drift": 0.7911418724543564,
+      "margin": 0.6226466141991045,
+      "mean_confidence": 0.7016265072497074
+    },
+    "symmetric": {
+      "macro_normalized_mae": 0.20631610987562693,
+      "per_metric_normalized_mae": {
+        "accuracy": 0.10015598764792485,
+        "ece": 0.2570801899617712,
+        "feature_drift": 0.20031103635023767,
+        "margin": 0.25884259364621437,
+        "mean_confidence": 0.21519074177198663
+      }
+    },
+    "true_mean_absolute_contrast": {
+      "accuracy": 0.0021356481481481487,
+      "ece": 0.010623881390393275,
+      "feature_drift": 0.22721655928042966,
+      "margin": 0.004016384498526652,
+      "mean_confidence": 0.008772654288124156
+    }
+  },
+  "reversal_contrast_increment": {
+    "ci95": [
+      0.011368967450051205,
+      0.05705037690738745
+    ],
+    "draws": 10000,
+    "hierarchy": "architecture family -> lineage; crossed with reversal group",
+    "point": 0.03180569530784479,
+    "seed": 22723
+  },
+  "status": "POST_OUTCOME_UNIQUE_METRIC_SENSITIVITY_GATE_STILL_FAILED"
+}

@@ -101,6 +101,14 @@ def verify():
             for metric in METRICS:
                 assert abs(float(pair[0][f"symmetric_{metric}"]) - float(pair[1][f"symmetric_{metric}"])) < 1e-12
         analysis = json.loads((RESULTS / "PHASE2H_ANALYSIS.json").read_text())
+        assert analysis["status"] == "ORDER_AWARENESS_GATE_FAILED"
+        assert analysis["metrics_improved"] == 4 and analysis["families_positive"] == 6
+        assert not analysis["primary_gates"]["order_awareness_gate_passed"]
+        assert not analysis["primary_gates"]["macro_controlled_rank_not_worse"]
+        assert all(
+            value for name, value in analysis["primary_gates"].items()
+            if name not in ("order_awareness_gate_passed", "macro_controlled_rank_not_worse")
+        )
         for metric in METRICS:
             for method in ("g0", "symmetric", "order_aware"):
                 mae = np.mean([
@@ -108,7 +116,12 @@ def verify():
                     for row in rows
                 ])
                 assert abs(mae - analysis["methods"][method]["per_metric"][metric]["mae"]) < 1e-12
-        checks.append("order blindness, all six coordinates, and analysis arithmetic")
+        checks.append("order blindness, all six coordinates, and failed-gate arithmetic")
+        robustness = json.loads((RESULTS / "POST_OUTCOME_ROBUSTNESS.json").read_text())
+        assert robustness["status"] == "POST_OUTCOME_UNIQUE_METRIC_SENSITIVITY_GATE_STILL_FAILED"
+        assert not robustness["primary_gates"]["order_awareness_gate_passed"]
+        assert not robustness["primary_gates"]["macro_controlled_rank_not_worse"]
+        checks.append("unique-coordinate sensitivity retains the failed gate")
     return checks
 
 

@@ -997,6 +997,27 @@ regime.  It does not establish transfer across datasets, corruption systems,
 model scales, natural shifts, or information regimes without pair
 calibration.
 
+\subsection{Phase 2H: symmetric composition versus order awareness}
+
+A prospective equal-budget ablation fitted two nested methods on Phase-2F
+development only.  The symmetric method used averaged pair composition,
+independent retention, and envelope features.  The order-aware method added
+exactly one directed-minus-symmetric feature.  Confirmation used 18 fresh
+lineages, fresh CIFAR-100 images, and 30 fresh reversal pairs.
+
+Symmetric composition alone reduced macro normalized MAE from 0.961 for
+metadata-only prediction to 0.352.  Adding order reduced it slightly further
+to 0.349, with hierarchical improvement interval $[0.00031,0.00722]$.
+Order improved four of six coordinate MAEs and reduced normalized reversal-
+contrast MAE from 0.189 to 0.163.  However, macro controlled model-rank
+Spearman declined from 0.732 to 0.729.  The all-required order-awareness gate
+therefore failed five of six criteria.
+
+The result supports composition awareness as the headline.  Directed order
+contains detectable, channel-dependent information, especially for feature
+drift, margin, and confidence, but is not established as a broadly reliable
+increment or as evidence for a universal non-commutative algebra.
+
 % =============================================================================
 \section{Current scientific conclusion and recommended framing}
 % =============================================================================
@@ -1009,8 +1030,9 @@ shows multiple composition regimes:
   interaction laws can be too optimistic.
   \item Across a model bank, sub-extensive hazard composition plus model/word
   metadata can add substantial predictive value.
-  \item Order features can work on selected mechanisms but are not yet broadly
-  reliable.
+  \item A prospective order ablation finds small MAE and reversal-contrast
+  gains but a controlled-rank decline; order is detectable but not broadly
+  reliable enough for the headline.
   \item Under a constrained calibration budget, development-informed pair
   selection can outperform expected random pair selection, although it remains
   materially weaker than complete pair calibration.
@@ -1100,6 +1122,7 @@ rescued by tuning on this confirmation.
 \texttt{v4/phase2e/PHASE2E\_FINAL\_REPORT.md} & Four-family prospective breadth extension.\\
 \texttt{v4/phase2f/PHASE2F\_FINAL\_REPORT.md} & CIFAR-100 complete-vector confirmation.\\
 \texttt{v4/phase2g/PHASE2G\_FINAL\_REPORT.md} & Strict no-refit transfer to six unseen architectures.\\
+\texttt{v4/phase2h/PHASE2H\_FINAL\_REPORT.md} & Prospective symmetric-versus-order-aware ablation.\\
 \texttt{v4/results/CPU\_CROSS\_PHASE\_SYNTHESIS.md} & No-refit synthesis across five CIFAR-10 CPU confirmation banks.\\
 \bottomrule
 \end{tabular}

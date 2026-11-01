@@ -63,8 +63,11 @@ def verify():
         training = json.loads(training_path.read_text())
         assert training["status"] == "CONFIRMATION_ARCHITECTURE_BANK_TRAINED_BEHAVIOR_UNOPENED"
         assert training["lineages"] == 18 and training["models"] == 36
-        hashes = [history["sha256"] for summary in training["summaries"] for history in summary["history"]]
+        histories = [history for summary in training["summaries"] for history in summary["history"]]
+        hashes = [history["sha256"] for history in histories]
         assert len(hashes) == 36 and len(set(hashes)) == 36
+        for history in histories:
+            assert sha256(ROOT / history["checkpoint"]) == history["sha256"]
         checks.append("training record and checkpoint hashes")
 
     behavior_path = RESULTS / "confirmation-behavior.csv"

@@ -1,0 +1,487 @@
+{
+  "elapsed_seconds": 2323.357170343399,
+  "lineages": 18,
+  "models": 36,
+  "normalization_mean": [
+    0.5070751309394836,
+    0.48654887080192566,
+    0.44091784954071045
+  ],
+  "normalization_std": [
+    0.2673342823982239,
+    0.2564384639263153,
+    0.2761504650115967
+  ],
+  "protocol": "V4-P2G-CIFAR100-NOREFIT-ARCH-001",
+  "status": "CONFIRMATION_ARCHITECTURE_BANK_TRAINED_BEHAVIOR_UNOPENED",
+  "summaries": [
+    {
+      "elapsed_seconds": 216.0079505443573,
+      "family": "residual_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-residual_holdout-erm_flip-s67100-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-residual_holdout-erm_flip-s67100-e1",
+          "sha256": "565a289460a2b07b9f50f990a59988e70e33bb955c5bbe0d1cec2b68d35e6e17",
+          "train_accuracy": 0.06232,
+          "train_loss": 4.1460757682800295
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-residual_holdout-erm_flip-s67100-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-residual_holdout-erm_flip-s67100-e2",
+          "sha256": "8fd59025efc987fd9f58bc0aab686f49ab1b7b0687e7389e546937e0a9622247",
+          "train_accuracy": 0.1304,
+          "train_loss": 3.6431163823699952
+        }
+      ],
+      "lineage_id": "p2g-residual_holdout-erm_flip-s67100",
+      "parameter_count": 34564,
+      "recipe": "erm_flip",
+      "seed": 67100
+    },
+    {
+      "elapsed_seconds": 205.2896330356598,
+      "family": "residual_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-residual_holdout-label_smooth-s67101-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-residual_holdout-label_smooth-s67101-e1",
+          "sha256": "6865161c83b6d29d7c40fa448cf04f4c09b392f85fee0160c2334dddfba5a837",
+          "train_accuracy": 0.0648,
+          "train_loss": 4.226144538726807
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-residual_holdout-label_smooth-s67101-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-residual_holdout-label_smooth-s67101-e2",
+          "sha256": "db601d51f98b797c2c80fc3e7c38dffe57b283971793c4fef0a6e6ec02e5b274",
+          "train_accuracy": 0.12658,
+          "train_loss": 3.8497623725891112
+        }
+      ],
+      "lineage_id": "p2g-residual_holdout-label_smooth-s67101",
+      "parameter_count": 34564,
+      "recipe": "label_smooth",
+      "seed": 67101
+    },
+    {
+      "elapsed_seconds": 215.30965518951416,
+      "family": "residual_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-residual_holdout-noise_aug-s67102-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-residual_holdout-noise_aug-s67102-e1",
+          "sha256": "7af0949aa30178cbeecadc4ad254c821a4ee4daa12d82c423851d8266418c4ff",
+          "train_accuracy": 0.0664,
+          "train_loss": 4.166558097381592
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-residual_holdout-noise_aug-s67102-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-residual_holdout-noise_aug-s67102-e2",
+          "sha256": "0835eac0476b43b6e58c3b8391a084e6337a75ec70b6493ea95f32e8c2e92a3f",
+          "train_accuracy": 0.1238,
+          "train_loss": 3.698028444595337
+        }
+      ],
+      "lineage_id": "p2g-residual_holdout-noise_aug-s67102",
+      "parameter_count": 34564,
+      "recipe": "noise_aug",
+      "seed": 67102
+    },
+    {
+      "elapsed_seconds": 54.97957992553711,
+      "family": "depthwise_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-depthwise_holdout-erm_flip-s67200-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-depthwise_holdout-erm_flip-s67200-e1",
+          "sha256": "d753053360e669ec5d2dae57a51a9e8fab61e20083e1b1c597570550b1b20886",
+          "train_accuracy": 0.06544,
+          "train_loss": 4.1601806732177735
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-depthwise_holdout-erm_flip-s67200-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-depthwise_holdout-erm_flip-s67200-e2",
+          "sha256": "1cfb0153dcfaa7e2e07180b097ef0aa75a34699b06f6b472fa9be3a5523ec16a",
+          "train_accuracy": 0.14252,
+          "train_loss": 3.5927655422973634
+        }
+      ],
+      "lineage_id": "p2g-depthwise_holdout-erm_flip-s67200",
+      "parameter_count": 17244,
+      "recipe": "erm_flip",
+      "seed": 67200
+    },
+    {
+      "elapsed_seconds": 60.024778604507446,
+      "family": "depthwise_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-depthwise_holdout-label_smooth-s67201-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-depthwise_holdout-label_smooth-s67201-e1",
+          "sha256": "3a5157ace8f37718f01bb52c1c6311ac0b491d892c13fb4b75b733427d226742",
+          "train_accuracy": 0.0609,
+          "train_loss": 4.310934920654297
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-depthwise_holdout-label_smooth-s67201-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-depthwise_holdout-label_smooth-s67201-e2",
+          "sha256": "2ea8f1e1aa42624109e7e89a4fff5ec5f116cfb3c99fc7cba215d57bc1fbe2ec",
+          "train_accuracy": 0.14696,
+          "train_loss": 3.782299008407593
+        }
+      ],
+      "lineage_id": "p2g-depthwise_holdout-label_smooth-s67201",
+      "parameter_count": 17244,
+      "recipe": "label_smooth",
+      "seed": 67201
+    },
+    {
+      "elapsed_seconds": 65.30470538139343,
+      "family": "depthwise_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-depthwise_holdout-noise_aug-s67202-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-depthwise_holdout-noise_aug-s67202-e1",
+          "sha256": "ec77b0d876416c14c63305cf90c309f06b52e35b17d773b8b372cbc305ed2153",
+          "train_accuracy": 0.0649,
+          "train_loss": 4.161968959274292
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-depthwise_holdout-noise_aug-s67202-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-depthwise_holdout-noise_aug-s67202-e2",
+          "sha256": "5a1307759dc9a7fba1a2158d404f102733f804bc306cb8593ea1496625361c21",
+          "train_accuracy": 0.13392,
+          "train_loss": 3.6484881928253174
+        }
+      ],
+      "lineage_id": "p2g-depthwise_holdout-noise_aug-s67202",
+      "parameter_count": 17244,
+      "recipe": "noise_aug",
+      "seed": 67202
+    },
+    {
+      "elapsed_seconds": 51.813520431518555,
+      "family": "convnext_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-convnext_holdout-erm_flip-s67300-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-convnext_holdout-erm_flip-s67300-e1",
+          "sha256": "a98095b99ec0478a7f8ddb4ee0754e425e4e8df5f28b35d404e069f8f4c90d92",
+          "train_accuracy": 0.07544,
+          "train_loss": 4.127841811447143
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-convnext_holdout-erm_flip-s67300-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-convnext_holdout-erm_flip-s67300-e2",
+          "sha256": "30b866f22bc22245ad65de324fdcc188b8f35168de5867d67c360e54676a645b",
+          "train_accuracy": 0.14964,
+          "train_loss": 3.5998768670654298
+        }
+      ],
+      "lineage_id": "p2g-convnext_holdout-erm_flip-s67300",
+      "parameter_count": 27932,
+      "recipe": "erm_flip",
+      "seed": 67300
+    },
+    {
+      "elapsed_seconds": 53.598732471466064,
+      "family": "convnext_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-convnext_holdout-label_smooth-s67301-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-convnext_holdout-label_smooth-s67301-e1",
+          "sha256": "8d333e6acb1f805eaf13e388e15446463021a6219b5c19a0ed17c4070a72a76f",
+          "train_accuracy": 0.06726,
+          "train_loss": 4.256574836425782
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-convnext_holdout-label_smooth-s67301-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-convnext_holdout-label_smooth-s67301-e2",
+          "sha256": "a4d0682f630c0525402d0b63981e73201c7138aff51f37a7d8c3765ee8f40718",
+          "train_accuracy": 0.1446,
+          "train_loss": 3.835784159622192
+        }
+      ],
+      "lineage_id": "p2g-convnext_holdout-label_smooth-s67301",
+      "parameter_count": 27932,
+      "recipe": "label_smooth",
+      "seed": 67301
+    },
+    {
+      "elapsed_seconds": 56.406686782836914,
+      "family": "convnext_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-convnext_holdout-noise_aug-s67302-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-convnext_holdout-noise_aug-s67302-e1",
+          "sha256": "85a43bf6dc5a963e5b08ffbca7a88b5a93ba518381fabaa69bdd05d4c7997537",
+          "train_accuracy": 0.06854,
+          "train_loss": 4.172244302444458
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-convnext_holdout-noise_aug-s67302-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-convnext_holdout-noise_aug-s67302-e2",
+          "sha256": "73c0b252c7284d903576c883c1928457419577bcce19861610f12fbe67043b1f",
+          "train_accuracy": 0.14522,
+          "train_loss": 3.6352086085510256
+        }
+      ],
+      "lineage_id": "p2g-convnext_holdout-noise_aug-s67302",
+      "parameter_count": 27932,
+      "recipe": "noise_aug",
+      "seed": 67302
+    },
+    {
+      "elapsed_seconds": 102.96107935905457,
+      "family": "shuffle_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-shuffle_holdout-erm_flip-s67400-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-shuffle_holdout-erm_flip-s67400-e1",
+          "sha256": "71f9a7f345d0e9bee938f9e3c85b85b507842fa2b019a0236c69ea5b3c23cab0",
+          "train_accuracy": 0.05068,
+          "train_loss": 4.313620283584595
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-shuffle_holdout-erm_flip-s67400-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-shuffle_holdout-erm_flip-s67400-e2",
+          "sha256": "0a69849160f8d4069bc4c88ffa04323322a38b72d3a36d98459ff643d0fb9270",
+          "train_accuracy": 0.11396,
+          "train_loss": 3.826523226776123
+        }
+      ],
+      "lineage_id": "p2g-shuffle_holdout-erm_flip-s67400",
+      "parameter_count": 6788,
+      "recipe": "erm_flip",
+      "seed": 67400
+    },
+    {
+      "elapsed_seconds": 106.28766989707947,
+      "family": "shuffle_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-shuffle_holdout-label_smooth-s67401-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-shuffle_holdout-label_smooth-s67401-e1",
+          "sha256": "b2a7919d94f7329931eadfff4561f484f4c957b7d75261b6a4a49b23c1cf6f87",
+          "train_accuracy": 0.0548,
+          "train_loss": 4.359596855621338
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-shuffle_holdout-label_smooth-s67401-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-shuffle_holdout-label_smooth-s67401-e2",
+          "sha256": "f17341cf96d97d16f0fe3d790d87534a09ccd12a77029ed0ebd57e7ff1c0fb31",
+          "train_accuracy": 0.11122,
+          "train_loss": 4.008765479125977
+        }
+      ],
+      "lineage_id": "p2g-shuffle_holdout-label_smooth-s67401",
+      "parameter_count": 6788,
+      "recipe": "label_smooth",
+      "seed": 67401
+    },
+    {
+      "elapsed_seconds": 119.45937252044678,
+      "family": "shuffle_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-shuffle_holdout-noise_aug-s67402-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-shuffle_holdout-noise_aug-s67402-e1",
+          "sha256": "e219ea4ff30cafa2ceca11466c7b67bfc1bbebe1c89d50c08a87e5d2b510e63b",
+          "train_accuracy": 0.0527,
+          "train_loss": 4.274558260345459
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-shuffle_holdout-noise_aug-s67402-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-shuffle_holdout-noise_aug-s67402-e2",
+          "sha256": "1f048304c9658d3ec6920f4aebb1e5b351697f16f33efd2bc7ab224df40401a3",
+          "train_accuracy": 0.10318,
+          "train_loss": 3.8600561869812013
+        }
+      ],
+      "lineage_id": "p2g-shuffle_holdout-noise_aug-s67402",
+      "parameter_count": 6788,
+      "recipe": "noise_aug",
+      "seed": 67402
+    },
+    {
+      "elapsed_seconds": 149.309485912323,
+      "family": "dilated_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-dilated_holdout-erm_flip-s67500-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-dilated_holdout-erm_flip-s67500-e1",
+          "sha256": "cbe076f2fed6867442b743c80ac92c8d3dfe4d584db9e8b78d496cbfef747e99",
+          "train_accuracy": 0.04126,
+          "train_loss": 4.3280524258422854
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-dilated_holdout-erm_flip-s67500-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-dilated_holdout-erm_flip-s67500-e2",
+          "sha256": "43be66bbfdd3882acb5b36734aef38721087b23862dd13377e19323cf21fd024",
+          "train_accuracy": 0.0846,
+          "train_loss": 3.9782863790893557
+        }
+      ],
+      "lineage_id": "p2g-dilated_holdout-erm_flip-s67500",
+      "parameter_count": 15196,
+      "recipe": "erm_flip",
+      "seed": 67500
+    },
+    {
+      "elapsed_seconds": 139.10109114646912,
+      "family": "dilated_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-dilated_holdout-label_smooth-s67501-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-dilated_holdout-label_smooth-s67501-e1",
+          "sha256": "b6f1f8934b50b830bfc6e04573434624407663f7d53dd6d5109261a386c6e2ae",
+          "train_accuracy": 0.04074,
+          "train_loss": 4.377951568603516
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-dilated_holdout-label_smooth-s67501-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-dilated_holdout-label_smooth-s67501-e2",
+          "sha256": "a8c79a6831e3e61f477ac5e64639e7d3a3eaa774faca9a56c1083678974f328c",
+          "train_accuracy": 0.09364,
+          "train_loss": 4.076760889434815
+        }
+      ],
+      "lineage_id": "p2g-dilated_holdout-label_smooth-s67501",
+      "parameter_count": 15196,
+      "recipe": "label_smooth",
+      "seed": 67501
+    },
+    {
+      "elapsed_seconds": 148.4774134159088,
+      "family": "dilated_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-dilated_holdout-noise_aug-s67502-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-dilated_holdout-noise_aug-s67502-e1",
+          "sha256": "aa8d8aa321c9582bb84f2fbef817dee929d71442194da2c268fc2906e54ff63b",
+          "train_accuracy": 0.03768,
+          "train_loss": 4.354594761962891
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-dilated_holdout-noise_aug-s67502-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-dilated_holdout-noise_aug-s67502-e2",
+          "sha256": "b37b4342345e25965bf2201db05e055836f531a4d50ccae9a3fe40913b137072",
+          "train_accuracy": 0.09402,
+          "train_loss": 3.9332611280059813
+        }
+      ],
+      "lineage_id": "p2g-dilated_holdout-noise_aug-s67502",
+      "parameter_count": 15196,
+      "recipe": "noise_aug",
+      "seed": 67502
+    },
+    {
+      "elapsed_seconds": 187.92210817337036,
+      "family": "gated_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-gated_holdout-erm_flip-s67600-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-gated_holdout-erm_flip-s67600-e1",
+          "sha256": "66b13cbeb102205dac686e5f84077a764d0a50b996407692fb289db0c7109517",
+          "train_accuracy": 0.075,
+          "train_loss": 4.100212319869995
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-gated_holdout-erm_flip-s67600-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-gated_holdout-erm_flip-s67600-e2",
+          "sha256": "15af827c18f4f1c613bfc565b7433e079a9fab078bb955614f0eb70892894654",
+          "train_accuracy": 0.1535,
+          "train_loss": 3.5516266356658934
+        }
+      ],
+      "lineage_id": "p2g-gated_holdout-erm_flip-s67600",
+      "parameter_count": 71324,
+      "recipe": "erm_flip",
+      "seed": 67600
+    },
+    {
+      "elapsed_seconds": 190.4787118434906,
+      "family": "gated_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-gated_holdout-label_smooth-s67601-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-gated_holdout-label_smooth-s67601-e1",
+          "sha256": "cf0045eed226fdbfdaa54c29f2d14ad682faebfb69e6ccb63617aa4ee77cd301",
+          "train_accuracy": 0.07704,
+          "train_loss": 4.193820944900513
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-gated_holdout-label_smooth-s67601-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-gated_holdout-label_smooth-s67601-e2",
+          "sha256": "f7ebd17a7484661de407dadbbb794447c130bc256ed0b26e14dbd7064cacca9d",
+          "train_accuracy": 0.1571,
+          "train_loss": 3.758401777496338
+        }
+      ],
+      "lineage_id": "p2g-gated_holdout-label_smooth-s67601",
+      "parameter_count": 71324,
+      "recipe": "label_smooth",
+      "seed": 67601
+    },
+    {
+      "elapsed_seconds": 199.544362783432,
+      "family": "gated_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-gated_holdout-noise_aug-s67602-e1.pt",
+          "epoch": 1,
+          "model_id": "p2g-gated_holdout-noise_aug-s67602-e1",
+          "sha256": "cc56c5bc8f80947fbb241e6f7d21b09d639dedc69fe2593376c804e935e36a79",
+          "train_accuracy": 0.07858,
+          "train_loss": 4.090423818435669
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2g/p2g-gated_holdout-noise_aug-s67602-e2.pt",
+          "epoch": 2,
+          "model_id": "p2g-gated_holdout-noise_aug-s67602-e2",
+          "sha256": "0153e3352210d74f47d15dbf7d3ce89c2ce6e4e4158fd7a8cf75f773d9743ed4",
+          "train_accuracy": 0.14796,
+          "train_loss": 3.5803255197143553
+        }
+      ],
+      "lineage_id": "p2g-gated_holdout-noise_aug-s67602",
+      "parameter_count": 71324,
+      "recipe": "noise_aug",
+      "seed": 67602
+    }
+  ]
+}

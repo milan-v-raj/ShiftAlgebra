@@ -108,6 +108,6 @@
   "note": "GitHub repositories are transport only; dataset files are not redistributed.",
   "test_count": 10000,
   "test_pickle_transport": "https://github.com/DevFelas/cifar-100-python",
-  "test_pickle_transport_commit": "cee1b8e099cad22f5aca807cac1dd23abbf461f8",
+  "test_pickle_transport_commit": "7113a884221682cf835bd6009d3bb0ffef134241",
   "train_count": 50000
 }

@@ -27,7 +27,7 @@ def prepare():
   for p in te:
    a=np.transpose(np.asarray(Image.open(p).convert('RGB'),dtype=np.uint8),(2,0,1));verified+=hashlib.sha256(a.tobytes()).digest() in canonical;test.append(a);test_y.append(label)
  if verified!=10000:raise ValueError(f'only {verified}/10000 test images match canonical pixels')
- provenance={'image_transport':'https://github.com/cyizhuo/CIFAR-100-dataset','image_transport_commit':source_commit(IMAGE_ROOT),'test_pickle_transport':'https://github.com/DevFelas/cifar-100-python','test_pickle_transport_commit':source_commit(PICKLE_ROOT.parent.parent),'canonical_test_md5':observed,'canonical_test_pixel_matches':verified,'class_names':names,'train_count':50000,'test_count':10000,'note':'GitHub repositories are transport only; dataset files are not redistributed.'}
+ provenance={'image_transport':'https://github.com/cyizhuo/CIFAR-100-dataset','image_transport_commit':source_commit(IMAGE_ROOT),'test_pickle_transport':'https://github.com/DevFelas/cifar-100-python','test_pickle_transport_commit':source_commit(PICKLE_ROOT.parent),'canonical_test_md5':observed,'canonical_test_pixel_matches':verified,'class_names':names,'train_count':50000,'test_count':10000,'note':'GitHub repositories are transport only; dataset files are not redistributed.'}
  CACHE.parent.mkdir(parents=True,exist_ok=True);torch.save({'train_images':torch.from_numpy(np.stack(train)),'train_labels':torch.tensor(train_y),'test_images':torch.from_numpy(np.stack(test)),'test_labels':torch.tensor(test_y),'provenance':provenance},CACHE);(ROOT/'v4/phase2f/DATA_PROVENANCE.json').write_text(json.dumps(provenance,indent=2,sort_keys=True)+'\n');print(CACHE);return provenance
 def load():
  if not CACHE.exists():prepare()

@@ -1,0 +1,14 @@
+{
+  "metrics": [
+    "margin",
+    "feature_drift",
+    "ece",
+    "balanced_accuracy",
+    "accuracy",
+    "mean_confidence"
+  ],
+  "protocol": "V4-P2F-CIFAR100-FULLVECTOR-CPU-001",
+  "rows": 2160,
+  "sha256": "f87dcb9bc9789001f478cba1983706b59e15ec68dd7e3b48c171024534fa10e5",
+  "status": "FULL_VECTOR_CONFIRMATION_FORECAST"
+}

@@ -107,7 +107,7 @@ V4 is isolated under [`v4/`](v4/README.md) and does not alter historical experim
 python3 v4/verify_phase0.py
 ```
 
-See [`v4/PHASE0_REPORT.md`](v4/PHASE0_REPORT.md) for the foundation audit; the Phase-1/1B reports for retained negative length-extrapolation results; the Phase-2, 2B, and 2C reports for model-bank, adaptive-mixture, and active-calibration evidence; [`v4/phase2d/PHASE2D_FINAL_REPORT.md`](v4/phase2d/PHASE2D_FINAL_REPORT.md) for the first unseen-architecture test; and [`v4/phase2e/PHASE2E_FINAL_REPORT.md`](v4/phase2e/PHASE2E_FINAL_REPORT.md) for the four-family breadth extension. The consolidated artifact is described in [`v4/CPU_BENCHMARK_README.md`](v4/CPU_BENCHMARK_README.md).
+See [`v4/PHASE0_REPORT.md`](v4/PHASE0_REPORT.md) for the foundation audit; the Phase-1/1B reports for retained negative length-extrapolation results; the Phase-2, 2B, and 2C reports for model-bank, adaptive-mixture, and active-calibration evidence; [`v4/phase2d/PHASE2D_FINAL_REPORT.md`](v4/phase2d/PHASE2D_FINAL_REPORT.md) for the first unseen-architecture test; [`v4/phase2e/PHASE2E_FINAL_REPORT.md`](v4/phase2e/PHASE2E_FINAL_REPORT.md) for the four-family breadth extension; and [`v4/phase2f/PHASE2F_FINAL_REPORT.md`](v4/phase2f/PHASE2F_FINAL_REPORT.md) for the positive CIFAR-100 six-metric confirmation. The consolidated artifact is described in [`v4/CPU_BENCHMARK_README.md`](v4/CPU_BENCHMARK_README.md).
 
 ```bash
 python3 v4/phase1/verify_phase1.py
@@ -117,6 +117,7 @@ python3 v4/phase2b/verify_phase2b.py
 python3 v4/phase2c/verify_phase2c.py
 python3 v4/phase2d/verify_phase2d.py
 python3 v4/phase2e/verify_phase2e.py
+python3 v4/phase2f/verify_phase2f.py
 python3 reproduce.py --v4-cpu
 ```
 

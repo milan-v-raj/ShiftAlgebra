@@ -1,0 +1,66 @@
+{
+  "families": {
+    "attention_holdout": 0.17791990810743513,
+    "dense_holdout": 0.48718177924542444,
+    "inception_holdout": 0.20134841577304588,
+    "mixer_holdout": 0.1350860306945612,
+    "squeeze_holdout": 0.21433353201740576,
+    "vgg_holdout": 0.7523862376247247
+  },
+  "families_favoring_full": 6,
+  "full_gates": {
+    "accuracy_regret_not_worse": true,
+    "at_least_four_metrics_better": true,
+    "full_vector_gate_passed": true,
+    "hierarchical_ci_excludes_zero": true,
+    "macro_controlled_rank_better": true,
+    "macro_normalized_mae_better": true
+  },
+  "full_improvement": {
+    "ci95": [
+      0.1547061673377025,
+      0.6168806145967346
+    ],
+    "draws": 10000,
+    "point": 0.3280426505770995
+  },
+  "full_metrics_improved": 5,
+  "macro_controlled_rank": {
+    "full15": 0.8012255645569735,
+    "g0": 0.3012145967893115,
+    "magnitude5": 0.7947540506413023
+  },
+  "macro_normalized_mae": {
+    "full15": 0.2580486354238239,
+    "g0": 0.5860912860009234,
+    "magnitude5": 0.2744047342306177
+  },
+  "magnitude_gate_remains": "PASSED",
+  "magnitude_gates": {
+    "accuracy_regret_no_worse_random_median": true,
+    "hierarchical_ci_excludes_zero": true,
+    "macro_controlled_rank_at_least_random_median": true,
+    "mae_below_random_mean": true,
+    "magnitude_gate_passed": true
+  },
+  "magnitude_random_macro_controlled_rank_median": 0.6770399245918544,
+  "magnitude_random_macro_normalized_mae_mean": 0.3503584132336642,
+  "magnitude_vs_expected_random": {
+    "ci95": [
+      0.02295764499154001,
+      0.15994515804042436
+    ],
+    "draws": 10000,
+    "point": 0.07595367900304657
+  },
+  "metrics": [
+    "margin",
+    "feature_drift",
+    "ece",
+    "accuracy",
+    "mean_confidence"
+  ],
+  "primary_gate_remains": "PASSED",
+  "reason": "balanced_accuracy and accuracy targets are equal on the balanced partition; this removes duplicate weighting",
+  "status": "POST_OUTCOME_UNIQUE_METRIC_SENSITIVITY_NO_GATE_CHANGE"
+}

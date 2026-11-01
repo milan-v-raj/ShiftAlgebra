@@ -21,3 +21,9 @@ The formal architecture-holdout gate failed because the six-lineage clustered in
 ## Recorded Phase-2E outcome
 
 A second prospectively frozen breadth extension added four new families and twelve lineages. `g1` reduced MAE from 4.443pp to 2.034pp and improved rank and regret, but TinyAttention was negative and the family-hierarchical interval [-0.072, 5.287]pp included zero. The all-required gate failed 4/5 criteria. Across five frozen banks, `g1` improves every bank's aggregate MAE, but all banks still share CIFAR-10 and related transformations; the retrospective synthesis is not independent-dataset confirmation. Across the six prospective holdout families, five favor `g1`; the independence-assuming family sign test is one-sided p=0.1094, so family breadth remains unconfirmed.
+
+## Recorded Phase-2F outcome
+
+Phase 2F restored the complete six-coordinate behavior output on canonical CIFAR-100 with separate development and sealed confirmation banks. Composition-aware full-pair forecasting reduced macro normalized MAE from 0.554 to 0.254, improved all six coordinates, produced hierarchical improvement CI [0.152, 0.538], raised macro controlled rank from 0.302 to 0.811, and lowered accuracy regret. The complete 5/5 gate passed. Prospectively selected magnitude five-pair calibration also passed against expected random selection (0.271 versus 0.338 macro normalized MAE; improvement CI [0.024, 0.133]).
+
+This supports transfer of the forecasting methodology to CIFAR-100 and a full behavior vector. It is not strict coefficient transfer: metric-specific coefficients and exponents were developed on the CIFAR-100 development split before sealed confirmation. It does not revive the universal Shift Algebra, order, uncertainty, natural-shift, or modern-model claims.

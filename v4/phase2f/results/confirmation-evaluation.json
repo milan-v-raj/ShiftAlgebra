@@ -1,0 +1,24 @@
+{
+  "behavior_csv": "v4/phase2f/results/confirmation-behavior.csv",
+  "conditions": 97,
+  "elapsed_seconds": 1387.4888036251068,
+  "lineages": 18,
+  "metrics": [
+    "margin",
+    "feature_drift",
+    "ece",
+    "balanced_accuracy",
+    "accuracy",
+    "mean_confidence"
+  ],
+  "models": 36,
+  "partition": {
+    "offset": 20,
+    "per_class": 20
+  },
+  "protocol": "V4-P2F-CIFAR100-FULLVECTOR-CPU-001",
+  "samples_per_condition": 2000,
+  "sha256": "e135aa910c853893c33d41d51c73888a192973d041f15553fb840376ca57cfb8",
+  "split": "confirmation",
+  "status": "CONFIRMATION_FULL_VECTOR_EVALUATED"
+}

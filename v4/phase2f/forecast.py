@@ -9,6 +9,7 @@ ROOT=Path(__file__).resolve().parents[2];BASE=ROOT/'v4/phase2f';RESULTS=BASE/'re
 def run():
  frozen=json.loads((BASE/'FROZEN_FULL_VECTOR_METHODS.json').read_text())
  if frozen['status']!='FULL_VECTOR_METHODS_FROZEN_CONFIRMATION_OUTCOMES_UNOPENED':raise ValueError('method not frozen')
+ if sha256(ROOT/frozen['development_behavior'])!=frozen['development_behavior_sha256']:raise ValueError('development behavior changed after method freeze')
  behavior=load_behavior(RESULTS/'confirmation-behavior.csv',{'calibration','confirmation'});lookups={}
  for name,d in frozen['designs'].items():
   rs=rows(behavior,'confirmation',d['pair_groups'],frozen['q_by_metric']);lookups[name]={(r['model_id'],r['word']):r for r in rs}

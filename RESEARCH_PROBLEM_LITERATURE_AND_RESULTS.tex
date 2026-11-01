@@ -949,8 +949,32 @@ banks share CIFAR-10, transformation semantics, and some architecture classes,
 this is retrospective stability analysis rather than an independent-dataset
 confidence statement.  A separate six-family retrospective summary finds five
 positive family means and one-sided independence-assuming sign $p=0.1094$;
-thus architecture breadth remains unconfirmed.  This strengthens the narrow incremental forecasting
-conclusion while preserving the failed Phase-2B, Phase-2D, and Phase-2E gates.
+thus architecture breadth remains unconfirmed.  This strengthens the narrow
+incremental forecasting conclusion while preserving the failed Phase-2B,
+Phase-2D, and Phase-2E gates.
+
+\subsection{Phase 2F: CIFAR-100 and the complete behavior vector}
+
+Phase 2F restored all six outputs: probability margin, penultimate-feature
+drift, ECE, balanced accuracy, overall accuracy, and mean confidence.  It used
+18 development and 18 sealed confirmation lineages across six architecture
+families on canonical CIFAR-100.  Development-selected coefficients,
+exponents, normalization scales, and pair designs were committed before
+confirmation outcomes.
+
+Full composition reduced macro normalized MAE from 0.554 to 0.254, improved
+all six coordinates, raised macro controlled model-rank Spearman from 0.302 to
+0.811, and reduced accuracy top-1 regret from 1.560pp to 0.382pp.  The
+family/lineage/reversal improvement interval was $[0.152,0.538]$, so all five
+primary criteria passed.  A prospectively selected magnitude five-pair design
+also passed against expected random selection: 0.271 versus 0.338 macro
+normalized MAE, with improvement interval $[0.024,0.133]$.
+
+Balanced and overall accuracy are redundant on the balanced test partition;
+a post-outcome analysis excluding balanced accuracy preserves both decisions.
+The coefficients were fit on CIFAR-100 development data, so this establishes
+sealed within-dataset confirmation of the full-vector methodology rather than
+strict no-refit coefficient transfer from CIFAR-10.
 
 % =============================================================================
 \section{Current scientific conclusion and recommended framing}
@@ -969,6 +993,10 @@ shows multiple composition regimes:
   \item Under a constrained calibration budget, development-informed pair
   selection can outperform expected random pair selection, although it remains
   materially weaker than complete pair calibration.
+  \item On sealed CIFAR-100 confirmation, development-fitted composition
+  forecasting improves every coordinate of the six-dimensional behavior
+  vector and magnitude-based pair selection beats expected random calibration;
+  this is methodology confirmation, not strict coefficient transfer.
 \end{enumerate}
 
 The safest paper-level framing is therefore:
@@ -1045,7 +1073,8 @@ rescued by tuning on this confirmation.
 \texttt{v4/phase2c/INFORMATION\_AUDIT.md} & Phase-2C access, equal-budget, clustering, and numerical audit.\\
 \texttt{v4/phase2d/PHASE2D\_FINAL\_REPORT.md} & First unseen-architecture transfer test.\\
 \texttt{v4/phase2e/PHASE2E\_FINAL\_REPORT.md} & Four-family prospective breadth extension.\\
-\texttt{v4/results/CPU\_CROSS\_PHASE\_SYNTHESIS.md} & No-refit synthesis across all four CPU confirmation banks.\\
+\texttt{v4/phase2f/PHASE2F\_FINAL\_REPORT.md} & CIFAR-100 complete-vector confirmation.\\
+\texttt{v4/results/CPU\_CROSS\_PHASE\_SYNTHESIS.md} & No-refit synthesis across five CIFAR-10 CPU confirmation banks.\\
 \bottomrule
 \end{tabular}
 \end{center}

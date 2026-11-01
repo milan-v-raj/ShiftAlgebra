@@ -8,7 +8,7 @@ from v4.phase2f import METRICS,PROTOCOL_ID
 from v4.phase2f.method import all_groups,apply,fit,load_behavior,magnitude_design,rows,select_q
 ROOT=Path(__file__).resolve().parents[2];BASE=ROOT/'v4/phase2f';RESULTS=BASE/'results';OUTPUT=BASE/'FROZEN_FULL_VECTOR_METHODS.json';RANDOM_SEED=22702
 def score(rs,models,scales):
- raw={m:100*float(np.mean([abs(apply(r,models[m])-r['target'][m]) for r in rs])) for m in METRICS};return {'raw_mae':raw,'macro_normalized_mae':float(np.mean([raw[m]/(100*scales[m]) for m in METRICS]))}
+ raw={m:float(np.mean([abs(apply(r,models[m])-r['target'][m]) for r in rs])) for m in METRICS};return {'raw_mae':raw,'macro_normalized_mae':float(np.mean([raw[m]/scales[m] for m in METRICS]))}
 def freeze():
  source=RESULTS/'development-behavior.csv';behavior=load_behavior(source,{'calibration','development'});targets=[r for model in behavior.values() for r in model.values() if r['word_role']=='development'];scales={m:max(float(np.std([r[m] for r in targets])),1e-6) for m in METRICS};q,search=select_q(behavior);mag=magnitude_design(behavior,scales);rng=random.Random(RANDOM_SEED);groups=list(all_groups());randoms={};seen={tuple(sorted(mag))}
  while len(randoms)<20:

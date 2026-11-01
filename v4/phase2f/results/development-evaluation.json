@@ -1,0 +1,24 @@
+{
+  "behavior_csv": "v4/phase2f/results/development-behavior.csv",
+  "conditions": 97,
+  "elapsed_seconds": 1342.3036103248596,
+  "lineages": 18,
+  "metrics": [
+    "margin",
+    "feature_drift",
+    "ece",
+    "balanced_accuracy",
+    "accuracy",
+    "mean_confidence"
+  ],
+  "models": 36,
+  "partition": {
+    "offset": 0,
+    "per_class": 20
+  },
+  "protocol": "V4-P2F-CIFAR100-FULLVECTOR-CPU-001",
+  "samples_per_condition": 2000,
+  "sha256": "8c3289ac47c01267751a2f3d8104d1940f04e20b8fa0cec4dea0c2baef7b90a7",
+  "split": "development",
+  "status": "DEVELOPMENT_FULL_VECTOR_EVALUATED"
+}

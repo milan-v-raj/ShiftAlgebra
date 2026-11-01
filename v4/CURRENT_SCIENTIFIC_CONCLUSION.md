@@ -13,3 +13,7 @@ Frozen result interpretation:
 5. Order and expert-disagreement uncertainty are not supported as headline claims.
 
 Phase 2D will not revise any method. It applies already frozen `g0`, `g1`, full ACHM, active/random five-pair designs, and development-frozen alternative selectors to two architecture families absent from all method development. A positive or negative result will be retained. No Phase-2D outcome can retroactively change the gates above.
+
+## Recorded Phase-2D outcome
+
+The formal architecture-holdout gate failed because the six-lineage clustered interval included zero, although `g1` improved point MAE, controlled rank, and regret. The earlier active-pair gate also did not fully replicate. These results narrow rather than replace the frozen conclusion.

@@ -924,6 +924,25 @@ reached 2.592pp.  Full fifteen-group ACHM and prior $g_1$ reached 1.603pp and
 The result therefore supports selection over expected random calibration, not
 global optimality or full-budget equivalence.
 
+\subsection{Phase 2D and cross-phase synthesis}
+
+Two architecture families absent from method fitting, TinyVGG and TinyDenseNet,
+were then tested without changing any method.  Frozen $g_1$ reduced MAE from
+2.978pp to 1.800pp, improved controlled rank from 0.270 to 0.621, and lowered
+top-1 regret.  The six-lineage clustered improvement interval was
+$[-0.042,2.293]$pp, so the formal architecture-holdout gate failed despite the
+favorable point estimates.  The Phase-2C active selector also failed its full
+replication gate; magnitude-only pair selection was the strongest five-pair
+MAE heuristic on this holdout.
+
+A no-refit synthesis across four independently frozen banks totals 51
+lineages, 102 snapshots, 282 bank-specific environments, and 7,308 prediction
+rows.  Macro-bank MAE fell from 3.005pp for $g_0$ to 1.547pp for $g_1$; a
+hierarchical bank/reversal/lineage bootstrap estimated a 1.448pp improvement
+with 95\% interval $[0.954,1.901]$pp.  This strengthens the narrow incremental
+forecasting conclusion while preserving the failed Phase-2B and Phase-2D
+gates.
+
 % =============================================================================
 \section{Current scientific conclusion and recommended framing}
 % =============================================================================
@@ -1015,6 +1034,8 @@ rescued by tuning on this confirmation.
 \texttt{v4/phase2b/INFORMATION\_AUDIT.md} & Phase-2B chronology, information-access, clustering, and numerical audit.\\
 \texttt{v4/phase2c/PHASE2C\_FINAL\_REPORT.md} & Fresh active-versus-random pair-calibration results.\\
 \texttt{v4/phase2c/INFORMATION\_AUDIT.md} & Phase-2C access, equal-budget, clustering, and numerical audit.\\
+\texttt{v4/phase2d/PHASE2D\_FINAL\_REPORT.md} & Unseen-architecture transfer and selector comparison.\\
+\texttt{v4/results/CPU\_CROSS\_PHASE\_SYNTHESIS.md} & No-refit synthesis across all four CPU confirmation banks.\\
 \bottomrule
 \end{tabular}
 \end{center}

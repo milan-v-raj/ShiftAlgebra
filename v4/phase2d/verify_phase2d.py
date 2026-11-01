@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Verify Phase-2D frozen and result artifacts."""
-import csv,json,sys
+import csv,hashlib,json,sys
 from pathlib import Path
 import numpy as np
 ROOT=Path(__file__).resolve().parents[2]
@@ -10,7 +10,7 @@ def verify():
  checks=[]; m=json.loads((BASE/"PHASE2D_MANIFEST.json").read_text()); assert m["counts"]=={"calibration":37,"lineages":6,"snapshots":12,"targets":64}; checks.append("manifest counts and unseen families")
  f=json.loads((BASE/"FROZEN_HOLDOUT_METHODS.json").read_text()); assert f["status"]=="ALL_METHODS_FROZEN_ARCHITECTURE_OUTCOMES_UNOPENED" and len(f["random_designs"])==20; checks.append("all methods frozen")
  if (RESULTS/"behavior.csv").exists():
-  b=list(csv.DictReader((RESULTS/"behavior.csv").open())); assert len(b)==1212 and len({r["lineage_id"] for r in b})==6; checks.append("behavior accounting")
+  bp=RESULTS/"behavior.csv"; b=list(csv.DictReader(bp.open())); e=json.loads((RESULTS/"evaluation.json").read_text()); assert len(b)==1212 and len({r["lineage_id"] for r in b})==6; assert hashlib.sha256(bp.read_bytes()).hexdigest()==e["sha256"]; checks.append("behavior accounting and hash")
  if (RESULTS/"forecast.csv").exists():
   rows=list(csv.DictReader((RESULTS/"forecast.csv").open())); assert len(rows)==768
   methods=["g0_prior","g1_prior","full15","active","magnitude","variance","coverage","d_optimal",*[f"random_{i:02d}" for i in range(20)]]

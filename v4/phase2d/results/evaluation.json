@@ -1,0 +1,15 @@
+{
+  "behavior_csv": "v4/phase2d/results/behavior.csv",
+  "conditions": 101,
+  "elapsed_seconds": 678.8668613433838,
+  "lineages": 6,
+  "models": 12,
+  "partition": {
+    "offset": 400,
+    "per_class": 100
+  },
+  "protocol": "V4-P2D-ARCH-HOLDOUT-CPU-001",
+  "samples_per_condition": 1000,
+  "sha256": "f0870e47d7a6d751bf941e8249b7362ae32467c3325ccdb5ba5f341ef5e88328",
+  "status": "ARCHITECTURE_HOLDOUT_EVALUATED"
+}

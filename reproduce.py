@@ -8,6 +8,7 @@ Usage examples:
   python reproduce.py --v2          # Run full 6-primitive Shift Algebra v2 pipeline (Regimes II & III + 4-prim)
   python reproduce.py --v3          # Run Phase V3 Reviewer-Proofing Suite (Gaps 1-5)
   python reproduce.py --gap1        # Run individual V3 gap (--gap1, --gap2, --gap3, --gap4, --gap5)
+  python reproduce.py --v4-cpu      # Verify and summarize frozen V4 CPU Phases 2--2D
   python reproduce.py --all         # Run S1-S3 + V1 + V2 + V3 end-to-end
 """
 import argparse
@@ -146,6 +147,8 @@ def main():
     parser.add_argument("--gap3", action="store_true", help="Run V3 Gap 3 (Shift-primitive holdout test)")
     parser.add_argument("--gap4", action="store_true", help="Run V3 Gap 4 (External generalization: ViT, Fashion-MNIST, CIFAR-100)")
     parser.add_argument("--gap5", action="store_true", help="Run V3 Gap 5 (Counterfactual H & multi-level stats)")
+    parser.add_argument("--v4-cpu", action="store_true",
+                        help="Verify and summarize committed V4 CPU Phases 2--2D")
     parser.add_argument("--all", action="store_true",
                         help="Re-run S1-S3 + V1 + V2 + V3 end-to-end")
 
@@ -170,6 +173,9 @@ def main():
         ran_any = True
     if args.v3:
         run_v3("all")
+        ran_any = True
+    if args.v4_cpu:
+        _run_module("v4.reproduce_cpu", "--verify", "--summary")
         ran_any = True
     for g in ["gap1", "gap2", "gap3", "gap4", "gap5"]:
         if getattr(args, g):

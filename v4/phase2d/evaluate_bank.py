@@ -29,5 +29,5 @@ def run():
  RESULTS.mkdir(parents=True,exist_ok=True); path=RESULTS/"behavior.csv"
  with path.open("w",newline="") as h:
   w=csv.DictWriter(h,fieldnames=list(rows[0]),lineterminator="\n"); w.writeheader(); w.writerows(rows)
- out={"protocol":PROTOCOL_ID,"status":"ARCHITECTURE_HOLDOUT_EVALUATED","models":12,"lineages":6,"conditions":101,"samples_per_condition":1000,"partition":{"per_class":100,"offset":400},"behavior_csv":str(path),"sha256":sha256(path),"elapsed_seconds":time.time()-started}; (RESULTS/"evaluation.json").write_text(json.dumps(out,indent=2,sort_keys=True)+"\n"); return out
+ out={"protocol":PROTOCOL_ID,"status":"ARCHITECTURE_HOLDOUT_EVALUATED","models":12,"lineages":6,"conditions":101,"samples_per_condition":1000,"partition":{"per_class":100,"offset":400},"behavior_csv":"v4/phase2d/results/behavior.csv","sha256":sha256(path),"elapsed_seconds":time.time()-started}; (RESULTS/"evaluation.json").write_text(json.dumps(out,indent=2,sort_keys=True)+"\n"); return out
 if __name__=="__main__": run()

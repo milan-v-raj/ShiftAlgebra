@@ -13,13 +13,14 @@ This folder executes [`NEURIPS_DEVELOPMENT_PLAN.md`](../NEURIPS_DEVELOPMENT_PLAN
 | **2B. Adaptive hazard mixture** | **COMPLETE — PRIMARY GATE FAILED** | Fresh ACHM MAE improves 1.719pp to 1.593pp, but clustered CI includes zero and controlled rank declines; prior `g1` remains best at 1.241pp |
 | **2C. Active pair calibration** | **COMPLETE — PRIMARY GATE PASSED** | Five selected pair groups reach 3.176pp vs 3.636pp expected random MAE; clustered improvement CI [0.119, 0.889]pp |
 | **2D. Architecture-family holdout** | **COMPLETE — PRIMARY GATE FAILED** | `g1` improves 2.978pp to 1.800pp and rank/regret, but six-lineage CI [-0.042, 2.293]pp includes zero |
+| **2E. Architecture-breadth extension** | **COMPLETE — PRIMARY GATE FAILED** | Four new families: `g1` improves 4.443pp to 2.034pp, but family-hierarchical CI [-0.072, 5.287]pp includes zero |
 | 3. ImageNet/realistic corruptions | NOT STARTED | — |
 | 4. Natural/hybrid shifts | NOT STARTED | — |
 | 5. Method freeze/preregistration | NOT STARTED | — |
 | 6. One-shot final evaluation | NOT STARTED | — |
 | 7. Paper and artifact | NOT STARTED | — |
 
-Completed Phase-1, Phase-1B, Phase-2 pilot, Phase-2B, Phase-2C, and Phase-2D results are documented in their frozen reports; no result should be inferred for unstarted Phases 3--7.
+Completed Phase-1, Phase-1B, Phase-2 pilot, Phase-2B, Phase-2C, Phase-2D, and Phase-2E results are documented in their frozen reports; no result should be inferred for unstarted Phases 3--7.
 
 ## Layout
 
@@ -62,6 +63,7 @@ python3 v4/phase2/verify_phase2.py
 python3 v4/phase2b/verify_phase2b.py
 python3 v4/phase2c/verify_phase2c.py
 python3 v4/phase2d/verify_phase2d.py
+python3 v4/phase2e/verify_phase2e.py
 python3 -m v4.reproduce_cpu --verify --summary
 ```
 

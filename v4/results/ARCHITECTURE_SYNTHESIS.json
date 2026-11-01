@@ -1,0 +1,32 @@
+{
+  "bootstrap": {
+    "ci95_pp": [
+      0.24376532924550123,
+      4.085660283862058
+    ],
+    "draws": 10000,
+    "hierarchy": "architecture family -> reversal group and lineage",
+    "seed": 22604
+  },
+  "exact_one_sided_sign_p_assuming_independent_families": 0.109375,
+  "families": 6,
+  "families_favoring_g1": 5,
+  "family_improvement_pp": {
+    "phase2d:dense_holdout": 0.4528124914064771,
+    "phase2d:vgg_holdout": 1.9038785467983759,
+    "phase2e:attention_holdout": -0.642045260301602,
+    "phase2e:inception_holdout": 1.326593892702829,
+    "phase2e:mixer_holdout": 6.668595951404284,
+    "phase2e:squeeze_holdout": 2.284765595943473
+  },
+  "interpretation": "Retrospective sensitivity only. Families share CIFAR-10, transformations, recipes, and tiny-model design constraints.",
+  "lineages": 18,
+  "macro_family_improvement_pp": 1.999100202992306,
+  "phase_gates": {
+    "phase2d": "FAIL",
+    "phase2e": "FAIL"
+  },
+  "rows": 2208,
+  "snapshots": 36,
+  "status": "RETROSPECTIVE_ARCHITECTURE_SYNTHESIS_COMPLETE_NO_GATE_CHANGE"
+}

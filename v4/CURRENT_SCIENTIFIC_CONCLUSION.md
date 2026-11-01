@@ -17,3 +17,7 @@ Phase 2D will not revise any method. It applies already frozen `g0`, `g1`, full 
 ## Recorded Phase-2D outcome
 
 The formal architecture-holdout gate failed because the six-lineage clustered interval included zero, although `g1` improved point MAE, controlled rank, and regret. The earlier active-pair gate also did not fully replicate. A post-outcome audit found no leak, but confirmed heterogeneity (five of six positive lineages; exact lineage sign-flip p=0.0625 one-sided) and only two family-level units. The four-bank synthesis is retrospective and not independent-dataset confirmation. These results narrow rather than replace the frozen conclusion.
+
+## Recorded Phase-2E outcome
+
+A second prospectively frozen breadth extension added four new families and twelve lineages. `g1` reduced MAE from 4.443pp to 2.034pp and improved rank and regret, but TinyAttention was negative and the family-hierarchical interval [-0.072, 5.287]pp included zero. The all-required gate failed 4/5 criteria. Across five frozen banks, `g1` improves every bank's aggregate MAE, but all banks still share CIFAR-10 and related transformations; the retrospective synthesis is not independent-dataset confirmation. Across the six prospective holdout families, five favor `g1`; the independence-assuming family sign test is one-sided p=0.1094, so family breadth remains unconfirmed.

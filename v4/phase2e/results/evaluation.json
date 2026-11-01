@@ -1,0 +1,15 @@
+{
+  "behavior_csv": "v4/phase2e/results/behavior.csv",
+  "conditions": 97,
+  "elapsed_seconds": 806.9156539440155,
+  "lineages": 12,
+  "models": 24,
+  "partition": {
+    "offset": 500,
+    "per_class": 100
+  },
+  "protocol": "V4-P2E-ARCH-BREADTH-CPU-001",
+  "samples_per_condition": 1000,
+  "sha256": "eebf4eaabbe7d3ed30df093e86dcc02bb46e57d5d9a58d26e5f917c329ef9e42",
+  "status": "ARCHITECTURE_BREADTH_EVALUATED"
+}

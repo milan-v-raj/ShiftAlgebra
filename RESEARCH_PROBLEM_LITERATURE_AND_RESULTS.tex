@@ -924,27 +924,33 @@ reached 2.592pp.  Full fifteen-group ACHM and prior $g_1$ reached 1.603pp and
 The result therefore supports selection over expected random calibration, not
 global optimality or full-budget equivalence.
 
-\subsection{Phase 2D and cross-phase synthesis}
+\subsection{Phases 2D--2E and cross-phase synthesis}
 
 Two architecture families absent from method fitting, TinyVGG and TinyDenseNet,
-were then tested without changing any method.  Frozen $g_1$ reduced MAE from
+were first tested without changing any method.  Frozen $g_1$ reduced MAE from
 2.978pp to 1.800pp, improved controlled rank from 0.270 to 0.621, and lowered
 top-1 regret.  The six-lineage clustered improvement interval was
-$[-0.042,2.293]$pp, so the formal architecture-holdout gate failed despite the
-favorable point estimates.  The Phase-2C active selector also failed its full
-replication gate; magnitude-only pair selection was the strongest five-pair
-MAE heuristic on this holdout.
+$[-0.042,2.293]$pp, so the formal Phase-2D gate failed.
 
-A no-refit synthesis across four independently frozen banks totals 51
-lineages, 102 snapshots, 282 bank-specific environments, and 7,308 prediction
-rows.  Macro-bank MAE fell from 3.005pp for $g_0$ to 1.547pp for $g_1$; a
-hierarchical bank/reversal/lineage bootstrap estimated a 1.448pp improvement
-with descriptive 95\% sensitivity interval $[0.954,1.901]$pp.  Because the
-four banks share CIFAR-10, transformation semantics, and some architecture
-classes, this is retrospective stability analysis rather than an
-independent-dataset confidence statement.  This strengthens the narrow
-incremental forecasting conclusion while preserving the failed Phase-2B and
-Phase-2D gates.
+A second prospective extension added TinyInception, TinySqueezeNet, TinyMixer,
+and TinyAttention, twelve new lineages, disjoint images, and sixty new words.
+Here $g_1$ reduced MAE from 4.443pp to 2.034pp, raised controlled rank from
+0.159 to 0.755, and reduced top-1 regret from 7.348pp to zero.  Three family
+means were positive, but TinyAttention was negative and the family-hierarchical
+interval $[-0.072,5.287]$pp included zero.  Phase 2E therefore also failed its
+all-required gate (four of five criteria passed).
+
+A no-refit synthesis across five independently frozen banks totals 63
+lineages, 126 snapshots, 342 bank-specific environments, and 8,748 prediction
+rows.  Macro-bank MAE fell from 3.292pp for $g_0$ to 1.644pp for $g_1$; a
+hierarchical bank/reversal/lineage bootstrap estimated a 1.641pp improvement
+with descriptive sensitivity interval $[1.072,2.301]$pp.  Because the five
+banks share CIFAR-10, transformation semantics, and some architecture classes,
+this is retrospective stability analysis rather than an independent-dataset
+confidence statement.  A separate six-family retrospective summary finds five
+positive family means and one-sided independence-assuming sign $p=0.1094$;
+thus architecture breadth remains unconfirmed.  This strengthens the narrow incremental forecasting
+conclusion while preserving the failed Phase-2B, Phase-2D, and Phase-2E gates.
 
 % =============================================================================
 \section{Current scientific conclusion and recommended framing}
@@ -1037,7 +1043,8 @@ rescued by tuning on this confirmation.
 \texttt{v4/phase2b/INFORMATION\_AUDIT.md} & Phase-2B chronology, information-access, clustering, and numerical audit.\\
 \texttt{v4/phase2c/PHASE2C\_FINAL\_REPORT.md} & Fresh active-versus-random pair-calibration results.\\
 \texttt{v4/phase2c/INFORMATION\_AUDIT.md} & Phase-2C access, equal-budget, clustering, and numerical audit.\\
-\texttt{v4/phase2d/PHASE2D\_FINAL\_REPORT.md} & Unseen-architecture transfer and selector comparison.\\
+\texttt{v4/phase2d/PHASE2D\_FINAL\_REPORT.md} & First unseen-architecture transfer test.\\
+\texttt{v4/phase2e/PHASE2E\_FINAL\_REPORT.md} & Four-family prospective breadth extension.\\
 \texttt{v4/results/CPU\_CROSS\_PHASE\_SYNTHESIS.md} & No-refit synthesis across all four CPU confirmation banks.\\
 \bottomrule
 \end{tabular}

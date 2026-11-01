@@ -1,0 +1,321 @@
+{
+  "elapsed_seconds": 877.3454592227936,
+  "lineages": 12,
+  "models": 24,
+  "protocol": "V4-P2E-ARCH-BREADTH-CPU-001",
+  "status": "ARCHITECTURE_BREADTH_TRAINED",
+  "summaries": [
+    {
+      "elapsed_seconds": 195.13541173934937,
+      "family": "inception_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-inception_holdout-erm_flip-s63100-e1.pt",
+          "epoch": 1,
+          "model_id": "p2e-inception_holdout-erm_flip-s63100-e1",
+          "sha256": "453ea017b9d91a9801cb25ce9771053920adc347846dc88c0a96479ccf2d16f6",
+          "train_accuracy": 0.197,
+          "train_loss": 2.137560250854492
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-inception_holdout-erm_flip-s63100-e2.pt",
+          "epoch": 2,
+          "model_id": "p2e-inception_holdout-erm_flip-s63100-e2",
+          "sha256": "342544dd700d316f32983b5ae243d84c46c2e0a10d5cb39a9acc98f8eb4d8b05",
+          "train_accuracy": 0.281275,
+          "train_loss": 1.9038632125854493
+        }
+      ],
+      "lineage_id": "p2e-inception_holdout-erm_flip-s63100",
+      "parameter_count": 5206,
+      "recipe": "erm_flip",
+      "seed": 63100
+    },
+    {
+      "elapsed_seconds": 181.56633710861206,
+      "family": "inception_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-inception_holdout-label_smooth-s63101-e1.pt",
+          "epoch": 1,
+          "model_id": "p2e-inception_holdout-label_smooth-s63101-e1",
+          "sha256": "00e9b33251f1ee946e9c32eb3dc9e0da30eb06f3e549c19d98c1db74955f8b71",
+          "train_accuracy": 0.20455,
+          "train_loss": 2.1535323455810547
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-inception_holdout-label_smooth-s63101-e2.pt",
+          "epoch": 2,
+          "model_id": "p2e-inception_holdout-label_smooth-s63101-e2",
+          "sha256": "69fab5b089e745553824e360328c0a9c332baaefbd856b4acc7ce92ac4fe4aa9",
+          "train_accuracy": 0.301275,
+          "train_loss": 1.9558654428482056
+        }
+      ],
+      "lineage_id": "p2e-inception_holdout-label_smooth-s63101",
+      "parameter_count": 5206,
+      "recipe": "label_smooth",
+      "seed": 63101
+    },
+    {
+      "elapsed_seconds": 191.62534379959106,
+      "family": "inception_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-inception_holdout-noise_aug-s63102-e1.pt",
+          "epoch": 1,
+          "model_id": "p2e-inception_holdout-noise_aug-s63102-e1",
+          "sha256": "a58597ccda2b7085ab7d2e4684648154c44b56009b2d5ff6f64d07e9bbb070a8",
+          "train_accuracy": 0.1916,
+          "train_loss": 2.126075193405151
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-inception_holdout-noise_aug-s63102-e2.pt",
+          "epoch": 2,
+          "model_id": "p2e-inception_holdout-noise_aug-s63102-e2",
+          "sha256": "8136170c453fc58418bdee4972bad39b90cfc49a31c6a8315024d258599fc009",
+          "train_accuracy": 0.27235,
+          "train_loss": 1.899976321220398
+        }
+      ],
+      "lineage_id": "p2e-inception_holdout-noise_aug-s63102",
+      "parameter_count": 5206,
+      "recipe": "noise_aug",
+      "seed": 63102
+    },
+    {
+      "elapsed_seconds": 44.65572381019592,
+      "family": "squeeze_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-squeeze_holdout-erm_flip-s63200-e1.pt",
+          "epoch": 1,
+          "model_id": "p2e-squeeze_holdout-erm_flip-s63200-e1",
+          "sha256": "ed988c878216393c6967b391f0da354d456e2a13e675708f06a924c3c0adbc71",
+          "train_accuracy": 0.1654,
+          "train_loss": 2.183892866897583
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-squeeze_holdout-erm_flip-s63200-e2.pt",
+          "epoch": 2,
+          "model_id": "p2e-squeeze_holdout-erm_flip-s63200-e2",
+          "sha256": "06eed4dc6e1c65f33aa27b795bbad43ef1c8b0983d00ff8620aea85cc770d2aa",
+          "train_accuracy": 0.2935,
+          "train_loss": 1.8607264207839966
+        }
+      ],
+      "lineage_id": "p2e-squeeze_holdout-erm_flip-s63200",
+      "parameter_count": 5586,
+      "recipe": "erm_flip",
+      "seed": 63200
+    },
+    {
+      "elapsed_seconds": 44.64575171470642,
+      "family": "squeeze_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-squeeze_holdout-label_smooth-s63201-e1.pt",
+          "epoch": 1,
+          "model_id": "p2e-squeeze_holdout-label_smooth-s63201-e1",
+          "sha256": "4157fefe2e1afc3482c1158cbe4ec2492e134addbc94518db5b89daf715c181c",
+          "train_accuracy": 0.172175,
+          "train_loss": 2.1864138381958007
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-squeeze_holdout-label_smooth-s63201-e2.pt",
+          "epoch": 2,
+          "model_id": "p2e-squeeze_holdout-label_smooth-s63201-e2",
+          "sha256": "95be92a9df0ae0e30b8abbfc76788f92eb75aba911b73abd88c2a25c619baa0b",
+          "train_accuracy": 0.2608,
+          "train_loss": 2.010945111465454
+        }
+      ],
+      "lineage_id": "p2e-squeeze_holdout-label_smooth-s63201",
+      "parameter_count": 5586,
+      "recipe": "label_smooth",
+      "seed": 63201
+    },
+    {
+      "elapsed_seconds": 46.355063676834106,
+      "family": "squeeze_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-squeeze_holdout-noise_aug-s63202-e1.pt",
+          "epoch": 1,
+          "model_id": "p2e-squeeze_holdout-noise_aug-s63202-e1",
+          "sha256": "8e0b0791004fee142b597fa606c1ce21862d7c275a928075658256fad1d50522",
+          "train_accuracy": 0.165275,
+          "train_loss": 2.160722377204895
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-squeeze_holdout-noise_aug-s63202-e2.pt",
+          "epoch": 2,
+          "model_id": "p2e-squeeze_holdout-noise_aug-s63202-e2",
+          "sha256": "2cdd7cbee341509ea09d64c1f10d7aaf012d6d42ebce15c1249e0fd8fd4e17c6",
+          "train_accuracy": 0.2426,
+          "train_loss": 1.963905832862854
+        }
+      ],
+      "lineage_id": "p2e-squeeze_holdout-noise_aug-s63202",
+      "parameter_count": 5586,
+      "recipe": "noise_aug",
+      "seed": 63202
+    },
+    {
+      "elapsed_seconds": 15.82688593864441,
+      "family": "mixer_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-mixer_holdout-erm_flip-s63300-e1.pt",
+          "epoch": 1,
+          "model_id": "p2e-mixer_holdout-erm_flip-s63300-e1",
+          "sha256": "96a516f3d53751400e0eb28e1635fbceae992ee0143d6685dbbdc992eb06e45e",
+          "train_accuracy": 0.282225,
+          "train_loss": 1.9470949028015136
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-mixer_holdout-erm_flip-s63300-e2.pt",
+          "epoch": 2,
+          "model_id": "p2e-mixer_holdout-erm_flip-s63300-e2",
+          "sha256": "3878cce0216e6897e0da6df36c028e750de8273484aee66ab96851c7801ed43b",
+          "train_accuracy": 0.432075,
+          "train_loss": 1.5550450477600097
+        }
+      ],
+      "lineage_id": "p2e-mixer_holdout-erm_flip-s63300",
+      "parameter_count": 23058,
+      "recipe": "erm_flip",
+      "seed": 63300
+    },
+    {
+      "elapsed_seconds": 15.843238830566406,
+      "family": "mixer_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-mixer_holdout-label_smooth-s63301-e1.pt",
+          "epoch": 1,
+          "model_id": "p2e-mixer_holdout-label_smooth-s63301-e1",
+          "sha256": "6e56817594b5d2b81e318ed6087e4d2f68924fb08f8e6ff542682f3ffd90b7cc",
+          "train_accuracy": 0.30325,
+          "train_loss": 1.9800847354888915
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-mixer_holdout-label_smooth-s63301-e2.pt",
+          "epoch": 2,
+          "model_id": "p2e-mixer_holdout-label_smooth-s63301-e2",
+          "sha256": "5e08e906905d0510dbcb95f70dcf273ddaa1f7926d644ac83f0a1e89bff64517",
+          "train_accuracy": 0.441125,
+          "train_loss": 1.6990676055908203
+        }
+      ],
+      "lineage_id": "p2e-mixer_holdout-label_smooth-s63301",
+      "parameter_count": 23058,
+      "recipe": "label_smooth",
+      "seed": 63301
+    },
+    {
+      "elapsed_seconds": 17.85553741455078,
+      "family": "mixer_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-mixer_holdout-noise_aug-s63302-e1.pt",
+          "epoch": 1,
+          "model_id": "p2e-mixer_holdout-noise_aug-s63302-e1",
+          "sha256": "5920d9656e74ea5f090249286c66a9bd160722fac75c1f8724949f8eb544b8ca",
+          "train_accuracy": 0.290225,
+          "train_loss": 1.9314758525848388
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-mixer_holdout-noise_aug-s63302-e2.pt",
+          "epoch": 2,
+          "model_id": "p2e-mixer_holdout-noise_aug-s63302-e2",
+          "sha256": "b59b329029612ad407d92ae001caed640145929b8bd98c33813788e297770b97",
+          "train_accuracy": 0.4192,
+          "train_loss": 1.5776031951904297
+        }
+      ],
+      "lineage_id": "p2e-mixer_holdout-noise_aug-s63302",
+      "parameter_count": 23058,
+      "recipe": "noise_aug",
+      "seed": 63302
+    },
+    {
+      "elapsed_seconds": 39.181822061538696,
+      "family": "attention_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-attention_holdout-erm_flip-s63400-e1.pt",
+          "epoch": 1,
+          "model_id": "p2e-attention_holdout-erm_flip-s63400-e1",
+          "sha256": "d9204d08d98a5f6c0a9743d4e6bc75d53e157686bb7b52477e9105bd38586e84",
+          "train_accuracy": 0.2752,
+          "train_loss": 1.942527979850769
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-attention_holdout-erm_flip-s63400-e2.pt",
+          "epoch": 2,
+          "model_id": "p2e-attention_holdout-erm_flip-s63400-e2",
+          "sha256": "5be3cb6bb89145b2507067a5e1290d3abc56367975a3e6915ea4a50d71c3140d",
+          "train_accuracy": 0.3936,
+          "train_loss": 1.6446130744934082
+        }
+      ],
+      "lineage_id": "p2e-attention_holdout-erm_flip-s63400",
+      "parameter_count": 12754,
+      "recipe": "erm_flip",
+      "seed": 63400
+    },
+    {
+      "elapsed_seconds": 40.947941064834595,
+      "family": "attention_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-attention_holdout-label_smooth-s63401-e1.pt",
+          "epoch": 1,
+          "model_id": "p2e-attention_holdout-label_smooth-s63401-e1",
+          "sha256": "d1fb369c19ae1c3b243a4ef978aba297b5a28c14d0ec86893eb7d19270761a88",
+          "train_accuracy": 0.271925,
+          "train_loss": 2.02730269985199
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-attention_holdout-label_smooth-s63401-e2.pt",
+          "epoch": 2,
+          "model_id": "p2e-attention_holdout-label_smooth-s63401-e2",
+          "sha256": "1e204c4febca21facbac6581c24c7e5e803898c55d22f3ee96b33266376f3255",
+          "train_accuracy": 0.3791,
+          "train_loss": 1.8045658897399903
+        }
+      ],
+      "lineage_id": "p2e-attention_holdout-label_smooth-s63401",
+      "parameter_count": 12754,
+      "recipe": "label_smooth",
+      "seed": 63401
+    },
+    {
+      "elapsed_seconds": 42.00994086265564,
+      "family": "attention_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-attention_holdout-noise_aug-s63402-e1.pt",
+          "epoch": 1,
+          "model_id": "p2e-attention_holdout-noise_aug-s63402-e1",
+          "sha256": "b8a5dd8aa1dbb6cfe6c7af55385c55b34e8fe4aaa7d0114bf99848770604b077",
+          "train_accuracy": 0.2733,
+          "train_loss": 1.9458858919143678
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase2e/p2e-attention_holdout-noise_aug-s63402-e2.pt",
+          "epoch": 2,
+          "model_id": "p2e-attention_holdout-noise_aug-s63402-e2",
+          "sha256": "3eeeae3f15c8a006ad0fa3a7d5e3f6adb01208849e87ddd6facdda505e1e6041",
+          "train_accuracy": 0.3685,
+          "train_loss": 1.6893672784805298
+        }
+      ],
+      "lineage_id": "p2e-attention_holdout-noise_aug-s63402",
+      "parameter_count": 12754,
+      "recipe": "noise_aug",
+      "seed": 63402
+    }
+  ]
+}

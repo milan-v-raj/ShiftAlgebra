@@ -1,0 +1,3409 @@
+{
+  "chance": 0.01,
+  "classes": 100,
+  "corruptions": {
+    "parameters": {
+      "Brightness": {
+        "offset": 0.12
+      },
+      "GaussianNoise": {
+        "seed": 31001,
+        "sigma": 0.06
+      },
+      "JPEGCompression": {
+        "quantization_scale": 0.55
+      },
+      "MotionBlur": {
+        "kernel_size": 5
+      },
+      "Pixelate": {
+        "downsample_size": 16
+      },
+      "ShotNoise": {
+        "count_scale": 80.0,
+        "seed": 31101
+      }
+    },
+    "primitives": [
+      "Brightness",
+      "GaussianNoise",
+      "JPEGCompression",
+      "MotionBlur",
+      "Pixelate",
+      "ShotNoise"
+    ],
+    "scope": "deterministic clean-room ImageNet-C-style categories; not bitwise or severity-equivalent to the official ImageNet-C benchmark"
+  },
+  "counts": {
+    "calibration_conditions": 37,
+    "families": 6,
+    "lineages_per_split": 18,
+    "recipes": 3,
+    "reversal_groups_per_split": 30,
+    "snapshots_per_split": 36,
+    "target_words_per_split": 60
+  },
+  "data_provenance": {
+    "canonical_test_md5": "f0ef6b0ae62326f3e7ffdfab6717acfc",
+    "canonical_test_pixel_matches": 10000,
+    "class_names": [
+      "apple",
+      "aquarium_fish",
+      "baby",
+      "bear",
+      "beaver",
+      "bed",
+      "bee",
+      "beetle",
+      "bicycle",
+      "bottle",
+      "bowl",
+      "boy",
+      "bridge",
+      "bus",
+      "butterfly",
+      "camel",
+      "can",
+      "castle",
+      "caterpillar",
+      "cattle",
+      "chair",
+      "chimpanzee",
+      "clock",
+      "cloud",
+      "cockroach",
+      "couch",
+      "crab",
+      "crocodile",
+      "cup",
+      "dinosaur",
+      "dolphin",
+      "elephant",
+      "flatfish",
+      "forest",
+      "fox",
+      "girl",
+      "hamster",
+      "house",
+      "kangaroo",
+      "keyboard",
+      "lamp",
+      "lawn_mower",
+      "leopard",
+      "lion",
+      "lizard",
+      "lobster",
+      "man",
+      "maple_tree",
+      "motorcycle",
+      "mountain",
+      "mouse",
+      "mushroom",
+      "oak_tree",
+      "orange",
+      "orchid",
+      "otter",
+      "palm_tree",
+      "pear",
+      "pickup_truck",
+      "pine_tree",
+      "plain",
+      "plate",
+      "poppy",
+      "porcupine",
+      "possum",
+      "rabbit",
+      "raccoon",
+      "ray",
+      "road",
+      "rocket",
+      "rose",
+      "sea",
+      "seal",
+      "shark",
+      "shrew",
+      "skunk",
+      "skyscraper",
+      "snail",
+      "snake",
+      "spider",
+      "squirrel",
+      "streetcar",
+      "sunflower",
+      "sweet_pepper",
+      "table",
+      "tank",
+      "telephone",
+      "television",
+      "tiger",
+      "tractor",
+      "train",
+      "trout",
+      "tulip",
+      "turtle",
+      "wardrobe",
+      "whale",
+      "willow_tree",
+      "wolf",
+      "woman",
+      "worm"
+    ],
+    "image_transport": "https://github.com/cyizhuo/CIFAR-100-dataset",
+    "image_transport_commit": "b105b30e79972558f19db69658f34b9d0a9b009b",
+    "note": "GitHub repositories are transport only; dataset files are not redistributed.",
+    "test_count": 10000,
+    "test_pickle_transport": "https://github.com/DevFelas/cifar-100-python",
+    "test_pickle_transport_commit": "7113a884221682cf835bd6009d3bb0ffef134241",
+    "train_count": 50000
+  },
+  "dataset": "CIFAR-100 fine labels",
+  "image_partitions": {
+    "confirmation": {
+      "offset": 90,
+      "per_class": 10
+    },
+    "development": {
+      "offset": 80,
+      "per_class": 10
+    }
+  },
+  "method_development": {
+    "comparators": [
+      "metadata-only ridge",
+      "independent-retention formula",
+      "envelope formula",
+      "unfitted symmetric-pair formula"
+    ],
+    "confirmation_behavior_access": "forbidden until fitted method file is committed",
+    "fit_access": "development calibration and target outcomes only",
+    "primary": "order-blind symmetric ridge using all thirty directed pairs"
+  },
+  "metrics": [
+    "margin",
+    "feature_drift",
+    "ece",
+    "balanced_accuracy",
+    "accuracy",
+    "mean_confidence"
+  ],
+  "models": [
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "residual_holdout",
+      "lineage_id": "p2h-residual_holdout-erm_flip-s68100",
+      "model_id": "p2h-residual_holdout-erm_flip-s68100-e1",
+      "parameter_count": 34564,
+      "recipe": "erm_flip",
+      "seed": 68100
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "residual_holdout",
+      "lineage_id": "p2h-residual_holdout-erm_flip-s68100",
+      "model_id": "p2h-residual_holdout-erm_flip-s68100-e2",
+      "parameter_count": 34564,
+      "recipe": "erm_flip",
+      "seed": 68100
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "residual_holdout",
+      "lineage_id": "p2h-residual_holdout-label_smooth-s68101",
+      "model_id": "p2h-residual_holdout-label_smooth-s68101-e1",
+      "parameter_count": 34564,
+      "recipe": "label_smooth",
+      "seed": 68101
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "residual_holdout",
+      "lineage_id": "p2h-residual_holdout-label_smooth-s68101",
+      "model_id": "p2h-residual_holdout-label_smooth-s68101-e2",
+      "parameter_count": 34564,
+      "recipe": "label_smooth",
+      "seed": 68101
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "residual_holdout",
+      "lineage_id": "p2h-residual_holdout-noise_aug-s68102",
+      "model_id": "p2h-residual_holdout-noise_aug-s68102-e1",
+      "parameter_count": 34564,
+      "recipe": "noise_aug",
+      "seed": 68102
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "residual_holdout",
+      "lineage_id": "p2h-residual_holdout-noise_aug-s68102",
+      "model_id": "p2h-residual_holdout-noise_aug-s68102-e2",
+      "parameter_count": 34564,
+      "recipe": "noise_aug",
+      "seed": 68102
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "depthwise_holdout",
+      "lineage_id": "p2h-depthwise_holdout-erm_flip-s68200",
+      "model_id": "p2h-depthwise_holdout-erm_flip-s68200-e1",
+      "parameter_count": 17244,
+      "recipe": "erm_flip",
+      "seed": 68200
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "depthwise_holdout",
+      "lineage_id": "p2h-depthwise_holdout-erm_flip-s68200",
+      "model_id": "p2h-depthwise_holdout-erm_flip-s68200-e2",
+      "parameter_count": 17244,
+      "recipe": "erm_flip",
+      "seed": 68200
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "depthwise_holdout",
+      "lineage_id": "p2h-depthwise_holdout-label_smooth-s68201",
+      "model_id": "p2h-depthwise_holdout-label_smooth-s68201-e1",
+      "parameter_count": 17244,
+      "recipe": "label_smooth",
+      "seed": 68201
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "depthwise_holdout",
+      "lineage_id": "p2h-depthwise_holdout-label_smooth-s68201",
+      "model_id": "p2h-depthwise_holdout-label_smooth-s68201-e2",
+      "parameter_count": 17244,
+      "recipe": "label_smooth",
+      "seed": 68201
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "depthwise_holdout",
+      "lineage_id": "p2h-depthwise_holdout-noise_aug-s68202",
+      "model_id": "p2h-depthwise_holdout-noise_aug-s68202-e1",
+      "parameter_count": 17244,
+      "recipe": "noise_aug",
+      "seed": 68202
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "depthwise_holdout",
+      "lineage_id": "p2h-depthwise_holdout-noise_aug-s68202",
+      "model_id": "p2h-depthwise_holdout-noise_aug-s68202-e2",
+      "parameter_count": 17244,
+      "recipe": "noise_aug",
+      "seed": 68202
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "convnext_holdout",
+      "lineage_id": "p2h-convnext_holdout-erm_flip-s68300",
+      "model_id": "p2h-convnext_holdout-erm_flip-s68300-e1",
+      "parameter_count": 27932,
+      "recipe": "erm_flip",
+      "seed": 68300
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "convnext_holdout",
+      "lineage_id": "p2h-convnext_holdout-erm_flip-s68300",
+      "model_id": "p2h-convnext_holdout-erm_flip-s68300-e2",
+      "parameter_count": 27932,
+      "recipe": "erm_flip",
+      "seed": 68300
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "convnext_holdout",
+      "lineage_id": "p2h-convnext_holdout-label_smooth-s68301",
+      "model_id": "p2h-convnext_holdout-label_smooth-s68301-e1",
+      "parameter_count": 27932,
+      "recipe": "label_smooth",
+      "seed": 68301
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "convnext_holdout",
+      "lineage_id": "p2h-convnext_holdout-label_smooth-s68301",
+      "model_id": "p2h-convnext_holdout-label_smooth-s68301-e2",
+      "parameter_count": 27932,
+      "recipe": "label_smooth",
+      "seed": 68301
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "convnext_holdout",
+      "lineage_id": "p2h-convnext_holdout-noise_aug-s68302",
+      "model_id": "p2h-convnext_holdout-noise_aug-s68302-e1",
+      "parameter_count": 27932,
+      "recipe": "noise_aug",
+      "seed": 68302
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "convnext_holdout",
+      "lineage_id": "p2h-convnext_holdout-noise_aug-s68302",
+      "model_id": "p2h-convnext_holdout-noise_aug-s68302-e2",
+      "parameter_count": 27932,
+      "recipe": "noise_aug",
+      "seed": 68302
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "shuffle_holdout",
+      "lineage_id": "p2h-shuffle_holdout-erm_flip-s68400",
+      "model_id": "p2h-shuffle_holdout-erm_flip-s68400-e1",
+      "parameter_count": 6788,
+      "recipe": "erm_flip",
+      "seed": 68400
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "shuffle_holdout",
+      "lineage_id": "p2h-shuffle_holdout-erm_flip-s68400",
+      "model_id": "p2h-shuffle_holdout-erm_flip-s68400-e2",
+      "parameter_count": 6788,
+      "recipe": "erm_flip",
+      "seed": 68400
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "shuffle_holdout",
+      "lineage_id": "p2h-shuffle_holdout-label_smooth-s68401",
+      "model_id": "p2h-shuffle_holdout-label_smooth-s68401-e1",
+      "parameter_count": 6788,
+      "recipe": "label_smooth",
+      "seed": 68401
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "shuffle_holdout",
+      "lineage_id": "p2h-shuffle_holdout-label_smooth-s68401",
+      "model_id": "p2h-shuffle_holdout-label_smooth-s68401-e2",
+      "parameter_count": 6788,
+      "recipe": "label_smooth",
+      "seed": 68401
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "shuffle_holdout",
+      "lineage_id": "p2h-shuffle_holdout-noise_aug-s68402",
+      "model_id": "p2h-shuffle_holdout-noise_aug-s68402-e1",
+      "parameter_count": 6788,
+      "recipe": "noise_aug",
+      "seed": 68402
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "shuffle_holdout",
+      "lineage_id": "p2h-shuffle_holdout-noise_aug-s68402",
+      "model_id": "p2h-shuffle_holdout-noise_aug-s68402-e2",
+      "parameter_count": 6788,
+      "recipe": "noise_aug",
+      "seed": 68402
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "dilated_holdout",
+      "lineage_id": "p2h-dilated_holdout-erm_flip-s68500",
+      "model_id": "p2h-dilated_holdout-erm_flip-s68500-e1",
+      "parameter_count": 15196,
+      "recipe": "erm_flip",
+      "seed": 68500
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "dilated_holdout",
+      "lineage_id": "p2h-dilated_holdout-erm_flip-s68500",
+      "model_id": "p2h-dilated_holdout-erm_flip-s68500-e2",
+      "parameter_count": 15196,
+      "recipe": "erm_flip",
+      "seed": 68500
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "dilated_holdout",
+      "lineage_id": "p2h-dilated_holdout-label_smooth-s68501",
+      "model_id": "p2h-dilated_holdout-label_smooth-s68501-e1",
+      "parameter_count": 15196,
+      "recipe": "label_smooth",
+      "seed": 68501
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "dilated_holdout",
+      "lineage_id": "p2h-dilated_holdout-label_smooth-s68501",
+      "model_id": "p2h-dilated_holdout-label_smooth-s68501-e2",
+      "parameter_count": 15196,
+      "recipe": "label_smooth",
+      "seed": 68501
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "dilated_holdout",
+      "lineage_id": "p2h-dilated_holdout-noise_aug-s68502",
+      "model_id": "p2h-dilated_holdout-noise_aug-s68502-e1",
+      "parameter_count": 15196,
+      "recipe": "noise_aug",
+      "seed": 68502
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "dilated_holdout",
+      "lineage_id": "p2h-dilated_holdout-noise_aug-s68502",
+      "model_id": "p2h-dilated_holdout-noise_aug-s68502-e2",
+      "parameter_count": 15196,
+      "recipe": "noise_aug",
+      "seed": 68502
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "gated_holdout",
+      "lineage_id": "p2h-gated_holdout-erm_flip-s68600",
+      "model_id": "p2h-gated_holdout-erm_flip-s68600-e1",
+      "parameter_count": 71324,
+      "recipe": "erm_flip",
+      "seed": 68600
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "gated_holdout",
+      "lineage_id": "p2h-gated_holdout-erm_flip-s68600",
+      "model_id": "p2h-gated_holdout-erm_flip-s68600-e2",
+      "parameter_count": 71324,
+      "recipe": "erm_flip",
+      "seed": 68600
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "gated_holdout",
+      "lineage_id": "p2h-gated_holdout-label_smooth-s68601",
+      "model_id": "p2h-gated_holdout-label_smooth-s68601-e1",
+      "parameter_count": 71324,
+      "recipe": "label_smooth",
+      "seed": 68601
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "gated_holdout",
+      "lineage_id": "p2h-gated_holdout-label_smooth-s68601",
+      "model_id": "p2h-gated_holdout-label_smooth-s68601-e2",
+      "parameter_count": 71324,
+      "recipe": "label_smooth",
+      "seed": 68601
+    },
+    {
+      "bank_split": "development",
+      "epoch": 1,
+      "family": "gated_holdout",
+      "lineage_id": "p2h-gated_holdout-noise_aug-s68602",
+      "model_id": "p2h-gated_holdout-noise_aug-s68602-e1",
+      "parameter_count": 71324,
+      "recipe": "noise_aug",
+      "seed": 68602
+    },
+    {
+      "bank_split": "development",
+      "epoch": 2,
+      "family": "gated_holdout",
+      "lineage_id": "p2h-gated_holdout-noise_aug-s68602",
+      "model_id": "p2h-gated_holdout-noise_aug-s68602-e2",
+      "parameter_count": 71324,
+      "recipe": "noise_aug",
+      "seed": 68602
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "residual_holdout",
+      "lineage_id": "p3a-confirmation-residual_holdout-erm_flip-s69100",
+      "model_id": "p3a-confirmation-residual_holdout-erm_flip-s69100-e1",
+      "parameter_count": 34564,
+      "recipe": "erm_flip",
+      "seed": 69100
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "residual_holdout",
+      "lineage_id": "p3a-confirmation-residual_holdout-erm_flip-s69100",
+      "model_id": "p3a-confirmation-residual_holdout-erm_flip-s69100-e2",
+      "parameter_count": 34564,
+      "recipe": "erm_flip",
+      "seed": 69100
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "residual_holdout",
+      "lineage_id": "p3a-confirmation-residual_holdout-label_smooth-s69101",
+      "model_id": "p3a-confirmation-residual_holdout-label_smooth-s69101-e1",
+      "parameter_count": 34564,
+      "recipe": "label_smooth",
+      "seed": 69101
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "residual_holdout",
+      "lineage_id": "p3a-confirmation-residual_holdout-label_smooth-s69101",
+      "model_id": "p3a-confirmation-residual_holdout-label_smooth-s69101-e2",
+      "parameter_count": 34564,
+      "recipe": "label_smooth",
+      "seed": 69101
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "residual_holdout",
+      "lineage_id": "p3a-confirmation-residual_holdout-noise_aug-s69102",
+      "model_id": "p3a-confirmation-residual_holdout-noise_aug-s69102-e1",
+      "parameter_count": 34564,
+      "recipe": "noise_aug",
+      "seed": 69102
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "residual_holdout",
+      "lineage_id": "p3a-confirmation-residual_holdout-noise_aug-s69102",
+      "model_id": "p3a-confirmation-residual_holdout-noise_aug-s69102-e2",
+      "parameter_count": 34564,
+      "recipe": "noise_aug",
+      "seed": 69102
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "depthwise_holdout",
+      "lineage_id": "p3a-confirmation-depthwise_holdout-erm_flip-s69200",
+      "model_id": "p3a-confirmation-depthwise_holdout-erm_flip-s69200-e1",
+      "parameter_count": 17244,
+      "recipe": "erm_flip",
+      "seed": 69200
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "depthwise_holdout",
+      "lineage_id": "p3a-confirmation-depthwise_holdout-erm_flip-s69200",
+      "model_id": "p3a-confirmation-depthwise_holdout-erm_flip-s69200-e2",
+      "parameter_count": 17244,
+      "recipe": "erm_flip",
+      "seed": 69200
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "depthwise_holdout",
+      "lineage_id": "p3a-confirmation-depthwise_holdout-label_smooth-s69201",
+      "model_id": "p3a-confirmation-depthwise_holdout-label_smooth-s69201-e1",
+      "parameter_count": 17244,
+      "recipe": "label_smooth",
+      "seed": 69201
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "depthwise_holdout",
+      "lineage_id": "p3a-confirmation-depthwise_holdout-label_smooth-s69201",
+      "model_id": "p3a-confirmation-depthwise_holdout-label_smooth-s69201-e2",
+      "parameter_count": 17244,
+      "recipe": "label_smooth",
+      "seed": 69201
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "depthwise_holdout",
+      "lineage_id": "p3a-confirmation-depthwise_holdout-noise_aug-s69202",
+      "model_id": "p3a-confirmation-depthwise_holdout-noise_aug-s69202-e1",
+      "parameter_count": 17244,
+      "recipe": "noise_aug",
+      "seed": 69202
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "depthwise_holdout",
+      "lineage_id": "p3a-confirmation-depthwise_holdout-noise_aug-s69202",
+      "model_id": "p3a-confirmation-depthwise_holdout-noise_aug-s69202-e2",
+      "parameter_count": 17244,
+      "recipe": "noise_aug",
+      "seed": 69202
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "convnext_holdout",
+      "lineage_id": "p3a-confirmation-convnext_holdout-erm_flip-s69300",
+      "model_id": "p3a-confirmation-convnext_holdout-erm_flip-s69300-e1",
+      "parameter_count": 27932,
+      "recipe": "erm_flip",
+      "seed": 69300
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "convnext_holdout",
+      "lineage_id": "p3a-confirmation-convnext_holdout-erm_flip-s69300",
+      "model_id": "p3a-confirmation-convnext_holdout-erm_flip-s69300-e2",
+      "parameter_count": 27932,
+      "recipe": "erm_flip",
+      "seed": 69300
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "convnext_holdout",
+      "lineage_id": "p3a-confirmation-convnext_holdout-label_smooth-s69301",
+      "model_id": "p3a-confirmation-convnext_holdout-label_smooth-s69301-e1",
+      "parameter_count": 27932,
+      "recipe": "label_smooth",
+      "seed": 69301
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "convnext_holdout",
+      "lineage_id": "p3a-confirmation-convnext_holdout-label_smooth-s69301",
+      "model_id": "p3a-confirmation-convnext_holdout-label_smooth-s69301-e2",
+      "parameter_count": 27932,
+      "recipe": "label_smooth",
+      "seed": 69301
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "convnext_holdout",
+      "lineage_id": "p3a-confirmation-convnext_holdout-noise_aug-s69302",
+      "model_id": "p3a-confirmation-convnext_holdout-noise_aug-s69302-e1",
+      "parameter_count": 27932,
+      "recipe": "noise_aug",
+      "seed": 69302
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "convnext_holdout",
+      "lineage_id": "p3a-confirmation-convnext_holdout-noise_aug-s69302",
+      "model_id": "p3a-confirmation-convnext_holdout-noise_aug-s69302-e2",
+      "parameter_count": 27932,
+      "recipe": "noise_aug",
+      "seed": 69302
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "shuffle_holdout",
+      "lineage_id": "p3a-confirmation-shuffle_holdout-erm_flip-s69400",
+      "model_id": "p3a-confirmation-shuffle_holdout-erm_flip-s69400-e1",
+      "parameter_count": 6788,
+      "recipe": "erm_flip",
+      "seed": 69400
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "shuffle_holdout",
+      "lineage_id": "p3a-confirmation-shuffle_holdout-erm_flip-s69400",
+      "model_id": "p3a-confirmation-shuffle_holdout-erm_flip-s69400-e2",
+      "parameter_count": 6788,
+      "recipe": "erm_flip",
+      "seed": 69400
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "shuffle_holdout",
+      "lineage_id": "p3a-confirmation-shuffle_holdout-label_smooth-s69401",
+      "model_id": "p3a-confirmation-shuffle_holdout-label_smooth-s69401-e1",
+      "parameter_count": 6788,
+      "recipe": "label_smooth",
+      "seed": 69401
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "shuffle_holdout",
+      "lineage_id": "p3a-confirmation-shuffle_holdout-label_smooth-s69401",
+      "model_id": "p3a-confirmation-shuffle_holdout-label_smooth-s69401-e2",
+      "parameter_count": 6788,
+      "recipe": "label_smooth",
+      "seed": 69401
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "shuffle_holdout",
+      "lineage_id": "p3a-confirmation-shuffle_holdout-noise_aug-s69402",
+      "model_id": "p3a-confirmation-shuffle_holdout-noise_aug-s69402-e1",
+      "parameter_count": 6788,
+      "recipe": "noise_aug",
+      "seed": 69402
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "shuffle_holdout",
+      "lineage_id": "p3a-confirmation-shuffle_holdout-noise_aug-s69402",
+      "model_id": "p3a-confirmation-shuffle_holdout-noise_aug-s69402-e2",
+      "parameter_count": 6788,
+      "recipe": "noise_aug",
+      "seed": 69402
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "dilated_holdout",
+      "lineage_id": "p3a-confirmation-dilated_holdout-erm_flip-s69500",
+      "model_id": "p3a-confirmation-dilated_holdout-erm_flip-s69500-e1",
+      "parameter_count": 15196,
+      "recipe": "erm_flip",
+      "seed": 69500
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "dilated_holdout",
+      "lineage_id": "p3a-confirmation-dilated_holdout-erm_flip-s69500",
+      "model_id": "p3a-confirmation-dilated_holdout-erm_flip-s69500-e2",
+      "parameter_count": 15196,
+      "recipe": "erm_flip",
+      "seed": 69500
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "dilated_holdout",
+      "lineage_id": "p3a-confirmation-dilated_holdout-label_smooth-s69501",
+      "model_id": "p3a-confirmation-dilated_holdout-label_smooth-s69501-e1",
+      "parameter_count": 15196,
+      "recipe": "label_smooth",
+      "seed": 69501
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "dilated_holdout",
+      "lineage_id": "p3a-confirmation-dilated_holdout-label_smooth-s69501",
+      "model_id": "p3a-confirmation-dilated_holdout-label_smooth-s69501-e2",
+      "parameter_count": 15196,
+      "recipe": "label_smooth",
+      "seed": 69501
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "dilated_holdout",
+      "lineage_id": "p3a-confirmation-dilated_holdout-noise_aug-s69502",
+      "model_id": "p3a-confirmation-dilated_holdout-noise_aug-s69502-e1",
+      "parameter_count": 15196,
+      "recipe": "noise_aug",
+      "seed": 69502
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "dilated_holdout",
+      "lineage_id": "p3a-confirmation-dilated_holdout-noise_aug-s69502",
+      "model_id": "p3a-confirmation-dilated_holdout-noise_aug-s69502-e2",
+      "parameter_count": 15196,
+      "recipe": "noise_aug",
+      "seed": 69502
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "gated_holdout",
+      "lineage_id": "p3a-confirmation-gated_holdout-erm_flip-s69600",
+      "model_id": "p3a-confirmation-gated_holdout-erm_flip-s69600-e1",
+      "parameter_count": 71324,
+      "recipe": "erm_flip",
+      "seed": 69600
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "gated_holdout",
+      "lineage_id": "p3a-confirmation-gated_holdout-erm_flip-s69600",
+      "model_id": "p3a-confirmation-gated_holdout-erm_flip-s69600-e2",
+      "parameter_count": 71324,
+      "recipe": "erm_flip",
+      "seed": 69600
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "gated_holdout",
+      "lineage_id": "p3a-confirmation-gated_holdout-label_smooth-s69601",
+      "model_id": "p3a-confirmation-gated_holdout-label_smooth-s69601-e1",
+      "parameter_count": 71324,
+      "recipe": "label_smooth",
+      "seed": 69601
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "gated_holdout",
+      "lineage_id": "p3a-confirmation-gated_holdout-label_smooth-s69601",
+      "model_id": "p3a-confirmation-gated_holdout-label_smooth-s69601-e2",
+      "parameter_count": 71324,
+      "recipe": "label_smooth",
+      "seed": 69601
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 1,
+      "family": "gated_holdout",
+      "lineage_id": "p3a-confirmation-gated_holdout-noise_aug-s69602",
+      "model_id": "p3a-confirmation-gated_holdout-noise_aug-s69602-e1",
+      "parameter_count": 71324,
+      "recipe": "noise_aug",
+      "seed": 69602
+    },
+    {
+      "bank_split": "confirmation",
+      "epoch": 2,
+      "family": "gated_holdout",
+      "lineage_id": "p3a-confirmation-gated_holdout-noise_aug-s69602",
+      "model_id": "p3a-confirmation-gated_holdout-noise_aug-s69602-e2",
+      "parameter_count": 71324,
+      "recipe": "noise_aug",
+      "seed": 69602
+    }
+  ],
+  "primary_gates": [
+    "symmetric macro normalized MAE below metadata-only ridge",
+    "family/lineage/reversal hierarchical 95% improvement CI excludes zero",
+    "at least four of six coordinate MAEs improve",
+    "symmetric macro normalized MAE below both independent and envelope formulas",
+    "symmetric macro controlled model-rank Spearman improves",
+    "symmetric accuracy top-1 selection regret is no worse",
+    "at least five of six family mean improvements are positive"
+  ],
+  "protocol": "V4-P3A-CIFAR100-REALISTIC-CORRUPTIONS-001",
+  "status": "REALISTIC_CORRUPTION_PROTOCOL_FROZEN_CONFIRMATION_OUTCOMES_UNOPENED",
+  "word_seed": 23701,
+  "words": {
+    "confirmation": [
+      {
+        "condition_index": 0,
+        "length": 0,
+        "reverse_group": "Identity",
+        "role": "calibration",
+        "word": [
+          "Identity"
+        ],
+        "word_string": "Identity"
+      },
+      {
+        "condition_index": 1,
+        "length": 1,
+        "reverse_group": "Brightness",
+        "role": "calibration",
+        "word": [
+          "Brightness"
+        ],
+        "word_string": "Brightness"
+      },
+      {
+        "condition_index": 2,
+        "length": 1,
+        "reverse_group": "GaussianNoise",
+        "role": "calibration",
+        "word": [
+          "GaussianNoise"
+        ],
+        "word_string": "GaussianNoise"
+      },
+      {
+        "condition_index": 3,
+        "length": 1,
+        "reverse_group": "JPEGCompression",
+        "role": "calibration",
+        "word": [
+          "JPEGCompression"
+        ],
+        "word_string": "JPEGCompression"
+      },
+      {
+        "condition_index": 4,
+        "length": 1,
+        "reverse_group": "MotionBlur",
+        "role": "calibration",
+        "word": [
+          "MotionBlur"
+        ],
+        "word_string": "MotionBlur"
+      },
+      {
+        "condition_index": 5,
+        "length": 1,
+        "reverse_group": "Pixelate",
+        "role": "calibration",
+        "word": [
+          "Pixelate"
+        ],
+        "word_string": "Pixelate"
+      },
+      {
+        "condition_index": 6,
+        "length": 1,
+        "reverse_group": "ShotNoise",
+        "role": "calibration",
+        "word": [
+          "ShotNoise"
+        ],
+        "word_string": "ShotNoise"
+      },
+      {
+        "condition_index": 7,
+        "length": 2,
+        "reverse_group": "Brightness>GaussianNoise",
+        "role": "calibration",
+        "word": [
+          "Brightness",
+          "GaussianNoise"
+        ],
+        "word_string": "Brightness>GaussianNoise"
+      },
+      {
+        "condition_index": 8,
+        "length": 2,
+        "reverse_group": "Brightness>JPEGCompression",
+        "role": "calibration",
+        "word": [
+          "Brightness",
+          "JPEGCompression"
+        ],
+        "word_string": "Brightness>JPEGCompression"
+      },
+      {
+        "condition_index": 9,
+        "length": 2,
+        "reverse_group": "Brightness>MotionBlur",
+        "role": "calibration",
+        "word": [
+          "Brightness",
+          "MotionBlur"
+        ],
+        "word_string": "Brightness>MotionBlur"
+      },
+      {
+        "condition_index": 10,
+        "length": 2,
+        "reverse_group": "Brightness>Pixelate",
+        "role": "calibration",
+        "word": [
+          "Brightness",
+          "Pixelate"
+        ],
+        "word_string": "Brightness>Pixelate"
+      },
+      {
+        "condition_index": 11,
+        "length": 2,
+        "reverse_group": "Brightness>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "Brightness",
+          "ShotNoise"
+        ],
+        "word_string": "Brightness>ShotNoise"
+      },
+      {
+        "condition_index": 12,
+        "length": 2,
+        "reverse_group": "Brightness>GaussianNoise",
+        "role": "calibration",
+        "word": [
+          "GaussianNoise",
+          "Brightness"
+        ],
+        "word_string": "GaussianNoise>Brightness"
+      },
+      {
+        "condition_index": 13,
+        "length": 2,
+        "reverse_group": "GaussianNoise>JPEGCompression",
+        "role": "calibration",
+        "word": [
+          "GaussianNoise",
+          "JPEGCompression"
+        ],
+        "word_string": "GaussianNoise>JPEGCompression"
+      },
+      {
+        "condition_index": 14,
+        "length": 2,
+        "reverse_group": "GaussianNoise>MotionBlur",
+        "role": "calibration",
+        "word": [
+          "GaussianNoise",
+          "MotionBlur"
+        ],
+        "word_string": "GaussianNoise>MotionBlur"
+      },
+      {
+        "condition_index": 15,
+        "length": 2,
+        "reverse_group": "GaussianNoise>Pixelate",
+        "role": "calibration",
+        "word": [
+          "GaussianNoise",
+          "Pixelate"
+        ],
+        "word_string": "GaussianNoise>Pixelate"
+      },
+      {
+        "condition_index": 16,
+        "length": 2,
+        "reverse_group": "GaussianNoise>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "GaussianNoise",
+          "ShotNoise"
+        ],
+        "word_string": "GaussianNoise>ShotNoise"
+      },
+      {
+        "condition_index": 17,
+        "length": 2,
+        "reverse_group": "Brightness>JPEGCompression",
+        "role": "calibration",
+        "word": [
+          "JPEGCompression",
+          "Brightness"
+        ],
+        "word_string": "JPEGCompression>Brightness"
+      },
+      {
+        "condition_index": 18,
+        "length": 2,
+        "reverse_group": "GaussianNoise>JPEGCompression",
+        "role": "calibration",
+        "word": [
+          "JPEGCompression",
+          "GaussianNoise"
+        ],
+        "word_string": "JPEGCompression>GaussianNoise"
+      },
+      {
+        "condition_index": 19,
+        "length": 2,
+        "reverse_group": "JPEGCompression>MotionBlur",
+        "role": "calibration",
+        "word": [
+          "JPEGCompression",
+          "MotionBlur"
+        ],
+        "word_string": "JPEGCompression>MotionBlur"
+      },
+      {
+        "condition_index": 20,
+        "length": 2,
+        "reverse_group": "JPEGCompression>Pixelate",
+        "role": "calibration",
+        "word": [
+          "JPEGCompression",
+          "Pixelate"
+        ],
+        "word_string": "JPEGCompression>Pixelate"
+      },
+      {
+        "condition_index": 21,
+        "length": 2,
+        "reverse_group": "JPEGCompression>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "JPEGCompression",
+          "ShotNoise"
+        ],
+        "word_string": "JPEGCompression>ShotNoise"
+      },
+      {
+        "condition_index": 22,
+        "length": 2,
+        "reverse_group": "Brightness>MotionBlur",
+        "role": "calibration",
+        "word": [
+          "MotionBlur",
+          "Brightness"
+        ],
+        "word_string": "MotionBlur>Brightness"
+      },
+      {
+        "condition_index": 23,
+        "length": 2,
+        "reverse_group": "GaussianNoise>MotionBlur",
+        "role": "calibration",
+        "word": [
+          "MotionBlur",
+          "GaussianNoise"
+        ],
+        "word_string": "MotionBlur>GaussianNoise"
+      },
+      {
+        "condition_index": 24,
+        "length": 2,
+        "reverse_group": "JPEGCompression>MotionBlur",
+        "role": "calibration",
+        "word": [
+          "MotionBlur",
+          "JPEGCompression"
+        ],
+        "word_string": "MotionBlur>JPEGCompression"
+      },
+      {
+        "condition_index": 25,
+        "length": 2,
+        "reverse_group": "MotionBlur>Pixelate",
+        "role": "calibration",
+        "word": [
+          "MotionBlur",
+          "Pixelate"
+        ],
+        "word_string": "MotionBlur>Pixelate"
+      },
+      {
+        "condition_index": 26,
+        "length": 2,
+        "reverse_group": "MotionBlur>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "MotionBlur",
+          "ShotNoise"
+        ],
+        "word_string": "MotionBlur>ShotNoise"
+      },
+      {
+        "condition_index": 27,
+        "length": 2,
+        "reverse_group": "Brightness>Pixelate",
+        "role": "calibration",
+        "word": [
+          "Pixelate",
+          "Brightness"
+        ],
+        "word_string": "Pixelate>Brightness"
+      },
+      {
+        "condition_index": 28,
+        "length": 2,
+        "reverse_group": "GaussianNoise>Pixelate",
+        "role": "calibration",
+        "word": [
+          "Pixelate",
+          "GaussianNoise"
+        ],
+        "word_string": "Pixelate>GaussianNoise"
+      },
+      {
+        "condition_index": 29,
+        "length": 2,
+        "reverse_group": "JPEGCompression>Pixelate",
+        "role": "calibration",
+        "word": [
+          "Pixelate",
+          "JPEGCompression"
+        ],
+        "word_string": "Pixelate>JPEGCompression"
+      },
+      {
+        "condition_index": 30,
+        "length": 2,
+        "reverse_group": "MotionBlur>Pixelate",
+        "role": "calibration",
+        "word": [
+          "Pixelate",
+          "MotionBlur"
+        ],
+        "word_string": "Pixelate>MotionBlur"
+      },
+      {
+        "condition_index": 31,
+        "length": 2,
+        "reverse_group": "Pixelate>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "Pixelate",
+          "ShotNoise"
+        ],
+        "word_string": "Pixelate>ShotNoise"
+      },
+      {
+        "condition_index": 32,
+        "length": 2,
+        "reverse_group": "Brightness>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "ShotNoise",
+          "Brightness"
+        ],
+        "word_string": "ShotNoise>Brightness"
+      },
+      {
+        "condition_index": 33,
+        "length": 2,
+        "reverse_group": "GaussianNoise>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "ShotNoise",
+          "GaussianNoise"
+        ],
+        "word_string": "ShotNoise>GaussianNoise"
+      },
+      {
+        "condition_index": 34,
+        "length": 2,
+        "reverse_group": "JPEGCompression>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "ShotNoise",
+          "JPEGCompression"
+        ],
+        "word_string": "ShotNoise>JPEGCompression"
+      },
+      {
+        "condition_index": 35,
+        "length": 2,
+        "reverse_group": "MotionBlur>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "ShotNoise",
+          "MotionBlur"
+        ],
+        "word_string": "ShotNoise>MotionBlur"
+      },
+      {
+        "condition_index": 36,
+        "length": 2,
+        "reverse_group": "Pixelate>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "ShotNoise",
+          "Pixelate"
+        ],
+        "word_string": "ShotNoise>Pixelate"
+      },
+      {
+        "condition_index": 37,
+        "length": 4,
+        "reverse_group": "GaussianNoise>ShotNoise>Brightness>JPEGCompression",
+        "role": "confirmation",
+        "word": [
+          "GaussianNoise",
+          "ShotNoise",
+          "Brightness",
+          "JPEGCompression"
+        ],
+        "word_string": "GaussianNoise>ShotNoise>Brightness>JPEGCompression"
+      },
+      {
+        "condition_index": 38,
+        "length": 4,
+        "reverse_group": "GaussianNoise>ShotNoise>Brightness>JPEGCompression",
+        "role": "confirmation",
+        "word": [
+          "JPEGCompression",
+          "Brightness",
+          "ShotNoise",
+          "GaussianNoise"
+        ],
+        "word_string": "JPEGCompression>Brightness>ShotNoise>GaussianNoise"
+      },
+      {
+        "condition_index": 39,
+        "length": 4,
+        "reverse_group": "Brightness>JPEGCompression>Pixelate>GaussianNoise",
+        "role": "confirmation",
+        "word": [
+          "Brightness",
+          "JPEGCompression",
+          "Pixelate",
+          "GaussianNoise"
+        ],
+        "word_string": "Brightness>JPEGCompression>Pixelate>GaussianNoise"
+      },
+      {
+        "condition_index": 40,
+        "length": 4,
+        "reverse_group": "Brightness>JPEGCompression>Pixelate>GaussianNoise",
+        "role": "confirmation",
+        "word": [
+          "GaussianNoise",
+          "Pixelate",
+          "JPEGCompression",
+          "Brightness"
+        ],
+        "word_string": "GaussianNoise>Pixelate>JPEGCompression>Brightness"
+      },
+      {
+        "condition_index": 41,
+        "length": 4,
+        "reverse_group": "GaussianNoise>Brightness>ShotNoise>MotionBlur",
+        "role": "confirmation",
+        "word": [
+          "GaussianNoise",
+          "Brightness",
+          "ShotNoise",
+          "MotionBlur"
+        ],
+        "word_string": "GaussianNoise>Brightness>ShotNoise>MotionBlur"
+      },
+      {
+        "condition_index": 42,
+        "length": 4,
+        "reverse_group": "GaussianNoise>Brightness>ShotNoise>MotionBlur",
+        "role": "confirmation",
+        "word": [
+          "MotionBlur",
+          "ShotNoise",
+          "Brightness",
+          "GaussianNoise"
+        ],
+        "word_string": "MotionBlur>ShotNoise>Brightness>GaussianNoise"
+      },
+      {
+        "condition_index": 43,
+        "length": 4,
+        "reverse_group": "MotionBlur>JPEGCompression>GaussianNoise>ShotNoise",
+        "role": "confirmation",
+        "word": [
+          "MotionBlur",
+          "JPEGCompression",
+          "GaussianNoise",
+          "ShotNoise"
+        ],
+        "word_string": "MotionBlur>JPEGCompression>GaussianNoise>ShotNoise"
+      },
+      {
+        "condition_index": 44,
+        "length": 4,
+        "reverse_group": "MotionBlur>JPEGCompression>GaussianNoise>ShotNoise",
+        "role": "confirmation",
+        "word": [
+          "ShotNoise",
+          "GaussianNoise",
+          "JPEGCompression",
+          "MotionBlur"
+        ],
+        "word_string": "ShotNoise>GaussianNoise>JPEGCompression>MotionBlur"
+      },
+      {
+        "condition_index": 45,
+        "length": 4,
+        "reverse_group": "Pixelate>JPEGCompression>MotionBlur>ShotNoise",
+        "role": "confirmation",
+        "word": [
+          "Pixelate",
+          "JPEGCompression",
+          "MotionBlur",
+          "ShotNoise"
+        ],
+        "word_string": "Pixelate>JPEGCompression>MotionBlur>ShotNoise"
+      },
+      {
+        "condition_index": 46,
+        "length": 4,
+        "reverse_group": "Pixelate>JPEGCompression>MotionBlur>ShotNoise",
+        "role": "confirmation",
+        "word": [
+          "ShotNoise",
+          "MotionBlur",
+          "JPEGCompression",
+          "Pixelate"
+        ],
+        "word_string": "ShotNoise>MotionBlur>JPEGCompression>Pixelate"
+      },
+      {
+        "condition_index": 47,
+        "length": 4,
+        "reverse_group": "GaussianNoise>MotionBlur>JPEGCompression>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "GaussianNoise",
+          "MotionBlur",
+          "JPEGCompression",
+          "Pixelate"
+        ],
+        "word_string": "GaussianNoise>MotionBlur>JPEGCompression>Pixelate"
+      },
+      {
+        "condition_index": 48,
+        "length": 4,
+        "reverse_group": "GaussianNoise>MotionBlur>JPEGCompression>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "Pixelate",
+          "JPEGCompression",
+          "MotionBlur",
+          "GaussianNoise"
+        ],
+        "word_string": "Pixelate>JPEGCompression>MotionBlur>GaussianNoise"
+      },
+      {
+        "condition_index": 49,
+        "length": 4,
+        "reverse_group": "GaussianNoise>JPEGCompression>ShotNoise>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "GaussianNoise",
+          "JPEGCompression",
+          "ShotNoise",
+          "Pixelate"
+        ],
+        "word_string": "GaussianNoise>JPEGCompression>ShotNoise>Pixelate"
+      },
+      {
+        "condition_index": 50,
+        "length": 4,
+        "reverse_group": "GaussianNoise>JPEGCompression>ShotNoise>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "Pixelate",
+          "ShotNoise",
+          "JPEGCompression",
+          "GaussianNoise"
+        ],
+        "word_string": "Pixelate>ShotNoise>JPEGCompression>GaussianNoise"
+      },
+      {
+        "condition_index": 51,
+        "length": 4,
+        "reverse_group": "MotionBlur>Pixelate>GaussianNoise>ShotNoise",
+        "role": "confirmation",
+        "word": [
+          "MotionBlur",
+          "Pixelate",
+          "GaussianNoise",
+          "ShotNoise"
+        ],
+        "word_string": "MotionBlur>Pixelate>GaussianNoise>ShotNoise"
+      },
+      {
+        "condition_index": 52,
+        "length": 4,
+        "reverse_group": "MotionBlur>Pixelate>GaussianNoise>ShotNoise",
+        "role": "confirmation",
+        "word": [
+          "ShotNoise",
+          "GaussianNoise",
+          "Pixelate",
+          "MotionBlur"
+        ],
+        "word_string": "ShotNoise>GaussianNoise>Pixelate>MotionBlur"
+      },
+      {
+        "condition_index": 53,
+        "length": 4,
+        "reverse_group": "Pixelate>GaussianNoise>Brightness>ShotNoise",
+        "role": "confirmation",
+        "word": [
+          "Pixelate",
+          "GaussianNoise",
+          "Brightness",
+          "ShotNoise"
+        ],
+        "word_string": "Pixelate>GaussianNoise>Brightness>ShotNoise"
+      },
+      {
+        "condition_index": 54,
+        "length": 4,
+        "reverse_group": "Pixelate>GaussianNoise>Brightness>ShotNoise",
+        "role": "confirmation",
+        "word": [
+          "ShotNoise",
+          "Brightness",
+          "GaussianNoise",
+          "Pixelate"
+        ],
+        "word_string": "ShotNoise>Brightness>GaussianNoise>Pixelate"
+      },
+      {
+        "condition_index": 55,
+        "length": 4,
+        "reverse_group": "GaussianNoise>Pixelate>Brightness>MotionBlur",
+        "role": "confirmation",
+        "word": [
+          "GaussianNoise",
+          "Pixelate",
+          "Brightness",
+          "MotionBlur"
+        ],
+        "word_string": "GaussianNoise>Pixelate>Brightness>MotionBlur"
+      },
+      {
+        "condition_index": 56,
+        "length": 4,
+        "reverse_group": "GaussianNoise>Pixelate>Brightness>MotionBlur",
+        "role": "confirmation",
+        "word": [
+          "MotionBlur",
+          "Brightness",
+          "Pixelate",
+          "GaussianNoise"
+        ],
+        "word_string": "MotionBlur>Brightness>Pixelate>GaussianNoise"
+      },
+      {
+        "condition_index": 57,
+        "length": 5,
+        "reverse_group": "Brightness>ShotNoise>Pixelate>MotionBlur>GaussianNoise",
+        "role": "confirmation",
+        "word": [
+          "Brightness",
+          "ShotNoise",
+          "Pixelate",
+          "MotionBlur",
+          "GaussianNoise"
+        ],
+        "word_string": "Brightness>ShotNoise>Pixelate>MotionBlur>GaussianNoise"
+      },
+      {
+        "condition_index": 58,
+        "length": 5,
+        "reverse_group": "Brightness>ShotNoise>Pixelate>MotionBlur>GaussianNoise",
+        "role": "confirmation",
+        "word": [
+          "GaussianNoise",
+          "MotionBlur",
+          "Pixelate",
+          "ShotNoise",
+          "Brightness"
+        ],
+        "word_string": "GaussianNoise>MotionBlur>Pixelate>ShotNoise>Brightness"
+      },
+      {
+        "condition_index": 59,
+        "length": 5,
+        "reverse_group": "GaussianNoise>MotionBlur>ShotNoise>Pixelate>JPEGCompression",
+        "role": "confirmation",
+        "word": [
+          "GaussianNoise",
+          "MotionBlur",
+          "ShotNoise",
+          "Pixelate",
+          "JPEGCompression"
+        ],
+        "word_string": "GaussianNoise>MotionBlur>ShotNoise>Pixelate>JPEGCompression"
+      },
+      {
+        "condition_index": 60,
+        "length": 5,
+        "reverse_group": "GaussianNoise>MotionBlur>ShotNoise>Pixelate>JPEGCompression",
+        "role": "confirmation",
+        "word": [
+          "JPEGCompression",
+          "Pixelate",
+          "ShotNoise",
+          "MotionBlur",
+          "GaussianNoise"
+        ],
+        "word_string": "JPEGCompression>Pixelate>ShotNoise>MotionBlur>GaussianNoise"
+      },
+      {
+        "condition_index": 61,
+        "length": 5,
+        "reverse_group": "MotionBlur>GaussianNoise>ShotNoise>JPEGCompression>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "MotionBlur",
+          "GaussianNoise",
+          "ShotNoise",
+          "JPEGCompression",
+          "Pixelate"
+        ],
+        "word_string": "MotionBlur>GaussianNoise>ShotNoise>JPEGCompression>Pixelate"
+      },
+      {
+        "condition_index": 62,
+        "length": 5,
+        "reverse_group": "MotionBlur>GaussianNoise>ShotNoise>JPEGCompression>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "Pixelate",
+          "JPEGCompression",
+          "ShotNoise",
+          "GaussianNoise",
+          "MotionBlur"
+        ],
+        "word_string": "Pixelate>JPEGCompression>ShotNoise>GaussianNoise>MotionBlur"
+      },
+      {
+        "condition_index": 63,
+        "length": 5,
+        "reverse_group": "MotionBlur>Brightness>JPEGCompression>ShotNoise>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "MotionBlur",
+          "Brightness",
+          "JPEGCompression",
+          "ShotNoise",
+          "Pixelate"
+        ],
+        "word_string": "MotionBlur>Brightness>JPEGCompression>ShotNoise>Pixelate"
+      },
+      {
+        "condition_index": 64,
+        "length": 5,
+        "reverse_group": "MotionBlur>Brightness>JPEGCompression>ShotNoise>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "Pixelate",
+          "ShotNoise",
+          "JPEGCompression",
+          "Brightness",
+          "MotionBlur"
+        ],
+        "word_string": "Pixelate>ShotNoise>JPEGCompression>Brightness>MotionBlur"
+      },
+      {
+        "condition_index": 65,
+        "length": 5,
+        "reverse_group": "GaussianNoise>JPEGCompression>Brightness>ShotNoise>MotionBlur",
+        "role": "confirmation",
+        "word": [
+          "GaussianNoise",
+          "JPEGCompression",
+          "Brightness",
+          "ShotNoise",
+          "MotionBlur"
+        ],
+        "word_string": "GaussianNoise>JPEGCompression>Brightness>ShotNoise>MotionBlur"
+      },
+      {
+        "condition_index": 66,
+        "length": 5,
+        "reverse_group": "GaussianNoise>JPEGCompression>Brightness>ShotNoise>MotionBlur",
+        "role": "confirmation",
+        "word": [
+          "MotionBlur",
+          "ShotNoise",
+          "Brightness",
+          "JPEGCompression",
+          "GaussianNoise"
+        ],
+        "word_string": "MotionBlur>ShotNoise>Brightness>JPEGCompression>GaussianNoise"
+      },
+      {
+        "condition_index": 67,
+        "length": 5,
+        "reverse_group": "Brightness>JPEGCompression>MotionBlur>GaussianNoise>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "Brightness",
+          "JPEGCompression",
+          "MotionBlur",
+          "GaussianNoise",
+          "Pixelate"
+        ],
+        "word_string": "Brightness>JPEGCompression>MotionBlur>GaussianNoise>Pixelate"
+      },
+      {
+        "condition_index": 68,
+        "length": 5,
+        "reverse_group": "Brightness>JPEGCompression>MotionBlur>GaussianNoise>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "Pixelate",
+          "GaussianNoise",
+          "MotionBlur",
+          "JPEGCompression",
+          "Brightness"
+        ],
+        "word_string": "Pixelate>GaussianNoise>MotionBlur>JPEGCompression>Brightness"
+      },
+      {
+        "condition_index": 69,
+        "length": 5,
+        "reverse_group": "Brightness>ShotNoise>JPEGCompression>GaussianNoise>MotionBlur",
+        "role": "confirmation",
+        "word": [
+          "Brightness",
+          "ShotNoise",
+          "JPEGCompression",
+          "GaussianNoise",
+          "MotionBlur"
+        ],
+        "word_string": "Brightness>ShotNoise>JPEGCompression>GaussianNoise>MotionBlur"
+      },
+      {
+        "condition_index": 70,
+        "length": 5,
+        "reverse_group": "Brightness>ShotNoise>JPEGCompression>GaussianNoise>MotionBlur",
+        "role": "confirmation",
+        "word": [
+          "MotionBlur",
+          "GaussianNoise",
+          "JPEGCompression",
+          "ShotNoise",
+          "Brightness"
+        ],
+        "word_string": "MotionBlur>GaussianNoise>JPEGCompression>ShotNoise>Brightness"
+      },
+      {
+        "condition_index": 71,
+        "length": 5,
+        "reverse_group": "Brightness>MotionBlur>JPEGCompression>Pixelate>GaussianNoise",
+        "role": "confirmation",
+        "word": [
+          "Brightness",
+          "MotionBlur",
+          "JPEGCompression",
+          "Pixelate",
+          "GaussianNoise"
+        ],
+        "word_string": "Brightness>MotionBlur>JPEGCompression>Pixelate>GaussianNoise"
+      },
+      {
+        "condition_index": 72,
+        "length": 5,
+        "reverse_group": "Brightness>MotionBlur>JPEGCompression>Pixelate>GaussianNoise",
+        "role": "confirmation",
+        "word": [
+          "GaussianNoise",
+          "Pixelate",
+          "JPEGCompression",
+          "MotionBlur",
+          "Brightness"
+        ],
+        "word_string": "GaussianNoise>Pixelate>JPEGCompression>MotionBlur>Brightness"
+      },
+      {
+        "condition_index": 73,
+        "length": 5,
+        "reverse_group": "MotionBlur>JPEGCompression>Brightness>GaussianNoise>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "MotionBlur",
+          "JPEGCompression",
+          "Brightness",
+          "GaussianNoise",
+          "Pixelate"
+        ],
+        "word_string": "MotionBlur>JPEGCompression>Brightness>GaussianNoise>Pixelate"
+      },
+      {
+        "condition_index": 74,
+        "length": 5,
+        "reverse_group": "MotionBlur>JPEGCompression>Brightness>GaussianNoise>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "Pixelate",
+          "GaussianNoise",
+          "Brightness",
+          "JPEGCompression",
+          "MotionBlur"
+        ],
+        "word_string": "Pixelate>GaussianNoise>Brightness>JPEGCompression>MotionBlur"
+      },
+      {
+        "condition_index": 75,
+        "length": 5,
+        "reverse_group": "Pixelate>JPEGCompression>Brightness>GaussianNoise>ShotNoise",
+        "role": "confirmation",
+        "word": [
+          "Pixelate",
+          "JPEGCompression",
+          "Brightness",
+          "GaussianNoise",
+          "ShotNoise"
+        ],
+        "word_string": "Pixelate>JPEGCompression>Brightness>GaussianNoise>ShotNoise"
+      },
+      {
+        "condition_index": 76,
+        "length": 5,
+        "reverse_group": "Pixelate>JPEGCompression>Brightness>GaussianNoise>ShotNoise",
+        "role": "confirmation",
+        "word": [
+          "ShotNoise",
+          "GaussianNoise",
+          "Brightness",
+          "JPEGCompression",
+          "Pixelate"
+        ],
+        "word_string": "ShotNoise>GaussianNoise>Brightness>JPEGCompression>Pixelate"
+      },
+      {
+        "condition_index": 77,
+        "length": 6,
+        "reverse_group": "Brightness>MotionBlur>JPEGCompression>ShotNoise>GaussianNoise>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "Brightness",
+          "MotionBlur",
+          "JPEGCompression",
+          "ShotNoise",
+          "GaussianNoise",
+          "Pixelate"
+        ],
+        "word_string": "Brightness>MotionBlur>JPEGCompression>ShotNoise>GaussianNoise>Pixelate"
+      },
+      {
+        "condition_index": 78,
+        "length": 6,
+        "reverse_group": "Brightness>MotionBlur>JPEGCompression>ShotNoise>GaussianNoise>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "Pixelate",
+          "GaussianNoise",
+          "ShotNoise",
+          "JPEGCompression",
+          "MotionBlur",
+          "Brightness"
+        ],
+        "word_string": "Pixelate>GaussianNoise>ShotNoise>JPEGCompression>MotionBlur>Brightness"
+      },
+      {
+        "condition_index": 79,
+        "length": 6,
+        "reverse_group": "Pixelate>GaussianNoise>MotionBlur>Brightness>JPEGCompression>ShotNoise",
+        "role": "confirmation",
+        "word": [
+          "Pixelate",
+          "GaussianNoise",
+          "MotionBlur",
+          "Brightness",
+          "JPEGCompression",
+          "ShotNoise"
+        ],
+        "word_string": "Pixelate>GaussianNoise>MotionBlur>Brightness>JPEGCompression>ShotNoise"
+      },
+      {
+        "condition_index": 80,
+        "length": 6,
+        "reverse_group": "Pixelate>GaussianNoise>MotionBlur>Brightness>JPEGCompression>ShotNoise",
+        "role": "confirmation",
+        "word": [
+          "ShotNoise",
+          "JPEGCompression",
+          "Brightness",
+          "MotionBlur",
+          "GaussianNoise",
+          "Pixelate"
+        ],
+        "word_string": "ShotNoise>JPEGCompression>Brightness>MotionBlur>GaussianNoise>Pixelate"
+      },
+      {
+        "condition_index": 81,
+        "length": 6,
+        "reverse_group": "Brightness>MotionBlur>Pixelate>GaussianNoise>ShotNoise>JPEGCompression",
+        "role": "confirmation",
+        "word": [
+          "Brightness",
+          "MotionBlur",
+          "Pixelate",
+          "GaussianNoise",
+          "ShotNoise",
+          "JPEGCompression"
+        ],
+        "word_string": "Brightness>MotionBlur>Pixelate>GaussianNoise>ShotNoise>JPEGCompression"
+      },
+      {
+        "condition_index": 82,
+        "length": 6,
+        "reverse_group": "Brightness>MotionBlur>Pixelate>GaussianNoise>ShotNoise>JPEGCompression",
+        "role": "confirmation",
+        "word": [
+          "JPEGCompression",
+          "ShotNoise",
+          "GaussianNoise",
+          "Pixelate",
+          "MotionBlur",
+          "Brightness"
+        ],
+        "word_string": "JPEGCompression>ShotNoise>GaussianNoise>Pixelate>MotionBlur>Brightness"
+      },
+      {
+        "condition_index": 83,
+        "length": 6,
+        "reverse_group": "Brightness>MotionBlur>ShotNoise>Pixelate>JPEGCompression>GaussianNoise",
+        "role": "confirmation",
+        "word": [
+          "Brightness",
+          "MotionBlur",
+          "ShotNoise",
+          "Pixelate",
+          "JPEGCompression",
+          "GaussianNoise"
+        ],
+        "word_string": "Brightness>MotionBlur>ShotNoise>Pixelate>JPEGCompression>GaussianNoise"
+      },
+      {
+        "condition_index": 84,
+        "length": 6,
+        "reverse_group": "Brightness>MotionBlur>ShotNoise>Pixelate>JPEGCompression>GaussianNoise",
+        "role": "confirmation",
+        "word": [
+          "GaussianNoise",
+          "JPEGCompression",
+          "Pixelate",
+          "ShotNoise",
+          "MotionBlur",
+          "Brightness"
+        ],
+        "word_string": "GaussianNoise>JPEGCompression>Pixelate>ShotNoise>MotionBlur>Brightness"
+      },
+      {
+        "condition_index": 85,
+        "length": 6,
+        "reverse_group": "JPEGCompression>MotionBlur>Brightness>GaussianNoise>ShotNoise>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "JPEGCompression",
+          "MotionBlur",
+          "Brightness",
+          "GaussianNoise",
+          "ShotNoise",
+          "Pixelate"
+        ],
+        "word_string": "JPEGCompression>MotionBlur>Brightness>GaussianNoise>ShotNoise>Pixelate"
+      },
+      {
+        "condition_index": 86,
+        "length": 6,
+        "reverse_group": "JPEGCompression>MotionBlur>Brightness>GaussianNoise>ShotNoise>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "Pixelate",
+          "ShotNoise",
+          "GaussianNoise",
+          "Brightness",
+          "MotionBlur",
+          "JPEGCompression"
+        ],
+        "word_string": "Pixelate>ShotNoise>GaussianNoise>Brightness>MotionBlur>JPEGCompression"
+      },
+      {
+        "condition_index": 87,
+        "length": 6,
+        "reverse_group": "Brightness>JPEGCompression>ShotNoise>Pixelate>GaussianNoise>MotionBlur",
+        "role": "confirmation",
+        "word": [
+          "Brightness",
+          "JPEGCompression",
+          "ShotNoise",
+          "Pixelate",
+          "GaussianNoise",
+          "MotionBlur"
+        ],
+        "word_string": "Brightness>JPEGCompression>ShotNoise>Pixelate>GaussianNoise>MotionBlur"
+      },
+      {
+        "condition_index": 88,
+        "length": 6,
+        "reverse_group": "Brightness>JPEGCompression>ShotNoise>Pixelate>GaussianNoise>MotionBlur",
+        "role": "confirmation",
+        "word": [
+          "MotionBlur",
+          "GaussianNoise",
+          "Pixelate",
+          "ShotNoise",
+          "JPEGCompression",
+          "Brightness"
+        ],
+        "word_string": "MotionBlur>GaussianNoise>Pixelate>ShotNoise>JPEGCompression>Brightness"
+      },
+      {
+        "condition_index": 89,
+        "length": 6,
+        "reverse_group": "JPEGCompression>ShotNoise>MotionBlur>GaussianNoise>Brightness>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "JPEGCompression",
+          "ShotNoise",
+          "MotionBlur",
+          "GaussianNoise",
+          "Brightness",
+          "Pixelate"
+        ],
+        "word_string": "JPEGCompression>ShotNoise>MotionBlur>GaussianNoise>Brightness>Pixelate"
+      },
+      {
+        "condition_index": 90,
+        "length": 6,
+        "reverse_group": "JPEGCompression>ShotNoise>MotionBlur>GaussianNoise>Brightness>Pixelate",
+        "role": "confirmation",
+        "word": [
+          "Pixelate",
+          "Brightness",
+          "GaussianNoise",
+          "MotionBlur",
+          "ShotNoise",
+          "JPEGCompression"
+        ],
+        "word_string": "Pixelate>Brightness>GaussianNoise>MotionBlur>ShotNoise>JPEGCompression"
+      },
+      {
+        "condition_index": 91,
+        "length": 6,
+        "reverse_group": "GaussianNoise>Pixelate>JPEGCompression>Brightness>ShotNoise>MotionBlur",
+        "role": "confirmation",
+        "word": [
+          "GaussianNoise",
+          "Pixelate",
+          "JPEGCompression",
+          "Brightness",
+          "ShotNoise",
+          "MotionBlur"
+        ],
+        "word_string": "GaussianNoise>Pixelate>JPEGCompression>Brightness>ShotNoise>MotionBlur"
+      },
+      {
+        "condition_index": 92,
+        "length": 6,
+        "reverse_group": "GaussianNoise>Pixelate>JPEGCompression>Brightness>ShotNoise>MotionBlur",
+        "role": "confirmation",
+        "word": [
+          "MotionBlur",
+          "ShotNoise",
+          "Brightness",
+          "JPEGCompression",
+          "Pixelate",
+          "GaussianNoise"
+        ],
+        "word_string": "MotionBlur>ShotNoise>Brightness>JPEGCompression>Pixelate>GaussianNoise"
+      },
+      {
+        "condition_index": 93,
+        "length": 6,
+        "reverse_group": "GaussianNoise>ShotNoise>MotionBlur>Pixelate>Brightness>JPEGCompression",
+        "role": "confirmation",
+        "word": [
+          "GaussianNoise",
+          "ShotNoise",
+          "MotionBlur",
+          "Pixelate",
+          "Brightness",
+          "JPEGCompression"
+        ],
+        "word_string": "GaussianNoise>ShotNoise>MotionBlur>Pixelate>Brightness>JPEGCompression"
+      },
+      {
+        "condition_index": 94,
+        "length": 6,
+        "reverse_group": "GaussianNoise>ShotNoise>MotionBlur>Pixelate>Brightness>JPEGCompression",
+        "role": "confirmation",
+        "word": [
+          "JPEGCompression",
+          "Brightness",
+          "Pixelate",
+          "MotionBlur",
+          "ShotNoise",
+          "GaussianNoise"
+        ],
+        "word_string": "JPEGCompression>Brightness>Pixelate>MotionBlur>ShotNoise>GaussianNoise"
+      },
+      {
+        "condition_index": 95,
+        "length": 6,
+        "reverse_group": "GaussianNoise>ShotNoise>Brightness>Pixelate>JPEGCompression>MotionBlur",
+        "role": "confirmation",
+        "word": [
+          "GaussianNoise",
+          "ShotNoise",
+          "Brightness",
+          "Pixelate",
+          "JPEGCompression",
+          "MotionBlur"
+        ],
+        "word_string": "GaussianNoise>ShotNoise>Brightness>Pixelate>JPEGCompression>MotionBlur"
+      },
+      {
+        "condition_index": 96,
+        "length": 6,
+        "reverse_group": "GaussianNoise>ShotNoise>Brightness>Pixelate>JPEGCompression>MotionBlur",
+        "role": "confirmation",
+        "word": [
+          "MotionBlur",
+          "JPEGCompression",
+          "Pixelate",
+          "Brightness",
+          "ShotNoise",
+          "GaussianNoise"
+        ],
+        "word_string": "MotionBlur>JPEGCompression>Pixelate>Brightness>ShotNoise>GaussianNoise"
+      }
+    ],
+    "development": [
+      {
+        "condition_index": 0,
+        "length": 0,
+        "reverse_group": "Identity",
+        "role": "calibration",
+        "word": [
+          "Identity"
+        ],
+        "word_string": "Identity"
+      },
+      {
+        "condition_index": 1,
+        "length": 1,
+        "reverse_group": "Brightness",
+        "role": "calibration",
+        "word": [
+          "Brightness"
+        ],
+        "word_string": "Brightness"
+      },
+      {
+        "condition_index": 2,
+        "length": 1,
+        "reverse_group": "GaussianNoise",
+        "role": "calibration",
+        "word": [
+          "GaussianNoise"
+        ],
+        "word_string": "GaussianNoise"
+      },
+      {
+        "condition_index": 3,
+        "length": 1,
+        "reverse_group": "JPEGCompression",
+        "role": "calibration",
+        "word": [
+          "JPEGCompression"
+        ],
+        "word_string": "JPEGCompression"
+      },
+      {
+        "condition_index": 4,
+        "length": 1,
+        "reverse_group": "MotionBlur",
+        "role": "calibration",
+        "word": [
+          "MotionBlur"
+        ],
+        "word_string": "MotionBlur"
+      },
+      {
+        "condition_index": 5,
+        "length": 1,
+        "reverse_group": "Pixelate",
+        "role": "calibration",
+        "word": [
+          "Pixelate"
+        ],
+        "word_string": "Pixelate"
+      },
+      {
+        "condition_index": 6,
+        "length": 1,
+        "reverse_group": "ShotNoise",
+        "role": "calibration",
+        "word": [
+          "ShotNoise"
+        ],
+        "word_string": "ShotNoise"
+      },
+      {
+        "condition_index": 7,
+        "length": 2,
+        "reverse_group": "Brightness>GaussianNoise",
+        "role": "calibration",
+        "word": [
+          "Brightness",
+          "GaussianNoise"
+        ],
+        "word_string": "Brightness>GaussianNoise"
+      },
+      {
+        "condition_index": 8,
+        "length": 2,
+        "reverse_group": "Brightness>JPEGCompression",
+        "role": "calibration",
+        "word": [
+          "Brightness",
+          "JPEGCompression"
+        ],
+        "word_string": "Brightness>JPEGCompression"
+      },
+      {
+        "condition_index": 9,
+        "length": 2,
+        "reverse_group": "Brightness>MotionBlur",
+        "role": "calibration",
+        "word": [
+          "Brightness",
+          "MotionBlur"
+        ],
+        "word_string": "Brightness>MotionBlur"
+      },
+      {
+        "condition_index": 10,
+        "length": 2,
+        "reverse_group": "Brightness>Pixelate",
+        "role": "calibration",
+        "word": [
+          "Brightness",
+          "Pixelate"
+        ],
+        "word_string": "Brightness>Pixelate"
+      },
+      {
+        "condition_index": 11,
+        "length": 2,
+        "reverse_group": "Brightness>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "Brightness",
+          "ShotNoise"
+        ],
+        "word_string": "Brightness>ShotNoise"
+      },
+      {
+        "condition_index": 12,
+        "length": 2,
+        "reverse_group": "Brightness>GaussianNoise",
+        "role": "calibration",
+        "word": [
+          "GaussianNoise",
+          "Brightness"
+        ],
+        "word_string": "GaussianNoise>Brightness"
+      },
+      {
+        "condition_index": 13,
+        "length": 2,
+        "reverse_group": "GaussianNoise>JPEGCompression",
+        "role": "calibration",
+        "word": [
+          "GaussianNoise",
+          "JPEGCompression"
+        ],
+        "word_string": "GaussianNoise>JPEGCompression"
+      },
+      {
+        "condition_index": 14,
+        "length": 2,
+        "reverse_group": "GaussianNoise>MotionBlur",
+        "role": "calibration",
+        "word": [
+          "GaussianNoise",
+          "MotionBlur"
+        ],
+        "word_string": "GaussianNoise>MotionBlur"
+      },
+      {
+        "condition_index": 15,
+        "length": 2,
+        "reverse_group": "GaussianNoise>Pixelate",
+        "role": "calibration",
+        "word": [
+          "GaussianNoise",
+          "Pixelate"
+        ],
+        "word_string": "GaussianNoise>Pixelate"
+      },
+      {
+        "condition_index": 16,
+        "length": 2,
+        "reverse_group": "GaussianNoise>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "GaussianNoise",
+          "ShotNoise"
+        ],
+        "word_string": "GaussianNoise>ShotNoise"
+      },
+      {
+        "condition_index": 17,
+        "length": 2,
+        "reverse_group": "Brightness>JPEGCompression",
+        "role": "calibration",
+        "word": [
+          "JPEGCompression",
+          "Brightness"
+        ],
+        "word_string": "JPEGCompression>Brightness"
+      },
+      {
+        "condition_index": 18,
+        "length": 2,
+        "reverse_group": "GaussianNoise>JPEGCompression",
+        "role": "calibration",
+        "word": [
+          "JPEGCompression",
+          "GaussianNoise"
+        ],
+        "word_string": "JPEGCompression>GaussianNoise"
+      },
+      {
+        "condition_index": 19,
+        "length": 2,
+        "reverse_group": "JPEGCompression>MotionBlur",
+        "role": "calibration",
+        "word": [
+          "JPEGCompression",
+          "MotionBlur"
+        ],
+        "word_string": "JPEGCompression>MotionBlur"
+      },
+      {
+        "condition_index": 20,
+        "length": 2,
+        "reverse_group": "JPEGCompression>Pixelate",
+        "role": "calibration",
+        "word": [
+          "JPEGCompression",
+          "Pixelate"
+        ],
+        "word_string": "JPEGCompression>Pixelate"
+      },
+      {
+        "condition_index": 21,
+        "length": 2,
+        "reverse_group": "JPEGCompression>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "JPEGCompression",
+          "ShotNoise"
+        ],
+        "word_string": "JPEGCompression>ShotNoise"
+      },
+      {
+        "condition_index": 22,
+        "length": 2,
+        "reverse_group": "Brightness>MotionBlur",
+        "role": "calibration",
+        "word": [
+          "MotionBlur",
+          "Brightness"
+        ],
+        "word_string": "MotionBlur>Brightness"
+      },
+      {
+        "condition_index": 23,
+        "length": 2,
+        "reverse_group": "GaussianNoise>MotionBlur",
+        "role": "calibration",
+        "word": [
+          "MotionBlur",
+          "GaussianNoise"
+        ],
+        "word_string": "MotionBlur>GaussianNoise"
+      },
+      {
+        "condition_index": 24,
+        "length": 2,
+        "reverse_group": "JPEGCompression>MotionBlur",
+        "role": "calibration",
+        "word": [
+          "MotionBlur",
+          "JPEGCompression"
+        ],
+        "word_string": "MotionBlur>JPEGCompression"
+      },
+      {
+        "condition_index": 25,
+        "length": 2,
+        "reverse_group": "MotionBlur>Pixelate",
+        "role": "calibration",
+        "word": [
+          "MotionBlur",
+          "Pixelate"
+        ],
+        "word_string": "MotionBlur>Pixelate"
+      },
+      {
+        "condition_index": 26,
+        "length": 2,
+        "reverse_group": "MotionBlur>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "MotionBlur",
+          "ShotNoise"
+        ],
+        "word_string": "MotionBlur>ShotNoise"
+      },
+      {
+        "condition_index": 27,
+        "length": 2,
+        "reverse_group": "Brightness>Pixelate",
+        "role": "calibration",
+        "word": [
+          "Pixelate",
+          "Brightness"
+        ],
+        "word_string": "Pixelate>Brightness"
+      },
+      {
+        "condition_index": 28,
+        "length": 2,
+        "reverse_group": "GaussianNoise>Pixelate",
+        "role": "calibration",
+        "word": [
+          "Pixelate",
+          "GaussianNoise"
+        ],
+        "word_string": "Pixelate>GaussianNoise"
+      },
+      {
+        "condition_index": 29,
+        "length": 2,
+        "reverse_group": "JPEGCompression>Pixelate",
+        "role": "calibration",
+        "word": [
+          "Pixelate",
+          "JPEGCompression"
+        ],
+        "word_string": "Pixelate>JPEGCompression"
+      },
+      {
+        "condition_index": 30,
+        "length": 2,
+        "reverse_group": "MotionBlur>Pixelate",
+        "role": "calibration",
+        "word": [
+          "Pixelate",
+          "MotionBlur"
+        ],
+        "word_string": "Pixelate>MotionBlur"
+      },
+      {
+        "condition_index": 31,
+        "length": 2,
+        "reverse_group": "Pixelate>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "Pixelate",
+          "ShotNoise"
+        ],
+        "word_string": "Pixelate>ShotNoise"
+      },
+      {
+        "condition_index": 32,
+        "length": 2,
+        "reverse_group": "Brightness>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "ShotNoise",
+          "Brightness"
+        ],
+        "word_string": "ShotNoise>Brightness"
+      },
+      {
+        "condition_index": 33,
+        "length": 2,
+        "reverse_group": "GaussianNoise>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "ShotNoise",
+          "GaussianNoise"
+        ],
+        "word_string": "ShotNoise>GaussianNoise"
+      },
+      {
+        "condition_index": 34,
+        "length": 2,
+        "reverse_group": "JPEGCompression>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "ShotNoise",
+          "JPEGCompression"
+        ],
+        "word_string": "ShotNoise>JPEGCompression"
+      },
+      {
+        "condition_index": 35,
+        "length": 2,
+        "reverse_group": "MotionBlur>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "ShotNoise",
+          "MotionBlur"
+        ],
+        "word_string": "ShotNoise>MotionBlur"
+      },
+      {
+        "condition_index": 36,
+        "length": 2,
+        "reverse_group": "Pixelate>ShotNoise",
+        "role": "calibration",
+        "word": [
+          "ShotNoise",
+          "Pixelate"
+        ],
+        "word_string": "ShotNoise>Pixelate"
+      },
+      {
+        "condition_index": 37,
+        "length": 4,
+        "reverse_group": "MotionBlur>GaussianNoise>Brightness>Pixelate",
+        "role": "development",
+        "word": [
+          "MotionBlur",
+          "GaussianNoise",
+          "Brightness",
+          "Pixelate"
+        ],
+        "word_string": "MotionBlur>GaussianNoise>Brightness>Pixelate"
+      },
+      {
+        "condition_index": 38,
+        "length": 4,
+        "reverse_group": "MotionBlur>GaussianNoise>Brightness>Pixelate",
+        "role": "development",
+        "word": [
+          "Pixelate",
+          "Brightness",
+          "GaussianNoise",
+          "MotionBlur"
+        ],
+        "word_string": "Pixelate>Brightness>GaussianNoise>MotionBlur"
+      },
+      {
+        "condition_index": 39,
+        "length": 4,
+        "reverse_group": "GaussianNoise>MotionBlur>JPEGCompression>ShotNoise",
+        "role": "development",
+        "word": [
+          "GaussianNoise",
+          "MotionBlur",
+          "JPEGCompression",
+          "ShotNoise"
+        ],
+        "word_string": "GaussianNoise>MotionBlur>JPEGCompression>ShotNoise"
+      },
+      {
+        "condition_index": 40,
+        "length": 4,
+        "reverse_group": "GaussianNoise>MotionBlur>JPEGCompression>ShotNoise",
+        "role": "development",
+        "word": [
+          "ShotNoise",
+          "JPEGCompression",
+          "MotionBlur",
+          "GaussianNoise"
+        ],
+        "word_string": "ShotNoise>JPEGCompression>MotionBlur>GaussianNoise"
+      },
+      {
+        "condition_index": 41,
+        "length": 4,
+        "reverse_group": "Brightness>Pixelate>ShotNoise>MotionBlur",
+        "role": "development",
+        "word": [
+          "Brightness",
+          "Pixelate",
+          "ShotNoise",
+          "MotionBlur"
+        ],
+        "word_string": "Brightness>Pixelate>ShotNoise>MotionBlur"
+      },
+      {
+        "condition_index": 42,
+        "length": 4,
+        "reverse_group": "Brightness>Pixelate>ShotNoise>MotionBlur",
+        "role": "development",
+        "word": [
+          "MotionBlur",
+          "ShotNoise",
+          "Pixelate",
+          "Brightness"
+        ],
+        "word_string": "MotionBlur>ShotNoise>Pixelate>Brightness"
+      },
+      {
+        "condition_index": 43,
+        "length": 4,
+        "reverse_group": "JPEGCompression>ShotNoise>MotionBlur>Pixelate",
+        "role": "development",
+        "word": [
+          "JPEGCompression",
+          "ShotNoise",
+          "MotionBlur",
+          "Pixelate"
+        ],
+        "word_string": "JPEGCompression>ShotNoise>MotionBlur>Pixelate"
+      },
+      {
+        "condition_index": 44,
+        "length": 4,
+        "reverse_group": "JPEGCompression>ShotNoise>MotionBlur>Pixelate",
+        "role": "development",
+        "word": [
+          "Pixelate",
+          "MotionBlur",
+          "ShotNoise",
+          "JPEGCompression"
+        ],
+        "word_string": "Pixelate>MotionBlur>ShotNoise>JPEGCompression"
+      },
+      {
+        "condition_index": 45,
+        "length": 4,
+        "reverse_group": "JPEGCompression>MotionBlur>Pixelate>ShotNoise",
+        "role": "development",
+        "word": [
+          "JPEGCompression",
+          "MotionBlur",
+          "Pixelate",
+          "ShotNoise"
+        ],
+        "word_string": "JPEGCompression>MotionBlur>Pixelate>ShotNoise"
+      },
+      {
+        "condition_index": 46,
+        "length": 4,
+        "reverse_group": "JPEGCompression>MotionBlur>Pixelate>ShotNoise",
+        "role": "development",
+        "word": [
+          "ShotNoise",
+          "Pixelate",
+          "MotionBlur",
+          "JPEGCompression"
+        ],
+        "word_string": "ShotNoise>Pixelate>MotionBlur>JPEGCompression"
+      },
+      {
+        "condition_index": 47,
+        "length": 4,
+        "reverse_group": "Pixelate>GaussianNoise>MotionBlur>ShotNoise",
+        "role": "development",
+        "word": [
+          "Pixelate",
+          "GaussianNoise",
+          "MotionBlur",
+          "ShotNoise"
+        ],
+        "word_string": "Pixelate>GaussianNoise>MotionBlur>ShotNoise"
+      },
+      {
+        "condition_index": 48,
+        "length": 4,
+        "reverse_group": "Pixelate>GaussianNoise>MotionBlur>ShotNoise",
+        "role": "development",
+        "word": [
+          "ShotNoise",
+          "MotionBlur",
+          "GaussianNoise",
+          "Pixelate"
+        ],
+        "word_string": "ShotNoise>MotionBlur>GaussianNoise>Pixelate"
+      },
+      {
+        "condition_index": 49,
+        "length": 4,
+        "reverse_group": "Brightness>GaussianNoise>MotionBlur>ShotNoise",
+        "role": "development",
+        "word": [
+          "Brightness",
+          "GaussianNoise",
+          "MotionBlur",
+          "ShotNoise"
+        ],
+        "word_string": "Brightness>GaussianNoise>MotionBlur>ShotNoise"
+      },
+      {
+        "condition_index": 50,
+        "length": 4,
+        "reverse_group": "Brightness>GaussianNoise>MotionBlur>ShotNoise",
+        "role": "development",
+        "word": [
+          "ShotNoise",
+          "MotionBlur",
+          "GaussianNoise",
+          "Brightness"
+        ],
+        "word_string": "ShotNoise>MotionBlur>GaussianNoise>Brightness"
+      },
+      {
+        "condition_index": 51,
+        "length": 4,
+        "reverse_group": "MotionBlur>Brightness>ShotNoise>Pixelate",
+        "role": "development",
+        "word": [
+          "MotionBlur",
+          "Brightness",
+          "ShotNoise",
+          "Pixelate"
+        ],
+        "word_string": "MotionBlur>Brightness>ShotNoise>Pixelate"
+      },
+      {
+        "condition_index": 52,
+        "length": 4,
+        "reverse_group": "MotionBlur>Brightness>ShotNoise>Pixelate",
+        "role": "development",
+        "word": [
+          "Pixelate",
+          "ShotNoise",
+          "Brightness",
+          "MotionBlur"
+        ],
+        "word_string": "Pixelate>ShotNoise>Brightness>MotionBlur"
+      },
+      {
+        "condition_index": 53,
+        "length": 4,
+        "reverse_group": "JPEGCompression>Pixelate>ShotNoise>MotionBlur",
+        "role": "development",
+        "word": [
+          "JPEGCompression",
+          "Pixelate",
+          "ShotNoise",
+          "MotionBlur"
+        ],
+        "word_string": "JPEGCompression>Pixelate>ShotNoise>MotionBlur"
+      },
+      {
+        "condition_index": 54,
+        "length": 4,
+        "reverse_group": "JPEGCompression>Pixelate>ShotNoise>MotionBlur",
+        "role": "development",
+        "word": [
+          "MotionBlur",
+          "ShotNoise",
+          "Pixelate",
+          "JPEGCompression"
+        ],
+        "word_string": "MotionBlur>ShotNoise>Pixelate>JPEGCompression"
+      },
+      {
+        "condition_index": 55,
+        "length": 4,
+        "reverse_group": "JPEGCompression>MotionBlur>GaussianNoise>ShotNoise",
+        "role": "development",
+        "word": [
+          "JPEGCompression",
+          "MotionBlur",
+          "GaussianNoise",
+          "ShotNoise"
+        ],
+        "word_string": "JPEGCompression>MotionBlur>GaussianNoise>ShotNoise"
+      },
+      {
+        "condition_index": 56,
+        "length": 4,
+        "reverse_group": "JPEGCompression>MotionBlur>GaussianNoise>ShotNoise",
+        "role": "development",
+        "word": [
+          "ShotNoise",
+          "GaussianNoise",
+          "MotionBlur",
+          "JPEGCompression"
+        ],
+        "word_string": "ShotNoise>GaussianNoise>MotionBlur>JPEGCompression"
+      },
+      {
+        "condition_index": 57,
+        "length": 5,
+        "reverse_group": "Brightness>MotionBlur>ShotNoise>Pixelate>JPEGCompression",
+        "role": "development",
+        "word": [
+          "Brightness",
+          "MotionBlur",
+          "ShotNoise",
+          "Pixelate",
+          "JPEGCompression"
+        ],
+        "word_string": "Brightness>MotionBlur>ShotNoise>Pixelate>JPEGCompression"
+      },
+      {
+        "condition_index": 58,
+        "length": 5,
+        "reverse_group": "Brightness>MotionBlur>ShotNoise>Pixelate>JPEGCompression",
+        "role": "development",
+        "word": [
+          "JPEGCompression",
+          "Pixelate",
+          "ShotNoise",
+          "MotionBlur",
+          "Brightness"
+        ],
+        "word_string": "JPEGCompression>Pixelate>ShotNoise>MotionBlur>Brightness"
+      },
+      {
+        "condition_index": 59,
+        "length": 5,
+        "reverse_group": "GaussianNoise>ShotNoise>Brightness>Pixelate>MotionBlur",
+        "role": "development",
+        "word": [
+          "GaussianNoise",
+          "ShotNoise",
+          "Brightness",
+          "Pixelate",
+          "MotionBlur"
+        ],
+        "word_string": "GaussianNoise>ShotNoise>Brightness>Pixelate>MotionBlur"
+      },
+      {
+        "condition_index": 60,
+        "length": 5,
+        "reverse_group": "GaussianNoise>ShotNoise>Brightness>Pixelate>MotionBlur",
+        "role": "development",
+        "word": [
+          "MotionBlur",
+          "Pixelate",
+          "Brightness",
+          "ShotNoise",
+          "GaussianNoise"
+        ],
+        "word_string": "MotionBlur>Pixelate>Brightness>ShotNoise>GaussianNoise"
+      },
+      {
+        "condition_index": 61,
+        "length": 5,
+        "reverse_group": "GaussianNoise>Pixelate>ShotNoise>Brightness>JPEGCompression",
+        "role": "development",
+        "word": [
+          "GaussianNoise",
+          "Pixelate",
+          "ShotNoise",
+          "Brightness",
+          "JPEGCompression"
+        ],
+        "word_string": "GaussianNoise>Pixelate>ShotNoise>Brightness>JPEGCompression"
+      },
+      {
+        "condition_index": 62,
+        "length": 5,
+        "reverse_group": "GaussianNoise>Pixelate>ShotNoise>Brightness>JPEGCompression",
+        "role": "development",
+        "word": [
+          "JPEGCompression",
+          "Brightness",
+          "ShotNoise",
+          "Pixelate",
+          "GaussianNoise"
+        ],
+        "word_string": "JPEGCompression>Brightness>ShotNoise>Pixelate>GaussianNoise"
+      },
+      {
+        "condition_index": 63,
+        "length": 5,
+        "reverse_group": "GaussianNoise>ShotNoise>Brightness>Pixelate>JPEGCompression",
+        "role": "development",
+        "word": [
+          "GaussianNoise",
+          "ShotNoise",
+          "Brightness",
+          "Pixelate",
+          "JPEGCompression"
+        ],
+        "word_string": "GaussianNoise>ShotNoise>Brightness>Pixelate>JPEGCompression"
+      },
+      {
+        "condition_index": 64,
+        "length": 5,
+        "reverse_group": "GaussianNoise>ShotNoise>Brightness>Pixelate>JPEGCompression",
+        "role": "development",
+        "word": [
+          "JPEGCompression",
+          "Pixelate",
+          "Brightness",
+          "ShotNoise",
+          "GaussianNoise"
+        ],
+        "word_string": "JPEGCompression>Pixelate>Brightness>ShotNoise>GaussianNoise"
+      },
+      {
+        "condition_index": 65,
+        "length": 5,
+        "reverse_group": "Brightness>GaussianNoise>JPEGCompression>ShotNoise>MotionBlur",
+        "role": "development",
+        "word": [
+          "Brightness",
+          "GaussianNoise",
+          "JPEGCompression",
+          "ShotNoise",
+          "MotionBlur"
+        ],
+        "word_string": "Brightness>GaussianNoise>JPEGCompression>ShotNoise>MotionBlur"
+      },
+      {
+        "condition_index": 66,
+        "length": 5,
+        "reverse_group": "Brightness>GaussianNoise>JPEGCompression>ShotNoise>MotionBlur",
+        "role": "development",
+        "word": [
+          "MotionBlur",
+          "ShotNoise",
+          "JPEGCompression",
+          "GaussianNoise",
+          "Brightness"
+        ],
+        "word_string": "MotionBlur>ShotNoise>JPEGCompression>GaussianNoise>Brightness"
+      },
+      {
+        "condition_index": 67,
+        "length": 5,
+        "reverse_group": "Pixelate>Brightness>GaussianNoise>MotionBlur>ShotNoise",
+        "role": "development",
+        "word": [
+          "Pixelate",
+          "Brightness",
+          "GaussianNoise",
+          "MotionBlur",
+          "ShotNoise"
+        ],
+        "word_string": "Pixelate>Brightness>GaussianNoise>MotionBlur>ShotNoise"
+      },
+      {
+        "condition_index": 68,
+        "length": 5,
+        "reverse_group": "Pixelate>Brightness>GaussianNoise>MotionBlur>ShotNoise",
+        "role": "development",
+        "word": [
+          "ShotNoise",
+          "MotionBlur",
+          "GaussianNoise",
+          "Brightness",
+          "Pixelate"
+        ],
+        "word_string": "ShotNoise>MotionBlur>GaussianNoise>Brightness>Pixelate"
+      },
+      {
+        "condition_index": 69,
+        "length": 5,
+        "reverse_group": "GaussianNoise>MotionBlur>Brightness>Pixelate>ShotNoise",
+        "role": "development",
+        "word": [
+          "GaussianNoise",
+          "MotionBlur",
+          "Brightness",
+          "Pixelate",
+          "ShotNoise"
+        ],
+        "word_string": "GaussianNoise>MotionBlur>Brightness>Pixelate>ShotNoise"
+      },
+      {
+        "condition_index": 70,
+        "length": 5,
+        "reverse_group": "GaussianNoise>MotionBlur>Brightness>Pixelate>ShotNoise",
+        "role": "development",
+        "word": [
+          "ShotNoise",
+          "Pixelate",
+          "Brightness",
+          "MotionBlur",
+          "GaussianNoise"
+        ],
+        "word_string": "ShotNoise>Pixelate>Brightness>MotionBlur>GaussianNoise"
+      },
+      {
+        "condition_index": 71,
+        "length": 5,
+        "reverse_group": "GaussianNoise>Pixelate>MotionBlur>ShotNoise>JPEGCompression",
+        "role": "development",
+        "word": [
+          "GaussianNoise",
+          "Pixelate",
+          "MotionBlur",
+          "ShotNoise",
+          "JPEGCompression"
+        ],
+        "word_string": "GaussianNoise>Pixelate>MotionBlur>ShotNoise>JPEGCompression"
+      },
+      {
+        "condition_index": 72,
+        "length": 5,
+        "reverse_group": "GaussianNoise>Pixelate>MotionBlur>ShotNoise>JPEGCompression",
+        "role": "development",
+        "word": [
+          "JPEGCompression",
+          "ShotNoise",
+          "MotionBlur",
+          "Pixelate",
+          "GaussianNoise"
+        ],
+        "word_string": "JPEGCompression>ShotNoise>MotionBlur>Pixelate>GaussianNoise"
+      },
+      {
+        "condition_index": 73,
+        "length": 5,
+        "reverse_group": "JPEGCompression>GaussianNoise>Pixelate>ShotNoise>MotionBlur",
+        "role": "development",
+        "word": [
+          "JPEGCompression",
+          "GaussianNoise",
+          "Pixelate",
+          "ShotNoise",
+          "MotionBlur"
+        ],
+        "word_string": "JPEGCompression>GaussianNoise>Pixelate>ShotNoise>MotionBlur"
+      },
+      {
+        "condition_index": 74,
+        "length": 5,
+        "reverse_group": "JPEGCompression>GaussianNoise>Pixelate>ShotNoise>MotionBlur",
+        "role": "development",
+        "word": [
+          "MotionBlur",
+          "ShotNoise",
+          "Pixelate",
+          "GaussianNoise",
+          "JPEGCompression"
+        ],
+        "word_string": "MotionBlur>ShotNoise>Pixelate>GaussianNoise>JPEGCompression"
+      },
+      {
+        "condition_index": 75,
+        "length": 5,
+        "reverse_group": "Brightness>Pixelate>ShotNoise>MotionBlur>GaussianNoise",
+        "role": "development",
+        "word": [
+          "Brightness",
+          "Pixelate",
+          "ShotNoise",
+          "MotionBlur",
+          "GaussianNoise"
+        ],
+        "word_string": "Brightness>Pixelate>ShotNoise>MotionBlur>GaussianNoise"
+      },
+      {
+        "condition_index": 76,
+        "length": 5,
+        "reverse_group": "Brightness>Pixelate>ShotNoise>MotionBlur>GaussianNoise",
+        "role": "development",
+        "word": [
+          "GaussianNoise",
+          "MotionBlur",
+          "ShotNoise",
+          "Pixelate",
+          "Brightness"
+        ],
+        "word_string": "GaussianNoise>MotionBlur>ShotNoise>Pixelate>Brightness"
+      },
+      {
+        "condition_index": 77,
+        "length": 6,
+        "reverse_group": "Pixelate>JPEGCompression>Brightness>GaussianNoise>MotionBlur>ShotNoise",
+        "role": "development",
+        "word": [
+          "Pixelate",
+          "JPEGCompression",
+          "Brightness",
+          "GaussianNoise",
+          "MotionBlur",
+          "ShotNoise"
+        ],
+        "word_string": "Pixelate>JPEGCompression>Brightness>GaussianNoise>MotionBlur>ShotNoise"
+      },
+      {
+        "condition_index": 78,
+        "length": 6,
+        "reverse_group": "Pixelate>JPEGCompression>Brightness>GaussianNoise>MotionBlur>ShotNoise",
+        "role": "development",
+        "word": [
+          "ShotNoise",
+          "MotionBlur",
+          "GaussianNoise",
+          "Brightness",
+          "JPEGCompression",
+          "Pixelate"
+        ],
+        "word_string": "ShotNoise>MotionBlur>GaussianNoise>Brightness>JPEGCompression>Pixelate"
+      },
+      {
+        "condition_index": 79,
+        "length": 6,
+        "reverse_group": "JPEGCompression>Pixelate>Brightness>GaussianNoise>ShotNoise>MotionBlur",
+        "role": "development",
+        "word": [
+          "JPEGCompression",
+          "Pixelate",
+          "Brightness",
+          "GaussianNoise",
+          "ShotNoise",
+          "MotionBlur"
+        ],
+        "word_string": "JPEGCompression>Pixelate>Brightness>GaussianNoise>ShotNoise>MotionBlur"
+      },
+      {
+        "condition_index": 80,
+        "length": 6,
+        "reverse_group": "JPEGCompression>Pixelate>Brightness>GaussianNoise>ShotNoise>MotionBlur",
+        "role": "development",
+        "word": [
+          "MotionBlur",
+          "ShotNoise",
+          "GaussianNoise",
+          "Brightness",
+          "Pixelate",
+          "JPEGCompression"
+        ],
+        "word_string": "MotionBlur>ShotNoise>GaussianNoise>Brightness>Pixelate>JPEGCompression"
+      },
+      {
+        "condition_index": 81,
+        "length": 6,
+        "reverse_group": "Brightness>MotionBlur>GaussianNoise>JPEGCompression>ShotNoise>Pixelate",
+        "role": "development",
+        "word": [
+          "Brightness",
+          "MotionBlur",
+          "GaussianNoise",
+          "JPEGCompression",
+          "ShotNoise",
+          "Pixelate"
+        ],
+        "word_string": "Brightness>MotionBlur>GaussianNoise>JPEGCompression>ShotNoise>Pixelate"
+      },
+      {
+        "condition_index": 82,
+        "length": 6,
+        "reverse_group": "Brightness>MotionBlur>GaussianNoise>JPEGCompression>ShotNoise>Pixelate",
+        "role": "development",
+        "word": [
+          "Pixelate",
+          "ShotNoise",
+          "JPEGCompression",
+          "GaussianNoise",
+          "MotionBlur",
+          "Brightness"
+        ],
+        "word_string": "Pixelate>ShotNoise>JPEGCompression>GaussianNoise>MotionBlur>Brightness"
+      },
+      {
+        "condition_index": 83,
+        "length": 6,
+        "reverse_group": "Brightness>Pixelate>JPEGCompression>ShotNoise>MotionBlur>GaussianNoise",
+        "role": "development",
+        "word": [
+          "Brightness",
+          "Pixelate",
+          "JPEGCompression",
+          "ShotNoise",
+          "MotionBlur",
+          "GaussianNoise"
+        ],
+        "word_string": "Brightness>Pixelate>JPEGCompression>ShotNoise>MotionBlur>GaussianNoise"
+      },
+      {
+        "condition_index": 84,
+        "length": 6,
+        "reverse_group": "Brightness>Pixelate>JPEGCompression>ShotNoise>MotionBlur>GaussianNoise",
+        "role": "development",
+        "word": [
+          "GaussianNoise",
+          "MotionBlur",
+          "ShotNoise",
+          "JPEGCompression",
+          "Pixelate",
+          "Brightness"
+        ],
+        "word_string": "GaussianNoise>MotionBlur>ShotNoise>JPEGCompression>Pixelate>Brightness"
+      },
+      {
+        "condition_index": 85,
+        "length": 6,
+        "reverse_group": "MotionBlur>Pixelate>Brightness>JPEGCompression>GaussianNoise>ShotNoise",
+        "role": "development",
+        "word": [
+          "MotionBlur",
+          "Pixelate",
+          "Brightness",
+          "JPEGCompression",
+          "GaussianNoise",
+          "ShotNoise"
+        ],
+        "word_string": "MotionBlur>Pixelate>Brightness>JPEGCompression>GaussianNoise>ShotNoise"
+      },
+      {
+        "condition_index": 86,
+        "length": 6,
+        "reverse_group": "MotionBlur>Pixelate>Brightness>JPEGCompression>GaussianNoise>ShotNoise",
+        "role": "development",
+        "word": [
+          "ShotNoise",
+          "GaussianNoise",
+          "JPEGCompression",
+          "Brightness",
+          "Pixelate",
+          "MotionBlur"
+        ],
+        "word_string": "ShotNoise>GaussianNoise>JPEGCompression>Brightness>Pixelate>MotionBlur"
+      },
+      {
+        "condition_index": 87,
+        "length": 6,
+        "reverse_group": "Brightness>JPEGCompression>ShotNoise>MotionBlur>Pixelate>GaussianNoise",
+        "role": "development",
+        "word": [
+          "Brightness",
+          "JPEGCompression",
+          "ShotNoise",
+          "MotionBlur",
+          "Pixelate",
+          "GaussianNoise"
+        ],
+        "word_string": "Brightness>JPEGCompression>ShotNoise>MotionBlur>Pixelate>GaussianNoise"
+      },
+      {
+        "condition_index": 88,
+        "length": 6,
+        "reverse_group": "Brightness>JPEGCompression>ShotNoise>MotionBlur>Pixelate>GaussianNoise",
+        "role": "development",
+        "word": [
+          "GaussianNoise",
+          "Pixelate",
+          "MotionBlur",
+          "ShotNoise",
+          "JPEGCompression",
+          "Brightness"
+        ],
+        "word_string": "GaussianNoise>Pixelate>MotionBlur>ShotNoise>JPEGCompression>Brightness"
+      },
+      {
+        "condition_index": 89,
+        "length": 6,
+        "reverse_group": "MotionBlur>GaussianNoise>Brightness>JPEGCompression>Pixelate>ShotNoise",
+        "role": "development",
+        "word": [
+          "MotionBlur",
+          "GaussianNoise",
+          "Brightness",
+          "JPEGCompression",
+          "Pixelate",
+          "ShotNoise"
+        ],
+        "word_string": "MotionBlur>GaussianNoise>Brightness>JPEGCompression>Pixelate>ShotNoise"
+      },
+      {
+        "condition_index": 90,
+        "length": 6,
+        "reverse_group": "MotionBlur>GaussianNoise>Brightness>JPEGCompression>Pixelate>ShotNoise",
+        "role": "development",
+        "word": [
+          "ShotNoise",
+          "Pixelate",
+          "JPEGCompression",
+          "Brightness",
+          "GaussianNoise",
+          "MotionBlur"
+        ],
+        "word_string": "ShotNoise>Pixelate>JPEGCompression>Brightness>GaussianNoise>MotionBlur"
+      },
+      {
+        "condition_index": 91,
+        "length": 6,
+        "reverse_group": "Brightness>JPEGCompression>ShotNoise>GaussianNoise>Pixelate>MotionBlur",
+        "role": "development",
+        "word": [
+          "Brightness",
+          "JPEGCompression",
+          "ShotNoise",
+          "GaussianNoise",
+          "Pixelate",
+          "MotionBlur"
+        ],
+        "word_string": "Brightness>JPEGCompression>ShotNoise>GaussianNoise>Pixelate>MotionBlur"
+      },
+      {
+        "condition_index": 92,
+        "length": 6,
+        "reverse_group": "Brightness>JPEGCompression>ShotNoise>GaussianNoise>Pixelate>MotionBlur",
+        "role": "development",
+        "word": [
+          "MotionBlur",
+          "Pixelate",
+          "GaussianNoise",
+          "ShotNoise",
+          "JPEGCompression",
+          "Brightness"
+        ],
+        "word_string": "MotionBlur>Pixelate>GaussianNoise>ShotNoise>JPEGCompression>Brightness"
+      },
+      {
+        "condition_index": 93,
+        "length": 6,
+        "reverse_group": "GaussianNoise>ShotNoise>JPEGCompression>Pixelate>Brightness>MotionBlur",
+        "role": "development",
+        "word": [
+          "GaussianNoise",
+          "ShotNoise",
+          "JPEGCompression",
+          "Pixelate",
+          "Brightness",
+          "MotionBlur"
+        ],
+        "word_string": "GaussianNoise>ShotNoise>JPEGCompression>Pixelate>Brightness>MotionBlur"
+      },
+      {
+        "condition_index": 94,
+        "length": 6,
+        "reverse_group": "GaussianNoise>ShotNoise>JPEGCompression>Pixelate>Brightness>MotionBlur",
+        "role": "development",
+        "word": [
+          "MotionBlur",
+          "Brightness",
+          "Pixelate",
+          "JPEGCompression",
+          "ShotNoise",
+          "GaussianNoise"
+        ],
+        "word_string": "MotionBlur>Brightness>Pixelate>JPEGCompression>ShotNoise>GaussianNoise"
+      },
+      {
+        "condition_index": 95,
+        "length": 6,
+        "reverse_group": "GaussianNoise>MotionBlur>Brightness>Pixelate>ShotNoise>JPEGCompression",
+        "role": "development",
+        "word": [
+          "GaussianNoise",
+          "MotionBlur",
+          "Brightness",
+          "Pixelate",
+          "ShotNoise",
+          "JPEGCompression"
+        ],
+        "word_string": "GaussianNoise>MotionBlur>Brightness>Pixelate>ShotNoise>JPEGCompression"
+      },
+      {
+        "condition_index": 96,
+        "length": 6,
+        "reverse_group": "GaussianNoise>MotionBlur>Brightness>Pixelate>ShotNoise>JPEGCompression",
+        "role": "development",
+        "word": [
+          "JPEGCompression",
+          "ShotNoise",
+          "Pixelate",
+          "Brightness",
+          "MotionBlur",
+          "GaussianNoise"
+        ],
+        "word_string": "JPEGCompression>ShotNoise>Pixelate>Brightness>MotionBlur>GaussianNoise"
+      }
+    ]
+  }
+}

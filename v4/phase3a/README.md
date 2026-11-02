@@ -16,6 +16,12 @@ The operators are clean-room **ImageNet-C-style categories**, not official Image
 
 See [`../protocol/phase3a_realistic_corruptions_preregistration.md`](../protocol/phase3a_realistic_corruptions_preregistration.md) for gates and interpretation boundaries.
 
+## Result
+
+**The all-required gate failed 6/7.** The fitted symmetric method improved all six coordinate MAEs, reduced macro normalized MAE from 0.576501 to 0.471656, produced a hierarchical improvement CI of [0.050407, 0.154644], improved controlled rank from 0.191236 to 0.613512, and had positive mean improvement in all six families. However, accuracy top-1 selection regret worsened from 0.1083pp to 0.1367pp, so the strict no-worse criterion failed. The unfavorable decision is retained without tuning.
+
+See [`PHASE3A_FINAL_REPORT.md`](PHASE3A_FINAL_REPORT.md) and [`INFORMATION_AUDIT.md`](INFORMATION_AUDIT.md).
+
 ## Prospective execution order
 
 Run from the repository root with the CPU environment. Each numbered outcome boundary is committed before the next one is opened.

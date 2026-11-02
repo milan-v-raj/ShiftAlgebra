@@ -1,0 +1,226 @@
+{
+  "by_epoch": {
+    "1": {
+      "macro_normalized_mae": {
+        "envelope": 0.4070076983004805,
+        "g0": 0.44344412571341957,
+        "independent": 1.053628782844403,
+        "symmetric": 0.3318854198204602,
+        "symmetric_formula": 0.3563310011354547
+      },
+      "rows": 1080,
+      "symmetric_improvement_over_g0": 0.11155870589295935
+    },
+    "2": {
+      "macro_normalized_mae": {
+        "envelope": 0.7656491593466797,
+        "g0": 0.7095577088845105,
+        "independent": 1.8079108095014622,
+        "symmetric": 0.6114263304561162,
+        "symmetric_formula": 0.7290583166731034
+      },
+      "rows": 1080,
+      "symmetric_improvement_over_g0": 0.09813137842839437
+    }
+  },
+  "by_family": {
+    "convnext_holdout": {
+      "macro_normalized_mae": {
+        "envelope": 0.27375199474518924,
+        "g0": 0.30917510094684375,
+        "independent": 0.3177118718001082,
+        "symmetric": 0.16549239687318415,
+        "symmetric_formula": 0.14387233813783093
+      },
+      "rows": 360,
+      "symmetric_improvement_over_g0": 0.1436827040736596
+    },
+    "depthwise_holdout": {
+      "macro_normalized_mae": {
+        "envelope": 0.88132651859622,
+        "g0": 0.8495367586473203,
+        "independent": 2.146370307652832,
+        "symmetric": 0.7078491173629502,
+        "symmetric_formula": 0.8703944604252403
+      },
+      "rows": 360,
+      "symmetric_improvement_over_g0": 0.14168764128437006
+    },
+    "dilated_holdout": {
+      "macro_normalized_mae": {
+        "envelope": 0.1770180259679412,
+        "g0": 0.2604551427360001,
+        "independent": 0.3685799236287794,
+        "symmetric": 0.1515758862113713,
+        "symmetric_formula": 0.1459014445616357
+      },
+      "rows": 360,
+      "symmetric_improvement_over_g0": 0.10887925652462882
+    },
+    "gated_holdout": {
+      "macro_normalized_mae": {
+        "envelope": 0.9603102886687013,
+        "g0": 0.8398084261290083,
+        "independent": 2.1703552973700035,
+        "symmetric": 0.778207393129951,
+        "symmetric_formula": 0.8876694858789584
+      },
+      "rows": 360,
+      "symmetric_improvement_over_g0": 0.06160103299905728
+    },
+    "residual_holdout": {
+      "macro_normalized_mae": {
+        "envelope": 0.530647248976989,
+        "g0": 0.527103223614452,
+        "independent": 1.327852847121388,
+        "symmetric": 0.4283193082867656,
+        "symmetric_formula": 0.4955631928169914
+      },
+      "rows": 360,
+      "symmetric_improvement_over_g0": 0.09878391532768643
+    },
+    "shuffle_holdout": {
+      "macro_normalized_mae": {
+        "envelope": 0.6949164959864396,
+        "g0": 0.6729268517201655,
+        "independent": 2.2537485294644846,
+        "symmetric": 0.5984911489655069,
+        "symmetric_formula": 0.7127670316050174
+      },
+      "rows": 360,
+      "symmetric_improvement_over_g0": 0.0744357027546586
+    }
+  },
+  "by_recipe": {
+    "erm_flip": {
+      "macro_normalized_mae": {
+        "envelope": 0.6600049229399761,
+        "g0": 0.6545782034545692,
+        "independent": 1.7565545492429173,
+        "symmetric": 0.5629426790866706,
+        "symmetric_formula": 0.6718643130749063
+      },
+      "rows": 720,
+      "symmetric_improvement_over_g0": 0.09163552436789857
+    },
+    "label_smooth": {
+      "macro_normalized_mae": {
+        "envelope": 0.5715370541806599,
+        "g0": 0.5327783834062727,
+        "independent": 1.394863428856849,
+        "symmetric": 0.42590377568589227,
+        "symmetric_formula": 0.5263996370342608
+      },
+      "rows": 720,
+      "symmetric_improvement_over_g0": 0.10687460772038043
+    },
+    "noise_aug": {
+      "macro_normalized_mae": {
+        "envelope": 0.5274433093501041,
+        "g0": 0.5421461650360533,
+        "independent": 1.140891410419031,
+        "symmetric": 0.42612117064230176,
+        "symmetric_formula": 0.42982002660366986
+      },
+      "rows": 720,
+      "symmetric_improvement_over_g0": 0.11602499439375152
+    }
+  },
+  "by_word_length": {
+    "4": {
+      "macro_normalized_mae": {
+        "envelope": 0.5793475849986383,
+        "g0": 0.6738065337564897,
+        "independent": 1.127790306540008,
+        "symmetric": 0.5085402438642068,
+        "symmetric_formula": 0.4854906014989175
+      },
+      "rows": 720,
+      "symmetric_improvement_over_g0": 0.16526628989228287
+    },
+    "5": {
+      "macro_normalized_mae": {
+        "envelope": 0.5831343744935902,
+        "g0": 0.511756244204717,
+        "independent": 1.4421428522192823,
+        "symmetric": 0.42563387693600246,
+        "symmetric_formula": 0.5322082315485016
+      },
+      "rows": 720,
+      "symmetric_improvement_over_g0": 0.08612236726871453
+    },
+    "6": {
+      "macro_normalized_mae": {
+        "envelope": 0.5965033269785117,
+        "g0": 0.5439399739356885,
+        "independent": 1.7223762297595075,
+        "symmetric": 0.4807935046146555,
+        "symmetric_formula": 0.6103851436654177
+      },
+      "rows": 720,
+      "symmetric_improvement_over_g0": 0.06314646932103302
+    }
+  },
+  "note": "These declared sensitivities retain the frozen predictions and cannot replace the six-metric primary decision.",
+  "primary_decision_replaced": false,
+  "protocol": "V4-P3A-CIFAR100-REALISTIC-CORRUPTIONS-001",
+  "remove_redundant_balanced_accuracy": {
+    "hierarchical_improvement": {
+      "ci95": [
+        0.04033255042094825,
+        0.14726296840831496
+      ],
+      "draws": 10000,
+      "hierarchy": "architecture family -> lineage; crossed with reversal group",
+      "per_metric": {
+        "accuracy": {
+          "ci95": [
+            0.07333501770658407,
+            0.20231672932419117
+          ],
+          "point": 0.13667099016117654
+        },
+        "ece": {
+          "ci95": [
+            0.010316519756394832,
+            0.20107218057661322
+          ],
+          "point": 0.1114268390305588
+        },
+        "feature_drift": {
+          "ci95": [
+            0.03809811592263189,
+            0.2308098149725683
+          ],
+          "point": 0.13971863718442648
+        },
+        "margin": {
+          "ci95": [
+            -0.008432551900413693,
+            0.10151143263398825
+          ],
+          "point": 0.05022746106117919
+        },
+        "mean_confidence": {
+          "ci95": [
+            0.004717648242442693,
+            0.10100863756647738
+          ],
+          "point": 0.05435533570154635
+        }
+      },
+      "point": 0.09847985262777748,
+      "seed": 23703
+    },
+    "macro_normalized_mae": {
+      "envelope": 0.6187901825236543,
+      "g0": 0.5901459319979985,
+      "independent": 1.5593313644460212,
+      "symmetric": 0.4916660793702211,
+      "symmetric_formula": 0.5513013930985036
+    },
+    "rows": 2160,
+    "symmetric_improvement_over_g0": 0.09847985262777736
+  },
+  "status": "POST_OUTCOME_ROBUSTNESS_RETAINED_NO_RETUNING"
+}

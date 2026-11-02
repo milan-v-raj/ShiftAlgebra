@@ -1,0 +1,15 @@
+{
+  "frozen_method_sha256": "b64681003294c5ceaeb05d63baa7d2e3504767231ab5872eb64af59cc655c8a0",
+  "metrics": [
+    "margin",
+    "feature_drift",
+    "ece",
+    "balanced_accuracy",
+    "accuracy",
+    "mean_confidence"
+  ],
+  "protocol": "V4-P3A-CIFAR100-REALISTIC-CORRUPTIONS-001",
+  "rows": 2160,
+  "sha256": "9dece3e005a4dc09b5f8e6980da720b6d4fe137e659c65d4acd7223c78f142e4",
+  "status": "REALISTIC_CONFIRMATION_FORECAST"
+}

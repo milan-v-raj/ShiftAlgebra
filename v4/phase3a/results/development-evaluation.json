@@ -1,0 +1,24 @@
+{
+  "behavior_csv": "v4/phase3a/results/development-behavior.csv",
+  "conditions": 97,
+  "elapsed_seconds": 1381.5169956684113,
+  "lineages": 18,
+  "metrics": [
+    "margin",
+    "feature_drift",
+    "ece",
+    "balanced_accuracy",
+    "accuracy",
+    "mean_confidence"
+  ],
+  "models": 36,
+  "partition": {
+    "offset": 80,
+    "per_class": 10
+  },
+  "protocol": "V4-P3A-CIFAR100-REALISTIC-CORRUPTIONS-001",
+  "samples_per_condition": 1000,
+  "sha256": "63229f6f58b229f46df687f520829b61d3738d87a8e5998232e5bdbf3ec8a0e3",
+  "split": "development",
+  "status": "DEVELOPMENT_REALISTIC_FULL_VECTOR_EVALUATED"
+}

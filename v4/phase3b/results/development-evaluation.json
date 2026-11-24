@@ -1,0 +1,24 @@
+{
+  "behavior_csv": "v4/phase3b/results/development-behavior.csv",
+  "conditions": 97,
+  "elapsed_seconds": 3058.8187437057495,
+  "lineages": 18,
+  "metrics": [
+    "margin",
+    "feature_drift",
+    "ece",
+    "balanced_accuracy",
+    "accuracy",
+    "mean_confidence"
+  ],
+  "models": 36,
+  "partition": {
+    "offset": 600,
+    "per_class": 200
+  },
+  "protocol": "V4-P3B-CIFAR10-REALISTIC-REPLICATION-001",
+  "samples_per_condition": 2000,
+  "sha256": "b89080a1b122194c3a68cd13eda2f3d344b7749f8fd57466146f079383b082e2",
+  "split": "development",
+  "status": "DEVELOPMENT_CIFAR10_REALISTIC_FULL_VECTOR_EVALUATED"
+}

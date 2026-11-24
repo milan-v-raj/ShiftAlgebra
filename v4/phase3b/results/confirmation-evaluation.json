@@ -1,0 +1,24 @@
+{
+  "behavior_csv": "v4/phase3b/results/confirmation-behavior.csv",
+  "conditions": 97,
+  "elapsed_seconds": 2859.3171825408936,
+  "lineages": 18,
+  "metrics": [
+    "margin",
+    "feature_drift",
+    "ece",
+    "balanced_accuracy",
+    "accuracy",
+    "mean_confidence"
+  ],
+  "models": 36,
+  "partition": {
+    "offset": 800,
+    "per_class": 200
+  },
+  "protocol": "V4-P3B-CIFAR10-REALISTIC-REPLICATION-001",
+  "samples_per_condition": 2000,
+  "sha256": "0d3212ea773ed765624ea4cab7f284ede14e56ea2d510d27760c5deea88d9b3b",
+  "split": "confirmation",
+  "status": "CONFIRMATION_CIFAR10_REALISTIC_FULL_VECTOR_EVALUATED"
+}

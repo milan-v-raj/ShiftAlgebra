@@ -18,14 +18,14 @@ This folder executes [`NEURIPS_DEVELOPMENT_PLAN.md`](../NEURIPS_DEVELOPMENT_PLAN
 | **2G. No-refit architecture transfer** | **COMPLETE — BOTH GATES PASSED** | Frozen Phase-2F method transfers to six unseen families: 0.912→0.326; all metrics/families improve; frozen magnitude 0.329 vs 0.484 random |
 | **2H. Order-awareness ablation** | **COMPLETE — PRIMARY GATE FAILED** | Symmetric composition 0.352 vs order-aware 0.349; 4/6 metrics and reversal contrast improve, but controlled rank declines 0.732→0.729 |
 | **3A. Realistic-corruption composition** | **COMPLETE — PRIMARY GATE FAILED** | Six common-corruption categories: all six MAEs and rank improve, aggregate CI is positive, but accuracy-selection regret worsens 0.1083→0.1367pp; gate 6/7 |
-| **3B. Independent CIFAR-10 replication** | **PROSPECTIVELY FROZEN — OUTCOMES UNOPENED** | Same six corruptions, symmetric primary, four comparators, six metrics, and seven gates; fresh banks/images/words |
+| **3B. Prospective CIFAR-10 replication** | **COMPLETE — REPLICATION GATE FAILED** | All six MAEs, rank, aggregate CI, and 6/6 family signs improve; strict accuracy regret worsens 0.7125→0.7275pp; gate 6/7 |
 | 3C. Larger/official corruption benchmark | NOT STARTED | Phases 3A/3B are not official CIFAR-C, ImageNet-C, or ImageNet |
 | 4. Natural/hybrid shifts | NOT STARTED | — |
 | 5. Method freeze/preregistration | NOT STARTED | — |
 | 6. One-shot final evaluation | NOT STARTED | — |
 | 7. Paper and artifact | NOT STARTED | — |
 
-Completed Phase-1, Phase-1B, Phase-2 pilot, Phase-2B, Phase-2C, Phase-2D, Phase-2E, Phase-2F, Phase-2G, Phase-2H, and Phase-3A results are documented in their frozen reports. Phase 3B has only a prospective protocol; no outcome should be inferred. No result should be inferred for unstarted Phase 3C or Phases 4--7.
+Completed Phase-1, Phase-1B, Phase-2 pilot, Phase-2B, Phase-2C, Phase-2D, Phase-2E, Phase-2F, Phase-2G, Phase-2H, Phase-3A, and Phase-3B results are documented in their frozen reports. Phase 3B prospectively reproduced Phase 3A's favorable six-metric error/rank pattern on CIFAR-10 but failed the same all-required selection-regret criterion. No result should be inferred for unstarted Phase 3C or Phases 4--7.
 
 ## Layout
 
@@ -73,6 +73,7 @@ python3 v4/phase2f/verify_phase2f.py
 python3 v4/phase2g/verify_phase2g.py
 python3 v4/phase2h/verify_phase2h.py
 python3 -m v4.phase3a.verify
+python3 -m v4.phase3b.verify
 python3 -m v4.reproduce_cpu --verify --summary
 ```
 

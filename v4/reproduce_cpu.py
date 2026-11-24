@@ -9,7 +9,7 @@ def command(*args):
  print(">>>"," ".join(map(str,args)),flush=True); subprocess.run([str(x) for x in args],cwd=ROOT,check=True)
 
 def verify():
- for script in ("v4/phase2/verify_phase2.py","v4/phase2b/verify_phase2b.py","v4/phase2c/verify_phase2c.py","v4/phase2d/verify_phase2d.py","v4/phase2e/verify_phase2e.py","v4/phase2f/verify_phase2f.py","v4/phase2g/verify_phase2g.py","v4/phase2h/verify_phase2h.py","v4/phase3a/verify.py","v4/verify_cpu_synthesis.py"):
+ for script in ("v4/phase2/verify_phase2.py","v4/phase2b/verify_phase2b.py","v4/phase2c/verify_phase2c.py","v4/phase2d/verify_phase2d.py","v4/phase2e/verify_phase2e.py","v4/phase2f/verify_phase2f.py","v4/phase2g/verify_phase2g.py","v4/phase2h/verify_phase2h.py","v4/phase3a/verify.py","v4/phase3b/verify.py","v4/verify_cpu_synthesis.py"):
   command(sys.executable,script)
  command(sys.executable,"-m","unittest","discover","-s","v4/phase2b/tests","-q")
  command(sys.executable,"-m","unittest","discover","-s","v4/phase2c/tests","-q")
@@ -19,10 +19,11 @@ def verify():
  command(sys.executable,"-m","unittest","discover","-s","v4/phase2g/tests","-q")
  command(sys.executable,"-m","unittest","discover","-s","v4/phase2h/tests","-q")
  command(sys.executable,"-m","unittest","v4.phase3a.test_phase3a","-q")
+ command(sys.executable,"-m","unittest","v4.phase3b.test_phase3b","-q")
  print("V4 CPU verification complete")
 
 def reanalyze():
- for module in ("v4.phase2b.analyze","v4.phase2c.analyze","v4.phase2d.analyze","v4.phase2e.analyze","v4.phase2f.analyze","v4.phase2f.robustness","v4.phase2g.analyze","v4.phase2g.robustness","v4.phase2h.analyze","v4.phase2h.robustness","v4.phase3a.analyze","v4.phase3a.robustness","v4.architecture_synthesis","v4.cpu_synthesis"):
+ for module in ("v4.phase2b.analyze","v4.phase2c.analyze","v4.phase2d.analyze","v4.phase2e.analyze","v4.phase2f.analyze","v4.phase2f.robustness","v4.phase2g.analyze","v4.phase2g.robustness","v4.phase2h.analyze","v4.phase2h.robustness","v4.phase3a.analyze","v4.phase3a.robustness","v4.phase3b.analyze","v4.phase3b.robustness","v4.architecture_synthesis","v4.cpu_synthesis"):
   command(sys.executable,"-m",module)
 
 def summary():
@@ -45,7 +46,10 @@ def summary():
  print(f"CIFAR-100 order ablation: symmetric={p2h['methods']['symmetric']['macro_normalized_mae']:.3f} vs order-aware={p2h['methods']['order_aware']['macro_normalized_mae']:.3f}; gate={p2h['status']}")
  p3a=json.loads((ROOT/"v4/phase3a/results/PHASE3A_ANALYSIS.json").read_text())
  print(f"CIFAR-100 realistic-corruption bridge: g0={p3a['methods']['g0']['macro_normalized_mae']:.3f} -> symmetric={p3a['methods']['symmetric']['macro_normalized_mae']:.3f}; gate={p3a['status']}")
- print("CIFAR-10 gates:",syn["gate_summary"])
+ p3b=json.loads((ROOT/"v4/phase3b/results/PHASE3B_ANALYSIS.json").read_text())
+ print(f"CIFAR-10 prospective replication: g0={p3b['methods']['g0']['macro_normalized_mae']:.3f} -> symmetric={p3b['methods']['symmetric']['macro_normalized_mae']:.3f}; gate={p3b['status']}")
+ print(f"Phase-3A/3B direction agreement: metrics={p3b['phase3a_replication']['metrics_agree']}/{p3b['phase3a_replication']['metrics_compared']}; gates={p3b['phase3a_replication']['gates_agree']}/{p3b['phase3a_replication']['gates_compared']}")
+ print("CIFAR-10 accuracy-bank gates:",syn["gate_summary"])
 
 def main():
  p=argparse.ArgumentParser(description=__doc__); p.add_argument("--verify",action="store_true"); p.add_argument("--reanalyze",action="store_true"); p.add_argument("--summary",action="store_true"); p.add_argument("--all",action="store_true"); a=p.parse_args()

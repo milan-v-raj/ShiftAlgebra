@@ -1,0 +1,15 @@
+{
+  "frozen_method_sha256": "f71dea2ceba0fcd5c9c84fb342449135fad3da1f2257fd45786d924050037526",
+  "metrics": [
+    "margin",
+    "feature_drift",
+    "ece",
+    "balanced_accuracy",
+    "accuracy",
+    "mean_confidence"
+  ],
+  "protocol": "V4-P3B-CIFAR10-REALISTIC-REPLICATION-001",
+  "rows": 2160,
+  "sha256": "519c53ca5053a16d91d06afbd59c23f8f460331683728e8015d25de451fd4340",
+  "status": "CIFAR10_REALISTIC_CONFIRMATION_FORECAST"
+}

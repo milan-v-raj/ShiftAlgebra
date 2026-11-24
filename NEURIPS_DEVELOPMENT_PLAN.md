@@ -1161,7 +1161,7 @@ All result-producing commands must be callable from one runner and emit machine-
 
 **Gate:** no catastrophic loss versus the best R2 baseline; target relative improvement defined in Section 17.
 
-**Phase-3A execution update (2026-11-02):** a CPU-feasible CIFAR-100 bridge using six deterministic clean-room ImageNet-C-style categories was completed prospectively. Symmetric composition improved all six coordinate MAEs and controlled rank with a positive hierarchical aggregate interval, but the all-required gate failed 6/7 because accuracy-selection regret worsened slightly. This is not the planned official ImageNet/ImageNet-C tier; see `v4/phase3a/PHASE3A_FINAL_REPORT.md`. The larger official benchmark remains future Phase 3B work.
+**Phase-3A execution update (2026-10-07):** a CPU-feasible CIFAR-100 bridge using six deterministic clean-room ImageNet-C-style categories was completed prospectively. Symmetric composition improved all six coordinate MAEs and controlled rank with a positive hierarchical aggregate interval, but the all-required gate failed 6/7 because accuracy-selection regret worsened slightly. This is not the planned official ImageNet/ImageNet-C tier; see `v4/phase3a/PHASE3A_FINAL_REPORT.md`. Phase 3B prospectively tests independent-dataset replication on CIFAR-10; a larger official benchmark remains future Phase 3C work.
 
 ### Phase 4 — natural/hybrid shifts (Weeks 21--25)
 

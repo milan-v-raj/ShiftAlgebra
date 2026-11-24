@@ -2,7 +2,7 @@
 
 **Applies to:** historical V1--V3 evidence and prospective V4 work
 **Status:** audit document; limitations are not silently repaired retroactively
-**Last updated:** 2026-11-02
+**Last updated:** 2026-10-07
 
 ## 1. Scope of the evidence
 

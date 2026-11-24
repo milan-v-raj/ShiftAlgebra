@@ -1,0 +1,489 @@
+{
+  "dataset_training_images": 40000,
+  "elapsed_seconds": 2244.961455345154,
+  "lineages": 18,
+  "models": 36,
+  "normalization_mean": [
+    0.4914054274559021,
+    0.4820050299167633,
+    0.44627845287323
+  ],
+  "normalization_std": [
+    0.24723972380161285,
+    0.24376243352890015,
+    0.261736661195755
+  ],
+  "protocol": "V4-P3B-CIFAR10-REALISTIC-REPLICATION-001",
+  "split": "confirmation",
+  "status": "CONFIRMATION_BANK_TRAINED_BEHAVIOR_UNOPENED",
+  "summaries": [
+    {
+      "elapsed_seconds": 192.68279147148132,
+      "family": "residual_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-residual_holdout-erm_flip-s74100-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-residual_holdout-erm_flip-s74100-e1",
+          "sha256": "b93113859fdc200b78e915bcd832cdb18f83242d0be72c9d232004e703401920",
+          "train_accuracy": 0.3838,
+          "train_loss": 1.6725808435440064
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-residual_holdout-erm_flip-s74100-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-residual_holdout-erm_flip-s74100-e2",
+          "sha256": "8c7739c90d1d13a80b3c5a68e76db16fb8e2a5d19992a428d2ebe2ec0ada3146",
+          "train_accuracy": 0.532775,
+          "train_loss": 1.2869498317718506
+        }
+      ],
+      "lineage_id": "p3b-confirmation-residual_holdout-erm_flip-s74100",
+      "parameter_count": 31594,
+      "recipe": "erm_flip",
+      "seed": 74100
+    },
+    {
+      "elapsed_seconds": 199.02586364746094,
+      "family": "residual_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-residual_holdout-label_smooth-s74101-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-residual_holdout-label_smooth-s74101-e1",
+          "sha256": "a13d9f35939c49fbfb4a6efa63ca099e38d375be4a7cc420e9371a26656ed45a",
+          "train_accuracy": 0.381875,
+          "train_loss": 1.8157585218429566
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-residual_holdout-label_smooth-s74101-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-residual_holdout-label_smooth-s74101-e2",
+          "sha256": "b37eca884deb8631ee52601a621b3183372ae788d4787dadfa89e7440da67cc4",
+          "train_accuracy": 0.53825,
+          "train_loss": 1.5132928188323975
+        }
+      ],
+      "lineage_id": "p3b-confirmation-residual_holdout-label_smooth-s74101",
+      "parameter_count": 31594,
+      "recipe": "label_smooth",
+      "seed": 74101
+    },
+    {
+      "elapsed_seconds": 194.96427822113037,
+      "family": "residual_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-residual_holdout-noise_aug-s74102-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-residual_holdout-noise_aug-s74102-e1",
+          "sha256": "7b3285a12ebf492c3334b703bbfd32cbd2608fdba5ca2c853c5029f19db38961",
+          "train_accuracy": 0.35865,
+          "train_loss": 1.7326452646255492
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-residual_holdout-noise_aug-s74102-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-residual_holdout-noise_aug-s74102-e2",
+          "sha256": "e71741b95e1ac957d64685c5d24130154c5de016c61c1caa93475e022ca8c0ef",
+          "train_accuracy": 0.5072,
+          "train_loss": 1.3484018899917602
+        }
+      ],
+      "lineage_id": "p3b-confirmation-residual_holdout-noise_aug-s74102",
+      "parameter_count": 31594,
+      "recipe": "noise_aug",
+      "seed": 74102
+    },
+    {
+      "elapsed_seconds": 49.32468128204346,
+      "family": "depthwise_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-depthwise_holdout-erm_flip-s74200-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-depthwise_holdout-erm_flip-s74200-e1",
+          "sha256": "9a8cdc9437fa5221b17e00f857015a9e5b5c36af6e3ab62670c3d4237a152b00",
+          "train_accuracy": 0.34495,
+          "train_loss": 1.7755005828857422
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-depthwise_holdout-erm_flip-s74200-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-depthwise_holdout-erm_flip-s74200-e2",
+          "sha256": "cae15662b446df89d92b8971bc38904868dc358d2fb8c5bd10178981705d796c",
+          "train_accuracy": 0.477975,
+          "train_loss": 1.4189201879501343
+        }
+      ],
+      "lineage_id": "p3b-confirmation-depthwise_holdout-erm_flip-s74200",
+      "parameter_count": 10674,
+      "recipe": "erm_flip",
+      "seed": 74200
+    },
+    {
+      "elapsed_seconds": 51.527353048324585,
+      "family": "depthwise_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-depthwise_holdout-label_smooth-s74201-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-depthwise_holdout-label_smooth-s74201-e1",
+          "sha256": "f6748e2eff73998f96c84e1ab5e2b1be2375945fba3c750a7c11133b0153a635",
+          "train_accuracy": 0.335925,
+          "train_loss": 1.9074991130828858
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-depthwise_holdout-label_smooth-s74201-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-depthwise_holdout-label_smooth-s74201-e2",
+          "sha256": "404c99c8e3d5fcf80c08fdf8e48f340d5dba979d38b21eeb92b34bfd250442f8",
+          "train_accuracy": 0.49385,
+          "train_loss": 1.5951212739944458
+        }
+      ],
+      "lineage_id": "p3b-confirmation-depthwise_holdout-label_smooth-s74201",
+      "parameter_count": 10674,
+      "recipe": "label_smooth",
+      "seed": 74201
+    },
+    {
+      "elapsed_seconds": 49.90084671974182,
+      "family": "depthwise_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-depthwise_holdout-noise_aug-s74202-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-depthwise_holdout-noise_aug-s74202-e1",
+          "sha256": "8dd6ea2cecab48923639cbd09947f7380b474eddadbbe34189a818d6c2709b9c",
+          "train_accuracy": 0.3162,
+          "train_loss": 1.842249383163452
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-depthwise_holdout-noise_aug-s74202-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-depthwise_holdout-noise_aug-s74202-e2",
+          "sha256": "12e06945511054b30b85a5ce6aa2f8b5f52ea879e808536aa4be2184aac35dc7",
+          "train_accuracy": 0.45045,
+          "train_loss": 1.483830523109436
+        }
+      ],
+      "lineage_id": "p3b-confirmation-depthwise_holdout-noise_aug-s74202",
+      "parameter_count": 10674,
+      "recipe": "noise_aug",
+      "seed": 74202
+    },
+    {
+      "elapsed_seconds": 52.73927593231201,
+      "family": "convnext_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-convnext_holdout-erm_flip-s74300-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-convnext_holdout-erm_flip-s74300-e1",
+          "sha256": "8892e50c782e19a7ba6d7c86d5780b722eec34e13b8081c5c435d7067613fc63",
+          "train_accuracy": 0.321525,
+          "train_loss": 1.8567019241333007
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-convnext_holdout-erm_flip-s74300-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-convnext_holdout-erm_flip-s74300-e2",
+          "sha256": "cec520287f36b566c61d69b692354ba425ed488238bb54c6e927ddcae46fe548",
+          "train_accuracy": 0.4292,
+          "train_loss": 1.5746947994232179
+        }
+      ],
+      "lineage_id": "p3b-confirmation-convnext_holdout-erm_flip-s74300",
+      "parameter_count": 25322,
+      "recipe": "erm_flip",
+      "seed": 74300
+    },
+    {
+      "elapsed_seconds": 50.73583984375,
+      "family": "convnext_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-convnext_holdout-label_smooth-s74301-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-convnext_holdout-label_smooth-s74301-e1",
+          "sha256": "fa4fc3a339bca9aea83c9063f2e06c3088b8039b8e81bd5241c8dfd671dbed8c",
+          "train_accuracy": 0.308175,
+          "train_loss": 1.9779389423370362
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-convnext_holdout-label_smooth-s74301-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-convnext_holdout-label_smooth-s74301-e2",
+          "sha256": "67aa976a6a49c1b1d20a85caa967da1dccfefa15afbc9edf5ed36f0f532b7cbd",
+          "train_accuracy": 0.432725,
+          "train_loss": 1.718043179512024
+        }
+      ],
+      "lineage_id": "p3b-confirmation-convnext_holdout-label_smooth-s74301",
+      "parameter_count": 25322,
+      "recipe": "label_smooth",
+      "seed": 74301
+    },
+    {
+      "elapsed_seconds": 53.31451439857483,
+      "family": "convnext_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-convnext_holdout-noise_aug-s74302-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-convnext_holdout-noise_aug-s74302-e1",
+          "sha256": "f713cc7128af758b2d8c1a2812653dac10db9ac96b043a8b9624c08664b71ff2",
+          "train_accuracy": 0.32455,
+          "train_loss": 1.8463546323776245
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-convnext_holdout-noise_aug-s74302-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-convnext_holdout-noise_aug-s74302-e2",
+          "sha256": "cb48de5e0cc0a8b9dc344309b0b9b1e76d91e55691e640cf3f542b68ccd1c3aa",
+          "train_accuracy": 0.431725,
+          "train_loss": 1.5689382698059082
+        }
+      ],
+      "lineage_id": "p3b-confirmation-convnext_holdout-noise_aug-s74302",
+      "parameter_count": 25322,
+      "recipe": "noise_aug",
+      "seed": 74302
+    },
+    {
+      "elapsed_seconds": 98.23479461669922,
+      "family": "shuffle_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-shuffle_holdout-erm_flip-s74400-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-shuffle_holdout-erm_flip-s74400-e1",
+          "sha256": "cbcce7bbd5c34113c9c50bd1ee58d357422d9e9d4123f3cc1f6a9f355690c79e",
+          "train_accuracy": 0.2765,
+          "train_loss": 1.9605351745605468
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-shuffle_holdout-erm_flip-s74400-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-shuffle_holdout-erm_flip-s74400-e2",
+          "sha256": "1e3ead32511656f656834cecedc86b87fef88fe1a3b87b82904e794df839d5fc",
+          "train_accuracy": 0.400975,
+          "train_loss": 1.6198535842895507
+        }
+      ],
+      "lineage_id": "p3b-confirmation-shuffle_holdout-erm_flip-s74400",
+      "parameter_count": 3818,
+      "recipe": "erm_flip",
+      "seed": 74400
+    },
+    {
+      "elapsed_seconds": 104.07995009422302,
+      "family": "shuffle_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-shuffle_holdout-label_smooth-s74401-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-shuffle_holdout-label_smooth-s74401-e1",
+          "sha256": "6e52dc5c1ca8595d2d2e508110efb5f5aecbca3079c113b7a9952e506194ca8a",
+          "train_accuracy": 0.2911,
+          "train_loss": 2.0248283266067504
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-shuffle_holdout-label_smooth-s74401-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-shuffle_holdout-label_smooth-s74401-e2",
+          "sha256": "0d60f624bb696bf0dba4514528f0f537271038aa412a13bc8b2932d2b41a3979",
+          "train_accuracy": 0.416375,
+          "train_loss": 1.7490066026687623
+        }
+      ],
+      "lineage_id": "p3b-confirmation-shuffle_holdout-label_smooth-s74401",
+      "parameter_count": 3818,
+      "recipe": "label_smooth",
+      "seed": 74401
+    },
+    {
+      "elapsed_seconds": 111.72370147705078,
+      "family": "shuffle_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-shuffle_holdout-noise_aug-s74402-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-shuffle_holdout-noise_aug-s74402-e1",
+          "sha256": "d0af74e1cc6fc85d1fb5d15ffa393dbbb9a2fb1f90caaec69210ee4e28dbb8b2",
+          "train_accuracy": 0.290925,
+          "train_loss": 1.9411320207595826
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-shuffle_holdout-noise_aug-s74402-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-shuffle_holdout-noise_aug-s74402-e2",
+          "sha256": "64ff3ac2ed1ab62bd8d686f97376fb4a7235b3ee3d7fec8d5bc4f1671b310eae",
+          "train_accuracy": 0.41405,
+          "train_loss": 1.5986034448623658
+        }
+      ],
+      "lineage_id": "p3b-confirmation-shuffle_holdout-noise_aug-s74402",
+      "parameter_count": 3818,
+      "recipe": "noise_aug",
+      "seed": 74402
+    },
+    {
+      "elapsed_seconds": 149.12454891204834,
+      "family": "dilated_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-dilated_holdout-erm_flip-s74500-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-dilated_holdout-erm_flip-s74500-e1",
+          "sha256": "a1584a6101a4ecf708f450b07c2bdc091bed16a618a05f42768117c8f9c42c57",
+          "train_accuracy": 0.2398,
+          "train_loss": 2.0049941804885862
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-dilated_holdout-erm_flip-s74500-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-dilated_holdout-erm_flip-s74500-e2",
+          "sha256": "860d3b5827862d0aea4a429ddedcd0221fd811d6b296533310677cf5a4064134",
+          "train_accuracy": 0.3479,
+          "train_loss": 1.7464811019897462
+        }
+      ],
+      "lineage_id": "p3b-confirmation-dilated_holdout-erm_flip-s74500",
+      "parameter_count": 11866,
+      "recipe": "erm_flip",
+      "seed": 74500
+    },
+    {
+      "elapsed_seconds": 151.0045530796051,
+      "family": "dilated_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-dilated_holdout-label_smooth-s74501-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-dilated_holdout-label_smooth-s74501-e1",
+          "sha256": "b6a273aefc612253df530d23fac4ca388522f72e074f945c019d14495e6b32b4",
+          "train_accuracy": 0.261025,
+          "train_loss": 2.050542560958862
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-dilated_holdout-label_smooth-s74501-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-dilated_holdout-label_smooth-s74501-e2",
+          "sha256": "23b8d0abadc515735a8e55c5ca784ea6515ee09e2165aaadc24d8c84f3efd4b2",
+          "train_accuracy": 0.356875,
+          "train_loss": 1.8587000577926636
+        }
+      ],
+      "lineage_id": "p3b-confirmation-dilated_holdout-label_smooth-s74501",
+      "parameter_count": 11866,
+      "recipe": "label_smooth",
+      "seed": 74501
+    },
+    {
+      "elapsed_seconds": 161.67707204818726,
+      "family": "dilated_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-dilated_holdout-noise_aug-s74502-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-dilated_holdout-noise_aug-s74502-e1",
+          "sha256": "2dc667ad76f1fe5c5755a7cd0cb0b3529de9e0e8268d98dc46af600afab36f5a",
+          "train_accuracy": 0.245025,
+          "train_loss": 2.0214696640014647
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-dilated_holdout-noise_aug-s74502-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-dilated_holdout-noise_aug-s74502-e2",
+          "sha256": "b1f635ef9155c27183798627cf9f9bd3ccc1bf261d2cca0e1019ba91a4b34fc0",
+          "train_accuracy": 0.349725,
+          "train_loss": 1.7438388214111329
+        }
+      ],
+      "lineage_id": "p3b-confirmation-dilated_holdout-noise_aug-s74502",
+      "parameter_count": 11866,
+      "recipe": "noise_aug",
+      "seed": 74502
+    },
+    {
+      "elapsed_seconds": 192.87865567207336,
+      "family": "gated_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-gated_holdout-erm_flip-s74600-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-gated_holdout-erm_flip-s74600-e1",
+          "sha256": "5cd117d121e0d073a49c0e5c7cde237bceea40669a90efb870bb673beff86f32",
+          "train_accuracy": 0.382175,
+          "train_loss": 1.688658059501648
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-gated_holdout-erm_flip-s74600-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-gated_holdout-erm_flip-s74600-e2",
+          "sha256": "b4e1529e58126a717c39b694cdcbd732c544160132b1139fe540f977a03f59af",
+          "train_accuracy": 0.531725,
+          "train_loss": 1.289457578277588
+        }
+      ],
+      "lineage_id": "p3b-confirmation-gated_holdout-erm_flip-s74600",
+      "parameter_count": 66914,
+      "recipe": "erm_flip",
+      "seed": 74600
+    },
+    {
+      "elapsed_seconds": 190.7000217437744,
+      "family": "gated_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-gated_holdout-label_smooth-s74601-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-gated_holdout-label_smooth-s74601-e1",
+          "sha256": "94b49462b188ed0f295821d9d055ddbfc23a56ca653ed3a8afe3251afb1afb9c",
+          "train_accuracy": 0.388925,
+          "train_loss": 1.8125707445144654
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-gated_holdout-label_smooth-s74601-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-gated_holdout-label_smooth-s74601-e2",
+          "sha256": "b064ad91e058609af3280cd69a697e9eb5c6c395a47a3ee8ab855e1485a934fc",
+          "train_accuracy": 0.543525,
+          "train_loss": 1.512968928527832
+        }
+      ],
+      "lineage_id": "p3b-confirmation-gated_holdout-label_smooth-s74601",
+      "parameter_count": 66914,
+      "recipe": "label_smooth",
+      "seed": 74601
+    },
+    {
+      "elapsed_seconds": 190.06286430358887,
+      "family": "gated_holdout",
+      "history": [
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-gated_holdout-noise_aug-s74602-e1.pt",
+          "epoch": 1,
+          "model_id": "p3b-confirmation-gated_holdout-noise_aug-s74602-e1",
+          "sha256": "96bd30f04ace7b61746b3f46eb596e41da0d2a92dc32bfbae1ed12b6f0896d2c",
+          "train_accuracy": 0.373925,
+          "train_loss": 1.7112614503860473
+        },
+        {
+          "checkpoint": "checkpoints_v4/phase3b/p3b-confirmation-gated_holdout-noise_aug-s74602-e2.pt",
+          "epoch": 2,
+          "model_id": "p3b-confirmation-gated_holdout-noise_aug-s74602-e2",
+          "sha256": "a4807c377a6ffee7bd857b42ba10f7a82059bb7e3e286efc50ca7f3efdc51f6e",
+          "train_accuracy": 0.515475,
+          "train_loss": 1.3338214557647705
+        }
+      ],
+      "lineage_id": "p3b-confirmation-gated_holdout-noise_aug-s74602",
+      "parameter_count": 66914,
+      "recipe": "noise_aug",
+      "seed": 74602
+    }
+  ]
+}
